@@ -35,4 +35,7 @@ public class Area {
 		this.city_id = city_id;
 	}
 
+	public String toString() {
+		return id + " - " + city_id + " - " + name;
+	}
 }
