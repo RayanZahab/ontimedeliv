@@ -38,5 +38,7 @@
     <string name="lblDisp">Select Name</string>
     <string name="lblAcc">Select Account Type</string>
     <string name="lblSubAcc">Select Account Head</string>
+    <string name="title_activity_selection">Select Activity</string>
+    
     
 </resources>
