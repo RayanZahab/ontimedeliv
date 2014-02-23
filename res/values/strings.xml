@@ -16,5 +16,27 @@
     <string name="title_activity_add_branch">AddBranchActivity</string>
     <string name="add">Add</string>
     <string name="opening_hours">Opening Hours</string>
+    <string-array name="acc_type">
+        <item>Income</item>
+        <item>Expense</item>
+    </string-array>
+     <string-array name="country_arr">
+        <item>Afghanistan</item>
+        <item>Bangladesh</item>
+        <item>Bhutan</item>
+        <item>India</item>
+        <item>Maldives</item>
+        <item>Sri Lanka</item>
+        <item>Nepal</item>
+        <item>Pakistan</item>
+    </string-array>
+
+    <string name="lblCountry">Select Country</string>
+    <string name="lblAdd">Add New Mobile Name</string>
+    <string name="btnAdd">Add Name</string>
+    <string name="txtHint">HTC</string>
+    <string name="lblDisp">Select Name</string>
+    <string name="lblAcc">Select Account Type</string>
+    <string name="lblSubAcc">Select Account Head</string>
     
 </resources>
