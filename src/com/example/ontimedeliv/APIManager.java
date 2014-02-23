@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.util.Log;
 
 public class APIManager {
@@ -279,5 +280,25 @@ public class APIManager {
 			}
 		}
 		return false;
+	}
+	public JSONObject objToCreate(Object o)
+	{
+		JSONObject jsonObjSend = new JSONObject();
+		if(o instanceof Country)
+		{
+			Country c = (Country) o;
+			
+			JSONObject body = new JSONObject();
+			try {
+				body.put("name", c.getName());
+				jsonObjSend.put("country", body);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		
+		return  jsonObjSend;
 	}
 }

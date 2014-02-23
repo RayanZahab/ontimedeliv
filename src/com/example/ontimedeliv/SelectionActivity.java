@@ -47,28 +47,27 @@ public class SelectionActivity extends Activity implements
 	}
 
 	@Override
-	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
 
 		Object sp1 = arg0.getSelectedItem();
-		if(sp1 instanceof Country)
-		{
-			
+		if (sp1 instanceof Country) {
+
 			Log.d("ray", "Ray get cities");
 			getCities(((Country) sp1).getId());
-		}
-		else if(sp1 instanceof City)
-		{
+		} else if (sp1 instanceof City) {
 			Log.d("ray", "Ray get areas");
 			getAreas(((City) sp1).getId());
 		}
-		Toast.makeText(this, "class: "+sp1.getClass().getName(), Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "class: " + sp1.getClass().getName(),
+				Toast.LENGTH_SHORT).show();
 
-		//getCities(sp1.getId());
+		// getCities(sp1.getId());
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		Log.d("ray","ray nothing");
+		Log.d("ray", "ray nothing");
 	}
 
 	public void getCountries() {
@@ -91,7 +90,7 @@ public class SelectionActivity extends Activity implements
 		s2.setAdapter(counrytAdapter);
 		s2.setOnItemSelectedListener(this);
 	}
-	
+
 	public void getCities(int CountryId) {
 		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/countries/"
 				+ CountryId + "/cities";
@@ -113,9 +112,10 @@ public class SelectionActivity extends Activity implements
 		s3.setOnItemSelectedListener(this);
 
 	}
-	
+
 	public void getAreas(int CountryId) {
-		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/cities/"+ CountryId + "/areas";		
+		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/cities/"
+				+ CountryId + "/areas";
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
 		new MyJs(Dialog, "setAreas", SelectionActivity.this, "GET")
@@ -134,7 +134,7 @@ public class SelectionActivity extends Activity implements
 
 	}
 
-	public void getBusinesses(){
+	public void getBusinesses() {
 		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/businesses";
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
@@ -145,11 +145,36 @@ public class SelectionActivity extends Activity implements
 	public void setBusiness(String s) {
 		// TextView uiUpdate = (TextView) findViewById(R.id.out);
 		business = new APIManager().getBusinesses(s);
-		
+
 		ArrayAdapter<Business> busAdapter = new ArrayAdapter<Business>(this,
 				android.R.layout.simple_spinner_item, business);
-		busAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		busAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		busAdapter.notifyDataSetChanged();
 		s1.setAdapter(busAdapter);
+	}
+
+	public void add(View v) {
+		int id = v.getId();
+		Intent i =new Intent(this, LoginActivity.class);;//= new Intent(this, NavigationActivity.class);
+		
+		Toast.makeText(getApplicationContext(), "You selected: " + id,
+				Toast.LENGTH_SHORT).show();
+		switch (v.getId()) {
+		case R.id.addArea:
+			// doSomething1();
+			 //i = new Intent(this, AddArea.class);
+			break;
+		case R.id.addCountry:
+			// doSomething2();
+			 i = new Intent(this, AddCountry.class);
+			break;
+		case R.id.addCity:
+			// doSomething2();
+			// i = new Intent(this, AddCity.class);
+			break;
+		}
+		startActivity(i);
+
 	}
 }

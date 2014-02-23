@@ -1,83 +1,126 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="8dip"
-        android:text="@string/select_business" />
+        android:orientation="vertical" >
 
-    <!-- Spinner Dropdown -->
+        <TextView
+            android:id="@+id/businessLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dip"
+            android:text="@string/select_business" />
 
-    <Spinner
-        android:id="@+id/businessSP"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
-        android:layout_marginTop="5dip" />
-    <!-- Spinner Dropdown -->
+        <!-- Spinner Dropdown -->
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dip"
-        android:text="@string/select_country" />
+        <Spinner
+            android:id="@+id/businessSP"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/businessLabel"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
+            android:layout_marginTop="5dip" />
+        <!-- Spinner Dropdown -->
 
-    <Spinner
-        android:id="@+id/countriesSP"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
-        android:layout_marginTop="5dip"
-        android:entries="@array/acc_type" />
+        <TextView
+            android:id="@+id/countryLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/businessSP"
+            android:padding="8dip"
+            android:text="@string/select_country" />
 
-    <!-- Select Label -->
+        <Spinner
+            android:id="@+id/countriesSP"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/countryLabel"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
+            android:layout_marginTop="5dip"
+            android:entries="@array/acc_type" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dip"
-        android:text="@string/select_city" />
+        <ImageButton
+            android:id="@+id/addCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/countriesSP"
+            android:src="@drawable/add"
+            android:onClick="add" />
 
-    <!-- Spinner Dropdown -->
+        <!-- Select Label -->
 
-    <Spinner
-        android:id="@+id/citiesSP"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
-        android:layout_marginTop="5dip" />
+        <TextView
+            android:id="@+id/citiesLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addCountry"
+            android:padding="8dip"
+            android:text="@string/select_city" />
 
-    <!-- Select Label -->
+        <!-- Spinner Dropdown -->
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dip"
-        android:text="@string/select_area" />
+        <Spinner
+            android:id="@+id/citiesSP"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/citiesLabel"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
+            android:layout_marginTop="5dip" />
 
-    <!-- Spinner Dropdown -->
+        <ImageButton
+            android:id="@+id/addCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/citiesSP"
+            android:src="@drawable/add"
+            android:onClick="add" />
+        <!-- Select Label -->
 
-    <Spinner
-        android:id="@+id/areasSP"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
-        android:layout_marginTop="5dip" />
+        <TextView
+            android:id="@+id/areaLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addCity"
+            android:padding="8dip"
+            android:text="@string/select_area" />
 
-    <Button
-        android:id="@+id/select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="94dp"
-        android:onClick="select"
-        android:text="@string/select" />
+        <!-- Spinner Dropdown -->
 
-</LinearLayout>
+        <Spinner
+            android:id="@+id/areasSP"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/areaLabel"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
+            android:layout_marginTop="5dip" />
+
+        <ImageButton
+            android:id="@+id/addArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/areasSP"
+            android:src="@drawable/add"
+            android:onClick="add" />
+
+        <Button
+            android:id="@+id/select"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addArea"
+            android:onClick="select"
+            android:text="@string/select"
+             />
+    </RelativeLayout>
+
+</ScrollView>
