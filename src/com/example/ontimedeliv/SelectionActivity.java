@@ -20,6 +20,7 @@ public class SelectionActivity extends Activity implements
 	ArrayList<Country> countries = new ArrayList<Country>();
 	ArrayList<City> cities = new ArrayList<City>();
 	ArrayList<Business> business = new ArrayList<Business>();
+	ArrayList<Area> areas = new ArrayList<Area>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class SelectionActivity extends Activity implements
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-
+		Log.d("ray","ray nothing");
 	}
 
 	public void getCountries() {
@@ -86,9 +87,9 @@ public class SelectionActivity extends Activity implements
 		counrytAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		counrytAdapter.notifyDataSetChanged();
+		s4.setAdapter(null);
 		s2.setAdapter(counrytAdapter);
 		s2.setOnItemSelectedListener(this);
-
 	}
 	
 	public void getCities(int CountryId) {
@@ -101,13 +102,14 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void setCities(String s) {
-		ArrayList<City> cities = new APIManager().getCitiesByCountry(s);
-		ArrayAdapter<City> dataAdapter = new ArrayAdapter<City>(this,
+		cities = new APIManager().getCitiesByCountry(s);
+		ArrayAdapter<City> cityAdapter = new ArrayAdapter<City>(this,
 				android.R.layout.simple_spinner_item, cities);
-		dataAdapter
+		cityAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		dataAdapter.notifyDataSetChanged();
-		s3.setAdapter(dataAdapter);
+		cityAdapter.notifyDataSetChanged();
+		s4.setAdapter(null);
+		s3.setAdapter(cityAdapter);
 		s3.setOnItemSelectedListener(this);
 
 	}
@@ -121,13 +123,14 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void setAreas(String s) {
-		ArrayList<Area> areas = new APIManager().getAreasByCity(s);
-		ArrayAdapter<Area> dataAdapter = new ArrayAdapter<Area>(this,
+		areas = new APIManager().getAreasByCity(s);
+		ArrayAdapter<Area> areaAdapter = new ArrayAdapter<Area>(this,
 				android.R.layout.simple_spinner_item, areas);
-		dataAdapter
+		areaAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		dataAdapter.notifyDataSetChanged();
-		s4.setAdapter(dataAdapter);
+		areaAdapter.notifyDataSetChanged();
+		s4.setAdapter(areaAdapter);
+		s4.setOnItemSelectedListener(this);
 
 	}
 
