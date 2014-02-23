@@ -28,36 +28,44 @@ public class NavigationActivity extends Activity {
 		displayListView();
 
 	}
+		private void displayListView() {
 
-	private void displayListView() {
+			Bitmap picture = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher);
+			//Bitmap albanajban = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher);
+			//Bitmap drinks = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher);
+			// Array list of Categories
+			ArrayList<Item> categories = new ArrayList<Item>();
 
-		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.ic_launcher);
-		// Bitmap albanajban = BitmapFactory.decodeResource(this.getResources(),
-		// R.drawable.ic_launcher);
-		// Bitmap drinks = BitmapFactory.decodeResource(this.getResources(),
-		// R.drawable.ic_launcher);
-		// Array list of Categories
-		ArrayList<Item> categories = new ArrayList<Item>();
+			Item _Item = new Item(picture,"Branches");
+			categories.add(_Item);
+			_Item = new Item(picture, "Categories");
+			categories.add(_Item);
+			_Item = new Item(picture, "Orders");
+			categories.add(_Item);
+			_Item = new Item(picture, "Users");
+			categories.add(_Item);
+			
 
-		Item _Item = new Item(picture, "Branches");
-		categories.add(_Item);
-		_Item = new Item(picture, "Categories");
-		categories.add(_Item);
-		_Item = new Item(picture, "Orders");
-		categories.add(_Item);
-		_Item = new Item(picture, "Users");
-		categories.add(_Item);
+			// create an ArrayAdaptar from the String Array
+			dataAdapter = new MyCustomAdapter(this, R.layout.categories_list, categories);
+			ListView listView = (ListView) findViewById(R.id.list);
+			// Assign adapter to ListView
+			listView.setAdapter(dataAdapter);
 
-		// create an ArrayAdaptar from the String Array
-		dataAdapter = new MyCustomAdapter(this, R.layout.categories_list,
-				categories);
-		ListView listView = (ListView) findViewById(R.id.list);
-		// Assign adapter to ListView
-		listView.setAdapter(dataAdapter);
+			listView.setOnItemClickListener(new OnItemClickListener() {
 
-		listView.setOnItemClickListener(new OnItemClickListener() {
-
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					// When clicked, Navigate to the selected item
+					Item navitem = (Item) parent.getItemAtPosition(position);
+					String title = navitem.getTitle();
+					Intent i;
+					try {
+						i = new Intent(getBaseContext(), Class.forName(getPackageName() + "." + title + "Activity"));
+						startActivity(i);	
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}									
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// When clicked, Navigate to the selected item
@@ -73,10 +81,9 @@ public class NavigationActivity extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			});
 
-			}
-		});
-
+		
 	}
 
 	@Override
@@ -90,8 +97,7 @@ public class NavigationActivity extends Activity {
 
 		private ArrayList<Item> navList;
 
-		public MyCustomAdapter(Context context, int textViewResourceId,
-				ArrayList<Item> navList) {
+		public MyCustomAdapter(Context context, int textViewResourceId, ArrayList<Item> navList) {
 			super(context, textViewResourceId, navList);
 			this.navList = new ArrayList<Item>();
 			this.navList.addAll(navList);
@@ -118,9 +124,9 @@ public class NavigationActivity extends Activity {
 				holder = new ViewHolder();
 				View v = convertView.findViewById(R.id.picture);
 				v.setDrawingCacheEnabled(true);
-
+				
 				v.buildDrawingCache();
-
+				
 				Bitmap picture = v.getDrawingCache();
 				holder.name = (TextView) convertView.findViewById(R.id.name);
 				holder.picture = picture;
@@ -133,6 +139,7 @@ public class NavigationActivity extends Activity {
 
 			Item navitem = navList.get(position);
 
+			
 			holder.name.setText(navitem.getTitle());
 
 			holder.name.setTag(navitem);
