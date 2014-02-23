@@ -1,18 +1,14 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Toast;
 
@@ -69,7 +65,6 @@ public class SelectionActivity extends Activity implements
 		Country sp1 = (Country) s1.getSelectedItem();
 		Toast.makeText(this, s1.getId() + ">" + sp1, Toast.LENGTH_SHORT).show();
 
-		
 		getCities(sp1.getId());
 	}
 
@@ -87,48 +82,28 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void getCities(int CountryId) {
-		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/countries/"+CountryId+"/cities";
+		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/countries/"
+				+ CountryId + "/cities";
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
 		new MyJs(Dialog, "setCity", SelectionActivity.this, "GET")
 				.execute(serverURL);
 	}
-	public void setCity(String s) {
-			ArrayList<City> cities = new APIManager().getCitiesByCountry(s);
-			/*if (c.size() > 0) {
-				for (int i = 0; i < c.size(); i++) {
-					out += " -> " + c.get(i).getId() + " - "
-							+ c.get(i).getCountry_id() + " - "
-							+ c.get(i).getName() + "\n";
-				}*/
 
-			ArrayAdapter<City> dataAdapter = new ArrayAdapter<City>(this,
-					android.R.layout.simple_spinner_item, cities);
-			dataAdapter
-					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			dataAdapter.notifyDataSetChanged();
-			s2.setAdapter(dataAdapter);
+	public void setCity(String s) {
+		ArrayList<City> cities = new APIManager().getCitiesByCountry(s);
+		ArrayAdapter<City> dataAdapter = new ArrayAdapter<City>(this,
+				android.R.layout.simple_spinner_item, cities);
+		dataAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		dataAdapter.notifyDataSetChanged();
+		s2.setAdapter(dataAdapter);
 
 	}
-
 
 	public void setDisplay(String s) {
 		// TextView uiUpdate = (TextView) findViewById(R.id.out);
 		countries = new APIManager().getCountries(s);
-		/*
-		 * if (c.size() > 0) { for (int i = 0; i < c.size(); i++) { out +=
-		 * c.get(i).getId() + " - " + c.get(i).getName() + "\n";
-		 * 
-		 * String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/"
-		 * +c.get(i).getId()+"/countries/1/cities"; ProgressDialog Dialog = new
-		 * ProgressDialog(MainActivity.this);
-		 * 
-		 * new MyJs(Dialog,"setCity",MainActivity.this,"GET").execute(serverURL
-		 * );
-		 * 
-		 * } } else { out += "No countries \n"; }
-		 */
-
 		ArrayAdapter<Country> counrytAdapter = new ArrayAdapter<Country>(this,
 				android.R.layout.simple_spinner_item, countries);
 		counrytAdapter
