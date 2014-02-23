@@ -38,6 +38,11 @@
             android:name="com.example.ontimedeliv.AddBranchActivity"
             android:label="@string/title_activity_add_branch" >
         </activity>
+        <activity
+            android:name="com.example.ontimedeliv.SelectionActivity"
+            android:label="Select" >
+        </activity>
     </application>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
 </manifest>
