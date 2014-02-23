@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+ 
+    <!-- Label -->
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dip"
+        android:text="lblacc" />
+     
+    <!-- Spinner Dropdown -->
+    <Spinner
+        android:id="@+id/businessSP"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+    />      
+    <!-- Spinner Dropdown -->
+
+    <Spinner
+        android:id="@+id/countriesSP"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="10dip"
+        android:entries="@array/acc_type" />
+     
+    <!-- Select Label -->
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dip"
+        android:text="@string/lblSubAcc" />
+     
+    <!-- Spinner Dropdown -->
+    <Spinner
+        android:id="@+id/citiesSP"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+    />
+ 
+   <Button
+      android:id="@+id/select"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/password"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="94dp"
+      android:onClick="select"
+      android:text="Select" />   
+    
+   
+</LinearLayout>
