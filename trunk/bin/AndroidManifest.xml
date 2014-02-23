@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
@@ -25,19 +25,30 @@
         <activity
             android:name="com.example.ontimedeliv.NavigationActivity"
             android:label="@string/title_activity_navigation" >
+            <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
             android:name="com.example.ontimedeliv.CategoriesActivity"
             android:label="@string/title_activity_categories" >
+            <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
             android:name="com.example.ontimedeliv.BranchesActivity"
             android:label="@string/title_activity_branches" >
+            <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
             android:name="com.example.ontimedeliv.AddBranchActivity"
             android:label="@string/title_activity_add_branch" >
+            <category android:name="android.intent.category.LAUNCHER" />
+        </activity>
+        <activity
+            android:name="com.example.ontimedeliv.SelectionActivity"
+            android:label="@string/title_activity_selection" >
+            <category android:name="android.intent.category.LAUNCHER" />
         </activity>
     </application>
+    
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
 </manifest>
