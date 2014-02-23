@@ -30,13 +30,18 @@
         <item>Nepal</item>
         <item>Pakistan</item>
     </string-array>
-
+    <string name="select_location">Select Your location And Business Category</string>
+    <string name="select_business">Select A Business Category</string>
+    <string name="select_country">Select Country</string>
+    <string name="select_city">Select City</string>
+    <string name="select_area">Select Area</string>
+    <string name="select">Confirm Selection</string>
+    
     <string name="lblCountry">Select Country</string>
     <string name="lblAdd">Add New Mobile Name</string>
     <string name="btnAdd">Add Name</string>
     <string name="txtHint">HTC</string>
     <string name="lblDisp">Select Name</string>
-    <string name="lblAcc">Select Account Type</string>
     <string name="lblSubAcc">Select Account Head</string>
     <string name="title_activity_selection">Select Activity</string>
     
