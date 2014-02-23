@@ -90,7 +90,6 @@
             android:layout_alignLeft="@+id/editTextAddress"
             android:layout_below="@+id/editTextAddress"
             android:layout_marginTop="20dp"
-            android:inputMethod="text"
             android:ems="10" />
 
         <TextView

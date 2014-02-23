@@ -137,11 +137,11 @@ public class BranchesActivity extends Activity {
 		}
 	}
 
-	/*public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	    Intent intent = new Intent(this, AddBranchActivity.class);
 	    startActivity(intent);
 	
 	    return super.onOptionsItemSelected(item);
-	}*/
+	}
 
 }
