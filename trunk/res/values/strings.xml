@@ -44,6 +44,8 @@
     <string name="lblDisp">Select Name</string>
     <string name="lblSubAcc">Select Account Head</string>
     <string name="title_activity_selection">Select Activity</string>
+    <string name="country_name">Country Name</string>
+    <string name="add_country">Add Country</string>
     
     
 </resources>

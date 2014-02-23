@@ -8,7 +8,9 @@ import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+
 import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -27,6 +29,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	int sizeData = 0;
 	private Activity mc;
 	private String method;
+	private Object objectToAdd;
 
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
 			String method) {
@@ -36,6 +39,14 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		this.method = method;
 	}
 
+	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
+			String method,Object o) {
+		this.returnFunction = returnFunction;
+		this.Dialog = dialog2;
+		this.mc = m;
+		this.method = method;
+		this.objectToAdd = o;
+	}
 	protected void onPreExecute() {
 		Dialog.setMessage("Please wait..");
 		Dialog.show();
@@ -92,10 +103,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				conn.setDoOutput(true);
 				conn.setDoInput(true);
 
-				JSONObject jsonObjSend = new JSONObject();
-				JSONObject body = new JSONObject();
-				body.put("name", "Tunisi8");
-				jsonObjSend.put("country", body);
+				JSONObject jsonObjSend = (new APIManager()).objToCreate(this.objectToAdd);
 				OutputStreamWriter wr = new OutputStreamWriter(
 						conn.getOutputStream());
 				Log.d("ray", "ray posting" + conn.toString());

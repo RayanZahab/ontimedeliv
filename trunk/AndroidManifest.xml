@@ -47,6 +47,11 @@
             android:label="@string/title_activity_selection" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
+        <activity
+            android:name="com.example.ontimedeliv.AddCountry"
+            android:label="@string/add_country" >
+            <category android:name="android.intent.category.LAUNCHER" />
+        </activity>
     </application>
     
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
