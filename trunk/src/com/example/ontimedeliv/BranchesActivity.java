@@ -41,7 +41,7 @@ public class BranchesActivity extends Activity {
 			Item _Item = new Item(picture,"abu Samra");
 			branches.add(_Item);
 			_Item = new Item(picture, "3azmi");
-			branches.add(_Item);
+			branches.add(_Item); 
 			_Item = new Item(picture, "Kura");
 			branches.add(_Item);
 			_Item = new Item(picture, "Beirut");
