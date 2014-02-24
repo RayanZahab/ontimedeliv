@@ -1,4 +1,4 @@
-ackage com.example.ontimedeliv;
+package com.example.ontimedeliv;
 
 import android.os.Bundle;
 import android.app.Activity;

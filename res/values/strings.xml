@@ -14,13 +14,18 @@
     <string name="title_activity_categories">CategoriesActivity</string>
     <string name="title_activity_branches">BranchesActivity</string>
     <string name="title_activity_add_branch">AddBranchActivity</string>
+    <string name="title_activity_users">UsersActivity</string>
     <string name="add">Add</string>
+    <string name="personalinfo">Personal Information:</string>
+    <string name="delivery">Delivery Guy</string>
+    <string name="preparer">This is preparer</string>
     <string name="opening_hours">Opening Hours</string>
+
     <string-array name="acc_type">
         <item>Income</item>
         <item>Expense</item>
     </string-array>
-     <string-array name="country_arr">
+    <string-array name="country_arr">
         <item>Afghanistan</item>
         <item>Bangladesh</item>
         <item>Bhutan</item>
@@ -43,9 +48,8 @@
     <string name="txtHint">HTC</string>
     <string name="lblDisp">Select Name</string>
     <string name="lblSubAcc">Select Account Head</string>
+    <string name="title_activity_user_info">UserInfoActivity</string>
     <string name="title_activity_selection">Select Activity</string>
     <string name="country_name">Country Name</string>
     <string name="add_country">Add Country</string>
-    
-    
 </resources>

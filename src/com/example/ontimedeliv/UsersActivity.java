@@ -1,112 +1,145 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
-import java.util.List;
 import android.os.Bundle;
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class UsersActivity extends ListActivity {
-	
-	public class codeLeanUser {
-		String userName;
-		String userRole;
-	}
-	
-	//CodeLearnAdapter userListAdapter;
+public class UsersActivity extends Activity {
+	MyCustomAdapter dataAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_users);
+		displayListView();
+
+	}
+		private void displayListView() {
+
+			Bitmap picture = BitmapFactory.decodeResource(this.getResources(), R.drawable.user);
+			//Bitmap albanajban = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher);
+			//Bitmap drinks = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher);
+			// Array list of Categories
+			ArrayList<Item> users = new ArrayList<Item>();
+
+			Item _Item = new Item(picture,"User 1");
+			users.add(_Item);
+			_Item = new Item(picture, "User 2");
+			users.add(_Item);
+			_Item = new Item(picture, "User 3");
+			users.add(_Item);
+			_Item = new Item(picture, "User 4");
+			users.add(_Item);
+			
+
+			// create an ArrayAdaptar from the String Array
+			dataAdapter = new MyCustomAdapter(this, R.layout.row_users, users);
+			ListView listView = (ListView) findViewById(R.id.Userslist);
+			// Assign adapter to ListView
+			listView.setAdapter(dataAdapter);
+
+			listView.setOnItemClickListener(new OnItemClickListener() {
+
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					// When clicked, Navigate to the selected item
+					Item useritem = (Item) parent.getItemAtPosition(position);
+					String title = useritem.getTitle();
+					Intent i;
+					try {
+						i = new Intent(getBaseContext(), Class.forName(getPackageName() + "." + "UserInfoActivity"));
+						startActivity(i);	
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}		
+				}
+			
+			});
+
 		
-		//userListAdapter = new CodeLearnAdapter();
-	        
-	   // setListAdapter(userListAdapter);
 	}
 
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-    	
-    //	codeLeanUser user = userListAdapter.getCodeLearnUser(position);
-	//	Toast.makeText(UsersActivity.this, user.userName,Toast.LENGTH_LONG).show();
-		Intent i = new Intent(this, UserInfoActivity.class);
-		startActivity(i);
-    }
-	/*
-    public class CodeLearnAdapter extends BaseAdapter {
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.users, menu);
+		return true;
+	}
 
-    	List<codeLeanUser> codeLeanUserList = getDataForListView();
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return codeLeanUserList.size();
+	class MyCustomAdapter extends ArrayAdapter<Item> {
+
+		private ArrayList<Item> userList;
+
+		public MyCustomAdapter(Context context, int textViewResourceId, ArrayList<Item> navList) {
+			super(context, textViewResourceId, navList);
+			this.userList = new ArrayList<Item>();
+			this.userList.addAll(navList);
 		}
 
-		public codeLeanUser getItem(int arg0) {
-			// TODO Auto-generated method stub
-			return codeLeanUserList.get(arg0);
+		class ViewHolder {
+			TextView name;
+			Bitmap picture;
 		}
 
-		public long getItemId(int arg0) {
-			// TODO Auto-generated method stub
-			return arg0;
-		}
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
 
-		public View getView(int arg0, View arg1, ViewGroup arg2) {
-			
-			if(arg1==null)
-			{
-				LayoutInflater inflater = (LayoutInflater) UsersActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				arg1 = inflater.inflate(R.layout.row_users, arg2,false);
+			ViewHolder holder = null;
+
+			Log.v("ConvertView", String.valueOf(position));
+
+			if (convertView == null) {
+
+				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+				convertView = vi.inflate(R.layout.row_users, null);
+
+				holder = new ViewHolder();
+				View v = convertView.findViewById(R.id.picture);
+				v.setDrawingCacheEnabled(true);
+				
+				v.buildDrawingCache();
+				
+				Bitmap picture = v.getDrawingCache();
+				holder.name = (TextView) convertView.findViewById(R.id.name);
+				holder.picture = picture;
+
+				convertView.setTag(holder);
+
+			} else {
+				holder = (ViewHolder) convertView.getTag();
 			}
-			
-			TextView userName = (TextView)arg1.findViewById(R.id.name);
-			//TextView userRole = (TextView)arg1.findViewById(R.id.role);
-			
-			codeLeanUser user = codeLeanUserList.get(arg0);
-			
-			userName.setText(user.userName);
-			//userRole.setText(user.userRole);
-			
-			return arg1;
-		}
-		
-		public codeLeanUser getCodeLearnUser(int position)
-		{
-			return codeLeanUserList.get(position);
-		}
 
-    }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.users, menu);
-        return true;
-    }
-    
-    public List<codeLeanUser> getDataForListView()
-    {
-    	List<codeLeanUser> codeLeanUsersList = new ArrayList<codeLeanUser>();
-    	
-    	for(int i=0;i<10;i++)
-    	{
-    		
-    		codeLeanUser user = new codeLeanUser();
-    		user.userName = "User" + i;
-    		user.userRole = "This is" + i;
-    		codeLeanUsersList.add(user);
-    	}
-    	
-    	return codeLeanUsersList;
-    	
-    }*/
+			Item useritem = userList.get(position);
+
+			
+			holder.name.setText(useritem.getTitle());
+
+			holder.name.setTag(useritem);
+
+			return convertView;
+		}
+	}
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    Intent intent = new Intent(this, UserInfoActivity.class);
+	    startActivity(intent);
+	
+	    return super.onOptionsItemSelected(item);
+	}
 }
+
