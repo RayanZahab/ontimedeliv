@@ -158,14 +158,18 @@ public class SelectionActivity extends Activity implements
 		int id = v.getId();
 		Intent i =new Intent(this, LoginActivity.class);;//= new Intent(this, NavigationActivity.class);
 		
-		Toast.makeText(getApplicationContext(), "You selected: " + id,
-				Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getApplicationContext(), "You selected: " + id,
+			//	Toast.LENGTH_SHORT).show();
 		switch (v.getId()) {
 		case R.id.addArea:
 			// doSomething1();
+			Toast.makeText(getApplicationContext(), "Add Area",
+					Toast.LENGTH_SHORT).show();
 			 //i = new Intent(this, AddArea.class);
 			break;
 		case R.id.addCountry:
+			Toast.makeText(getApplicationContext(), "Add Country",
+					Toast.LENGTH_SHORT).show();
 			// doSomething2();
 			 i = new Intent(this, AddCountry.class);
 			break;

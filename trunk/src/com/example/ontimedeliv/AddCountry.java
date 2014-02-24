@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class AddCountry extends Activity {
 
-	private EditText countryName;
+	private EditText countryName; 
 	int counter = 3;
 
 	@Override
@@ -25,7 +25,7 @@ public class AddCountry extends Activity {
 		countryName = (EditText) findViewById(R.id.countryName);
 		if (countryName.getText().toString() != null) {
 			addCountry();
-			
+			   
 		} else {
 			Toast.makeText(getApplicationContext(), "Wrong Credentials",
 					Toast.LENGTH_SHORT).show();
