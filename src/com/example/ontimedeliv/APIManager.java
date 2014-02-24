@@ -298,6 +298,50 @@ public class APIManager {
 			}
 
 		}
+		else if(o instanceof City)
+		{
+			City c = (City) o;
+			
+			JSONObject body = new JSONObject();
+			try {
+				body.put("name", c.getName());
+				body.put("country_id", c.getCountry_id());
+				jsonObjSend.put("city", body);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		else if(o instanceof Area)
+		{
+			Area c = (Area) o;
+			
+			JSONObject body = new JSONObject();
+			try {
+				body.put("name", c.getName());
+				body.put("city_id", c.getCity_id());
+				jsonObjSend.put("area", body);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		else if(o instanceof Business)
+		{
+			Business c = (Business) o;
+			
+			JSONObject body = new JSONObject();
+			try {
+				body.put("name", c.getName());
+				jsonObjSend.put("business", body);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 		
 		return  jsonObjSend;
 	}

@@ -27,11 +27,19 @@
             android:layout_marginTop="5dip" />
         <!-- Spinner Dropdown -->
 
+        <ImageButton
+            android:id="@+id/addBusiness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/businessSP"
+            android:src="@drawable/add"
+            android:onClick="add" />
         <TextView
             android:id="@+id/countryLabel"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/businessSP"
+            android:layout_below="@+id/addBusiness"
             android:padding="8dip"
             android:text="@string/select_country" />
 
