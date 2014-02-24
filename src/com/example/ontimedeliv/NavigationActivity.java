@@ -65,22 +65,9 @@ public class NavigationActivity extends Activity {
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}									
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// When clicked, Navigate to the selected item
-				Item navitem = (Item) parent.getItemAtPosition(position);
-				String title = navitem.getTitle();
-				Intent i;
-				try {
-					i = new Intent(getBaseContext(), Class
-							.forName(getPackageName() + "." + title
-									+ "Activity"));
-					startActivity(i);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					}		
 				}
+			
 			});
 
 		
