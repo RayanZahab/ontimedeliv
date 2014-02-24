@@ -52,17 +52,11 @@ public class SelectionActivity extends Activity implements
 
 		Object sp1 = arg0.getSelectedItem();
 		if (sp1 instanceof Country) {
-
-			Log.d("ray", "Ray get cities");
 			getCities(((Country) sp1).getId());
 		} else if (sp1 instanceof City) {
-			Log.d("ray", "Ray get areas");
 			getAreas(((City) sp1).getId());
 		}
-		Toast.makeText(this, "class: " + sp1.getClass().getName(),
-				Toast.LENGTH_SHORT).show();
 
-		// getCities(sp1.getId());
 	}
 
 	@Override
@@ -79,7 +73,7 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void setCountries(String s) {
-		// TextView uiUpdate = (TextView) findViewById(R.id.out);
+
 		countries = new APIManager().getCountries(s);
 		ArrayAdapter<Country> counrytAdapter = new ArrayAdapter<Country>(this,
 				android.R.layout.simple_spinner_item, countries);
@@ -135,7 +129,7 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void getBusinesses() {
-		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/businesses";
+		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/businesses?limit=30";
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
 		new MyJs(Dialog, "setBusiness", SelectionActivity.this, "GET")
@@ -143,7 +137,7 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void setBusiness(String s) {
-		// TextView uiUpdate = (TextView) findViewById(R.id.out);
+
 		business = new APIManager().getBusinesses(s);
 
 		ArrayAdapter<Business> busAdapter = new ArrayAdapter<Business>(this,
@@ -155,27 +149,20 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void add(View v) {
-		int id = v.getId();
-		Intent i =new Intent(this, LoginActivity.class);;//= new Intent(this, NavigationActivity.class);
-		
-		//Toast.makeText(getApplicationContext(), "You selected: " + id,
-			//	Toast.LENGTH_SHORT).show();
+		Intent i = new Intent(this, AddLocationDetails.class);
+
 		switch (v.getId()) {
-		case R.id.addArea:
-			// doSomething1();
-			Toast.makeText(getApplicationContext(), "Add Area",
-					Toast.LENGTH_SHORT).show();
-			 //i = new Intent(this, AddArea.class);
-			break;
 		case R.id.addCountry:
-			Toast.makeText(getApplicationContext(), "Add Country",
-					Toast.LENGTH_SHORT).show();
-			// doSomething2();
-			 i = new Intent(this, AddCountry.class);
+			i.putExtra("type", "Country");
 			break;
 		case R.id.addCity:
-			// doSomething2();
-			// i = new Intent(this, AddCity.class);
+			i.putExtra("type", "City");
+			break;
+		case R.id.addArea:
+			i.putExtra("type", "Area");
+			break;
+		case R.id.addBusiness:
+			i.putExtra("type", "Business");
 			break;
 		}
 		startActivity(i);

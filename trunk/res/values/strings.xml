@@ -52,4 +52,7 @@
     <string name="title_activity_selection">Select Activity</string>
     <string name="country_name">Country Name</string>
     <string name="add_country">Add Country</string>
+    <string name="add_city">Add City</string>
+    <string name="add_area">Add Area</string>
+    <string name="add_business">Add Business</string>
 </resources>

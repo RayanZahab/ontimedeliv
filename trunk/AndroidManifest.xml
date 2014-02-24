@@ -48,7 +48,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="AddCountry"
+            android:name="AddLocationDetails"
             android:label="@string/add_country" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
