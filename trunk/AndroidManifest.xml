@@ -48,17 +48,21 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="AddLocationDetails"
+            android:name="com.example.ontimedeliv.AddLocationDetails"
             android:label="@string/add_country" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="UsersActivity"
+            android:name="com.example.ontimedeliv.UsersActivity"
             android:label="@string/title_activity_users" >
         </activity>
         <activity
             android:name="com.example.ontimedeliv.UserInfoActivity"
             android:label="@string/title_activity_user_info" >
+        </activity>
+        <activity
+            android:name="com.example.ontimedeliv.AddCategoryActivity"
+            android:label="@string/title_activity_add_category" >
         </activity>
     </application>
 
