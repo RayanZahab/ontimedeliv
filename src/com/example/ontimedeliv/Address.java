@@ -12,10 +12,12 @@ public class Address {
 	private Integer customer_id;
 	private String longitude;
 	private String latitude;
+	private String update_at;
+	private String created_at;
 
 	public Address(int id, String country, String city, String area,
 			String building, String floor, String street, String details,
-			int customer_id, String longitude, String latitude) {
+			int customer_id, String longitude, String latitude, String created_at, String update_at) {
 		this.id = id;
 		this.country = country;
 		this.city = city;
@@ -27,6 +29,8 @@ public class Address {
 		this.customer_id = customer_id;
 		this.longitude = longitude;
 		this.latitude = latitude;
+		this.setCreated_at(created_at);
+		this.setUpdate_at(update_at);
 
 	}
 
@@ -116,6 +120,26 @@ public class Address {
 
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
+	}
+
+	public String getUpdate_at() {
+		return update_at;
+	}
+
+	public void setUpdate_at(String update_at) {
+		this.update_at = update_at;
+	}
+
+	public String getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(String created_at) {
+		this.created_at = created_at;
+	}
+	public String toString()
+	{
+		return this.country+","+this.city+","+this.area;
 	}
 
 }

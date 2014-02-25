@@ -2,22 +2,18 @@ package com.example.ontimedeliv;
 
 import android.graphics.Bitmap;
 
-/**
- * 
- * @author manish.s
- *
- */
-
 public class Item {
-	Bitmap image;
-	String title;
+	private Bitmap image;
+	private String title;
 	boolean selected = false;
 	String code = null;
+	private int id;
 	
-	public Item(Bitmap image, String title) {
+	public Item(int id,Bitmap image, String title) {
 		super();
 		this.image = image;
 		this.title = title;
+		this.id=id;
 	}
 	public Item (String title){
 		super();
@@ -52,6 +48,12 @@ public class Item {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 
