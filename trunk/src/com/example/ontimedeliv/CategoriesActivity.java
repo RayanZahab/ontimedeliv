@@ -47,11 +47,11 @@ public class CategoriesActivity extends Activity {
 		// Array list of Categories
 		ArrayList<Item> categories = new ArrayList<Item>();
 
-		Item _Item = new Item(lou7um,"Lou7um");
+		Item _Item = new Item(0,lou7um,"Lou7um");
 		categories.add(_Item);
-		_Item = new Item(albanajban, "Alban&Ajban");
+		_Item = new Item(0,albanajban, "Alban&Ajban");
 		categories.add(_Item);
-		_Item = new Item(drinks, "Drinks");
+		_Item = new Item(0,drinks, "Drinks");
 		categories.add(_Item);
 		
 

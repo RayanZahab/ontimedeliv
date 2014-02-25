@@ -36,13 +36,13 @@ public class NavigationActivity extends Activity {
 			// Array list of Categories
 			ArrayList<Item> categories = new ArrayList<Item>();
 
-			Item _Item = new Item(picture,"Branches");
+			Item _Item = new Item(0,picture,"Branches");
 			categories.add(_Item);
-			_Item = new Item(picture, "Categories");
+			_Item = new Item(0,picture, "Categories");
 			categories.add(_Item);
-			_Item = new Item(picture, "Orders");
+			_Item = new Item(0,picture, "Orders");
 			categories.add(_Item);
-			_Item = new Item(picture, "Users");
+			_Item = new Item(0,picture, "Users");
 			categories.add(_Item);
 			
 

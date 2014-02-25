@@ -9,43 +9,43 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class UsersActivity extends Activity {
 	MyCustomAdapter dataAdapter;
-	
-	ArrayList<User> users ;
+	ArrayList<Item> usersItem = new ArrayList<Item>();
+	ArrayList<User> users = new ArrayList<User>();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_users);
-		displayListView();
+		getUsers();
 
 	}
 
-	private void displayListView() {
+	public void getUsers() {
+		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/users";
+		ProgressDialog Dialog = new ProgressDialog(this);
 
+		new MyJs(Dialog, "setUsers", this, "GET").execute(serverURL);
+	}
+
+	public void setUsers(String s) {
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
+		users = new APIManager().getUsers(s);
 
-		ArrayList<Item> users = new ArrayList<Item>();
-
-		Item _Item = new Item(picture, "User 1");
-		users.add(_Item);
-		_Item = new Item(picture, "User 2");
-		users.add(_Item);
-		_Item = new Item(picture, "User 3");
-		users.add(_Item);
-		_Item = new Item(picture, "User 4");
-		users.add(_Item);
-
+		for (int i = 0; i < users.size(); i++) {
+			usersItem.add(new Item(users.get(i).getId(), picture, users.get(i)
+					.toString()));
+		}
 		// create an ArrayAdaptar from the String Array
-		dataAdapter = new MyCustomAdapter(this, R.layout.row_users, users);
+		dataAdapter = new MyCustomAdapter(this, R.layout.row_users, usersItem);
 		ListView listView = (ListView) findViewById(R.id.Userslist);
 		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
@@ -55,6 +55,9 @@ public class UsersActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// When clicked, Navigate to the selected item
+				Toast.makeText(getApplicationContext(),
+						"Selected" + usersItem.get(position).getId(),
+						Toast.LENGTH_SHORT).show();
 				Intent i;
 				try {
 					i = new Intent(getBaseContext(), Class
@@ -71,35 +74,10 @@ public class UsersActivity extends Activity {
 
 	}
 
-	public void getUsers() {
-		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/users";
-		ProgressDialog Dialog = new ProgressDialog(this);
-
-		new MyJs(Dialog, "setUsers", this, "GET")
-				.execute(serverURL);
-	}
-
-	public void setUsers(String s) {
-
-		/*users = new APIManager().getUsers(s);
-		ArrayAdapter<User> counrytAdapter = new ArrayAdapter<Country>(this,
-				android.R.layout.simple_spinner_item, users);
-		counrytAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		counrytAdapter.notifyDataSetChanged();*/
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.users, menu);
 		return true;
-	}
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent = new Intent(this, UserInfoActivity.class);
-		startActivity(intent);
-
-		return super.onOptionsItemSelected(item);
 	}
 }

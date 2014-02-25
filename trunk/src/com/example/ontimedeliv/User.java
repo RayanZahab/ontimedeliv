@@ -8,9 +8,10 @@ public class User {
 	private String phone;
 	private String mobile;
 	private int is_fired;
+	private Address address;
 
 	public User(int id, String name, String username, String password,
-			String phone, String mobile, int is_fired) {
+			String phone, String mobile, int is_fired, Address address) {
 
 		this.setId(id);
 		this.setName(name);
@@ -19,6 +20,7 @@ public class User {
 		this.setPhone(phone);
 		this.setMobile(mobile);
 		this.setIs_fired(is_fired);
+		this.setAddress(address);
 	}
 
 	public String getMobile() {
@@ -75,6 +77,18 @@ public class User {
 
 	public void setIs_fired(int is_fired) {
 		this.is_fired = is_fired;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	public String toString()
+	{
+		return this.id+"-"+this.name+"\n"+this.address.toString();
 	}
 
 }
