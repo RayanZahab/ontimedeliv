@@ -3,17 +3,11 @@ package com.example.ontimedeliv;
 import java.util.ArrayList;
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -68,78 +62,7 @@ public class CategoriesActivity extends Activity {
 		});
 	}
 
-	private class MyCustomAdapter extends ArrayAdapter<Item> {
-
-		private ArrayList<Item> catList;
-
-		public MyCustomAdapter(Context context, int textViewResourceId,
-
-		ArrayList<Item> catList) {
-			super(context, textViewResourceId, catList);
-			this.catList = new ArrayList<Item>();
-			this.catList.addAll(catList);
-		}
-
-		private class ViewHolder {
-			CheckBox name;
-			Bitmap picture;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-
-			ViewHolder holder = null;
-
-			Log.v("ConvertView", String.valueOf(position));
-
-			if (convertView == null) {
-
-				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-				convertView = vi.inflate(R.layout.category_info, null);
-
-				holder = new ViewHolder();
-				View v = convertView.findViewById(R.id.item_image);
-				v.setDrawingCacheEnabled(true);
-				
-				v.buildDrawingCache();
-				
-				Bitmap picture = v.getDrawingCache();
-				holder.name = (CheckBox) convertView.findViewById(R.id.checkBox1);
-				holder.picture = picture;
-
-				convertView.setTag(holder);
-
-				holder.name.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						CheckBox cb = (CheckBox) v;
-						Item _cat = (Item) cb.getTag();
-
-						Toast.makeText(
-								getApplicationContext(),
-								"Checkbox: " + cb.getText() + " -> "
-										+ cb.isChecked(), Toast.LENGTH_LONG)
-								.show();
-
-						_cat.setSelected(cb.isChecked());
-					}
-				});
-
-			} else {
-				holder = (ViewHolder) convertView.getTag();
-			}
-
-			Item cat = catList.get(position);
-
-			
-			holder.name.setText(cat.getTitle());
-			holder.name.setChecked(cat.isSelected());
-
-			holder.name.setTag(cat);
-
-			return convertView;
-		}
-	}
+	
 	private void checkButtonClick() {
 
 		Button myButton = (Button) findViewById(R.id.submit);
@@ -150,7 +73,7 @@ public class CategoriesActivity extends Activity {
 				StringBuffer responseText = new StringBuffer();
 				responseText.append("Selected Categories are...\n");
 		
-				ArrayList<Item> stateList = dataAdapter.catList;
+				ArrayList<Item> stateList = dataAdapter.getCurrentList();
 		
 				for (int i = 0; i < stateList.size(); i++) {
 					Item cat = stateList.get(i);
