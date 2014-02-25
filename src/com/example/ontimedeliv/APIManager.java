@@ -247,7 +247,105 @@ public class APIManager {
 	public void getUser(Integer user_id) {
 	}
 
-	public void getUsers() {
+	public ArrayList<Address> getAddress(String cont) {
+		JSONObject jsonResponse;
+		ArrayList<Address> gridArray = new ArrayList<Address>();
+		/*try {
+			jsonResponse = new JSONObject(cont);
+			if (!errorCheck(jsonResponse)) {
+				int id, customer_id;
+				String country, city, area, street, building, floor, details, longitude, latitude, create_at, update_at;
+				if (jsonResponse.has("elements")) {
+					JSONArray jsonMainNode = jsonResponse
+							.optJSONArray("elements");
+					int lengthJsonArr = jsonMainNode.length();
+					for (int i = 0; i < lengthJsonArr; i++) {
+						JSONObject jsonChildNode = jsonMainNode
+								.getJSONObject(i);
+
+						id = Integer.parseInt(jsonChildNode.optString("id")
+								.toString());
+						country = jsonChildNode.optString("country").toString();
+						city = jsonChildNode.optString("city").toString();
+						area = jsonChildNode.optString("area").toString();
+						street = jsonChildNode.optString("street").toString();
+						building = jsonChildNode.optString("building")
+								.toString();
+						floor = jsonChildNode.optString("floor").toString();
+						details = jsonChildNode.optString("details").toString();
+						longitude = jsonChildNode.optString("longitude")
+								.toString();
+						latitude = jsonChildNode.optString("latitude")
+								.toString();
+						create_at = jsonChildNode.optString("create_at")
+								.toString();
+						update_at = jsonChildNode.optString("update_at")
+								.toString();
+						customer_id = Integer.parseInt(jsonChildNode.optString(
+								"customer_id").toString());
+
+						gridArray.add(new Address(id, country, city, area,
+								building, floor, street, details, customer_id,
+								longitude, latitude));
+					}
+				}
+
+				Log.d("OutputData : ", "Rayz " + gridArray.toString());
+			} else {
+				return gridArray;
+			}
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}*/
+		return gridArray;
+	}
+
+	public ArrayList<User> getUsers(String cont) {
+		JSONObject jsonResponse;
+		ArrayList<User> gridArray = new ArrayList<User>();
+		/*
+		try {
+			jsonResponse = new JSONObject(cont);
+			if (!errorCheck(jsonResponse)) {
+				int id;
+				String name, phone;
+				if (jsonResponse.has("elements")) {
+					JSONArray jsonMainNode = jsonResponse
+							.optJSONArray("elements");
+					int lengthJsonArr = jsonMainNode.length();
+					for (int i = 0; i < lengthJsonArr; i++) {
+						JSONObject jsonChildNode = jsonMainNode
+								.getJSONObject(i);
+
+						id = Integer.parseInt(jsonChildNode.optString("id")
+								.toString());
+						name = jsonChildNode.optString("name").toString();
+						phone = jsonChildNode.optString("phone").toString();
+						JSONObject addressNode = jsonChildNode.getJSONObject("address");
+						
+						
+						gridArray.add(new User(id, name));
+						(int id, String name, String username, String password,
+								String phone, String mobile, int is_fired)
+					}
+				} else {
+					id = Integer.parseInt(jsonResponse.optString("id")
+							.toString());
+					name = jsonResponse.optString("name").toString();
+					gridArray.add(new User(id, name));
+				}
+
+				Log.d("OutputData : ", "Rayz " + gridArray.toString());
+			} else {
+				return gridArray;
+			}
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+*/
+		return gridArray;
 	}
 
 	public void getCustomer(Integer customer_id) {
@@ -281,13 +379,12 @@ public class APIManager {
 		}
 		return false;
 	}
-	public JSONObject objToCreate(Object o)
-	{
+
+	public JSONObject objToCreate(Object o) {
 		JSONObject jsonObjSend = new JSONObject();
-		if(o instanceof Country)
-		{
+		if (o instanceof Country) {
 			Country c = (Country) o;
-			
+
 			JSONObject body = new JSONObject();
 			try {
 				body.put("name", c.getName());
@@ -297,11 +394,9 @@ public class APIManager {
 				e.printStackTrace();
 			}
 
-		}
-		else if(o instanceof City)
-		{
+		} else if (o instanceof City) {
 			City c = (City) o;
-			
+
 			JSONObject body = new JSONObject();
 			try {
 				body.put("name", c.getName());
@@ -312,11 +407,9 @@ public class APIManager {
 				e.printStackTrace();
 			}
 
-		}
-		else if(o instanceof Area)
-		{
+		} else if (o instanceof Area) {
 			Area c = (Area) o;
-			
+
 			JSONObject body = new JSONObject();
 			try {
 				body.put("name", c.getName());
@@ -327,11 +420,9 @@ public class APIManager {
 				e.printStackTrace();
 			}
 
-		}
-		else if(o instanceof Business)
-		{
+		} else if (o instanceof Business) {
 			Business c = (Business) o;
-			
+
 			JSONObject body = new JSONObject();
 			try {
 				body.put("name", c.getName());
@@ -342,7 +433,7 @@ public class APIManager {
 			}
 
 		}
-		
-		return  jsonObjSend;
+
+		return jsonObjSend;
 	}
 }
