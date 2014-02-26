@@ -16,7 +16,8 @@ public class Branch {
 
 	public Branch(int id, String name, String description, Area area,
 			String address, int is_available, Shop shop, String longitude,
-			String latitude, int open_hour, int close_hour) {
+			String latitude, int open_hour, int close_hour,
+			String estimation_time) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -28,6 +29,7 @@ public class Branch {
 		this.latitude = latitude;
 		this.open_hour = open_hour;
 		this.close_hour = close_hour;
+		this.estimation_time = estimation_time;
 	}
 
 	public Integer getId() {
@@ -126,4 +128,7 @@ public class Branch {
 		this.shop = shop;
 	}
 
+	public String toString() {
+		return this.name + "\n" + this.area.toString() + "," + this.address;
+	}
 }

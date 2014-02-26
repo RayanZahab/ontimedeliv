@@ -24,7 +24,7 @@ public class BranchesActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_branches);
-		displayListView();
+		getBranches();
 
 	}
 
@@ -37,7 +37,7 @@ public class BranchesActivity extends Activity {
 		// Bitmap drinks = BitmapFactory.decodeResource(this.getResources(),
 		// R.drawable.ic_launcher);
 		// Array list of Categories
-		ArrayList<Item> branches = new ArrayList<Item>();
+		/*ArrayList<Item> branches = new ArrayList<Item>();
 
 		Item _Item = new Item(0, picture, "abu Samra");
 		branches.add(_Item);
@@ -50,35 +50,16 @@ public class BranchesActivity extends Activity {
 
 		// create an ArrayAdaptar from the String Array
 		dataAdapter = new MyCustomAdapter(this, R.layout.branches_list,
-				branches);
-		ListView listView = (ListView) findViewById(R.id.list);
+				branches);*/
+		//ListView listView = (ListView) findViewById(R.id.list);
 		// Assign adapter to ListView
-		listView.setAdapter(dataAdapter);
+		//listView.setAdapter(dataAdapter);
 
-		listView.setOnItemClickListener(new OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// When clicked, Navigate to the selected item
-				Item navitem = (Item) parent.getItemAtPosition(position);
-				String title = navitem.getTitle();
-				Intent i;
-				try {
-					i = new Intent(getBaseContext(), Class
-							.forName(getPackageName() + "." + title
-									+ "Activity"));
-					startActivity(i);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-		});
-
+		getBranches();
+		
 	}
 	public void getBranches() {
-		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/users";
+		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/shops/37/branches";
 		ProgressDialog Dialog = new ProgressDialog(this);
 
 		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
@@ -88,14 +69,16 @@ public class BranchesActivity extends Activity {
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
 		branches = new APIManager().getBranchesByShop(s);
+		branchesItem = new ArrayList<Item>();
+		branches = new APIManager().getBranchesByShop(s);
 
 		for (int i = 0; i < branches.size(); i++) {
 			branchesItem.add(new Item(branches.get(i).getId(), picture, branches.get(i)
 					.toString()));
 		}
 		// create an ArrayAdaptar from the String Array
-		dataAdapter = new MyCustomAdapter(this, R.layout.row_users, branchesItem);
-		ListView listView = (ListView) findViewById(R.id.Userslist);
+		dataAdapter = new MyCustomAdapter(this, R.layout.branches_list, branchesItem);
+		ListView listView = (ListView) findViewById(R.id.list);
 		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
 
