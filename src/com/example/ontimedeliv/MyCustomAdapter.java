@@ -16,8 +16,7 @@ class MyCustomAdapter extends ArrayAdapter<Item> {
 	private ArrayList<Item> currentList;
 	Context context;
 
-	public MyCustomAdapter(Context context, int textViewResourceId,
-			ArrayList<Item> navList) {
+	public MyCustomAdapter(Context context, int textViewResourceId, ArrayList<Item> navList) {
 		super(context, textViewResourceId, navList);
 		this.currentList = new ArrayList<Item>();
 		this.currentList.addAll(navList);

@@ -56,5 +56,6 @@
     <string name="add_area">Add Area</string>
     <string name="add_business">Add Business</string>
     <string name="title_activity_add_category">AddCategoryActivity</string>
+    <string name="title_activity_orders">OrdersActivity</string>
 
 </resources>
