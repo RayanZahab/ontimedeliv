@@ -7,8 +7,15 @@ public class Item {
 	private String title;
 	boolean selected = false;
 	String code = null;
+	String address;
+	boolean isNew = false;
 	private int id;
-	
+
+	public Item(String address, boolean status){
+		super();
+		this.address = address;
+		this.isNew = status;
+	}
 	public Item(int id,Bitmap image, String title) {
 		super();
 		this.image = image;
@@ -27,6 +34,12 @@ public class Item {
 	}
 	public String getTitle() {
 		return title;
+	}
+	public boolean getStatus() {
+		return isNew;
+	}
+	public String getAddress() {
+		return address;
 	}
 	public void setTitle(String title) {
 		this.title = title;

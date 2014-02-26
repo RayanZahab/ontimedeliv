@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -88,7 +87,7 @@ public class BranchesActivity extends Activity {
 	public void setBranches(String s) {
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
-		branches = new APIManager().getBranches(s);
+		branches = new APIManager().getBranchesByShop(s);
 
 		for (int i = 0; i < branches.size(); i++) {
 			branchesItem.add(new Item(branches.get(i).getId(), picture, branches.get(i)

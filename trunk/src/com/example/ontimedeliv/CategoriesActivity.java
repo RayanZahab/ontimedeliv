@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -223,4 +222,3 @@ public class CategoriesActivity extends Activity {
 	    return super.onOptionsItemSelected(item);
 	}
 }
-
