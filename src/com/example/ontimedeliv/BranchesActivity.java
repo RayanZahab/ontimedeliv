@@ -28,49 +28,18 @@ public class BranchesActivity extends Activity {
 
 	}
 
-	private void displayListView() {
-
-		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.ic_launcher);
-		// Bitmap albanajban = BitmapFactory.decodeResource(this.getResources(),
-		// R.drawable.ic_launcher);
-		// Bitmap drinks = BitmapFactory.decodeResource(this.getResources(),
-		// R.drawable.ic_launcher);
-		// Array list of Categories
-		/*ArrayList<Item> branches = new ArrayList<Item>();
-
-		Item _Item = new Item(0, picture, "abu Samra");
-		branches.add(_Item);
-		_Item = new Item(0, picture, "3azmi");
-		branches.add(_Item);
-		_Item = new Item(0, picture, "Kura");
-		branches.add(_Item);
-		_Item = new Item(0, picture, "Beirut");
-		branches.add(_Item);
-
-		// create an ArrayAdaptar from the String Array
-		dataAdapter = new MyCustomAdapter(this, R.layout.branches_list,
-				branches);*/
-		//ListView listView = (ListView) findViewById(R.id.list);
-		// Assign adapter to ListView
-		//listView.setAdapter(dataAdapter);
-
-		getBranches();
-		
-	}
 	public void getBranches() {
 		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/shops/37/branches";
 		ProgressDialog Dialog = new ProgressDialog(this);
 
 		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
 	}
-
+ 
 	public void setBranches(String s) {
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
 		branches = new APIManager().getBranchesByShop(s);
 		branchesItem = new ArrayList<Item>();
-		branches = new APIManager().getBranchesByShop(s);
 
 		for (int i = 0; i < branches.size(); i++) {
 			branchesItem.add(new Item(branches.get(i).getId(), picture, branches.get(i)
@@ -94,7 +63,8 @@ public class BranchesActivity extends Activity {
 				try {
 					i = new Intent(getBaseContext(), Class
 							.forName(getPackageName() + "."
-									+ "UserInfoActivity"));
+									+ "CategoriesActivity"));
+					i.putExtra("branchId", ""+branchesItem.get(position).getId());
 					startActivity(i);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
