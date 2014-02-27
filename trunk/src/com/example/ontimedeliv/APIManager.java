@@ -298,7 +298,45 @@ public class APIManager {
 		return gridArray;
 	}
 
-	public void getCategoriesByBranch(Integer branch_id) {
+	public ArrayList<Category> getCategoriesByBranch(String cont) {
+		JSONObject jsonResponse;
+		ArrayList<Category> gridArray = new ArrayList<Category>();
+
+		try {
+			jsonResponse = new JSONObject(cont);
+			if (!errorCheck(jsonResponse)) {
+				int id;
+				String name;
+				if (jsonResponse.has("elements")) {
+					JSONArray jsonMainNode = jsonResponse
+							.optJSONArray("elements");
+					int lengthJsonArr = jsonMainNode.length();
+					for (int i = 0; i < lengthJsonArr; i++) {
+						JSONObject jsonChildNode = jsonMainNode
+								.getJSONObject(i);
+
+						id = Integer.parseInt(jsonChildNode.optString("id")
+								.toString());
+						name = jsonChildNode.optString("name").toString();
+						gridArray.add(new Category(id, name));
+					}
+				} else {
+					id = Integer.parseInt(jsonResponse.optString("id")
+							.toString());
+					name = jsonResponse.optString("name").toString();
+					gridArray.add(new Category(id, name));
+				}
+
+				Log.d("OutputData Category: ", "Rayz Category" + gridArray.toString());
+			} else {
+				return gridArray;
+			}
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+
+		return gridArray;
 	}
 
 	public void getItemsByCategoryAndBranch(Integer category_id,
