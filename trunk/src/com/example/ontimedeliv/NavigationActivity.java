@@ -44,6 +44,8 @@ public class NavigationActivity extends Activity {
 			categories.add(_Item);
 			_Item = new Item(0,picture, "Users");
 			categories.add(_Item);
+			_Item = new Item(0,picture, "Selection");
+			categories.add(_Item);
 			
 
 			// create an ArrayAdaptar from the String Array

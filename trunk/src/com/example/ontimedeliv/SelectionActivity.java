@@ -65,7 +65,7 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void getCountries() {
-		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/countries?limit=30";
+		String serverURL = new myURL().getURL("countries", null, 0, 30);;
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
 		new MyJs(Dialog, "setCountries", SelectionActivity.this, "GET")
@@ -86,8 +86,7 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void getCities(int CountryId) {
-		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/countries/"
-				+ CountryId + "/cities";
+		String serverURL = new myURL().getURL("cities", "countries", CountryId, 30);
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
 		new MyJs(Dialog, "setCities", SelectionActivity.this, "GET")
@@ -107,9 +106,8 @@ public class SelectionActivity extends Activity implements
 
 	}
 
-	public void getAreas(int CountryId) {
-		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/cities/"
-				+ CountryId + "/areas";
+	public void getAreas(int CityId) {
+		String serverURL = new myURL().getURL("areas", "cities", CityId, 30);
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
 		new MyJs(Dialog, "setAreas", SelectionActivity.this, "GET")
@@ -129,7 +127,7 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void getBusinesses() {
-		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/businesses?limit=30";
+		String serverURL =  new myURL().getURL("businesses", null, 0, 30);
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
 		new MyJs(Dialog, "setBusiness", SelectionActivity.this, "GET")

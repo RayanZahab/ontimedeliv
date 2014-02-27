@@ -25,7 +25,7 @@ public class LoginActivity extends Activity {
 	public void login(View view) {
 		if (username.getText().toString().equals("admin")
 				&& password.getText().toString().equals("admin")) {
-			Intent i = new Intent(this, SelectionActivity.class);
+			Intent i = new Intent(this, NavigationActivity.class);
 			startActivity(i);
 		} else {
 			Toast.makeText(getApplicationContext(), "Wrong Credentials",

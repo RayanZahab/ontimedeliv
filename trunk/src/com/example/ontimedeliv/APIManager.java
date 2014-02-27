@@ -462,18 +462,20 @@ public class APIManager {
 						mobile = "";// jsonChildNode.optString("mobile").toString();
 						is_fired = 0;// Integer.parseInt(jsonChildNode.optString("is_fired").toString());
 						address = jsonChildNode.optString("address").toString();
-						address = address.substring(1, address.length() - 1);
+						ArrayList<Address> addArray = new ArrayList<Address>();
+						if(address.length()>2)
+						{
+							address = address
+									.substring(1, address.length() - 1);
 
-						ArrayList<Address> addArray = getAddress(address);
+							addArray = getAddress(address);
+						}
+						else{
+							
+							addArray.add(new Address(0,"", "", "","", "", "","", 0, "","", "", ""));
+						}
 						User u = new User(id, name, username, password, phone,
-								mobile, is_fired, addArray.get(0) /*
-																 * new
-																 * Address(0,
-																 * "", "", "",
-																 * "", "", "",
-																 * "", 0, "",
-																 * "", "", "")
-																 */);
+								mobile, is_fired, addArray.get(0),0);
 						gridArray.add(u);
 						Log.d("ray", "rays add: " + address);
 
@@ -491,7 +493,7 @@ public class APIManager {
 					address = jsonResponse.optString("address").toString();
 					ArrayList<Address> addArray = getAddress(address);
 					gridArray.add(new User(id, name, username, password, phone,
-							mobile, is_fired, addArray.get(0)));
+							mobile, is_fired, addArray.get(0),0));
 
 				}
 
@@ -591,8 +593,38 @@ public class APIManager {
 				e.printStackTrace();
 			}
 
+		} else if (o instanceof Category) {
+			Category c = (Category) o;
+
+			JSONObject body = new JSONObject();
+			try {
+				body.put("name", c.getName());
+				jsonObjSend.put("category", body);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else if (o instanceof User) {
+			User c = (User) o;
+
+			JSONObject body = new JSONObject();
+			try {
+				body.put("name", c.getName());
+				body.put("phone", c.getPhone());
+				body.put("password", c.getPassword());
+				body.put("branch_id", c.getBranch_id());
+				body.put("customer_address_id", c.getBranch_id());
+				
+				jsonObjSend.put("user", body);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 
 		return jsonObjSend;
 	}
+	
 }

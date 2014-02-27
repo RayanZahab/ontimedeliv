@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -29,7 +30,7 @@ public class UsersActivity extends Activity {
 	}
 
 	public void getUsers() {
-		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/users";
+		String serverURL =  new myURL().getURL("users", null, 0, 30);;
 		ProgressDialog Dialog = new ProgressDialog(this);
 
 		new MyJs(Dialog, "setUsers", this, "GET").execute(serverURL);
@@ -79,5 +80,11 @@ public class UsersActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.users, menu);
 		return true;
+	}
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent = new Intent(this, UserInfoActivity.class);
+		startActivity(intent);
+
+		return super.onOptionsItemSelected(item);
 	}
 }
