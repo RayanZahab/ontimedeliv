@@ -9,9 +9,10 @@ public class User {
 	private String mobile;
 	private int is_fired;
 	private Address address;
+	private int branch_id;
 
 	public User(int id, String name, String username, String password,
-			String phone, String mobile, int is_fired, Address address) {
+			String phone, String mobile, int is_fired, Address address,int branch_id) {
 
 		this.setId(id);
 		this.setName(name);
@@ -21,6 +22,7 @@ public class User {
 		this.setMobile(mobile);
 		this.setIs_fired(is_fired);
 		this.setAddress(address);
+		this.setBranch_id(branch_id);
 	}
 
 	public String getMobile() {
@@ -89,6 +91,14 @@ public class User {
 	public String toString()
 	{
 		return this.id+"-"+this.name+"\n"+this.address.toString();
+	}
+
+	public int getBranch_id() {
+		return branch_id;
+	}
+
+	public void setBranch_id(int branch_id) {
+		this.branch_id = branch_id;
 	}
 
 }

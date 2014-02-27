@@ -2,17 +2,18 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class OrderInfoActivity extends Activity {
 	Spinner prep, deliv, status;
@@ -55,12 +56,13 @@ public class OrderInfoActivity extends Activity {
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		deliv.setAdapter(dataAdapter);
 	}
+
 	public void addItemsOnStatus() {
 		status = (Spinner) findViewById(R.id.order_status);
 		List<String> list = new ArrayList<String>();
 		list.add("Prepared");
 		list.add("Delivered");
-		
+
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, list);
 		dataAdapter
@@ -73,8 +75,6 @@ public class OrderInfoActivity extends Activity {
 		cancel = (Button) findViewById(R.id.cancel);
 		cancel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-
-				final EditText result = null;
 				LayoutInflater li = LayoutInflater
 						.from(getApplicationContext());
 				View promptsView = li.inflate(R.layout.prompt_cancel, null);
@@ -92,9 +92,10 @@ public class OrderInfoActivity extends Activity {
 				alertDialogBuilder.setCancelable(false).setPositiveButton("OK",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								// get user input and set it to result
-								// edit text
-								result.setText(userInput.getText());
+								Toast.makeText(getApplicationContext(),
+										userInput.getText(), Toast.LENGTH_LONG)
+										.show();
+								dialog.cancel();
 							}
 
 						});

@@ -67,44 +67,45 @@
         android:text="Branch" />
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/branchesSP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/inputphone"
         android:layout_alignTop="@+id/textView1" />
 
-    <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/spinner1"
-        android:layout_marginTop="17dp"
-        android:text="Admin" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/preparer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/checkBox1"
+        android:layout_below="@+id/delivery"
         android:text="Preparer" />
 
     <CheckBox
-        android:id="@+id/CheckBox01"
+        android:id="@+id/delivery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/checkBox2"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/branchesSP"
         android:text="Delivery" />
 
-    <Button
-        android:id="@+id/button1"
+    <CheckBox
+        android:id="@+id/admin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/CheckBox01"
+        android:layout_alignLeft="@+id/preparer"
+        android:layout_below="@+id/preparer"
+        android:text="Admin" />
+    
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
+        android:layout_marginBottom="43dp"
+        android:onClick="addUser"
         android:text="Add" />
 
 </RelativeLayout>
