@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.Log;
@@ -12,13 +13,17 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class OrdersActivity extends Activity {
 	MyCustomAdapter dataAdapter;
+	ArrayList<Item> orders;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +35,7 @@ public class OrdersActivity extends Activity {
 	private void displayListView() {
 
 		// Array list of Categories
-		ArrayList<Item> orders = new ArrayList<Item>();
+		orders = new ArrayList<Item>();
 
 		Item _Item = new Item("Tripoli, Abu Samra", true);
 		orders.add(_Item);
@@ -44,23 +49,20 @@ public class OrdersActivity extends Activity {
 		// create an ArrayAdaptar from the String Array
 		dataAdapter = new MyCustomAdapter(this, R.layout.row_order, orders);
 		ListView listView = (ListView) findViewById(R.id.list);
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// When clicked, Navigate to the selected item
+				Intent i = new Intent(getBaseContext(), OrderInfoActivity.class);
+				startActivity(i);
+				
+			}
+		});
 		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
-
-		/*
-		 * listView.setOnItemClickListener(new OnItemClickListener() {
-		 * 
-		 * public void onItemClick(AdapterView<?> parent, View view, int
-		 * position, long id) { // When clicked, Navigate to the selected item
-		 * Intent i; try { i = new Intent(getBaseContext(),
-		 * Class.forName(getPackageName() + "." + title + "Activity"));
-		 * startActivity(i); } catch (ClassNotFoundException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } }
-		 * 
-		 * });
-		 */
-
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
