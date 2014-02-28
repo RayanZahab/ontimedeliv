@@ -12,7 +12,11 @@ public class myURL {
 		{
 			url+=api;
 		}		
-		else
+		else if(api == null)
+		{
+			url+=url+by+"/"+value;
+		}
+		else if(api!=null)
 		{
 			url+=url+by+"/"+value+"/"+api;
 		}
