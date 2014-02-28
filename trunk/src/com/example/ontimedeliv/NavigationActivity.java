@@ -28,7 +28,7 @@ public class NavigationActivity extends Activity {
 		displayListView();
 
 	}
-		private void displayListView() {
+	private void displayListView() {
 
 			Bitmap picture = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher);
 			//Bitmap albanajban = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher);

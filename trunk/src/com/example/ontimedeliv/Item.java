@@ -10,6 +10,15 @@ public class Item {
 	String address;
 	boolean isNew = false;
 	private int id;
+	int quantity;
+	String price;
+	
+	public Item(String title, Integer quantity, String price){
+		super();
+		this.title = title;
+		this.quantity = quantity;
+		this.price = price;
+	}
 
 	public Item(String address, boolean status){
 		super();

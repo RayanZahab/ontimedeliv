@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="18dp"
+        android:layout_marginLeft="10dp"
         android:text="Client Info"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -39,41 +39,69 @@
     <ListView
         android:id="@+id/orderlist"
         android:layout_width="fill_parent"
-        android:layout_height="230dp"
+        android:layout_height="210dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="0.64" >
     </ListView>
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/orderlist"
+        android:layout_below="@+id/orderlist"
+        android:layout_marginTop="8dp"
+        android:textSize="19sp"
+        android:text="Total" />
+    
+<RelativeLayout
+    android:id="@+id/orderbuttons"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    android:layout_below="@+id/total" >
 
     <Spinner
         android:id="@+id/preparer_spinner"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/orderlist"
-        android:layout_below="@+id/orderlist" />
-
-    <Spinner
-        android:id="@+id/delivery_Spinner"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/orderlist"
-        android:layout_alignTop="@+id/preparer_spinner" />
-
-    <Spinner
-        android:id="@+id/order_status"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/preparer_spinner"
-        android:layout_below="@+id/preparer_spinner" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
 
     <Button
         android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/delivery_Spinner"
-        android:layout_alignRight="@+id/delivery_Spinner"
-        android:layout_alignTop="@+id/order_status"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
         android:text="Cancel" />
+
+    <Spinner
+        android:id="@+id/order_status"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
+
+    <Spinner
+        android:id="@+id/delivery_Spinner"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
+    </RelativeLayout>
+
+<TextView
+    android:id="@+id/textView4"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@+id/total"
+    android:layout_alignBottom="@+id/total"
+    android:textSize="19sp"
+    android:layout_alignRight="@+id/orderbuttons"
+    android:text="25000 L.L" />
 
 </RelativeLayout>
