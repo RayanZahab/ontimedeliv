@@ -64,6 +64,7 @@ public class UsersActivity extends Activity {
 					i = new Intent(getBaseContext(), Class
 							.forName(getPackageName() + "."
 									+ "UserInfoActivity"));
+					i.putExtra("id", ""+usersItem.get(position).getId());
 					startActivity(i);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
