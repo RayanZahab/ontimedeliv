@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -47,18 +50,15 @@ public class OrdersActivity extends Activity {
 		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
 
-		/*
-		 * listView.setOnItemClickListener(new OnItemClickListener() {
-		 * 
-		 * public void onItemClick(AdapterView<?> parent, View view, int
-		 * position, long id) { // When clicked, Navigate to the selected item
-		 * Intent i; try { i = new Intent(getBaseContext(),
-		 * Class.forName(getPackageName() + "." + title + "Activity"));
-		 * startActivity(i); } catch (ClassNotFoundException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } }
-		 * 
-		 * });
-		 */
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> parent, View view,int position, long id) { 
+				// When clicked, Navigate to the selected item
+				Intent i = new Intent(getBaseContext(), OrderInfoActivity.class);
+				startActivity(i);
+			}
+
+		});
 
 	}
 
@@ -103,11 +103,10 @@ public class OrdersActivity extends Activity {
 
 				holder = new ViewHolder();
 				if (this.orderList.get(position).isNew) {
-					RelativeLayout main = (RelativeLayout) convertView.findViewById(R.id.roworder);
-					main.setBackgroundColor(Color.parseColor("#FF9999"));					
-				}
-				else
-				{
+					RelativeLayout main = (RelativeLayout) convertView
+							.findViewById(R.id.roworder);
+					main.setBackgroundColor(Color.parseColor("#FF9999"));
+				} else {
 					RelativeLayout my = (RelativeLayout) convertView
 							.findViewById(R.id.newButtons);
 					my.setVisibility(View.GONE);

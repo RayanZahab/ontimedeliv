@@ -4,13 +4,13 @@
     android:layout_height="match_parent">
 
     <CheckBox
-        android:id="@+id/checkBox1"
+        android:id="@+id/itemname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CheckBox" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/quantity"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -20,7 +20,7 @@
         android:inputType="number" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/checkBox1"
