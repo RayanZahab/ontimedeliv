@@ -27,6 +27,7 @@ public class OrderInfoActivity extends Activity {
 
 		addItemsOndelivery();
 		addItemsOnpreparer();
+		addItemsOnStatus();
 		displayListView();
 
 		cancel = (Button) findViewById(R.id.cancel);
@@ -94,7 +95,7 @@ public class OrderInfoActivity extends Activity {
 				android.R.layout.simple_spinner_item, list);
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		deliv.setAdapter(dataAdapter);
+		prep.setAdapter(dataAdapter);
 	}
 
 	public void addItemsOnStatus() {
@@ -107,7 +108,7 @@ public class OrderInfoActivity extends Activity {
 				android.R.layout.simple_spinner_item, list);
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		deliv.setAdapter(dataAdapter);
+		status.setAdapter(dataAdapter);
 	}
 
 	private void displayListView() {

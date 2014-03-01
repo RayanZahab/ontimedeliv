@@ -127,8 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/addArea"
             android:onClick="select"
-            android:text="@string/select"
-             />
+            android:text="@string/select"/>
     </RelativeLayout>
 
 </ScrollView>
