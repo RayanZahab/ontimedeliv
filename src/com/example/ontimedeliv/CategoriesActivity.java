@@ -120,17 +120,8 @@ public class CategoriesActivity extends Activity {
 				Toast.makeText(getApplicationContext(),
 						"Selected" + categoryItems.get(position).getId(),
 						Toast.LENGTH_SHORT).show();
-				Intent i;
-				try {
-					i = new Intent(getBaseContext(), Class
-							.forName(getPackageName() + "."
-									+ "CategoriesActivity"));
-					i.putExtra("branchId", categoryItems.get(position).getId());
-					startActivity(i);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				Intent i = new Intent(getBaseContext(), ProductActivity.class);
+				startActivity(i);
 			}
 
 		});
