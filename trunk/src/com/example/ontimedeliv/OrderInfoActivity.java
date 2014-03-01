@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class OrderInfoActivity extends Activity {
 	Spinner prep, deliv, status;
@@ -32,31 +33,38 @@ public class OrderInfoActivity extends Activity {
 		cancel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				final EditText result = null;
+				
 				LayoutInflater li = LayoutInflater
 						.from(getApplicationContext());
 				View promptsView = li.inflate(R.layout.prompt_cancel, null);
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(OrderInfoActivity.this);
 
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-						getApplicationContext());
-
-				// set prompts_cancel.xml to alertdialog builder
+				// set prompts.xml to alertdialog builder
 				alertDialogBuilder.setView(promptsView);
 
 				final EditText userInput = (EditText) promptsView
-						.findViewById(R.id.editTextDialogUserInput);
-
-				// set dialog message
-				alertDialogBuilder.setCancelable(false).setPositiveButton("OK",
+						.findViewById(R.id.editText1);	
+				alertDialogBuilder
+				.setCancelable(false)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						Toast.makeText(getApplicationContext(),
+								userInput.getText(), Toast.LENGTH_LONG).show();
+					}
+				})
+				.setNegativeButton("Cancel",
 						new DialogInterface.OnClickListener() {
-							@SuppressWarnings("null")
 							public void onClick(DialogInterface dialog, int id) {
-								// get user input and set it to result
-								// edit text
-								result.setText(userInput.getText());
+								dialog.cancel();
 							}
-
 						});
+
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+
 			}
 		});
 

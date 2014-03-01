@@ -1,114 +1,114 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-    <RelativeLayout
+
+    <EditText
+        android:id="@+id/editTextAddName"
         android:layout_width="wrap_content"
-        android:layout_height="501dp"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin" >
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTextAddress"
+        android:layout_below="@+id/editTextAddress"
+        android:layout_marginTop="20dp"
+        android:ems="10" />
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/opening_hours"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-             />
+    <TextView
+        android:id="@+id/details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/from"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="28dp"
+        android:text="Details"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <TimePicker
-            android:id="@+id/time_from"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/from" />
+    <Button
+        android:id="@+id/button_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextAddName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="81dp"
+        android:text="Add" />
 
-        <TextView
-            android:id="@+id/from"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView1"
-            android:layout_below="@+id/textView1"
-            android:layout_marginTop="14dp"
-            android:text="@string/from"
-            android:textSize="16sp" />
+    <EditText
+        android:id="@+id/editTextAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/address"
+        android:layout_alignBottom="@+id/address"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="textPostalAddress" >
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/from"
-            android:layout_below="@+id/time_from"
-            android:layout_marginTop="14dp"
-            android:text="@string/to"
-            android:textSize="16sp" />
+        <requestFocus />
+    </EditText>
 
-        <TimePicker
-            android:id="@+id/time_to"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/time_from"
-            android:layout_alignTop="@+id/textView2" />
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="16dp"
+        android:layout_toLeftOf="@+id/button_add"
+        android:text="Button" />
 
-        <TextView
-            android:id="@+id/details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_below="@+id/time_to"
-            android:layout_marginTop="18dp"
-            android:text="Details"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-             />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button2"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_centerHorizontal="true"
+        android:text="@string/to"
+        android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/editTextAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/address"
-            android:layout_alignBottom="@+id/address"
-            android:layout_alignLeft="@+id/time_to"
-            android:ems="10"
-            android:inputType="textPostalAddress" />
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_toRightOf="@+id/button_add"
+        android:text="Button" />
 
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/details"
-            android:layout_below="@+id/details"
-            android:layout_marginTop="22dp"
-            android:text="Address" />
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/details"
+        android:layout_below="@+id/details"
+        android:layout_marginTop="31dp"
+        android:textSize="16sp"
+        android:text="Address" />
 
-        <EditText
-            android:id="@+id/editTextAddName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/editTextAddress"
-            android:layout_below="@+id/editTextAddress"
-            android:layout_marginTop="20dp"
-            android:ems="10" />
+    <TextView
+        android:id="@+id/address_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editTextAddName"
+        android:layout_alignLeft="@+id/address"
+        android:textSize="16sp"
+        android:text="Name" />
 
-        <TextView
-            android:id="@+id/address_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/address"
-            android:layout_alignTop="@+id/editTextAddName"
-            android:text="Name" />
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/details"
+        android:layout_alignParentTop="true"
+        android:text="@string/opening_hours"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <Button
-            android:id="@+id/button_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/editTextAddName"
-            android:layout_centerHorizontal="true"
-            android:text="Add" />
-    </RelativeLayout>
-    
+    <TextView
+        android:id="@+id/from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button2"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:text="@string/from"
+        android:textSize="16sp" />
 
-</ScrollView>
+</RelativeLayout>
