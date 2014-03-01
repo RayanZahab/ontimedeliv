@@ -72,6 +72,10 @@
             android:name="com.example.ontimedeliv.OrdersActivity"
             android:label="@string/title_activity_orders" >
         </activity>
+        <activity
+            android:name="com.example.ontimedeliv.ProductActivity"
+            android:label="@string/title_activity_product" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" >
