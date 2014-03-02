@@ -25,8 +25,8 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 		this.currentList = new ArrayList<Item>();
 		this.currentList.addAll(currentList);
 	}
-	public ArrayList<Item> getCurrentList()
-	{
+
+	public ArrayList<Item> getCurrentList() {
 		return currentList;
 	}
 
@@ -43,7 +43,8 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 
 		if (convertView == null) {
 
-			LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater vi = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 			convertView = vi.inflate(R.layout.category_info, null);
 

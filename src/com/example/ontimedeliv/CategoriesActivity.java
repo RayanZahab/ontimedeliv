@@ -37,7 +37,7 @@ public class CategoriesActivity extends Activity {
 		if (getIntent().hasExtra("branchId")) {
 			Bundle extras = getIntent().getExtras();
 			try{
-			branchId = Integer.parseInt((String) extras.getString("branchId"));
+			this.branchId = Integer.parseInt((String) extras.getString("branchId"));
 			Log.d("ray", "ray branch:" + branchId);
 			url = new myURL().getURL("categories", "branches", branchId, 30);			
 			}
@@ -118,9 +118,11 @@ public class CategoriesActivity extends Activity {
 					int position, long id) {
 				// When clicked, Navigate to the selected item
 				Toast.makeText(getApplicationContext(),
-						"Selected" + categoryItems.get(position).getId(),
+						"Selected" + branchId,
 						Toast.LENGTH_SHORT).show();
 				Intent i = new Intent(getBaseContext(), ProductActivity.class);
+				i.putExtra("categoryId", ""+ categoryItems.get(position).getId());
+				i.putExtra("branchId", ""+ branchId);
 				startActivity(i);
 			}
 
@@ -182,6 +184,7 @@ public class CategoriesActivity extends Activity {
 	}
 	public void afterCreation(String s){
 		Intent i = new Intent(this, CategoriesActivity.class);
+		
 		startActivity(i);
 	}
 }

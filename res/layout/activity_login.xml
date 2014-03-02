@@ -48,14 +48,32 @@
        android:ems="10"
        android:inputType="textPassword" />
 
+   <TextView
+       android:id="@+id/textView1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/textView3"
+       android:layout_below="@+id/textView3"
+       android:layout_marginTop="29dp"
+       android:text="Select language" />
+
    <Button
-      android:id="@+id/button1"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/password"
-      android:layout_centerHorizontal="true"
-      android:layout_marginTop="94dp"
-      android:onClick="login"
-      android:text="Login" />
+       android:id="@+id/button1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true"
+       android:layout_marginBottom="18dp"
+       android:onClick="login"
+       android:text="Login" />
+
+   <Spinner
+       android:id="@+id/languageSP"
+       android:layout_width="30dp"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/password"
+       android:layout_alignParentRight="true"
+       android:layout_below="@+id/password"
+       android:entries="@array/languages"  />
 
 </RelativeLayout>
