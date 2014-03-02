@@ -601,7 +601,6 @@ public class APIManager {
 				body.put("name", c.getName());
 				jsonObjSend.put("country", body);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -614,7 +613,6 @@ public class APIManager {
 				body.put("country_id", c.getCountry_id());
 				jsonObjSend.put("city", body);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -627,7 +625,6 @@ public class APIManager {
 				body.put("city_id", c.getCity_id());
 				jsonObjSend.put("area", body);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -639,7 +636,6 @@ public class APIManager {
 				body.put("name", c.getName());
 				jsonObjSend.put("business", body);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -651,7 +647,6 @@ public class APIManager {
 				body.put("name", c.getName());
 				jsonObjSend.put("category", body);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -668,7 +663,6 @@ public class APIManager {
 				
 				jsonObjSend.put("user", body);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

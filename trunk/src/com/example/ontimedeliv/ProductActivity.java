@@ -22,25 +22,26 @@ import android.widget.AdapterView.OnItemClickListener;
 public class ProductActivity extends Activity {
 
 	CheckboxAdapter dataAdapter = null;
-	int categoryId;
+	int categoryId, branchId;
 	ArrayList<Category> products;
 	ArrayList<Item> productItems;
 	String url = new myURL().getURL("categories", null, 0, 30);
 	DialogInterface dialog;
+
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
 		super.onCreate(savedInstancecat);
 		setContentView(R.layout.activity_product);
-		if (getIntent().hasExtra("categoryId")) {
+		if (false && getIntent().hasExtra("categoryId")) {
 			Bundle extras = getIntent().getExtras();
-			try{
-			categoryId = Integer.parseInt((String) extras.getString("categoryId"));
-			Log.d("ray", "ray branch:" + categoryId);
-			url = new myURL().getURL("categories", "branches", categoryId, 30);			
-			}
-			catch(Exception e )
-			{
+			try {
+				categoryId = Integer.parseInt((String) extras.getString("categoryId"));
+				branchId = Integer.parseInt((String) extras.getString("branchId"));
+				Log.d("ray", "ray branch:" + categoryId);
 				
+				url = new myURL().getURL("categories", "branches", branchId, 30);//getURL("items", "branches/"+branchId+"categories", categoryId,30);
+			} catch (Exception e) {
+
 			}
 		}
 		// Generate list View from ArrayList
@@ -48,13 +49,13 @@ public class ProductActivity extends Activity {
 		checkButtonClick();
 
 	}
-	public DialogInterface getDialog()	
-	{
+
+	public DialogInterface getDialog() {
 		return this.dialog;
 	}
-	public void setDialog(DialogInterface dialog)
-	{
-		this.dialog=dialog;
+
+	public void setDialog(DialogInterface dialog) {
+		this.dialog = dialog;
 	}
 
 	private void checkButtonClick() {
@@ -117,17 +118,13 @@ public class ProductActivity extends Activity {
 				Toast.makeText(getApplicationContext(),
 						"Selected" + productItems.get(position).getId(),
 						Toast.LENGTH_SHORT).show();
-				/*Intent i;
-				try {
-					i = new Intent(getBaseContext(), Class
-							.forName(getPackageName() + "."
-									+ "CategoriesActivity"));
-					i.putExtra("branchId", productItems.get(position).getId());
-					startActivity(i);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
+				/*
+				 * Intent i; try { i = new Intent(getBaseContext(), Class
+				 * .forName(getPackageName() + "." + "CategoriesActivity"));
+				 * i.putExtra("branchId", productItems.get(position).getId());
+				 * startActivity(i); } catch (ClassNotFoundException e) { //
+				 * TODO Auto-generated catch block e.printStackTrace(); }
+				 */
 			}
 
 		});
@@ -146,6 +143,7 @@ public class ProductActivity extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
+
 	public void addCategory(String categoryName) {
 		String serverURL = new myURL().getURL("categories", null, 0, 0);
 		ProgressDialog Dialog = new ProgressDialog(this);
@@ -153,7 +151,8 @@ public class ProductActivity extends Activity {
 		new MyJs(Dialog, "afterCreation", this, "POST", (Object) newCategory)
 				.execute(serverURL);
 	}
-	public void afterCreation(String s){
+
+	public void afterCreation(String s) {
 		Intent i = new Intent(this, CategoriesActivity.class);
 		startActivity(i);
 	}
