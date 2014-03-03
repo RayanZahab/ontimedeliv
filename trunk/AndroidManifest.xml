@@ -80,6 +80,14 @@
             android:name="com.example.ontimedeliv.AddProductActivity"
             android:label="@string/title_activity_add_product" >
         </activity>
+        <activity
+            android:name="com.example.ontimedeliv.OldOrdersActivity"
+            android:label="@string/title_activity_old_orders" >
+        </activity>
+        <activity
+            android:name="com.example.ontimedeliv.OldOrdersInfoActivity"
+            android:label="@string/title_activity_old_orders_info" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" >

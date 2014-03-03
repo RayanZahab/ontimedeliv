@@ -40,7 +40,7 @@
         android:text="Address" />
 
     <ListView
-        android:id="@+id/orderlist"
+        android:id="@+id/oldorderlist"
         android:layout_width="fill_parent"
         android:layout_height="210dp"
         android:layout_alignParentLeft="true"
@@ -48,62 +48,33 @@
         android:layout_marginTop="8dp"
         android:layout_weight="0.64" >
     </ListView>
-
-<TextView
-    android:id="@+id/textView4"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignBaseline="@+id/total"
-    android:layout_alignBottom="@+id/total"
-    android:textSize="19sp"
-    android:layout_alignRight="@+id/orderbuttons"
-    android:text="25000 L.L" />
-
-<TextView
-    android:id="@+id/total"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignLeft="@+id/orderbuttons"
-    android:layout_below="@+id/orderlist"
-    android:text="Total"
-    android:textSize="19sp" />
+    
+	<TextView
+	    android:id="@+id/textView4"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@+id/total"
+	    android:layout_alignBottom="@+id/total"
+	    android:textSize="19sp"
+	    android:layout_alignRight="@+id/orderbuttons"
+	    android:text="25000 L.L" />
+	
+	<TextView
+	    android:id="@+id/total"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/orderbuttons"
+	    android:layout_below="@+id/oldorderlist"
+	    android:text="Total"
+	    android:textSize="19sp" />
 
 <RelativeLayout
     android:id="@+id/orderbuttons"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignLeft="@+id/orderlist"
-    android:layout_below="@+id/textView4" >
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/delivery_Spinner"
-        android:text="Status:" />
-
-    <Spinner
-        android:id="@+id/order_status"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/textView5"
-        android:layout_alignParentLeft="true" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Delivery Guy:" />
-
-    <Spinner
-        android:id="@+id/delivery_Spinner"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView6" />
+    android:layout_alignLeft="@+id/textView2"
+    android:layout_below="@+id/textView4"
+    android:layout_marginTop="32dp" >
 
     <TextView
         android:id="@+id/textView7"
@@ -113,47 +84,30 @@
         android:layout_alignLeft="@+id/preparer_spinner"
         android:text="Preparer:" />
 
-    <Spinner
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Delivery Guy:" />
+
+    <TextView
+        android:id="@+id/delivery_Spinner"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView6"
+        android:text="Ahmad Said" />
+
+    <TextView
         android:id="@+id/preparer_spinner"
         android:layout_width="130dp"
         android:layout_height="40dp"
-        android:layout_above="@+id/textView5"
-        android:layout_alignParentRight="true" />
-
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/preparer_spinner"
-        android:layout_alignBottom="@+id/order_status"
-        android:text="Cancel" />
-
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView6"
+        android:text="khalil mohamad" />
 </RelativeLayout>
-
-	<TextView
-	    android:id="@+id/notes"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignRight="@+id/noteinput"
-	    android:layout_below="@+id/orderbuttons"
-	    android:layout_marginTop="22dp"
-	    android:text="Notes:" />
-
-	<EditText
-	    android:id="@+id/noteinput"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignLeft="@+id/select"
-	    android:layout_below="@+id/notes"
-	    android:ems="10" />
-
-	<Button
-	    android:id="@+id/select"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignLeft="@+id/orderbuttons"
-	    android:layout_below="@+id/noteinput"
-	    android:text="Confirm" />
-
 </RelativeLayout>
 </ScrollView>
+

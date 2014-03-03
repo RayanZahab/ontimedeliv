@@ -65,5 +65,7 @@
     <string name="title_activity_orders">OrdersActivity</string>
     <string name="title_activity_product">ProductActivity</string>
     <string name="title_activity_add_product">AddProductActivity</string>
+    <string name="title_activity_old_orders">OldOrdersActivity</string>
+    <string name="title_activity_old_orders_info">OldOrdersInfoActivity</string>
 
 </resources>
