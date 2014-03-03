@@ -45,15 +45,6 @@
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="16dp"
-        android:layout_toLeftOf="@+id/button_add"
-        android:text="Button" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -63,15 +54,6 @@
         android:layout_centerHorizontal="true"
         android:text="@string/to"
         android:textSize="16sp" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_toRightOf="@+id/button_add"
-        android:text="Button" />
 
     <TextView
         android:id="@+id/address"
@@ -107,8 +89,25 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/button2"
         android:layout_alignBottom="@+id/button2"
-        android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@+id/address"
         android:text="@string/from"
         android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="21dp"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/details"
+        android:layout_toRightOf="@+id/textView2"
+        android:text="Button" />
 
 </RelativeLayout>
