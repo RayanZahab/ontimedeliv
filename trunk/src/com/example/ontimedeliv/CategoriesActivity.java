@@ -25,7 +25,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class CategoriesActivity extends Activity {
 
 	CheckboxAdapter dataAdapter = null;
-	int branchId;
+	int branchId,shopId;
 	ArrayList<Category> categories;
 	ArrayList<Item> categoryItems;
 	String url = new myURL().getURL("categories", null, 0, 30);
@@ -37,9 +37,11 @@ public class CategoriesActivity extends Activity {
 		if (getIntent().hasExtra("branchId")) {
 			Bundle extras = getIntent().getExtras();
 			try{
-			this.branchId = Integer.parseInt((String) extras.getString("branchId"));
+				this.branchId = Integer.parseInt((String) extras.getString("branchId"));
+				this.shopId = Integer.parseInt((String) extras.getString("shopId"));
 			Log.d("ray", "ray branch:" + branchId);
-			url = new myURL().getURL("categories", "branches", branchId, 30);			
+			url = new myURL().getURL("categories", "branches", branchId, 30);		
+			
 			}
 			catch(Exception e )
 			{
@@ -103,7 +105,7 @@ public class CategoriesActivity extends Activity {
 
 		for (int i = 0; i < categories.size(); i++) {
 			categoryItems.add(new Item(categories.get(i).getId(), picture,
-					categories.get(i).toString()));
+					categories.get(i).toString(),categories.get(i).isActive()));
 		}
 		// create an ArrayAdaptar from the String Array
 		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
@@ -118,11 +120,12 @@ public class CategoriesActivity extends Activity {
 					int position, long id) {
 				// When clicked, Navigate to the selected item
 				Toast.makeText(getApplicationContext(),
-						"Selected" + branchId,
+						"Selected: " + branchId,
 						Toast.LENGTH_SHORT).show();
 				Intent i = new Intent(getBaseContext(), ProductActivity.class);
 				i.putExtra("categoryId", ""+ categoryItems.get(position).getId());
 				i.putExtra("branchId", ""+ branchId);
+				i.putExtra("shopId", ""+ shopId);
 				startActivity(i);
 			}
 
@@ -157,7 +160,7 @@ public class CategoriesActivity extends Activity {
 						setDialog(dialog);
 						Toast.makeText(getApplicationContext(),
 								userInput.getText(), Toast.LENGTH_LONG).show();
-						addCategory(userInput.getText().toString());						
+						addCategory(userInput.getText().toString(),shopId);						
 					}
 				})
 				.setNegativeButton("Cancel",
@@ -175,16 +178,19 @@ public class CategoriesActivity extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
-	public void addCategory(String categoryName) {
+	public void addCategory(String categoryName, int shopId) {
 		String serverURL = new myURL().getURL("categories", null, 0, 0);
 		ProgressDialog Dialog = new ProgressDialog(this);
-		Category newCategory = new Category(0, categoryName);
+		Category newCategory = new Category(0, categoryName,true,shopId);
 		new MyJs(Dialog, "afterCreation", this, "POST", (Object) newCategory)
 				.execute(serverURL);
 	}
 	public void afterCreation(String s){
 		Intent i = new Intent(this, CategoriesActivity.class);
-		
+		i.putExtra("branchId", ""
+				+ branchId);
+
+		i.putExtra("shopId", ""+ shopId);
 		startActivity(i);
 	}
 }

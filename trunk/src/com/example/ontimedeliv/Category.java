@@ -1,12 +1,15 @@
 package com.example.ontimedeliv;
 
 public class Category {
-	private int id;
+	private int id,shopId;
 	private String name;
+	private boolean active;
 
-	public Category(int id, String name) {
+	public Category(int id, String name,boolean is_active,int shopId) {
 		this.setId(id);
 		this.setName(name);
+		this.setActive(is_active);
+		this.setShopId(shopId);
 	}
 
 	public int getId() {
@@ -28,4 +31,22 @@ public class Category {
 	{
 		return this.id+" - "+this.name;
 	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public int getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(int shopId) {
+		this.shopId = shopId;
+	}
+
+	
 }

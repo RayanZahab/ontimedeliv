@@ -31,6 +31,14 @@ public class Item {
 		this.title = title;
 		this.id=id;
 	}
+
+	public Item(int id,Bitmap image, String title, boolean selected) {
+		super();
+		this.image = image;
+		this.title = title;
+		this.id=id;
+		this.selected=selected;
+	}
 	public Item (String title){
 		super();
 		this.title = title;

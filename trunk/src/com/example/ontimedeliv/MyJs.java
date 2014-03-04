@@ -1,6 +1,8 @@
 package com.example.ontimedeliv;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -40,13 +42,14 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	}
 
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
-			String method,Object o) {
+			String method, Object o) {
 		this.returnFunction = returnFunction;
 		this.Dialog = dialog2;
 		this.mc = m;
 		this.method = method;
 		this.objectToAdd = o;
 	}
+
 	protected void onPreExecute() {
 		Dialog.setMessage("Please wait..");
 		Dialog.show();
@@ -75,14 +78,16 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			// Send POST data request
 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-			conn.setRequestMethod(this.method);
-			conn.setRequestProperty("Content-Type",
+			if(this.method=="Upload")
+				conn.setRequestMethod("POST");
+			else{
+				conn.setRequestMethod(this.method);
+				conn.setRequestProperty("Content-Type",
 					"application/json; charset=utf-8");
+			}
 			conn.addRequestProperty("auth_token", "abaed8959dedfccc79b5");
-
 			// Get the server response
-			if (this.method == "GET") {
+			if (this.method.equals("GET")) {
 				reader = new BufferedReader(new InputStreamReader(
 						conn.getInputStream()));
 				StringBuilder sb = new StringBuilder();
@@ -137,6 +142,66 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					Content = sb.toString();
 					Log.d("ray", "ray WIW : " + Content);
 				}
+			}else if (this.method.equals("Upload"))
+			{
+				Product p = (Product) this.objectToAdd;
+				String path =p.getPhoto().getUrl();
+				FileInputStream fileInputStream = new FileInputStream(path);
+                // Open a HTTP  connection to  the URL
+                conn.setDoInput(true); // Allow Inputs
+                conn.setDoOutput(true); // Allow Outputs
+                conn.setUseCaches(false); // Don't use a Cached Copy
+                conn.setRequestProperty("Connection", "Keep-Alive");
+                conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+                String lineEnd = "\r\n";
+                String twoHyphens = "--";
+                String boundary = "*****";
+                DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+       
+                //dos.writeBytes(twoHyphens + boundary + lineEnd); 
+                String formData = ""
+                  		+ " --form 'name="+p.getName()+"' --form 'shop_id="+p.getShop_id()+"' --form 'category_id="+p.getCategory().getId()+
+                  		"' --form 'price="+p.getPrice()+"' --form 'unit_id="+p.getUnit().getId()+"' --form 'description="+p.getDescription()
+                  		+ "' --form 'photo="+path+"'";
+                Log.d("rays","upload"+formData);
+                dos.writeBytes(formData);
+                //--form name="uploaded_file";filename=" + fileName + "" + lineEnd);
+                //dos.writeBytes(lineEnd);
+                int bytesRead, bytesAvailable, bufferSize;
+                byte[] buffer;
+                int maxBufferSize = 1 * 1024 * 1024; 
+                // create a buffer of  maximum size
+                bytesAvailable = fileInputStream.available(); 
+       
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                buffer = new byte[bufferSize];
+       
+                // read file and write it into form...
+                bytesRead = fileInputStream.read(buffer, 0, bufferSize);  
+                   
+                while (bytesRead > 0) {
+                     
+                  dos.write(buffer, 0, bufferSize);
+                  bytesAvailable = fileInputStream.available();
+                  bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                  bytesRead = fileInputStream.read(buffer, 0, bufferSize);   
+                   
+                 }
+       
+                // send multipart form data necesssary after file data...
+               // dos.writeBytes(lineEnd);
+               // dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+       
+                // Responses from the server (code and message)
+                int serverResponseCode = conn.getResponseCode();
+                String serverResponseMessage = conn.getResponseMessage();
+                  
+                Log.i("uploadFile", "HTTP Response is : "
+                        + serverResponseMessage + ": " + serverResponseCode);
+                fileInputStream.close();
+                dos.flush();
+                dos.close();
+                 
 			}
 		} catch (Exception ex) {
 			Error = ex.getLocalizedMessage();
