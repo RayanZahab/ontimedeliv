@@ -45,7 +45,7 @@ public class orderAdapter extends ArrayAdapter<Item> {
 
 			LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-			convertView = vi.inflate(R.layout.row_order_info, null);
+			convertView = vi.inflate(R.layout.row_old_order_info, null);
 
 			holder = new ViewHolder();
 			

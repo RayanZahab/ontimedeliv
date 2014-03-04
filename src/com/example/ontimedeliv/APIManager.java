@@ -56,7 +56,7 @@ public class APIManager {
 		return gridArray;
 
 	}
-
+	
 	public ArrayList<City> getCitiesByCountry(String cont) {
 		JSONObject jsonResponse;
 		ArrayList<City> gridArray = new ArrayList<City>();
@@ -327,6 +327,7 @@ public class APIManager {
 			if (!errorCheck(jsonResponse)) {
 				int id;
 				String name;
+				boolean is_active;
 				if (jsonResponse.has("elements")) {
 					JSONArray jsonMainNode = jsonResponse
 							.optJSONArray("elements");
@@ -338,13 +339,15 @@ public class APIManager {
 						id = Integer.parseInt(jsonChildNode.optString("id")
 								.toString());
 						name = jsonChildNode.optString("name").toString();
-						gridArray.add(new Category(id, name));
+						is_active = Boolean.valueOf(jsonChildNode.optString("is_active").toString());
+						gridArray.add(new Category(id, name,is_active,0));
 					}
 				} else {
 					id = Integer.parseInt(jsonResponse.optString("id")
 							.toString());
 					name = jsonResponse.optString("name").toString();
-					gridArray.add(new Category(id, name));
+					is_active = Boolean.valueOf(jsonResponse.optString("is_active").toString());
+					gridArray.add(new Category(id, name, is_active,0));
 				}
 
 				Log.d("OutputData Category: ", "Rayz Category" + gridArray.toString());
@@ -359,10 +362,119 @@ public class APIManager {
 		return gridArray;
 	}
 
-	public void getItemsByCategoryAndBranch(Integer category_id,
-			Integer branch_id) {
+	public Photo getPhoto(String cont) {
+		JSONObject jsonResponse;
+		String url="",thumb="";
+		Photo photo=new Photo(0,url,thumb);
+		try {
+			jsonResponse = new JSONObject(cont);
+		
+			 url =jsonResponse.optString("url").toString();
+			 thumb = jsonResponse.optString("thumb").toString();
+			photo.setUrl(url);
+			photo.setThumb(thumb);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();			
+		}
+		return photo;
+	}
+	public ArrayList<Product> getItemsByCategoryAndBranch(String cont) {
+		JSONObject jsonResponse;
+		ArrayList<Product> gridArray = new ArrayList<Product>();
+
+		try {
+			jsonResponse = new JSONObject(cont);
+			if (!errorCheck(jsonResponse)) {
+				int id;
+				boolean is_available;
+				String name,description,photo_str,category_str,unit_str,price;
+				if (jsonResponse.has("elements")) {
+					JSONArray jsonMainNode = jsonResponse
+							.optJSONArray("elements");
+					int lengthJsonArr = jsonMainNode.length();
+					for (int i = 0; i < lengthJsonArr; i++) {
+						JSONObject jsonChildNode = jsonMainNode
+								.getJSONObject(i);
+
+						id = Integer.parseInt(jsonChildNode.optString("id")
+								.toString());						
+						price = jsonChildNode.optString("price")
+										.toString();
+						name = jsonChildNode.optString("name").toString();
+						description = jsonChildNode.optString("description").toString();
+						photo_str = jsonChildNode.optString("photo").toString();
+						is_available = Boolean.valueOf(jsonChildNode.optString("is_available").toString());
+						gridArray.add(new Product(id,price,name,description,getPhoto(photo_str),new Category(0,"",true,0),new Unit(0,""),is_available,0));
+					}
+				} else {
+					id = Integer.parseInt(jsonResponse.optString("id")
+							.toString());						
+					price = jsonResponse.optString("price")
+									.toString();
+					name = jsonResponse.optString("name").toString();
+					description = jsonResponse.optString("description").toString();
+					photo_str = jsonResponse.optString("photo").toString();
+					is_available = Boolean.valueOf(jsonResponse.optString("is_available").toString());
+					gridArray.add(new Product(id,price,name,description,getPhoto(photo_str),new Category(0,"",true,0),new Unit(0,""),is_available,0));
+				}
+
+				Log.d("OutputData : ", "Rayz " + gridArray.toString());
+			} else {
+				return gridArray;
+			}
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+
+		return gridArray;
 	}
 
+	public ArrayList<Unit> getUnits(String cont) {
+
+		JSONObject jsonResponse;
+		ArrayList<Unit> gridArray = new ArrayList<Unit>();
+
+		try {
+			jsonResponse = new JSONObject(cont);
+			if (!errorCheck(jsonResponse)) {
+				int id;
+				String name;
+				if (jsonResponse.has("elements")) {
+					JSONArray jsonMainNode = jsonResponse
+							.optJSONArray("elements");
+					int lengthJsonArr = jsonMainNode.length();
+					for (int i = 0; i < lengthJsonArr; i++) {
+						JSONObject jsonChildNode = jsonMainNode
+								.getJSONObject(i);
+
+						id = Integer.parseInt(jsonChildNode.optString("id")
+								.toString());
+						name = jsonChildNode.optString("name").toString();
+						gridArray.add(new Unit(id, name));
+					}
+				} else {
+					id = Integer.parseInt(jsonResponse.optString("id")
+							.toString());
+					name = jsonResponse.optString("name").toString();
+					gridArray.add(new Unit(id, name));
+				}
+
+				Log.d("OutputData : ", "Rayz " + gridArray.toString());
+			} else {
+				return gridArray;
+			}
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+
+		return gridArray;
+
+	}
+	
+	
 	public void getItem(Integer item_id) {
 	}
 
@@ -645,6 +757,7 @@ public class APIManager {
 			JSONObject body = new JSONObject();
 			try {
 				body.put("name", c.getName());
+				body.put("shop_id", c.getShopId());
 				jsonObjSend.put("category", body);
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -662,6 +775,24 @@ public class APIManager {
 				body.put("customer_address_id", c.getBranch_id());
 				
 				jsonObjSend.put("user", body);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+		} else if (o instanceof Product) {
+			Product c = (Product) o;
+
+			JSONObject body = new JSONObject();
+			try {
+				body.put("name", c.getName());
+				body.put("price", c.getPrice());
+				body.put("description", c.getDescription());
+				body.put("shop_id", c.getShop_id());
+				body.put("category_id", c.getCategory().getId());
+				body.put("unit_id", c.getUnit().getId());
+				body.put("photo", c.getPhoto().getUrl());
+				
+				jsonObjSend.put("item", body);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

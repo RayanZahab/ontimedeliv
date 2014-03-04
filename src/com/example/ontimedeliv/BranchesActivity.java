@@ -21,7 +21,7 @@ public class BranchesActivity extends Activity {
 	MyCustomAdapter dataAdapter = null;
 	ArrayList<Branch> branches;
 	ArrayList<Item> branchesItem;
-
+	int shopId=37;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,7 +31,7 @@ public class BranchesActivity extends Activity {
 	}
 
 	public void getBranches() {
-		String serverURL = new myURL().getURL("branches", "shops", 37, 30);
+		String serverURL = new myURL().getURL("branches", "shops", shopId, 30);
 		ProgressDialog Dialog = new ProgressDialog(this);
 
 		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
@@ -69,6 +69,8 @@ public class BranchesActivity extends Activity {
 									+ "CategoriesActivity"));
 					i.putExtra("branchId", ""
 							+ branchesItem.get(position).getId());
+
+					i.putExtra("shopId", ""+ shopId);
 					startActivity(i);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block

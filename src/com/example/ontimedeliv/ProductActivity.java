@@ -22,30 +22,34 @@ import android.widget.AdapterView.OnItemClickListener;
 public class ProductActivity extends Activity {
 
 	CheckboxAdapter dataAdapter = null;
-	int categoryId, branchId;
-	ArrayList<Category> products;
+	int categoryId, branchId,shopId;
+	ArrayList<Product> products;
 	ArrayList<Item> productItems;
-	String url = new myURL().getURL("categories", null, 0, 30);
+	String url = new myURL().getURL("products", null, 0, 30);
 	DialogInterface dialog;
 
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
 		super.onCreate(savedInstancecat);
 		setContentView(R.layout.activity_product);
-		if (false && getIntent().hasExtra("categoryId")) {
+		if ( getIntent().hasExtra("categoryId")) {
 			Bundle extras = getIntent().getExtras();
 			try {
 				categoryId = Integer.parseInt((String) extras.getString("categoryId"));
 				branchId = Integer.parseInt((String) extras.getString("branchId"));
+				shopId = Integer.parseInt((String) extras.getString("shopId"));
 				Log.d("ray", "ray branch:" + categoryId);
 				
-				url = new myURL().getURL("categories", "branches", branchId, 30);//getURL("items", "branches/"+branchId+"categories", categoryId,30);
+				url =  new myURL().getURL("items", "branches/"+branchId+"/categories", categoryId,30);
+				Toast.makeText(getApplicationContext(),
+						"Selected: " + branchId,
+						Toast.LENGTH_SHORT).show();
 			} catch (Exception e) {
 
 			}
 		}
 		// Generate list View from ArrayList
-		getCategories();
+		getProducts();
 		checkButtonClick();
 
 	}
@@ -85,23 +89,24 @@ public class ProductActivity extends Activity {
 		});
 	}
 
-	public void getCategories() {
+	public void getProducts() {
 		String serverURL = this.url;
 		Log.d("rays", "ray url" + this.url);
 		ProgressDialog Dialog = new ProgressDialog(this);
 
-		new MyJs(Dialog, "setCategories", this, "GET").execute(serverURL);
+		new MyJs(Dialog, "setProducts", this, "GET").execute(serverURL);
 	}
 
-	public void setCategories(String s) {
+	public void setProducts(String s) {
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
-		products = new APIManager().getCategoriesByBranch(s);
+		products = new APIManager().getItemsByCategoryAndBranch(s);
 		productItems = new ArrayList<Item>();
 
 		for (int i = 0; i < products.size(); i++) {
 			productItems.add(new Item(products.get(i).getId(), picture,
-					products.get(i).toString()));
+					products.get(i).toString(),products.get(i).isAvailable()));
+			
 		}
 		// create an ArrayAdaptar from the String Array
 		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
@@ -139,15 +144,17 @@ public class ProductActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = new Intent(this, AddProductActivity.class);
+		intent.putExtra("shopId", ""+ shopId);
+		intent.putExtra("branchId", ""+ branchId);
+		intent.putExtra("categoryId", ""+ categoryId);
 		startActivity(intent);
-
 		return super.onOptionsItemSelected(item);
 	}
 
 	public void addCategory(String categoryName) {
 		String serverURL = new myURL().getURL("categories", null, 0, 0);
 		ProgressDialog Dialog = new ProgressDialog(this);
-		Category newCategory = new Category(0, categoryName);
+		Category newCategory = new Category(0, categoryName,true,0);
 		new MyJs(Dialog, "afterCreation", this, "POST", (Object) newCategory)
 				.execute(serverURL);
 	}
