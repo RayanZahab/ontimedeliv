@@ -18,7 +18,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
-        android:text="Client Info"
+        android:text="@string/clientinfo"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="10dp"
-        android:text="User Name" />
+        android:text="@string/username" />
 
     <TextView
         android:id="@+id/textView2"
@@ -37,12 +37,12 @@
         android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/textView3"
         android:layout_marginTop="10dp"
-        android:text="Address" />
+        android:text="@string/address" />
 
     <ListView
         android:id="@+id/oldorderlist"
         android:layout_width="fill_parent"
-        android:layout_height="210dp"
+        android:layout_height="260dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="8dp"
@@ -65,7 +65,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_alignLeft="@+id/orderbuttons"
 	    android:layout_below="@+id/oldorderlist"
-	    android:text="Total"
+	    android:text="@string/total"
 	    android:textSize="19sp" />
 
 <RelativeLayout
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/preparer_spinner"
         android:layout_alignLeft="@+id/preparer_spinner"
-        android:text="Preparer:" />
+        android:text="@string/preparerguy" />
 
     <TextView
         android:id="@+id/textView6"
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Delivery Guy:" />
+        android:text="@string/deliveryguy" />
 
     <TextView
         android:id="@+id/delivery_Spinner"

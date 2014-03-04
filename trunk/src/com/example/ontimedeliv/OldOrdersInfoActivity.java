@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.widget.ListView;
 
 public class OldOrdersInfoActivity extends Activity {
-	orderAdapter dataAdapter;
+	oldorderAdapter dataAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class OldOrdersInfoActivity extends Activity {
 		orderitem.add(_Item);
 
 		// create an ArrayAdaptar from the String Array
-		dataAdapter = new orderAdapter(this, R.layout.row_old_order_info,
+		dataAdapter = new oldorderAdapter(this, R.layout.row_old_order_info,
 				orderitem);
 		ListView listView = (ListView) findViewById(R.id.oldorderlist);
 		// Assign adapter to ListView

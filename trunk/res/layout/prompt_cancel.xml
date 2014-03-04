@@ -8,7 +8,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reason:"
+        android:text="@string/reason"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -16,6 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Reason" />
+        android:hint="@string/reason" />
 
 </LinearLayout>
