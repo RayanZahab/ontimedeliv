@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="14dp"
         android:layout_marginTop="14dp"
-        android:text="Address"
+        android:text="@string/address"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_alignLeft="@+id/useraddress"
         android:layout_below="@+id/useraddress"
         android:layout_marginTop="14dp"
-        android:text="X items" />
+        android:text="@string/item" />
 
     <TextView
         android:id="@+id/totalamount"
@@ -31,7 +31,7 @@
         android:layout_alignBaseline="@+id/numbofitems"
         android:layout_alignBottom="@+id/numbofitems"
         android:layout_marginLeft="110dp"
-        android:text="Total $" />
+        android:text="@string/total" />
 
     <RelativeLayout
         android:id="@+id/newButtons"

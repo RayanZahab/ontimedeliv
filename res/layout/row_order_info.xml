@@ -7,7 +7,7 @@
         android:id="@+id/itemname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CheckBox" />
+        android:text="@string/checkbox" />
 
     <EditText
         android:id="@+id/quantity"
@@ -23,9 +23,9 @@
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/checkBox1"
-        android:layout_alignBottom="@+id/checkBox1"
+        android:layout_alignBaseline="@+id/quantity"
+        android:layout_alignBottom="@+id/quantity"
         android:layout_alignParentRight="true"
-        android:text="TextView" />
+        android:text="@string/textview" />
 
 </RelativeLayout>
