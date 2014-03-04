@@ -18,7 +18,7 @@ public class AddBranchActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_branch);
 
-		from = (Button) findViewById(R.id.button2);
+		from = (Button) findViewById(R.id.fromBtn);
 		from.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				TimePickerDialog tpd = new TimePickerDialog(
@@ -37,7 +37,7 @@ public class AddBranchActivity extends Activity {
 
 		});
 
-		to = (Button) findViewById(R.id.button1);
+		to = (Button) findViewById(R.id.toBtn);
 		to.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				TimePickerDialog tpd = new TimePickerDialog(

@@ -72,6 +72,7 @@
     <string name="select_city">Select City</string>
     <string name="select_area">Select Area</string>
     <string name="select">Confirm Selection</string>
+    <string name="pick">Pick</string>
     <string name="lblCountry">Select Country</string>
     <string name="lblAdd">Add New Mobile Name</string>
     <string name="btnAdd">Add Name</string>
