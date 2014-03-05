@@ -72,7 +72,7 @@ public class AddProductActivity extends Activity {
 		addProduct(p);
 	}
 	public void addProduct(Product p) {
-		String serverURL = "http://enigmatic-springs-5176.herokuapp.com/api/v1/items";//new myURL().getURL("items", null, 0, 0);
+		String serverURL =new myURL().getURL("items", null, 0, 0);// "http://www.androidexample.com/media/UploadToServer.php";
 		ProgressDialog Dialog = new ProgressDialog(this);
 		
 		new MyJs(Dialog, "afterCreation", this, "Upload", (Object) p).execute(serverURL);
@@ -84,6 +84,7 @@ public class AddProductActivity extends Activity {
 		i.putExtra("shopId", ""+ shopId);
 		startActivity(i);*/
 	}
+	
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    super.onActivityResult(requestCode, resultCode, data);
