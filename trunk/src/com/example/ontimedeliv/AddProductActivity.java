@@ -78,11 +78,11 @@ public class AddProductActivity extends Activity {
 		new MyJs(Dialog, "afterCreation", this, "Upload", (Object) p).execute(serverURL);
 	}
 	public void afterCreation(String s){
-		Intent i = new Intent(this, ProductActivity.class);
+		/*Intent i = new Intent(this, ProductActivity.class);
 		i.putExtra("categoryId", ""+categoryId);
 		i.putExtra("branchId", ""+ branchId);
 		i.putExtra("shopId", ""+ shopId);
-		startActivity(i);
+		startActivity(i);*/
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -78,8 +78,11 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			// Send POST data request
 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			if(this.method=="Upload")
+			if(this.method.equals("Upload"))
+			{
 				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Content-Type", "multipart/form-data; charset=UTF-8");
+			}
 			else{
 				conn.setRequestMethod(this.method);
 				conn.setRequestProperty("Content-Type",
@@ -100,7 +103,9 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				}
 				Content = sb.toString();
 				Log.d("ray", "ray cont: " + Content);
-			} else if (this.method == "POST") {
+			} 
+			else if (this.method.equals("POST")) 
+			{
 				conn.addRequestProperty("Accept", "application/json");
 				conn.addRequestProperty("Accept-Encoding", "gzip");
 				conn.addRequestProperty("Cache-Control",
@@ -153,44 +158,20 @@ public class MyJs extends AsyncTask<String, Void, Void> {
                 conn.setUseCaches(false); // Don't use a Cached Copy
                 conn.setRequestProperty("Connection", "Keep-Alive");
                 conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+                
                 String lineEnd = "\r\n";
                 String twoHyphens = "--";
                 String boundary = "*****";
                 DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
        
                 //dos.writeBytes(twoHyphens + boundary + lineEnd); 
-                String formData = ""
-                  		+ " --form 'name="+p.getName()+"' --form 'shop_id="+p.getShop_id()+"' --form 'category_id="+p.getCategory().getId()+
+                String formData = 
+ " --form 'name="+p.getName()+"' --form 'shop_id="+p.getShop_id()+"' --form 'category_id="+p.getCategory().getId()+
                   		"' --form 'price="+p.getPrice()+"' --form 'unit_id="+p.getUnit().getId()+"' --form 'description="+p.getDescription()
-                  		+ "' --form 'photo="+path+"'";
+                  		+ "' --form 'photo=@"+path+"'";
                 Log.d("rays","upload"+formData);
                 dos.writeBytes(formData);
-                //--form name="uploaded_file";filename=" + fileName + "" + lineEnd);
-                //dos.writeBytes(lineEnd);
-                int bytesRead, bytesAvailable, bufferSize;
-                byte[] buffer;
-                int maxBufferSize = 1 * 1024 * 1024; 
-                // create a buffer of  maximum size
-                bytesAvailable = fileInputStream.available(); 
-       
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                buffer = new byte[bufferSize];
-       
-                // read file and write it into form...
-                bytesRead = fileInputStream.read(buffer, 0, bufferSize);  
-                   
-                while (bytesRead > 0) {
-                     
-                  dos.write(buffer, 0, bufferSize);
-                  bytesAvailable = fileInputStream.available();
-                  bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                  bytesRead = fileInputStream.read(buffer, 0, bufferSize);   
-                   
-                 }
-       
-                // send multipart form data necesssary after file data...
-               // dos.writeBytes(lineEnd);
-               // dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
        
                 // Responses from the server (code and message)
                 int serverResponseCode = conn.getResponseCode();
