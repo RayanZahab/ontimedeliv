@@ -56,7 +56,6 @@ public class SelectionActivity extends Activity implements
 		} else if (sp1 instanceof City) {
 			getAreas(((City) sp1).getId());
 		}
-
 	}
 
 	@Override

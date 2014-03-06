@@ -5,6 +5,10 @@ public class Area {
 	private String name;
 	private Integer city_id;
 
+	public Area(int id)
+	{
+		this.id=id;
+	}
 	public Area(int id, int city_id,String name) {
 		this.id = id;
 		this.name = name;

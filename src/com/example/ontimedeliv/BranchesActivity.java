@@ -20,12 +20,15 @@ public class BranchesActivity extends Activity {
 
 	MyCustomAdapter dataAdapter = null;
 	ArrayList<Branch> branches;
-	ArrayList<Item> branchesItem;
-	int shopId=37;
+	ArrayList<Item> branchesItem;	
+	int shopId;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_branches);
+		Bundle extras = getIntent().getExtras();
+		shopId=extras.getInt("shopId");
 		getBranches();
 
 	}
@@ -91,6 +94,7 @@ public class BranchesActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = new Intent(this, AddBranchActivity.class);
+		intent.putExtra("shopId", 37);
 		startActivity(intent);
 
 		return super.onOptionsItemSelected(item);

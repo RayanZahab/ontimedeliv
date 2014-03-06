@@ -6,21 +6,24 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class AddBranchActivity extends Activity  implements
 OnItemSelectedListener {
 
 	Button from, to;
-	int mHour, mMinute;
+	int fmHour, fmMinute, tHour, tMinute, shopId;
 	ArrayList<Country> countries = new ArrayList<Country>();
 	ArrayList<City> cities = new ArrayList<City>();
 	ArrayList<Area> areas = new ArrayList<Area>();
@@ -30,64 +33,65 @@ OnItemSelectedListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_branch);
-		
+		Bundle extras = getIntent().getExtras();
+		shopId=extras.getInt("shopId");
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);
 		areasSp = (Spinner) findViewById(R.id.areasSP);
+		
 		
 		getCountries();
 		from = (Button) findViewById(R.id.fromBtn);
-		from.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				TimePickerDialog tpd = new TimePickerDialog(
-						AddBranchActivity.this,
-						new TimePickerDialog.OnTimeSetListener() {
-
-							@Override
-							public void onTimeSet(TimePicker view,
-									int hourOfDay, int minute) {
-								from.setText(hourOfDay + ":" + minute);
-							}
-						}, mHour, mMinute, false);
-				tpd.show();
-
-			}
-
-		});
-
 		to = (Button) findViewById(R.id.toBtn);
-		to.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				TimePickerDialog tpd = new TimePickerDialog(
-						AddBranchActivity.this,
-						new TimePickerDialog.OnTimeSetListener() {
+	}
+	public void from(View view)
+	{
+		TimePickerDialog tpd = new TimePickerDialog(
+				AddBranchActivity.this,
+				new TimePickerDialog.OnTimeSetListener() {
 
-							@Override
-							public void onTimeSet(TimePicker view,
-									int hourOfDay, int minute) {
-								to.setText(hourOfDay + ":" + minute);
-							}
-						}, mHour, mMinute, false);
-				tpd.show();
+					@Override
+					public void onTimeSet(TimePicker view,
+							int hourOfDay, int minute) {
+						from.setText(hourOfDay + ":" + minute);
+					}
+				}, fmHour, fmMinute, false);
+		tpd.show();
+	}
+	public void to(View view)
+	{
+		TimePickerDialog tpd = new TimePickerDialog(
+				AddBranchActivity.this,
+				new TimePickerDialog.OnTimeSetListener() {
 
-			}
-
-		});
+					@Override
+					public void onTimeSet(TimePicker view,
+							int hourOfDay, int minute) {
+						to.setText(hourOfDay + ":" + minute);
+					}
+				}, tHour, tMinute, false);
+		tpd.show();
 	}
 	public void addBranch(View v)
 	{
-		countrySp = (Spinner) findViewById(R.id.countriesSP);
-		citySp = (Spinner) findViewById(R.id.citiesSP);
 		areasSp = (Spinner) findViewById(R.id.areasSP);
-		
-		int selectedCountry =(int) countrySp.getSelectedItemId();
-		int selectedCity =(int)citySp.getSelectedItemId();
-		int selectedArea =(int)areasSp.getSelectedItemId();
-		
-		ArrayList<Country> countries = new ArrayList<Country>();
-		ArrayList<City> cities = new ArrayList<City>();
-		String type ="Country";
-		Button addButton ;
+		int selectedArea =((Area)areasSp.getSelectedItem()).getId();
+		String name=((EditText) findViewById(R.id.editTextAddName) ).getText().toString();
+		String desc=((EditText) findViewById(R.id.addDesc) ).getText().toString();
+		String address=((EditText) findViewById(R.id.editTextAddress) ).getText().toString();
+		String estimation=((EditText) findViewById(R.id.estimation)).getText().toString();
+		String serverURL = new myURL().getURL("branches", null, 0, 30);
+		ProgressDialog Dialog = new ProgressDialog(this);
+		Branch newBranch = new Branch(0,name, desc, 
+				new Area(selectedArea), address, 1, new Shop(shopId), "0", "0", 0, 0, estimation);
+		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newBranch)
+				.execute(serverURL);
+	}
+	public void backToSelection(String s)
+	{
+		Intent intent = new Intent(this, BranchesActivity.class);
+		intent.putExtra("shopId", 37);
+		startActivity(intent);
 	}
 
 	@Override

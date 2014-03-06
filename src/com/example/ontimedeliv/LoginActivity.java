@@ -52,6 +52,7 @@ public class LoginActivity extends Activity implements OnItemSelectedListener {
 		if (username.getText().toString().equals("admin")
 				&& password.getText().toString().equals("admin")) {
 			Intent i = new Intent(this, NavigationActivity.class);
+			i.putExtra("shopId", 37);
 			startActivity(i);
 		} else {
 			Toast.makeText(getApplicationContext(), "Wrong Credentials",

@@ -7,6 +7,10 @@ public class Shop {
 	private int is_available;
 	private Business business;
 	
+	public Shop(Integer id)
+	{
+		this.setId(id);
+	}
 	public Shop(Integer id, String name,String description,int is_available,Business business)
 	{
 		this.setId(id);
