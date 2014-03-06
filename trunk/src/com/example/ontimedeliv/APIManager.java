@@ -797,6 +797,25 @@ public class APIManager {
 				e.printStackTrace();
 			}
 
+		} else if (o instanceof Branch) {
+			Branch c = (Branch) o;
+
+			JSONObject body = new JSONObject();
+			try {
+				body.put("name", c.getName());
+				body.put("address", c.getAddress());
+				body.put("description", c.getDescription());
+				body.put("shop_id", c.getShop().getId());
+				body.put("area_id", c.getArea().getId());
+				body.put("long", c.getLongitude());
+				body.put("lat", c.getLatitude());
+				body.put("estimation_time", c.getEstimation_time());
+				
+				jsonObjSend.put("branch", body);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
 		} else if (o instanceof Role) {
 			
 		}

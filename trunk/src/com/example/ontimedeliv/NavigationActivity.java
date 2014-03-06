@@ -1,6 +1,7 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -65,6 +66,7 @@ public class NavigationActivity extends Activity {
 					Intent i;
 					try {
 						i = new Intent(getBaseContext(), Class.forName(getPackageName() + "." + title + "Activity"));
+						i.putExtra("shopId", 37);
 						startActivity(i);	
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -82,60 +84,5 @@ public class NavigationActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.navigation, menu);
 		return true;
-	}
-
-	class MyCustomAdapter extends ArrayAdapter<Item> {
-
-		private ArrayList<Item> navList;
-
-		public MyCustomAdapter(Context context, int textViewResourceId, ArrayList<Item> navList) {
-			super(context, textViewResourceId, navList);
-			this.navList = new ArrayList<Item>();
-			this.navList.addAll(navList);
-		}
-
-		class ViewHolder {
-			TextView name;
-			Bitmap picture;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-
-			ViewHolder holder = null;
-
-			Log.v("ConvertView", String.valueOf(position));
-
-			if (convertView == null) {
-
-				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-				convertView = vi.inflate(R.layout.categories_list, null);
-
-				holder = new ViewHolder();
-				View v = convertView.findViewById(R.id.picture);
-				v.setDrawingCacheEnabled(true);
-				
-				v.buildDrawingCache();
-				
-				Bitmap picture = v.getDrawingCache();
-				holder.name = (TextView) convertView.findViewById(R.id.name);
-				holder.picture = picture;
-
-				convertView.setTag(holder);
-
-			} else {
-				holder = (ViewHolder) convertView.getTag();
-			}
-
-			Item navitem = navList.get(position);
-
-			
-			holder.name.setText(navitem.getTitle());
-
-			holder.name.setTag(navitem);
-
-			return convertView;
-		}
 	}
 }

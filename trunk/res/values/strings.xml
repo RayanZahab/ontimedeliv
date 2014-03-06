@@ -44,6 +44,7 @@
     <string name="item">Item</string>
     <string name="textview">TextView</string>
     <string name="checkbox">CheckBox</string>
+    <string name="estimation">Estimated Time</string>
     
 
     <string-array name="acc_type">

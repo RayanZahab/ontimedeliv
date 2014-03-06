@@ -1,114 +1,112 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/address"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/branch_name"
-        android:layout_marginTop="31dp"
-        android:text="@string/address"
-        android:textSize="16sp" />
+        android:orientation="vertical" >
 
-        <Spinner
-            android:id="@+id/countriesSP"
-            android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editTextAddress"
-            android:layout_marginRight="8dip"
-            android:layout_marginTop="5dip"
-            android:layout_toRightOf="@+id/openH"
-            android:entries="@array/acc_type" />
+            android:layout_below="@+id/branch_name"
+            android:layout_marginTop="31dp"
+            android:text="@string/address"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/from"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/fromBtn"
-        android:layout_alignBottom="@+id/fromBtn"
-        android:layout_alignLeft="@+id/address"
-        android:text="@string/from"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/fromBtn"
+            android:layout_alignBottom="@+id/fromBtn"
+            android:layout_alignLeft="@+id/address"
+            android:text="@string/from"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/openH"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="14dp"
-        android:text="@string/opening_hours"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/openH"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="14dp"
+            android:text="@string/opening_hours"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-     <TextView
-         android:id="@+id/branch_name"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentLeft="true"
-         android:layout_below="@+id/fromBtn"
-         android:layout_marginTop="31dp"
-         android:text="@string/name"
-         android:textSize="16sp" />
+        <TextView
+            android:id="@+id/branch_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/fromBtn"
+            android:layout_marginTop="31dp"
+            android:text="@string/name"
+            android:textSize="16sp" />
 
-     <EditText
-         android:id="@+id/editTextAddName"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignBaseline="@+id/branch_name"
-         android:layout_alignBottom="@+id/branch_name"
-         android:layout_alignParentRight="true"
-         android:ems="10"
-         android:inputType="textPostalAddress" />
+        <EditText
+            android:id="@+id/editTextAddName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/branch_name"
+            android:layout_alignBottom="@+id/branch_name"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:inputType="textPostalAddress" />
 
-     <EditText
-         android:id="@+id/editTextAddress"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignBaseline="@+id/address"
-         android:layout_alignBottom="@+id/address"
-         android:layout_alignParentRight="true"
-         android:ems="10"
-         android:inputType="text" />
+        <EditText
+            android:id="@+id/editTextAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/address"
+            android:layout_alignBottom="@+id/address"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:inputType="text" />
 
-     <Button
-         android:id="@+id/button_add"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentBottom="true"
-         android:layout_alignParentLeft="true"
-         android:layout_alignParentRight="true"
-         android:text="@string/add" />
+        <Button
+            android:id="@+id/button_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/areasSP"
+            android:onClick="addBranch"
+            android:text="@string/add" />
 
-     <Button
-         android:id="@+id/fromBtn"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_below="@+id/openH"
-         android:layout_marginTop="29dp"
-         android:layout_toRightOf="@+id/from"
-         android:minWidth="120sp"
-         android:text="@string/pick" />
+        <Button
+            android:id="@+id/fromBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/openH"
+            android:layout_marginTop="29dp"
+            android:layout_toRightOf="@+id/from"
+            android:minWidth="120sp"
+            android:onClick="from"
+            android:text="@string/pick" />
 
-     <Button
-         android:id="@+id/toBtn"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_above="@+id/branch_name"
-         android:layout_alignParentRight="true"
-         android:minWidth="120sp"
-         android:text="@string/pick" />
+        <Button
+            android:id="@+id/toBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/branch_name"
+            android:layout_alignParentRight="true"
+            android:minWidth="120sp"
+            android:onClick="to"
+            android:text="@string/pick" />
 
-     <TextView
-         android:id="@+id/toTxt"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignBaseline="@+id/fromBtn"
-         android:layout_alignBottom="@+id/fromBtn"
-         android:layout_toRightOf="@+id/fromBtn"
-         android:text="@string/to"
-         android:textSize="16sp" />
+        <TextView
+            android:id="@+id/toTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/fromBtn"
+            android:layout_alignBottom="@+id/fromBtn"
+            android:layout_toRightOf="@+id/fromBtn"
+            android:text="@string/to"
+            android:textSize="16sp" />
 
         <!-- Spinner Dropdown -->
 
@@ -120,16 +118,6 @@
             android:layout_below="@+id/countriesSP"
             android:layout_marginRight="8dip"
             android:layout_marginTop="5dip" />
-
-        <TextView
-            android:id="@+id/citiesLabel"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/citiesSP"
-            android:layout_toLeftOf="@+id/editTextAddress"
-            android:padding="8dip"
-            android:text="@string/select_city"
-            android:textSize="16sp" />
 
         <!-- Spinner Dropdown -->
 
@@ -143,24 +131,86 @@
             android:layout_marginTop="5dip" />
 
         <TextView
+            android:id="@+id/countryLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/openH"
+            android:layout_alignTop="@+id/countriesSP"
+            android:padding="18dp"
+            android:text="@string/select_country"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/estimation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/editTextAddress"
+            android:ems="10"
+            android:inputType="text" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
             android:id="@+id/areaLabel"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/areasSP"
             android:layout_toLeftOf="@+id/areasSP"
-            android:layout_alignBottom="@+id/areasSP"
             android:padding="8dip"
             android:text="@string/select_area"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/countryLabel"
+            android:id="@+id/citiesLabel"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/countriesSP"
-            android:layout_toLeftOf="@+id/countriesSP"
-            android:padding="18dp"
-            android:text="@string/select_country"
+            android:layout_below="@+id/countryLabel"
+            android:layout_toLeftOf="@+id/estimation"
+            android:padding="8dip"
+            android:text="@string/select_city"
             android:textSize="16sp" />
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/addDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/estimation"
+            android:ems="10"
+            android:inputType="text" />
+
+        <Spinner
+            android:id="@+id/countriesSP"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/addDesc"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/addDesc"
+            android:entries="@array/acc_type" />
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/addDesc"
+            android:layout_alignBottom="@+id/addDesc"
+            android:layout_alignParentLeft="true"
+            android:text="@string/description"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/estimation"
+            android:layout_alignParentLeft="true"
+            android:text="@string/estimation"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+</ScrollView>
