@@ -7,6 +7,7 @@
         android:id="@+id/itemname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/mytextview"
         android:text="@string/checkbox" />
 
     <EditText
@@ -17,12 +18,14 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="78dp"
         android:ems="10"
+        android:background="@drawable/myedittext"
         android:inputType="number" />
 
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/mytextview"
         android:layout_alignBaseline="@+id/quantity"
         android:layout_alignBottom="@+id/quantity"
         android:layout_alignParentRight="true"

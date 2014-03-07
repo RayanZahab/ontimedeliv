@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:focusable="false"
+        style="@style/mytextview"
         android:focusableInTouchMode="false"
         android:text="checkbox"
         android:textColor="#B40404" />

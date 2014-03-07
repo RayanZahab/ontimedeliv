@@ -12,6 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="14dp"
         android:layout_marginTop="14dp"
+        style="@style/mytextview"
         android:text="@string/address"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/useraddress"
         android:layout_below="@+id/useraddress"
+        style="@style/mytextview"
         android:layout_marginTop="14dp"
         android:text="@string/item" />
 
@@ -31,6 +33,7 @@
         android:layout_alignBaseline="@+id/numbofitems"
         android:layout_alignBottom="@+id/numbofitems"
         android:layout_marginLeft="110dp"
+        style="@style/mytextview"
         android:text="@string/total" />
 
     <RelativeLayout
