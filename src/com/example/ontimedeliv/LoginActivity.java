@@ -28,6 +28,7 @@ public class LoginActivity extends Activity implements OnItemSelectedListener {
 		username = (EditText) findViewById(R.id.username);
 		password = (EditText) findViewById(R.id.password);
 		language = (Spinner) findViewById(R.id.languageSP);
+		language.setBackgroundResource(R.drawable.myspinner);
 		//language.setOnItemSelectedListener(this);
 	}
 

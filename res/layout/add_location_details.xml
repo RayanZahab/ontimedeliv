@@ -1,11 +1,23 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"    
     xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="fill_parent"
+	android:background="@drawable/myred" 
+	android:fillViewport="true"    
+	android:paddingBottom="@dimen/activity_vertical_margin"    
+	android:paddingLeft="@dimen/activity_horizontal_margin"    
+	android:paddingRight="@dimen/activity_horizontal_margin"    
+	android:paddingTop="@dimen/activity_horizontal_margin"
+	    >
+
+<RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/myborder"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
+    android:paddingTop="?android:attr/actionBarSize" >
 
     <RelativeLayout
         android:id="@+id/addCountryView"
@@ -14,8 +26,7 @@
         android:layout_alignParentLeft="true"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin" >
+        android:paddingRight="@dimen/activity_horizontal_margin" >
 
         <TextView
             android:id="@+id/nameLabel"
@@ -23,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="50dp"
+            style="@style/mytextview"
             android:text="@string/country_name"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -34,6 +46,7 @@
             android:layout_marginLeft="32dp"
             android:layout_toRightOf="@+id/nameLabel"
             android:ems="10"
+            android:background="@drawable/myedittext"
             android:inputType="text" >
 
             <requestFocus />
@@ -56,6 +69,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="8dip"
+            style="@style/mytextview"
             android:text="@string/select_country" />
 
         <Spinner
@@ -64,6 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/countryLabel"
             android:layout_marginLeft="8dip"
+            android:background="@drawable/myspinner"
             android:layout_marginRight="8dip"
             android:entries="@array/acc_type" />
 
@@ -79,6 +94,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dip"
+                style="@style/mytextview"
                 android:text="@string/select_city" />
 
             <!-- Spinner Dropdown -->
@@ -89,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/citiesLabel"
                 android:layout_marginLeft="8dip"
+                android:background="@drawable/myspinner"
                 android:layout_marginRight="8dip"
                 android:layout_marginTop="5dip" />
         </RelativeLayout>
@@ -100,7 +117,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/mybutton"
         android:onClick="add"
-        android:text="add" />
+        android:text="add"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>
+</ScrollView>

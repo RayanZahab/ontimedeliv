@@ -1,11 +1,22 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/myred"  
+    android:fillViewport="true"   
+	android:paddingBottom="@dimen/activity_vertical_margin"    
+	android:paddingLeft="@dimen/activity_horizontal_margin"    
+	android:paddingRight="@dimen/activity_horizontal_margin"    
+	android:paddingTop="@dimen/activity_horizontal_margin"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/myborder"
+	    android:paddingBottom="@dimen/activity_vertical_margin"
+	    android:paddingLeft="@dimen/activity_horizontal_margin"
+	    android:paddingRight="@dimen/activity_horizontal_margin"
+	    android:paddingTop="?android:attr/actionBarSize"
         android:orientation="vertical" >
 
         <TextView
@@ -13,6 +24,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="8dip"
+            style="@style/mytextview"
             android:text="@string/select_business" />
 
         <!-- Spinner Dropdown -->
@@ -21,6 +33,7 @@
             android:id="@+id/businessSP"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/myspinner"
             android:layout_below="@+id/businessLabel"
             android:layout_marginLeft="8dip"
             android:layout_marginRight="8dip"
@@ -34,6 +47,8 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/businessSP"
             android:src="@drawable/add"
+            android:background="@drawable/mybutton"
+			android:textColor="#ffffff"
             android:onClick="add" />
         <TextView
             android:id="@+id/countryLabel"
@@ -41,6 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/addBusiness"
             android:padding="8dip"
+            style="@style/mytextview"
             android:text="@string/select_country" />
 
         <Spinner
@@ -51,6 +67,7 @@
             android:layout_marginLeft="8dip"
             android:layout_marginRight="8dip"
             android:layout_marginTop="5dip"
+            android:background="@drawable/myspinner"
             android:entries="@array/acc_type" />
 
         <ImageButton
@@ -60,6 +77,8 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/countriesSP"
             android:src="@drawable/add"
+            android:background="@drawable/mybutton"
+			android:textColor="#ffffff"
             android:onClick="add" />
 
         <!-- Select Label -->
@@ -70,6 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/addCountry"
             android:padding="8dip"
+            style="@style/mytextview"
             android:text="@string/select_city" />
 
         <!-- Spinner Dropdown -->
@@ -80,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/citiesLabel"
             android:layout_marginLeft="8dip"
+            android:background="@drawable/myspinner"
             android:layout_marginRight="8dip"
             android:layout_marginTop="5dip" />
 
@@ -90,6 +111,8 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/citiesSP"
             android:src="@drawable/add"
+            android:background="@drawable/mybutton"
+			android:textColor="#ffffff"
             android:onClick="add" />
         <!-- Select Label -->
 
@@ -99,6 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/addCity"
             android:padding="8dip"
+            style="@style/mytextview"
             android:text="@string/select_area" />
 
         <!-- Spinner Dropdown -->
@@ -109,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/areaLabel"
             android:layout_marginLeft="8dip"
+            android:background="@drawable/myspinner"
             android:layout_marginRight="8dip"
             android:layout_marginTop="5dip" />
 
@@ -119,6 +144,8 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/areasSP"
             android:src="@drawable/add"
+            android:background="@drawable/mybutton"
+			android:textColor="#ffffff"
             android:onClick="add" />
 
         <Button
@@ -127,6 +154,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/addArea"
             android:onClick="select"
+            android:background="@drawable/mybutton"
+			android:textColor="#ffffff"
             android:text="@string/select"/>
     </RelativeLayout>
 

@@ -15,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="23dp"
+        style="@style/mytextview"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/picture"
         android:textSize="16sp" />
@@ -23,6 +24,7 @@
         android:id="@+id/role"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/mytextview"
         android:layout_alignBottom="@+id/picture"
         android:layout_alignLeft="@+id/name"
         android:text="@string/delivery" />

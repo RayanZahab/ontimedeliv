@@ -13,6 +13,7 @@
         android:layout_marginLeft="14dp"
         android:layout_marginTop="14dp"
         android:text="@string/address"
+        style="@style/mytextview"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -22,6 +23,7 @@
         android:layout_alignLeft="@+id/useraddress"
         android:layout_below="@+id/useraddress"
         android:layout_marginTop="14dp"
+        style="@style/mytextview"
         android:text="@string/item" />
 
     <TextView
@@ -31,6 +33,7 @@
         android:layout_alignBaseline="@+id/numbofitems"
         android:layout_alignBottom="@+id/numbofitems"
         android:layout_marginLeft="110dp"
+        style="@style/mytextview"
         android:text="@string/total" />
 
 </RelativeLayout>

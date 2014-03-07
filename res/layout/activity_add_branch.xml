@@ -1,135 +1,176 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/myred"
+    android:fillViewport="true"     
+    android:paddingBottom="@dimen/activity_vertical_margin"    
+    android:paddingLeft="@dimen/activity_horizontal_margin"    
+    android:paddingRight="@dimen/activity_horizontal_margin"    
+    android:paddingTop="@dimen/activity_horizontal_margin"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/myborder"
+        android:paddingTop="?android:attr/actionBarSize">
 
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/branch_name"
-            android:layout_marginTop="31dp"
-            android:text="@string/address"
-            android:textSize="16sp" />
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/branch_name"
+        style="@style/mytextview"
+        android:layout_marginTop="31dp"
+        android:text="@string/address"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/from"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/fromBtn"
-            android:layout_alignBottom="@+id/fromBtn"
-            android:layout_alignLeft="@+id/address"
-            android:text="@string/from"
-            android:textSize="16sp" />
+    <TextView
+        android:id="@+id/from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/mytextview"
+        android:layout_alignBaseline="@+id/fromBtn"
+        android:layout_alignBottom="@+id/fromBtn"
+        android:layout_alignLeft="@+id/address"
+        android:text="@string/from"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/openH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="14dp"
-            android:text="@string/opening_hours"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <TextView
-            android:id="@+id/branch_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/fromBtn"
-            android:layout_marginTop="31dp"
-            android:text="@string/name"
-            android:textSize="16sp" />
+    <TextView
+        android:id="@+id/openH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/mytextview"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
+        android:text="@string/opening_hours"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <EditText
-            android:id="@+id/editTextAddName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/branch_name"
-            android:layout_alignBottom="@+id/branch_name"
-            android:layout_alignParentRight="true"
-            android:ems="10"
-            android:inputType="textPostalAddress" />
+     <TextView
+         android:id="@+id/branch_name"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         style="@style/mytextview"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/fromBtn"
+         android:layout_marginTop="31dp"
+         android:text="@string/name"
+         android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/editTextAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/address"
-            android:layout_alignBottom="@+id/address"
-            android:layout_alignParentRight="true"
-            android:ems="10"
-            android:inputType="text" />
+     <EditText
+         android:id="@+id/editTextAddName"
+         android:layout_width="wrap_content"
+         android:background="@drawable/myedittext"
+         android:layout_height="35dp"
+         android:layout_alignBaseline="@+id/branch_name"
+         android:layout_alignBottom="@+id/branch_name"
+         android:layout_alignParentRight="true"
+         android:ems="10"
+         android:inputType="textPostalAddress" />
 
-        <Button
-            android:id="@+id/button_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/areasSP"
-            android:onClick="addBranch"
-            android:text="@string/add" />
+     <EditText
+         android:id="@+id/editTextAddress"
+         android:layout_width="wrap_content"
+         android:layout_height="35dp"
+         android:background="@drawable/myedittext"
+         android:layout_alignBaseline="@+id/address"
+         android:layout_alignBottom="@+id/address"
+         android:layout_alignParentRight="true"
+         android:ems="10"
+         android:inputType="text" />
+     <Button
+         android:id="@+id/fromBtn"
+         android:layout_width="70dp"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/openH"
+         android:layout_marginTop="29dp"
+         android:layout_toRightOf="@+id/from"
+         android:background="@drawable/mybutton"
+         android:minWidth="120sp"
+         android:text="@string/pick"
+         android:textColor="#ffffff" />
+     <Button
+         android:id="@+id/toBtn"
+         android:layout_width="70dp"
+         android:layout_height="wrap_content"
+         android:layout_above="@+id/branch_name"
+         android:layout_toRightOf="@+id/toTxt"
+         android:background="@drawable/mybutton"
+         android:minWidth="120sp"
+         android:text="@string/pick"
+         android:textColor="#ffffff" />
 
-        <Button
-            android:id="@+id/fromBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/openH"
-            android:layout_marginTop="29dp"
-            android:layout_toRightOf="@+id/from"
-            android:minWidth="120sp"
-            android:onClick="from"
-            android:text="@string/pick" />
-
-        <Button
-            android:id="@+id/toBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/branch_name"
-            android:layout_alignParentRight="true"
-            android:minWidth="120sp"
-            android:onClick="to"
-            android:text="@string/pick" />
-
-        <TextView
-            android:id="@+id/toTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/fromBtn"
-            android:layout_alignBottom="@+id/fromBtn"
-            android:layout_toRightOf="@+id/fromBtn"
-            android:text="@string/to"
-            android:textSize="16sp" />
+     <TextView
+         android:id="@+id/toTxt"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         style="@style/mytextview"
+         android:layout_alignBaseline="@+id/fromBtn"
+         android:layout_alignBottom="@+id/fromBtn"
+         android:layout_toRightOf="@+id/fromBtn"
+         android:text="@string/to"
+         android:textSize="16sp" />
 
         <!-- Spinner Dropdown -->
+
+        <TextView
+            android:id="@+id/countryLabel"
+            style="@style/mytextview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/countriesSP"
+            android:layout_alignLeft="@+id/address"
+            android:layout_alignTop="@+id/countriesSP"
+            android:layout_toLeftOf="@+id/countriesSP"
+            android:padding="18dp"
+            android:text="@string/select_country"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/citiesLabel"
+            style="@style/mytextview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/citiesSP"
+            android:layout_marginBottom="16dp"
+            android:layout_toLeftOf="@+id/citiesSP"
+            android:padding="8dip"
+            android:text="@string/select_city"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/areaLabel"
+            style="@style/mytextview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignTop="@+id/areasSP"
+            android:padding="8dip"
+            android:text="@string/select_area"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/countriesSP"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextAddress"
+            android:layout_marginTop="44dp"
+            android:layout_toRightOf="@+id/openH"
+            android:background="@drawable/myspinner"
+            android:entries="@array/acc_type" />
 
         <Spinner
             android:id="@+id/citiesSP"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/countriesSP"
-            android:layout_below="@+id/countriesSP"
-            android:layout_marginRight="8dip"
-            android:layout_marginTop="5dip" />
-
-        <!-- Spinner Dropdown -->
-
-        <Spinner
-            android:id="@+id/areasSP"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/citiesSP"
-            android:layout_below="@+id/citiesSP"
-            android:layout_marginRight="8dip"
-            android:layout_marginTop="5dip" />
-
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/countryLabel"
+            android:layout_toLeftOf="@+id/estimation"
+            android:padding="8dip"
+            android:text="@string/select_city"
+            android:textSize="16sp" />
         <TextView
             android:id="@+id/countryLabel"
             android:layout_width="fill_parent"
@@ -153,26 +194,17 @@
             <requestFocus />
         </EditText>
 
-        <TextView
-            android:id="@+id/areaLabel"
-            android:layout_width="fill_parent"
+     
+        <Button
+            android:id="@+id/button_add"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/areasSP"
-            android:layout_toLeftOf="@+id/areasSP"
-            android:padding="8dip"
-            android:text="@string/select_area"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/citiesLabel"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/countryLabel"
-            android:layout_toLeftOf="@+id/estimation"
-            android:padding="8dip"
-            android:text="@string/select_city"
-            android:textSize="16sp" />
+            android:layout_below="@+id/areasSP"
+            android:layout_marginTop="25dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/mybutton"
+            android:text="@string/add"
+            android:textColor="#ffffff" />
 
         <EditText
             android:id="@+id/addDesc"
@@ -211,6 +243,5 @@
             android:text="@string/estimation"
             android:textSize="16sp" />
 
-    </RelativeLayout>
-
+</RelativeLayout>
 </ScrollView>
