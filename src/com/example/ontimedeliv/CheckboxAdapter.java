@@ -15,6 +15,8 @@ import android.widget.Toast;
 public class CheckboxAdapter extends ArrayAdapter<Item> {
 
 	private ArrayList<Item> currentList;
+	private ArrayList<Item> selectedList;
+	private ArrayList<Item> unselectedList;
 	private Context context;
 
 	public CheckboxAdapter(Context context, int textViewResourceId,
@@ -64,12 +66,6 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 				public void onClick(View v) {
 					CheckBox cb = (CheckBox) v;
 					Item _cat = (Item) cb.getTag();
-
-					Toast.makeText(
-							context.getApplicationContext(),
-							"Checkbox: " + cb.getText() + " -> "
-									+ cb.isChecked(), Toast.LENGTH_LONG).show();
-
 					_cat.setSelected(cb.isChecked());
 				}
 			});
@@ -86,6 +82,22 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 		holder.name.setTag(cat);
 
 		return convertView;
+	}
+
+	public ArrayList<Item> getSelectedList() {
+		return selectedList;
+	}
+
+	public void setSelectedList(ArrayList<Item> selectedList) {
+		this.selectedList = selectedList;
+	}
+
+	public ArrayList<Item> getUnselectedList() {
+		return unselectedList;
+	}
+
+	public void setUnselectedList(ArrayList<Item> unselectedList) {
+		this.unselectedList = unselectedList;
 	}
 
 }

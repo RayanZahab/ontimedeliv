@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/mybutton"
             android:text="@string/submit"
+            android:onClick="submit"
             android:textColor="#ffffff" />
     </LinearLayout>
 

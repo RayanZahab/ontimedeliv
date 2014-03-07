@@ -12,8 +12,12 @@ import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import org.apache.http.entity.StringEntity;
 import org.apache.http.util.ByteArrayBuffer;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -23,6 +27,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 // Class with extends AsyncTask class
@@ -144,9 +149,43 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 						sb.append(line + "\n");
 					}
 					Content = sb.toString();
+					
 					Log.d("ray", "ray WIW : " + Content);
 				}
-			} else if (this.method.equals("Upload")) {
+			}else if(this.method.equals("PUT")) 
+			{
+				conn.addRequestProperty("Accept", "application/json");
+				conn.addRequestProperty("Accept-Encoding", "gzip");
+				conn.addRequestProperty("Cache-Control",
+						"max-stale=0,max-age=60");
+				conn.setDoOutput(true);
+				conn.setDoInput(true);
+
+				ArrayList<Integer> myarray = (ArrayList<Integer>) this.objectToAdd;
+				String s = TextUtils.join(",", myarray);			
+
+				JSONObject jsonObjSend = new JSONObject();
+				try {					
+					jsonObjSend.put("categories", s);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				OutputStreamWriter wr = new OutputStreamWriter(
+						conn.getOutputStream());
+				Log.d("ray", "ray posting" + conn.toString());
+
+				wr.write(jsonObjSend.toString());
+				wr.flush();
+				wr.close();
+				if (conn.getResponseCode() != 200) {
+					Log.d("ray", "ray mazabat" + conn.getResponseMessage());
+					Content = conn.getResponseMessage();
+				} else {					
+					Content = "done";					
+					Log.d("ray", "ray WIW : " + Content);
+				}
+			}
+			else if (this.method.equals("Upload")) {
 				/*
 				Product p = (Product) this.objectToAdd;
 				String path = p.getPhoto().getUrl();
