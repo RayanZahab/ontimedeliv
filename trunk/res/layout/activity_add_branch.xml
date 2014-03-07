@@ -35,10 +35,9 @@
         style="@style/mytextview"
         android:layout_alignBaseline="@+id/fromBtn"
         android:layout_alignBottom="@+id/fromBtn"
-        android:layout_alignLeft="@+id/address"
+        android:layout_alignLeft="@+id/addDescLabel"
         android:text="@string/from"
         android:textSize="16sp" />
-
 
     <TextView
         android:id="@+id/openH"
@@ -83,6 +82,18 @@
          android:layout_alignParentRight="true"
          android:ems="10"
          android:inputType="text" />
+
+     <TextView
+         android:id="@+id/addDescLabel"
+         style="@style/mytextview"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/address"
+         android:layout_marginTop="31dp"
+         android:layout_toLeftOf="@+id/estimation"
+         android:text="@string/description"
+         android:textSize="16sp" />
+
      <Button
          android:id="@+id/fromBtn"
          android:layout_width="70dp"
@@ -92,8 +103,10 @@
          android:layout_toRightOf="@+id/from"
          android:background="@drawable/mybutton"
          android:minWidth="120sp"
+         android:onClick="from"
          android:text="@string/pick"
          android:textColor="#ffffff" />
+
      <Button
          android:id="@+id/toBtn"
          android:layout_width="70dp"
@@ -103,6 +116,7 @@
          android:background="@drawable/mybutton"
          android:minWidth="120sp"
          android:text="@string/pick"
+         android:onClick="to"
          android:textColor="#ffffff" />
 
      <TextView
@@ -118,13 +132,15 @@
 
         <!-- Spinner Dropdown -->
 
+        <!-- Spinner Dropdown -->
+
         <TextView
             android:id="@+id/countryLabel"
             style="@style/mytextview"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/countriesSP"
-            android:layout_alignLeft="@+id/address"
+            android:layout_alignLeft="@+id/addDescLabel"
             android:layout_alignTop="@+id/countriesSP"
             android:layout_toLeftOf="@+id/countriesSP"
             android:padding="18dp"
@@ -148,53 +164,30 @@
             style="@style/mytextview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_alignRight="@+id/fromBtn"
             android:layout_alignTop="@+id/areasSP"
             android:padding="8dip"
             android:text="@string/select_area"
             android:textSize="16sp" />
 
         <Spinner
-            android:id="@+id/countriesSP"
+            android:id="@+id/citiesSP"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editTextAddress"
-            android:layout_marginTop="44dp"
-            android:layout_toRightOf="@+id/openH"
-            android:background="@drawable/myspinner"
-            android:entries="@array/acc_type" />
+            android:layout_alignLeft="@+id/countriesSP"
+            android:layout_below="@+id/countriesSP"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/myspinner" />
 
         <Spinner
-            android:id="@+id/citiesSP"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/countryLabel"
-            android:layout_toLeftOf="@+id/estimation"
-            android:padding="8dip"
-            android:text="@string/select_city"
-            android:textSize="16sp" />
-        <TextView
-            android:id="@+id/countryLabel"
+            android:id="@+id/areasSP"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignRight="@+id/openH"
-            android:layout_alignTop="@+id/countriesSP"
-            android:padding="18dp"
-            android:text="@string/select_country"
-            android:textSize="16sp" />
+            android:layout_alignLeft="@+id/citiesSP"
+            android:layout_below="@+id/citiesSP"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/myspinner" />
 
-        <EditText
-            android:id="@+id/estimation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/editTextAddress"
-            android:ems="10"
-            android:inputType="text" >
-
-            <requestFocus />
-        </EditText>
-
-     
         <Button
             android:id="@+id/button_add"
             android:layout_width="wrap_content"
@@ -204,44 +197,55 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/mybutton"
             android:text="@string/add"
+            android:onClick="addBranch"
             android:textColor="#ffffff" />
-
-        <EditText
-            android:id="@+id/addDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/estimation"
-            android:ems="10"
-            android:inputType="text" />
 
         <Spinner
             android:id="@+id/countriesSP"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/addDesc"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/addDesc"
+            android:layout_below="@+id/estimation"
+            android:layout_marginTop="29dp"
+            android:layout_toRightOf="@+id/openH"
+            android:background="@drawable/myspinner"
             android:entries="@array/acc_type" />
 
         <TextView
-            android:id="@+id/TextView01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/addDesc"
-            android:layout_alignBottom="@+id/addDesc"
-            android:layout_alignParentLeft="true"
-            android:text="@string/description"
-            android:textSize="16sp" />
-
-        <TextView
             android:id="@+id/TextView02"
+            style="@style/mytextview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/estimation"
-            android:layout_alignParentLeft="true"
-            android:text="@string/estimation"
+            android:layout_alignLeft="@+id/addDescLabel"
+            android:layout_alignRight="@+id/addDescLabel"
+            android:text="@string/description"
             android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/addDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignBaseline="@+id/addDescLabel"
+            android:layout_alignBottom="@+id/addDescLabel"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/branch_name"
+            android:background="@drawable/myedittext"
+            android:ems="10"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/estimation"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignLeft="@+id/addDesc"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/addDescLabel"
+            android:background="@drawable/myedittext"
+            android:ems="10"
+            android:inputType="text" >
+
+            <requestFocus />
+        </EditText>
 
 </RelativeLayout>
 </ScrollView>
