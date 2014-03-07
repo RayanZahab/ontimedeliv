@@ -25,73 +25,80 @@ import android.widget.AdapterView.OnItemClickListener;
 public class CategoriesActivity extends Activity {
 
 	CheckboxAdapter dataAdapter = null;
-	int branchId,shopId;
+	int branchId, shopId;
 	ArrayList<Category> categories;
 	ArrayList<Item> categoryItems;
 	String url = new myURL().getURL("categories", null, 0, 30);
 	DialogInterface dialog;
+	ArrayList<Integer> selectedIds =new ArrayList<Integer>();
+	ArrayList<Integer> unselectedIds =new ArrayList<Integer>();
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
 		super.onCreate(savedInstancecat);
 		setContentView(R.layout.activity_categories);
 		if (getIntent().hasExtra("branchId")) {
 			Bundle extras = getIntent().getExtras();
-			try{
-				this.branchId = Integer.parseInt((String) extras.getString("branchId"));
-				this.shopId = Integer.parseInt((String) extras.getString("shopId"));
-			Log.d("ray", "ray branch:" + branchId);
-			url = new myURL().getURL("categories", "branches", branchId, 30);		
-			
-			}
-			catch(Exception e )
-			{
-				
+			try {
+				this.branchId = Integer.parseInt((String) extras
+						.getString("branchId"));
+				this.shopId = Integer.parseInt((String) extras
+						.getString("shopId"));
+				url = new myURL()
+						.getURL("categories", "branches", branchId, 30);
+
+			} catch (Exception e) {
+
 			}
 		}
-		// Generate list View from ArrayList
 		getCategories();
-		checkButtonClick();
 
 	}
-	public DialogInterface getDialog()	
-	{
+
+	public DialogInterface getDialog() {
 		return this.dialog;
 	}
-	public void setDialog(DialogInterface dialog)
-	{
-		this.dialog=dialog;
+
+	public void setDialog(DialogInterface dialog) {
+		this.dialog = dialog;
 	}
 
-	private void checkButtonClick() {
+	public void submit(View v) {
 
-		Button myButton = (Button) findViewById(R.id.submit);
+		StringBuffer responseText = new StringBuffer();
+		responseText.append("Selected Categories are...\n");
 
-		myButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				StringBuffer responseText = new StringBuffer();
-				responseText.append("Selected Categories are...\n");
-
-				ArrayList<Item> stateList = dataAdapter.getCurrentList();
-
-				for (int i = 0; i < stateList.size(); i++) {
-					Item cat = stateList.get(i);
-
-					if (cat.isSelected()) {
-						responseText.append("\n" + cat.getTitle());
-					}
-				}
-
-				Toast.makeText(getApplicationContext(), responseText,
-						Toast.LENGTH_LONG).show();
-
+		ArrayList<Item> stateList = dataAdapter.getCurrentList();
+		
+		
+		for (int i = 0; i < stateList.size(); i++) {
+			Item cat = stateList.get(i);
+			if (cat.isSelected()) {
+				responseText.append("\n" + cat.getTitle()+"->"+cat.getId());
+				selectedIds.add( cat.getId());
+			}else{
+				unselectedIds.add(cat.getId());
 			}
-		});
+		}
+
+		Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG)
+				.show();
+		
+		String serverURL =new myURL().getURL("deactivate_categories", "branches", branchId, 0);		
+		ProgressDialog Dialog = new ProgressDialog(this);
+
+		new MyJs(Dialog, "afterDeactivate", this, "PUT",(Object)unselectedIds).execute(serverURL);
+	}
+	public void afterDeactivate(String s)
+	{
+		String serverURL =new myURL().getURL("activate_categories", "branches", branchId, 0);
+		
+		ProgressDialog Dialog = new ProgressDialog(this);
+
+		new MyJs(Dialog, "afterDeactivate", this, "PUT",(Object)selectedIds).execute(serverURL);
 	}
 
 	public void getCategories() {
 		String serverURL = this.url;
-		Log.d("rays", "ray url" + this.url);
 		ProgressDialog Dialog = new ProgressDialog(this);
 
 		new MyJs(Dialog, "setCategories", this, "GET").execute(serverURL);
@@ -104,8 +111,10 @@ public class CategoriesActivity extends Activity {
 		categoryItems = new ArrayList<Item>();
 
 		for (int i = 0; i < categories.size(); i++) {
-			categoryItems.add(new Item(categories.get(i).getId(), picture,
-					categories.get(i).toString(),categories.get(i).isActive()));
+			categoryItems
+					.add(new Item(categories.get(i).getId(), picture,
+							categories.get(i).toString(), categories.get(i)
+									.isActive()));
 		}
 		// create an ArrayAdaptar from the String Array
 		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
@@ -120,12 +129,12 @@ public class CategoriesActivity extends Activity {
 					int position, long id) {
 				// When clicked, Navigate to the selected item
 				Toast.makeText(getApplicationContext(),
-						"Selected: " + branchId,
-						Toast.LENGTH_SHORT).show();
+						"Selected: " + branchId, Toast.LENGTH_SHORT).show();
 				Intent i = new Intent(getBaseContext(), ProductActivity.class);
-				i.putExtra("categoryId", ""+ categoryItems.get(position).getId());
-				i.putExtra("branchId", ""+ branchId);
-				i.putExtra("shopId", ""+ shopId);
+				i.putExtra("categoryId", ""
+						+ categoryItems.get(position).getId());
+				i.putExtra("branchId", "" + branchId);
+				i.putExtra("shopId", "" + shopId);
 				startActivity(i);
 			}
 
@@ -160,7 +169,7 @@ public class CategoriesActivity extends Activity {
 						setDialog(dialog);
 						Toast.makeText(getApplicationContext(),
 								userInput.getText(), Toast.LENGTH_LONG).show();
-						addCategory(userInput.getText().toString(),shopId);						
+						addCategory(userInput.getText().toString(), shopId);
 					}
 				})
 				.setNegativeButton("Cancel",
@@ -178,19 +187,20 @@ public class CategoriesActivity extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
+
 	public void addCategory(String categoryName, int shopId) {
 		String serverURL = new myURL().getURL("categories", null, 0, 0);
 		ProgressDialog Dialog = new ProgressDialog(this);
-		Category newCategory = new Category(0, categoryName,true,shopId);
+		Category newCategory = new Category(0, categoryName, true, shopId);
 		new MyJs(Dialog, "afterCreation", this, "POST", (Object) newCategory)
 				.execute(serverURL);
 	}
-	public void afterCreation(String s){
-		Intent i = new Intent(this, CategoriesActivity.class);
-		i.putExtra("branchId", ""
-				+ branchId);
 
-		i.putExtra("shopId", ""+ shopId);
+	public void afterCreation(String s) {
+		Intent i = new Intent(this, CategoriesActivity.class);
+		i.putExtra("branchId", "" + branchId);
+
+		i.putExtra("shopId", "" + shopId);
 		startActivity(i);
 	}
 }
