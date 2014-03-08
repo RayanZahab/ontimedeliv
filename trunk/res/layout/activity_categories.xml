@@ -21,44 +21,19 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="?android:attr/actionBarSize" >
 
-		<RelativeLayout
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content" >
-
-		    <TextView
-		        android:id="@+id/textView1"
-		        style="@style/mytextview"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="10dp"
-		        android:text="Branch"
-		        android:textSize="20sp" />
-
-		    <TextView
-		        android:id="@+id/textview16"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_alignParentLeft="true"
-		        android:layout_below="@+id/branchnamelabel"
-		        android:text="Has the following Categories" />
-
-		    <TextView
-		        android:id="@+id/branchnamelabel"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_alignBaseline="@+id/textView1"
-		        android:layout_alignBottom="@+id/textView1"
-		        android:layout_alignRight="@+id/textview16"
-		        android:layout_marginRight="48dp"
-		        android:layout_toRightOf="@+id/textView16"
-		        android:text="TextView" />
-
-		</RelativeLayout>
+        <TextView
+            style="@style/mytextview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/categories"
+            android:textSize="20sp" />
 
         <ListView
             android:id="@+id/categorylist"
             android:layout_width="fill_parent"
-        	android:layout_height="wrap_content" />
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"  />
 
         <Button
             android:id="@+id/submit"

@@ -41,7 +41,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	public TextView uiUpdate;
 	int sizeData = 0;
 	private Activity mc;
-	private String method;
+	private String method; 
+	boolean secondMethod=false;
 	private Object objectToAdd;
 
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
@@ -50,6 +51,15 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		this.Dialog = dialog2;
 		this.mc = m;
 		this.method = method;
+	}
+	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
+			String method, Object o,boolean secondMethod) {
+		this.returnFunction = returnFunction;
+		this.Dialog = dialog2;
+		this.mc = m;
+		this.method = method;
+		this.objectToAdd = o;
+		this.setSecondMethod(secondMethod);
 	}
 
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
@@ -351,8 +361,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	}
 
 	protected void onPostExecute(Void unused) {
-		Log.d("ray", "Ray Post: " + this.returnFunction + ":" + Content);
-		if(!this.returnFunction.equals("afterDeactivate") )
+		if(!this.secondMethod)
 			Dialog.dismiss();
 		try {
 			if (Content == null)
@@ -367,6 +376,14 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
 		}
 
+	}
+
+	public boolean getSecondMethod() {
+		return secondMethod;
+	}
+
+	public void setSecondMethod(boolean secondMethod) {
+		this.secondMethod = secondMethod;
 	}
 
 }
