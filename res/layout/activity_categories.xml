@@ -50,7 +50,7 @@
 		        android:layout_alignBottom="@+id/textView1"
 		        android:layout_alignRight="@+id/textview16"
 		        android:layout_marginRight="48dp"
-		        android:layout_toRightof="@+id/textView1"
+		        android:layout_toRightOf="@+id/textView16"
 		        android:text="TextView" />
 
 		</RelativeLayout>
