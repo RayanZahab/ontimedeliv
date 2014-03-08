@@ -87,7 +87,7 @@ public class CategoriesActivity extends Activity {
 		String serverURL =new myURL().getURL("deactivate_categories", "branches", branchId, 0);		
 		
 
-		new MyJs(Dialog, "afterDeactivate", this, "PUT",(Object)myCat).execute(serverURL);
+		new MyJs(Dialog, "afterDeactivate", this, "PUT",(Object)myCat,true).execute(serverURL);
 	}
 	public void afterDeactivate(String s)
 	{

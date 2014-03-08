@@ -25,11 +25,13 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 	User currentUser;
 	int branchId;
 	ArrayList<Branch> branches;
+	ProgressDialog Dialog ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_info);
+		Dialog = new ProgressDialog(UserInfoActivity.this);
 		int userId;
 		if (getIntent().hasExtra("id")) {
 			Bundle extras = getIntent().getExtras();
@@ -64,7 +66,7 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 		String url = new myURL().getURL(null, "users", userId, 1);
 		String serverURL = url;
 		Log.d("rays", "ray url" + url);
-		ProgressDialog Dialog = new ProgressDialog(this);
+		
 
 		new MyJs(Dialog, "setUserInfo", this, "GET").execute(serverURL);
 	}
@@ -82,14 +84,15 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 		username.setText(currentUser.getName());
 		inputphone.setText(currentUser.getPhone());
 		branchesSP.setSelection(currentUser.getBranch_id());
-		// branches.indexOf(br)
+
+		admin.setChecked(currentUser.isIs_admin());
+		preparer.setChecked(currentUser.isIs_preparer());
+		delivery.setChecked(currentUser.isIs_delivery());
 
 	}
 
 	public void getBranches() {
-		String serverURL = new myURL().getURL("branches", "shops", 37, 30);
-		ProgressDialog Dialog = new ProgressDialog(this);
-
+		String serverURL = new myURL().getURL("branches", "shops", 37, 30);		
 		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
 	}
 
@@ -114,32 +117,28 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 		delivery = (CheckBox) findViewById(R.id.delivery);
 		User newUser = new User(0, username.getText().toString(), username
 				.getText().toString(), "", inputphone.getText().toString(),
-				inputphone.getText().toString(), 0, new Address(0, "default",
-						"default", "default", "default", "default", "default",
-						"default", 0, "default", "default", "default",
-						"default"), branchId);
-		String serverURL = new myURL().getURL("users", null, 0, 0);
-		ProgressDialog Dialog = new ProgressDialog(this);
-		new MyJs(Dialog, "makePreparer", this, "POST", (Object) newUser)
+				inputphone.getText().toString(), 0, null, branchId,admin.isChecked(),preparer.isChecked(),delivery.isChecked());
+		String serverURL = new myURL().getURL("users", null, 0, 0);		
+		new MyJs(Dialog, "setRoles", this, "POST", (Object) newUser,true)
 				.execute(serverURL);
 
 	}
 
-	public void makePreparer(String s) {
-		int id = new APIManager().getUserId(s);
-		ProgressDialog Dialog = new ProgressDialog(this);
-		String makePreparerURL = new myURL().getURL("preparer", "users", id, 0);
+	public void setRoles(String s) {
+		int id = new APIManager().getUserId(s);		
+		String makePreparerURL = new myURL().getURL("set_roles", "users", id, 0);
+		admin = (CheckBox) findViewById(R.id.admin);
+		preparer = (CheckBox) findViewById(R.id.preparer);
+		delivery = (CheckBox) findViewById(R.id.delivery);
 		Role role = new Role();
-		role.setPreparer(1);
-		new MyJs(Dialog, "afterPreparer", this, "POST", (Object) role)
+		role.setPreparer(preparer.isChecked());
+		role.setAdmin(admin.isChecked());
+		role.setDelivery(delivery.isChecked());
+		new MyJs(Dialog, "afterRoles", this, "POST", (Object) role)
 				.execute(makePreparerURL);
 	}
 
-	public void afterPreparer(String s) {
-		delivery = (CheckBox) findViewById(R.id.delivery);
-		if (delivery.isChecked()) {
-			// makeDelivery(s);
-		}
+	public void afterRoles(String s) {		
 		Intent i = new Intent(this, UsersActivity.class);
 		startActivity(i);
 	}

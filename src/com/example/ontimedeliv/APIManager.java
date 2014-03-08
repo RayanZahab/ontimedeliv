@@ -569,14 +569,15 @@ public class APIManager {
 	}
 
 	public ArrayList<User> getUsers(String cont) {
-		JSONObject jsonResponse;
+		JSONObject jsonResponse,jsonRole;
 		ArrayList<User> gridArray = new ArrayList<User>();
 
 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
-				int id, is_fired;
-				String name, phone, password, username, mobile, address;
+				int id;
+				boolean is_fired,admin,preparer,delivery;
+				String name, phone, password, username, mobile, roles_str;
 				if (jsonResponse.has("elements")) {
 					JSONArray jsonMainNode = jsonResponse
 							.optJSONArray("elements");
@@ -588,28 +589,21 @@ public class APIManager {
 						id = Integer.parseInt(jsonChildNode.optString("id")
 								.toString());
 						name = jsonChildNode.optString("name").toString();
+						roles_str = jsonChildNode.optString("roles").toString();
+						jsonRole = new JSONObject(roles_str);
+						admin=Boolean.parseBoolean(jsonRole.optString("admin").toString());
+						preparer=Boolean.parseBoolean(jsonRole.optString("preparer").toString());
+						delivery=Boolean.parseBoolean(jsonRole.optString("delivery").toString());
+						
 						username = "";// jsonChildNode.optString("username").toString();
 						password = "";// jsonChildNode.optString("password").toString();
 						phone = jsonChildNode.optString("phone").toString();
 						mobile = "";// jsonChildNode.optString("mobile").toString();
-						is_fired = 0;// Integer.parseInt(jsonChildNode.optString("is_fired").toString());
-						address = jsonChildNode.optString("address").toString();
-						ArrayList<Address> addArray = new ArrayList<Address>();
-						if(address.length()>2)
-						{
-							address = address
-									.substring(1, address.length() - 1);
-
-							addArray = getAddress(address);
-						}
-						else{
-							
-							addArray.add(new Address(0,"", "", "","", "", "","", 0, "","", "", ""));
-						}
+						is_fired = Boolean.parseBoolean(jsonChildNode.optString("is_fired").toString());
+						
 						User u = new User(id, name, username, password, phone,
-								mobile, is_fired, addArray.get(0),0);
+								mobile, (is_fired)?1:0, null,0,admin,preparer,delivery);
 						gridArray.add(u);
-						Log.d("ray", "rays add: " + address);
 
 					}
 				} else {
@@ -620,26 +614,18 @@ public class APIManager {
 					password = "";//jsonResponse.optString("password").toString();
 					phone = jsonResponse.optString("phone").toString();
 					mobile ="";// jsonResponse.optString("mobile").toString();
-					is_fired = 0;//Integer.parseInt(jsonResponse.optString("is_fired").toString());
-					address = jsonResponse.optString("address").toString();
-					ArrayList<Address> addArray = new ArrayList<Address>();
-					if(address.length()>2)
-					{
-						address = address
-								.substring(1, address.length() - 1);
-
-						addArray = getAddress(address);
-					}
-					else{
-						
-						addArray.add(new Address(0,"", "", "","", "", "","", 0, "","", "", ""));
-					}
+					is_fired = Boolean.parseBoolean(jsonResponse.optString("is_fired").toString());
+					roles_str = jsonResponse.optString("roles").toString();
+					jsonRole = new JSONObject(roles_str);
+					admin=Boolean.parseBoolean(jsonRole.optString("admin").toString());
+					preparer=Boolean.parseBoolean(jsonRole.optString("preparer").toString());
+					delivery=Boolean.parseBoolean(jsonRole.optString("delivery").toString());
+					
 					gridArray.add(new User(id, name, username, password, phone,
-							mobile, is_fired, addArray.get(0),0));
+							mobile, (is_fired)?1:0, null,0,admin,preparer,delivery));
 
 				}
 
-				Log.d("OutputData : ", "Rayz " + gridArray.toString());
 			} else {
 				return gridArray;
 			}
@@ -830,6 +816,18 @@ public class APIManager {
 			}
 
 		} else if (o instanceof Role) {
+			Role c= (Role) o;
+			JSONObject body = new JSONObject();
+			try {
+				body.put("admin", c.getAdmin()?1:0);
+				body.put("preparer", c.getPreparer()?1:0);
+				body.put("delivery", c.getDelivery()?1:0);
+
+				
+				jsonObjSend.put("roles", body);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 			
 		}
 		Log.d("ray"," ray put cont:"+jsonObjSend.toString());

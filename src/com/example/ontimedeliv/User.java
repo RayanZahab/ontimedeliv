@@ -10,9 +10,10 @@ public class User {
 	private int is_fired;
 	private Address address;
 	private int branch_id;
+	private boolean is_admin, is_preparer, is_delivery;
 
 	public User(int id, String name, String username, String password,
-			String phone, String mobile, int is_fired, Address address,int branch_id) {
+			String phone, String mobile, int is_fired, Address address,int branch_id,boolean is_admin,boolean is_preparer,boolean is_delivery) {
 
 		this.setId(id);
 		this.setName(name);
@@ -23,6 +24,9 @@ public class User {
 		this.setIs_fired(is_fired);
 		this.setAddress(address);
 		this.setBranch_id(branch_id);
+		this.setIs_admin(is_admin);
+		this.setIs_preparer(is_preparer);
+		this.setIs_delivery(is_delivery);
 	}
 
 	public String getMobile() {
@@ -90,7 +94,7 @@ public class User {
 	}
 	public String toString()
 	{
-		return this.id+"-"+this.name+"\n"+this.address.toString();
+		return this.id+"-"+this.name+"\n"+this.is_admin+","+this.is_delivery+","+this.is_preparer;
 	}
 
 	public int getBranch_id() {
@@ -99,6 +103,30 @@ public class User {
 
 	public void setBranch_id(int branch_id) {
 		this.branch_id = branch_id;
+	}
+
+	public boolean isIs_delivery() {
+		return is_delivery;
+	}
+
+	public void setIs_delivery(boolean is_delivery) {
+		this.is_delivery = is_delivery;
+	}
+
+	public boolean isIs_admin() {
+		return is_admin;
+	}
+
+	public void setIs_admin(boolean is_admin) {
+		this.is_admin = is_admin;
+	}
+
+	public boolean isIs_preparer() {
+		return is_preparer;
+	}
+
+	public void setIs_preparer(boolean is_preparer) {
+		this.is_preparer = is_preparer;
 	}
 
 }
