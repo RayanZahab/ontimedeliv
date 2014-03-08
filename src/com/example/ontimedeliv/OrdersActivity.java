@@ -43,6 +43,7 @@ public class OrdersActivity extends Activity {
 		orders.add(_Item);
 		_Item = new Item("jbeil", true);
 		orders.add(_Item);
+		
 
 		// create an ArrayAdaptar from the String Array
 		dataAdapter = new MyCustomAdapter(this, R.layout.row_order, orders);
