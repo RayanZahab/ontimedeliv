@@ -816,9 +816,23 @@ public class APIManager {
 				e.printStackTrace();
 			}
 
+		}  else if (o instanceof Activate) {
+			Activate c = (Activate) o;
+			JSONArray jsonArray = new JSONArray();
+			try {
+				for(int i =0 ;i<c.getActive().size();i++)
+				{
+					jsonArray.put(c.getActive().get(i));
+				}					
+				jsonObjSend.put("categories",jsonArray);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
 		} else if (o instanceof Role) {
 			
 		}
+		Log.d("ray"," ray put cont:"+jsonObjSend.toString());
 
 		return jsonObjSend;
 	}

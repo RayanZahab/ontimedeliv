@@ -63,6 +63,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
 	protected void onPreExecute() {
 		Dialog.setMessage("Please wait..");
+		if(!this.returnFunction.equals("afterActivate") )
 		Dialog.show();
 		try {
 			Log.d("Output : ", "Ray &" + URLEncoder.encode("data", "UTF-8"));
@@ -160,16 +161,9 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 						"max-stale=0,max-age=60");
 				conn.setDoOutput(true);
 				conn.setDoInput(true);
-
-				ArrayList<Integer> myarray = (ArrayList<Integer>) this.objectToAdd;
-				String s = TextUtils.join(",", myarray);			
-
-				JSONObject jsonObjSend = new JSONObject();
-				try {					
-					jsonObjSend.put("categories", s);
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
+				
+				JSONObject jsonObjSend = (new APIManager())
+						.objToCreate(this.objectToAdd);
 				OutputStreamWriter wr = new OutputStreamWriter(
 						conn.getOutputStream());
 				Log.d("ray", "ray posting" + conn.toString());
@@ -177,13 +171,19 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				wr.write(jsonObjSend.toString());
 				wr.flush();
 				wr.close();
+				Log.d("ray",
+						"ray resp" + conn.getResponseCode() + "=>"
+								+ conn.getResponseMessage());
+				
 				if (conn.getResponseCode() != 200) {
-					Log.d("ray", "ray mazabat" + conn.getResponseMessage());
+					Log.d("ray", "ray put mazabat" + conn.getResponseMessage());
 					Content = conn.getResponseMessage();
-				} else {					
-					Content = "done";					
-					Log.d("ray", "ray WIW : " + Content);
+				} else {
+					Content="DONE";
+					
+					Log.d("ray", "ray put WIW : " + Content);
 				}
+							
 			}
 			else if (this.method.equals("Upload")) {
 				/*
@@ -352,7 +352,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
 	protected void onPostExecute(Void unused) {
 		Log.d("ray", "Ray Post: " + this.returnFunction + ":" + Content);
-		Dialog.dismiss();
+		if(!this.returnFunction.equals("afterDeactivate") )
+			Dialog.dismiss();
 		try {
 			if (Content == null)
 				Content = "";

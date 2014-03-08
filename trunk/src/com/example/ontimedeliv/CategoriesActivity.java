@@ -29,10 +29,13 @@ public class CategoriesActivity extends Activity {
 	DialogInterface dialog;
 	ArrayList<Integer> selectedIds =new ArrayList<Integer>();
 	ArrayList<Integer> unselectedIds =new ArrayList<Integer>();
+	Activate myCat;
+	ProgressDialog Dialog;
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
 		super.onCreate(savedInstancecat);
 		setContentView(R.layout.activity_categories);
+		this.Dialog = new ProgressDialog(CategoriesActivity.this);
 		if (getIntent().hasExtra("branchId")) {
 			Bundle extras = getIntent().getExtras();
 			try {
@@ -76,27 +79,32 @@ public class CategoriesActivity extends Activity {
 				unselectedIds.add(cat.getId());
 			}
 		}
+		myCat= new Activate(selectedIds,unselectedIds);
 
 		Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG)
 				.show();
 		
 		String serverURL =new myURL().getURL("deactivate_categories", "branches", branchId, 0);		
-		ProgressDialog Dialog = new ProgressDialog(this);
+		
 
-		new MyJs(Dialog, "afterDeactivate", this, "PUT",(Object)unselectedIds).execute(serverURL);
+		new MyJs(Dialog, "afterDeactivate", this, "PUT",(Object)myCat).execute(serverURL);
 	}
 	public void afterDeactivate(String s)
 	{
+		Toast.makeText(getApplicationContext(),
+				"DeActivate : " + s, Toast.LENGTH_SHORT).show();
 		String serverURL =new myURL().getURL("activate_categories", "branches", branchId, 0);
 		
-		ProgressDialog Dialog = new ProgressDialog(this);
-
-		new MyJs(Dialog, "afterDeactivate", this, "PUT",(Object)selectedIds).execute(serverURL);
+		new MyJs(Dialog, "afterActivate", this, "PUT",(Object)myCat).execute(serverURL);
+	}
+	public void afterActivate(String s )
+	{
+		Toast.makeText(getApplicationContext(),
+				"Activate : " + s, Toast.LENGTH_SHORT).show();			
 	}
 
 	public void getCategories() {
 		String serverURL = this.url;
-		ProgressDialog Dialog = new ProgressDialog(this);
 
 		new MyJs(Dialog, "setCategories", this, "GET").execute(serverURL);
 	}
@@ -187,7 +195,6 @@ public class CategoriesActivity extends Activity {
 
 	public void addCategory(String categoryName, int shopId) {
 		String serverURL = new myURL().getURL("categories", null, 0, 0);
-		ProgressDialog Dialog = new ProgressDialog(this);
 		Category newCategory = new Category(0, categoryName, true, shopId);
 		new MyJs(Dialog, "afterCreation", this, "POST", (Object) newCategory)
 				.execute(serverURL);
