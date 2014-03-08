@@ -52,7 +52,7 @@
     <ListView
         android:id="@+id/oldorderlist"
         android:layout_width="fill_parent"
-        android:layout_height="260dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="8dp"

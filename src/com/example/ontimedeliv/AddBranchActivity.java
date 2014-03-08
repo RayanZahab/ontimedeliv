@@ -1,7 +1,6 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -16,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class AddBranchActivity extends Activity  implements
@@ -41,7 +39,7 @@ OnItemSelectedListener {
 		
 		
 		getCountries();
-		from = (Button) findViewById(R.id.fromBtn);
+		from = (Button) findViewById(R.id.fromBtnn);
 		to = (Button) findViewById(R.id.toBtn);
 	}
 	public void from(View view)

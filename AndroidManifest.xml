@@ -15,7 +15,8 @@
         android:theme="@style/AppBaseTheme" >
         <activity
             android:name="com.example.ontimedeliv.LoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustNothing" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,69 +25,84 @@
         </activity>
         <activity
             android:name="com.example.ontimedeliv.NavigationActivity"
-            android:label="@string/title_activity_navigation" >
+            android:label="@string/title_activity_navigation"
+            android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
             android:name="com.example.ontimedeliv.CategoriesActivity"
-            android:label="@string/title_activity_categories" >
+            android:label="@string/title_activity_categories"
+            android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
             android:name="com.example.ontimedeliv.BranchesActivity"
-            android:label="@string/title_activity_branches" >
+            android:label="@string/title_activity_branches"
+            android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
             android:name="com.example.ontimedeliv.AddBranchActivity"
-            android:label="@string/title_activity_add_branch" >
+            android:label="@string/title_activity_add_branch"
+            android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
             android:name="com.example.ontimedeliv.SelectionActivity"
-            android:label="@string/title_activity_selection" >
+            android:label="@string/title_activity_selection"
+            android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
             android:name="com.example.ontimedeliv.AddLocationDetails"
-            android:label="@string/add_country" >
+            android:label="@string/add_country"
+            android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
             android:name="com.example.ontimedeliv.UsersActivity"
-            android:label="@string/title_activity_users" >
+            android:label="@string/title_activity_users"
+            android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name="com.example.ontimedeliv.UserInfoActivity"
-            android:label="@string/title_activity_user_info" >
+            android:label="@string/title_activity_user_info"
+            android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name="com.example.ontimedeliv.AddCategoryActivity"
-            android:label="@string/title_activity_add_category" >
+            android:label="@string/title_activity_add_category"
+            android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name="com.example.ontimedeliv.OrderInfoActivity"
-            android:label="@string/title_activity_order_info" >
+            android:label="@string/title_activity_order_info"
+            android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name="com.example.ontimedeliv.OrdersActivity"
-            android:label="@string/title_activity_orders" >
+            android:label="@string/title_activity_orders"
+            android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name="com.example.ontimedeliv.ProductActivity"
-            android:label="@string/title_activity_product" >
+            android:label="@string/title_activity_product"
+            android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name="com.example.ontimedeliv.AddProductActivity"
-            android:label="@string/title_activity_add_product" >
+            android:label="@string/title_activity_add_product"
+            android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name="com.example.ontimedeliv.OldOrdersActivity"
-            android:label="@string/title_activity_old_orders" >
+            android:label="@string/title_activity_old_orders"
+            android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name="com.example.ontimedeliv.OldOrdersInfoActivity"
-            android:label="@string/title_activity_old_orders_info" >
+            android:label="@string/title_activity_old_orders_info"
+            android:windowSoftInputMode="adjustNothing" >
         </activity>
     </application>
 

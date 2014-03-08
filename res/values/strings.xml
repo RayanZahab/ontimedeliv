@@ -35,6 +35,7 @@
     <string name="slash">/</string>
     <string name="priceunit">Price/Unit:</string>
     <string name="producticon">Product Icon:</string>
+    <string name="estimatedtime">Estimated Time:</string>
     <string name="description">Description:</string>
     <string name="productname">Product Name:</string>
     <string name="selectlanguage">Select Language</string>
@@ -69,9 +70,9 @@
 
     <string name="select_location">Select Your location And Business Category</string>
     <string name="select_business">Select A Business Category</string>
-    <string name="select_country">Select Country</string>
-    <string name="select_city">Select City</string>
-    <string name="select_area">Select Area</string>
+    <string name="select_country">Country</string>
+    <string name="select_city">City</string>
+    <string name="select_area">Area</string>
     <string name="select">Confirm Selection</string>
     <string name="pick">Pick</string>
     <string name="lblCountry">Select Country</string>

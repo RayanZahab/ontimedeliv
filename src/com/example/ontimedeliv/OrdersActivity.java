@@ -107,20 +107,9 @@ public class OrdersActivity extends Activity {
 					RelativeLayout main = (RelativeLayout) convertView
 							.findViewById(R.id.roworder);
 					main.setBackgroundColor(Color.parseColor("#FF9999"));
-				} else {
-					RelativeLayout my = (RelativeLayout) convertView
-							.findViewById(R.id.newButtons);
-					my.setVisibility(View.GONE);
-				}
+				} 
 
-				View v = convertView.findViewById(R.id.accept);
-				v.setDrawingCacheEnabled(true);
-				v.buildDrawingCache();
-				Bitmap accept = v.getDrawingCache();
-				View p = convertView.findViewById(R.id.reject);
-				p.setDrawingCacheEnabled(true);
-				p.buildDrawingCache();
-				Bitmap reject = p.getDrawingCache();
+				
 
 				holder.address = (TextView) convertView
 						.findViewById(R.id.useraddress);
@@ -128,8 +117,7 @@ public class OrdersActivity extends Activity {
 						.findViewById(R.id.numbofitems);
 				holder.totalamount = (TextView) convertView
 						.findViewById(R.id.totalamount);
-				holder.accept = accept;
-				holder.reject = reject;
+
 
 				convertView.setTag(holder);
 

@@ -22,6 +22,19 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="?android:attr/actionBarSize" >
 
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_alignBottom="@+id/textView2"
+                android:layout_marginLeft="32dp"
+                android:layout_toRightOf="@+id/textView2"
+                android:background="@drawable/myedittext"
+                android:ellipsize="start"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="text" />
+
             <TextView
                 android:id="@+id/textView2"
                 style="@style/mytextview"
@@ -33,19 +46,17 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/password"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:layout_alignBottom="@+id/textView2"
-                android:layout_marginLeft="32dp"
-                android:layout_toRightOf="@+id/textView2"
+                android:layout_alignBottom="@+id/textView3"
+                android:layout_alignLeft="@+id/username"
                 android:background="@drawable/myedittext"
                 android:ellipsize="start"
                 android:ems="10"
-                android:inputType="text" >
-
-                <requestFocus />
-            </EditText>
+                android:gravity="center"
+                android:inputType="textPassword" />
+                
 
             <TextView
                 android:id="@+id/textView3"
@@ -58,16 +69,18 @@
                 android:text="@string/password"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
-                android:id="@+id/password"
+            <Button
+                android:id="@+id/button1"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_alignBottom="@+id/textView3"
-                android:layout_alignLeft="@+id/username"
-                android:background="@drawable/myedittext"
-                android:ellipsize="start"
-                android:ems="10"
-                android:inputType="textPassword" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/keeploggedin"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/mybutton"
+                android:minWidth="80dp"
+                android:onClick="login"
+                android:text="@string/buttonlogin"
+                android:textColor="#ffffff" />
 
             <TextView
                 android:id="@+id/textView1"
@@ -79,18 +92,6 @@
                 android:layout_marginTop="29dp"
                 android:text="@string/selectlanguage" />
 
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/languageSP"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="29dp"
-                android:background="@drawable/mybutton"
-                android:onClick="login"
-                android:text="@string/buttonlogin"
-                android:textColor="#ffffff" />
-
             <Spinner
                 android:id="@+id/languageSP"
                 android:layout_width="30dp"
@@ -101,7 +102,16 @@
                 android:layout_marginTop="22dp"
                 android:background="@drawable/myspinner"
                 android:entries="@array/languages" />
+            
+            <CheckBox
+		        android:id="@+id/keeploggedin"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        style="@style/mytextview"
+		        android:layout_marginTop="22dp"
+		        android:layout_centerHorizontal="true"
+		        android:layout_below="@+id/languageSP"
+		        android:text="Keep me Logged in" />
         </RelativeLayout>
     </ScrollView>
-
 </RelativeLayout>
