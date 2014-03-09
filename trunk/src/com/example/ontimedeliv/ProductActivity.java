@@ -27,10 +27,14 @@ public class ProductActivity extends Activity {
 	ArrayList<Item> productItems;
 	String url = new myURL().getURL("products", null, 0, 30);
 	DialogInterface dialog;
+	ProgressDialog Dialog ;
+
 
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
 		super.onCreate(savedInstancecat);
+		Dialog = new ProgressDialog(this);
+		Dialog.setCancelable(false);
 		setContentView(R.layout.activity_product);
 		if ( getIntent().hasExtra("categoryId")) {
 			Bundle extras = getIntent().getExtras();
@@ -92,8 +96,6 @@ public class ProductActivity extends Activity {
 	public void getProducts() {
 		String serverURL = this.url;
 		Log.d("rays", "ray url" + this.url);
-		ProgressDialog Dialog = new ProgressDialog(this);
-
 		new MyJs(Dialog, "setProducts", this, "GET").execute(serverURL);
 	}
 
@@ -153,7 +155,6 @@ public class ProductActivity extends Activity {
 
 	public void addCategory(String categoryName) {
 		String serverURL = new myURL().getURL("categories", null, 0, 0);
-		ProgressDialog Dialog = new ProgressDialog(this);
 		Category newCategory = new Category(0, categoryName,true,0);
 		new MyJs(Dialog, "afterCreation", this, "POST", (Object) newCategory)
 				.execute(serverURL);

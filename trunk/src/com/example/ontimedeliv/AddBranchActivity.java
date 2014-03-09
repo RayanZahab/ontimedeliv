@@ -26,6 +26,7 @@ OnItemSelectedListener {
 	ArrayList<City> cities = new ArrayList<City>();
 	ArrayList<Area> areas = new ArrayList<Area>();
 	Spinner countrySp, citySp,areasSp;
+	ProgressDialog Dialog ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,8 @@ OnItemSelectedListener {
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);
 		areasSp = (Spinner) findViewById(R.id.areasSP);
-		
+		Dialog = new ProgressDialog(this);
+		Dialog.setCancelable(false);
 		
 		getCountries();
 		from = (Button) findViewById(R.id.fromBtnn);
@@ -79,7 +81,7 @@ OnItemSelectedListener {
 		String address=((EditText) findViewById(R.id.editTextAddress) ).getText().toString();
 		String estimation=((EditText) findViewById(R.id.estimation)).getText().toString();
 		String serverURL = new myURL().getURL("branches", null, 0, 30);
-		ProgressDialog Dialog = new ProgressDialog(this);
+		
 		Branch newBranch = new Branch(0,name, desc, 
 				new Area(selectedArea), address, 1, new Shop(shopId), "0", "0", 0, 0, estimation);
 		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newBranch)
@@ -101,9 +103,8 @@ OnItemSelectedListener {
 	
 	public void getCountries() {
 		String serverURL = new myURL().getURL("countries", null, 0, 30);;
-		ProgressDialog Dialog = new ProgressDialog(AddBranchActivity.this);
 
-		new MyJs(Dialog, "setCountries", AddBranchActivity.this, "GET")
+		new MyJs(Dialog, "setCountries", AddBranchActivity.this, "GET",true)
 				.execute(serverURL);
 	}
 
@@ -122,9 +123,7 @@ OnItemSelectedListener {
 
 	public void getCities(int CountryId) {
 		String serverURL = new myURL().getURL("cities", "countries", CountryId, 30);
-		ProgressDialog Dialog = new ProgressDialog(AddBranchActivity.this);
-
-		new MyJs(Dialog, "setCities", AddBranchActivity.this, "GET")
+		new MyJs(Dialog, "setCities", AddBranchActivity.this, "GET",true)
 				.execute(serverURL);
 	}
 
@@ -143,8 +142,6 @@ OnItemSelectedListener {
 
 	public void getAreas(int CityId) {
 		String serverURL = new myURL().getURL("areas", "cities", CityId, 30);
-		ProgressDialog Dialog = new ProgressDialog(AddBranchActivity.this);
-
 		new MyJs(Dialog, "setAreas", AddBranchActivity.this, "GET")
 				.execute(serverURL);
 	}
