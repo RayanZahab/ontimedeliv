@@ -9,16 +9,20 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class OrdersActivity extends Activity {
 	MyCustomAdapter dataAdapter;
@@ -48,6 +52,7 @@ public class OrdersActivity extends Activity {
 		// create an ArrayAdaptar from the String Array
 		dataAdapter = new MyCustomAdapter(this, R.layout.row_order, orders);
 		ListView listView = (ListView) findViewById(R.id.list);
+		registerForContextMenu(listView);
 		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
 
@@ -69,6 +74,20 @@ public class OrdersActivity extends Activity {
 		getMenuInflater().inflate(R.menu.orders, menu);
 		return true;
 	}
+	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
+	    super.onCreateContextMenu(menu, v, menuInfo);  
+	        menu.setHeaderTitle("Context Menu");  
+	        menu.add(0, v.getId(), 0, "Delete"); 
+	    }
+	public boolean onContextItemSelected(MenuItem item) {  
+        if(item.getTitle()=="Delete"){Delete(item.getItemId());} 
+        else {return false;}  
+    return true;  
+    }  
+      
+    public void Delete(int id){  
+        Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();  
+    } 
 
 	class MyCustomAdapter extends ArrayAdapter<Item> {
 
