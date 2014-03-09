@@ -248,6 +248,12 @@ public class CategoriesActivity extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
+	@Override
+	public void onBackPressed()
+	{
+	     Intent i = new Intent(CategoriesActivity.this, NavigationActivity.class);
+	     startActivity(i);
+	}
 
 	public void addCategory(String categoryName, int shopId) {
 		String serverURL = new myURL().getURL("categories", null, 0, 0);

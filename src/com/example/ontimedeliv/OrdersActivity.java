@@ -67,6 +67,12 @@ public class OrdersActivity extends Activity {
 		});
 
 	}
+	@Override
+	public void onBackPressed()
+	{
+	     Intent i = new Intent(OrdersActivity.this, NavigationActivity.class);
+	     startActivity(i);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
