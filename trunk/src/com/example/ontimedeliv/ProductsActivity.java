@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ProductActivity extends Activity {
+public class ProductsActivity extends Activity {
 
 	CheckboxAdapter dataAdapter = null;
 	int categoryId, branchId,shopId;
@@ -68,7 +68,7 @@ public class ProductActivity extends Activity {
 	@Override
 	public void onBackPressed()
 	{
-	     Intent i = new Intent(ProductActivity.this, CategoriesActivity.class);
+	     Intent i = new Intent(ProductsActivity.this, CategoriesActivity.class);
 	     startActivity(i);
 	}
 
@@ -151,7 +151,7 @@ public class ProductActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent = new Intent(this, AddProductActivity.class);
+		Intent intent = new Intent(this, ProductInfoActivity.class);
 		intent.putExtra("shopId", ""+ shopId);
 		intent.putExtra("branchId", ""+ branchId);
 		intent.putExtra("categoryId", ""+ categoryId);

@@ -141,7 +141,7 @@ public class CategoriesActivity extends Activity {
 				// When clicked, Navigate to the selected item
 				Toast.makeText(getApplicationContext(),
 						"Selected: " + branchId, Toast.LENGTH_SHORT).show();
-				Intent i = new Intent(getBaseContext(), ProductActivity.class);
+				Intent i = new Intent(getBaseContext(), ProductsActivity.class);
 				i.putExtra("categoryId", ""
 						+ categoryItems.get(position).getId());
 				i.putExtra("branchId", "" + branchId);

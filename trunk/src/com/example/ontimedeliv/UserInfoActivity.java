@@ -91,14 +91,7 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 		preparer.setChecked(currentUser.isIs_preparer());
 		delivery.setChecked(currentUser.isIs_delivery());
 		
-		SpinnerAdapter adapter = branchesSP.getAdapter();
-		for (int position = 0; position < adapter.getCount(); position++)
-	    {
-	        if(adapter.getItemId(position) == currentUser.getBranch_id())
-	        {
-	        	branchesSP.setSelection(position);
-	        }
-	    }
+		
 
 	}
 
@@ -117,6 +110,15 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 		branchAdapter.notifyDataSetChanged();
 		branchesSP.setAdapter(branchAdapter);
 		branchesSP.setOnItemSelectedListener(this);
+
+		for (int position = 0; position < branchAdapter.getCount(); position++)
+	    {
+	        if(branchAdapter.getItemId(position) == currentUser.getBranch_id())
+	        {
+	        	branchesSP.setSelection(position);
+	        	break;
+	        }
+	    }
 	}
 
 	public void addUser(View view) {

@@ -31,9 +31,7 @@ public class NavigationActivity extends Activity {
 			ArrayList<Item> categories = new ArrayList<Item>();
 
 			Item _Item = new Item(0,picture,"Branches");
-			categories.add(_Item);
-			_Item = new Item(0,picture, "Categories");
-			categories.add(_Item);
+			categories.add(_Item);			
 			_Item = new Item(0,picture, "Orders");
 			categories.add(_Item);
 			_Item = new Item(0,picture, "Users");
