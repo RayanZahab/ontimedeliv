@@ -78,13 +78,12 @@ public class CategoriesActivity extends Activity {
 		for (int i = 0; i < stateList.size(); i++) {
 			Item cat = stateList.get(i);
 			if (cat.isSelected()) {
-				responseText.append("\n" + cat.getTitle()+"->"+cat.getId());
 				selectedIds.add( cat.getId());
 			}else{
 				unselectedIds.add(cat.getId());
 			}
 		}
-		myCat= new Activate(selectedIds,unselectedIds);
+		myCat= new Activate(unselectedIds);
 
 		Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG)
 				.show();
@@ -98,6 +97,7 @@ public class CategoriesActivity extends Activity {
 	{
 		Toast.makeText(getApplicationContext(),
 				"DeActivate : " + s, Toast.LENGTH_SHORT).show();
+		myCat= new Activate(selectedIds);
 		String serverURL =new myURL().getURL("activate_categories", "branches", branchId, 0);
 		
 		new MyJs(Dialog, "afterActivate", this, "PUT",(Object)myCat).execute(serverURL);

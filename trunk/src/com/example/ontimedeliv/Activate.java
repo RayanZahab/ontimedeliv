@@ -4,28 +4,22 @@ import java.util.ArrayList;
 
 public class Activate {
 
-	private ArrayList<Integer> active;
-	private ArrayList<Integer> inactive;
+	private ArrayList<Integer> toUpdate;
 
-	public Activate(ArrayList<Integer> toActivate, ArrayList<Integer> toDeActivate) {
-		this.setActive(toActivate);
-		this.setUnactive(toDeActivate);
+	public Activate(ArrayList<Integer> toUpdate) {
+		this.setToUpdate(toUpdate);
 	}
 
-	public ArrayList<Integer> getActive() {
-		return active;
+	public ArrayList<Integer> getToUpdate() {
+		return toUpdate;
 	}
 
-	public void setActive(ArrayList<Integer> active) {
-		this.active = active;
+	public void setToUpdate(ArrayList<Integer> toUpdate) {
+		this.toUpdate = toUpdate;
 	}
 
-	public ArrayList<Integer> getUnactive() {
-		return inactive;
-	}
+	
 
-	public void setUnactive(ArrayList<Integer> unactive) {
-		this.inactive = unactive;
-	}
+
 
 }
