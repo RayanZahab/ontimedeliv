@@ -28,6 +28,7 @@ public class BranchesActivity extends Activity {
 	MyCustomAdapter dataAdapter = null;
 	ArrayList<Branch> branches;
 	ArrayList<Item> branchesItem;	
+	ProgressDialog Dialog ;
 	int shopId;
 	
 	@Override
@@ -36,14 +37,14 @@ public class BranchesActivity extends Activity {
 		setContentView(R.layout.activity_branches);
 		Bundle extras = getIntent().getExtras();
 		shopId=extras.getInt("shopId");
+		Dialog = new ProgressDialog(BranchesActivity.this);
+		Dialog.setCancelable(false);
 		getBranches();
 
 	}
 
 	public void getBranches() {
-		String serverURL = new myURL().getURL("branches", "shops", shopId, 30);
-		ProgressDialog Dialog = new ProgressDialog(this);
-
+		String serverURL = new myURL().getURL("branches", "shops", shopId, 30);		
 		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
 	}
 

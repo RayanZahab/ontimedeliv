@@ -40,6 +40,7 @@ public class CategoriesActivity extends Activity {
 		super.onCreate(savedInstancecat);
 		setContentView(R.layout.activity_categories);
 		this.Dialog = new ProgressDialog(CategoriesActivity.this);
+		Dialog.setCancelable(false);
 		if (getIntent().hasExtra("branchId")) {
 			Bundle extras = getIntent().getExtras();
 			try {

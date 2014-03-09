@@ -757,8 +757,10 @@ public class APIManager {
 				body.put("name", c.getName());
 				body.put("phone", c.getPhone());
 				body.put("password", c.getPassword());
+				body.put("pass", c.getPassword());
 				body.put("branch_id", c.getBranch_id());
-				body.put("customer_address_id", c.getBranch_id());
+				body.put("customer_address_id", 0);
+				body.put("is_fired", 0);
 				
 				jsonObjSend.put("user", body);
 			} catch (JSONException e) {
@@ -819,18 +821,18 @@ public class APIManager {
 			Role c= (Role) o;
 			JSONObject body = new JSONObject();
 			try {
-				body.put("admin", c.getAdmin()?1:0);
-				body.put("preparer", c.getPreparer()?1:0);
-				body.put("delivery", c.getDelivery()?1:0);
+				body.put("is_admin", c.getAdmin()?1:0);
+				body.put("is_preparer", c.getPreparer()?1:0);
+				body.put("is_delivery", c.getDelivery()?1:0);
 
 				
 				jsonObjSend.put("roles", body);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
+			Log.d("ray"," ray put cont:"+jsonObjSend.toString());
 		}
-		Log.d("ray"," ray put cont:"+jsonObjSend.toString());
+		
 
 		return jsonObjSend;
 	}

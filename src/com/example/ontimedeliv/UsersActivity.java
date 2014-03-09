@@ -22,19 +22,20 @@ public class UsersActivity extends Activity {
 	MyCustomAdapter dataAdapter;
 	ArrayList<Item> usersItem = new ArrayList<Item>();
 	ArrayList<User> users = new ArrayList<User>();
+	ProgressDialog Dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_users);
+		Dialog = new ProgressDialog(this);
+		Dialog.setCancelable(false);
 		getUsers();
 
 	}
 
 	public void getUsers() {
-		String serverURL =  new myURL().getURL("users", null, 0, 30);;
-		ProgressDialog Dialog = new ProgressDialog(this);
-
+		String serverURL = new myURL().getURL("users", null, 0, 30);
 		new MyJs(Dialog, "setUsers", this, "GET").execute(serverURL);
 	}
 
@@ -67,7 +68,7 @@ public class UsersActivity extends Activity {
 					i = new Intent(getBaseContext(), Class
 							.forName(getPackageName() + "."
 									+ "UserInfoActivity"));
-					i.putExtra("id", ""+usersItem.get(position).getId());
+					i.putExtra("id", "" + usersItem.get(position).getId());
 					startActivity(i);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block

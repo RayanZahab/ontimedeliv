@@ -24,10 +24,13 @@ public class AddProductActivity extends Activity {
 	Button upload;
 	int RESULT_LOAD_IMAGE = 1;
 	String picturePath;
+	ProgressDialog Dialog ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Dialog = new ProgressDialog(this);
+		Dialog.setCancelable(false);
 		setContentView(R.layout.activity_add_product);
 		if ( getIntent().hasExtra("categoryId")) {
 			Bundle extras = getIntent().getExtras();
@@ -71,7 +74,6 @@ public class AddProductActivity extends Activity {
 	}
 	public void addProduct(Product p) {
 		String serverURL =new myURL().getURL("items", null, 0, 0);// "http://www.androidexample.com/media/UploadToServer.php";
-		ProgressDialog Dialog = new ProgressDialog(this);
 		
 		new MyJs(Dialog, "afterCreation", this, "Upload", (Object) p).execute(serverURL);
 	}
@@ -116,7 +118,6 @@ public class AddProductActivity extends Activity {
 	public void getUnits() {
 		//getUnits
 		String serverURL = new myURL().getURL("units", null,0, 30);
-		ProgressDialog Dialog = new ProgressDialog(this);
 
 		new MyJs(Dialog, "setUnits", this, "GET").execute(serverURL);
 		

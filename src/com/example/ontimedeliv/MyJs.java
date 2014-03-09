@@ -52,6 +52,15 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		this.mc = m;
 		this.method = method;
 	}
+
+	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
+			String method, boolean sm) {
+		this.returnFunction = returnFunction;
+		this.Dialog = dialog2;
+		this.mc = m;
+		this.method = method;
+		this.secondMethod=sm;
+	}
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
 			String method, Object o,boolean secondMethod) {
 		this.returnFunction = returnFunction;
@@ -91,15 +100,15 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		/************ Make Post Call To Web Server ***********/
 		BufferedReader reader = null;
 
-		// Send data
 		try {
 
-			// Defined URL where to send data
 			URL url = new URL(urls[0]);
 
-			// Send POST data request
 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			
+				conn.addRequestProperty("auth_token", "274cb0a7508fb6dd90bb");
+			
 			if (this.method.equals("Upload")) {
 				conn.setRequestMethod("POST");
 			} else {
@@ -107,26 +116,22 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				conn.setRequestProperty("Content-Type",
 						"application/json; charset=utf-8");
 			}
-			conn.addRequestProperty("auth_token", "abaed8959dedfccc79b5");
-			// Get the server response
+			
+
 			if (this.method.equals("GET")) {
 				reader = new BufferedReader(new InputStreamReader(
 						conn.getInputStream()));
 				StringBuilder sb = new StringBuilder();
 				String line = null;
 
-				// Read Server Response
 				while ((line = reader.readLine()) != null) {
-					// Append server response in string
 					sb.append(line + "\n");
 				}
 				Content = sb.toString();
-				Log.d("ray", "ray cont: " + Content);
 			} else if (this.method.equals("POST")) {
 				conn.addRequestProperty("Accept", "application/json");
 				conn.addRequestProperty("Accept-Encoding", "gzip");
-				conn.addRequestProperty("Cache-Control",
-						"max-stale=0,max-age=60");
+				conn.addRequestProperty("Cache-Control","max-stale=0,max-age=60");
 				conn.setDoOutput(true);
 				conn.setDoInput(true);
 
@@ -134,64 +139,48 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 						.objToCreate(this.objectToAdd);
 				OutputStreamWriter wr = new OutputStreamWriter(
 						conn.getOutputStream());
-				Log.d("ray", "ray posting" + conn.toString());
-
+				Log.d("ray","ray writing: "+jsonObjSend.toString());
 				wr.write(jsonObjSend.toString());
 				wr.flush();
 				wr.close();
-				Log.d("ray",
-						"ray resp" + conn.getResponseCode() + "=>"
-								+ conn.getResponseMessage());
-
+				
 				if (conn.getResponseCode() != 201) {
-					Log.d("ray", "ray mazabat" + conn.getResponseMessage());
+					Log.d("ray", "Failed: "+url+"\n" + conn.getResponseMessage());
 					Content = conn.getResponseMessage();
 				} else {
-					// BufferedReader responseContent = (BufferedReader)
-					// conn.getContent();
 					BufferedReader responseContent = new BufferedReader(
 							new InputStreamReader(conn.getInputStream()));
 					StringBuilder sb = new StringBuilder();
 					String line = null;
 
-					// Read Server Response
 					while ((line = responseContent.readLine()) != null) {
-						// Append server response in string
 						sb.append(line + "\n");
 					}
-					Content = sb.toString();
-					
-					Log.d("ray", "ray WIW : " + Content);
+					Content = sb.toString();					
 				}
 			}else if(this.method.equals("PUT")) 
 			{
 				conn.addRequestProperty("Accept", "application/json");
-				conn.addRequestProperty("Accept-Encoding", "gzip");
+				conn.addRequestProperty("Accept-Encoding", "gzip");				
 				conn.addRequestProperty("Cache-Control",
 						"max-stale=0,max-age=60");
 				conn.setDoOutput(true);
 				conn.setDoInput(true);
-				
+				Log.d("ray","ray req: "+conn.getRequestProperties().toString());
 				JSONObject jsonObjSend = (new APIManager())
 						.objToCreate(this.objectToAdd);
 				OutputStreamWriter wr = new OutputStreamWriter(
 						conn.getOutputStream());
-				Log.d("ray", "ray posting" + conn.toString());
-
+				Log.d("ray","ray writing: "+jsonObjSend.toString());
 				wr.write(jsonObjSend.toString());
 				wr.flush();
 				wr.close();
-				Log.d("ray",
-						"ray resp" + conn.getResponseCode() + "=>"
-								+ conn.getResponseMessage());
 				
 				if (conn.getResponseCode() != 200) {
-					Log.d("ray", "ray put mazabat" + conn.getResponseMessage());
+					Log.d("ray", "Failed: "+url+"\n" + conn.getResponseMessage());
 					Content = conn.getResponseMessage();
 				} else {
-					Content="DONE";
-					
-					Log.d("ray", "ray put WIW : " + Content);
+					Content="done";					
 				}
 							
 			}
@@ -304,7 +293,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				con.setUseCaches(false);
 				DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 				wr.writeBytes(urlParameters);
-                System.out.println("\nReading : " + p.getPhoto().getUrl());
                 
                 FileInputStream fileInputStream = new FileInputStream(p.getPhoto().getUrl());
                 int bytesAvailable = fileInputStream.available();
@@ -315,7 +303,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
                 // read file and write it into form...
                 int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-                System.out.println("\nRead : " + bytesRead);
 
                 while (bytesRead > 0)
                 {
@@ -355,7 +342,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			} catch (Exception ex) {
 			}
 		}
-
+		Log.d("ray","ray url: "+urls[0] + "\n content:"+Content );
 		/*****************************************************/
 		return null;
 	}
