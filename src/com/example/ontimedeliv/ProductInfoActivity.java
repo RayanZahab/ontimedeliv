@@ -17,7 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddProductActivity extends Activity {
+public class ProductInfoActivity extends Activity {
 	Spinner unitsSP;
 	ArrayList<Unit> units;
 	int categoryId, branchId,shopId;

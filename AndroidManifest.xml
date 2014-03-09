@@ -85,12 +85,12 @@
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.ProductActivity"
+            android:name="com.example.ontimedeliv.ProductsActivity"
             android:label="@string/title_activity_product"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.AddProductActivity"
+            android:name="com.example.ontimedeliv.ProductInfoActivity"
             android:label="@string/title_activity_add_product"
             android:windowSoftInputMode="adjustNothing" >
         </activity>

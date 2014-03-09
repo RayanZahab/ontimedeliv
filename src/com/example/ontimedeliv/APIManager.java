@@ -273,9 +273,9 @@ public class APIManager {
 						area_str = jsonChildNode.optString("area").toString();
 						areas= getAreasByCity(area_str);
 						area =areas.get(0);
-						shop_str = jsonChildNode.optString("shop").toString();
-						shops= getShopsByArea(shop_str);
-						shop =shops.get(0);
+						shop_str = "";//jsonChildNode.optString("shop").toString();
+						//shops= getShopsByArea(shop_str);
+						shop =null;//shops.get(0);
 						longitude = jsonChildNode.optString("longitude").toString();
 						latitude = jsonChildNode.optString("latitude").toString();
 						int close_hour, open_hour, is_available;
@@ -299,9 +299,9 @@ public class APIManager {
 					longitude = jsonResponse.optString("longitude").toString();
 					latitude = jsonResponse.optString("latitude").toString();
 					int close_hour, open_hour, is_available;
-					shop_str = jsonResponse.optString("shop").toString();
-					shops= getShopsByArea(shop_str);
-					shop =shops.get(0);
+					shop_str = "";//jsonResponse.optString("shop").toString();
+					//shops= getShopsByArea(shop_str);
+					shop =null;//shops.get(0);
 					open_hour = close_hour = is_available = 1;
 					gridArray.add(new Branch(id, name, description, area,
 							address, is_available, shop, longitude, latitude,
@@ -570,6 +570,7 @@ public class APIManager {
 
 	public ArrayList<User> getUsers(String cont) {
 		JSONObject jsonResponse,jsonRole;
+		Log.d("ray","ray user cont"+cont);
 		ArrayList<User> gridArray = new ArrayList<User>();
 
 		try {

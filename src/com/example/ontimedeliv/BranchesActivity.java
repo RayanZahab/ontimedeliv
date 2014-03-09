@@ -117,7 +117,6 @@ public class BranchesActivity extends Activity {
 		View promptsView = li.inflate(R.layout.prompt_cancel, null);
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BranchesActivity.this);
 
-		// set prompts.xml to alertdialog builder
 		alertDialogBuilder.setView(promptsView);
 		final TextView title = (TextView) promptsView.findViewById(R.id.textView1);
 		title.setText("Branch Name");
@@ -139,10 +138,7 @@ public class BranchesActivity extends Activity {
 					}
 				});
 
-		// create alert dialog
 		AlertDialog alertDialog = alertDialogBuilder.create();
-
-		// show it
 		alertDialog.show();  
     } 
 
@@ -163,7 +159,7 @@ public class BranchesActivity extends Activity {
 		Intent intent = new Intent(this, AddBranchActivity.class);
 		intent.putExtra("shopId", 37);
 		startActivity(intent);
-
+		
 		return super.onOptionsItemSelected(item);
 	}
 

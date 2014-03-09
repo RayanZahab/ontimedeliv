@@ -128,6 +128,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					sb.append(line + "\n");
 				}
 				Content = sb.toString();
+				Log.d("ray","ray get Cont: "+Content);
 			} else if (this.method.equals("POST")) {
 				conn.addRequestProperty("Accept", "application/json");
 				conn.addRequestProperty("Accept-Encoding", "gzip");
