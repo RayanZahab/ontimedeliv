@@ -808,9 +808,9 @@ public class APIManager {
 			Activate c = (Activate) o;
 			JSONArray jsonArray = new JSONArray();
 			try {
-				for(int i =0 ;i<c.getActive().size();i++)
+				for(int i =0 ;i<c.getToUpdate().size();i++)
 				{
-					jsonArray.put(c.getActive().get(i));
+					jsonArray.put(c.getToUpdate().get(i));
 				}					
 				jsonObjSend.put("categories",jsonArray);
 			} catch (JSONException e) {
