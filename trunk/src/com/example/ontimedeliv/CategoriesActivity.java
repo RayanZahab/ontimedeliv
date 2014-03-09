@@ -19,6 +19,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -158,18 +159,54 @@ public class CategoriesActivity extends Activity {
 	}
 	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
 	    super.onCreateContextMenu(menu, v, menuInfo);  
-	        menu.setHeaderTitle("Context Menu");  
-	        menu.add(0, v.getId(), 0, "Delete"); 
+	    	menu.clearHeader();  
+	        menu.add(0, v.getId(), 0, "Delete");
+	        menu.add(0, v.getId(), 0, "Edit");
 	    }
 	public boolean onContextItemSelected(MenuItem item) {  
         if(item.getTitle()=="Delete"){Delete(item.getItemId());} 
+        else if(item.getTitle()=="Edit"){Edit(item.getItemId());}
         else {return false;}  
     return true;  
     }  
       
     public void Delete(int id){  
         Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();  
-    } 
+    }
+    public void Edit(int id){  
+    	LayoutInflater li = LayoutInflater
+				.from(getApplicationContext());
+		View promptsView = li.inflate(R.layout.prompt_cancel, null);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CategoriesActivity.this);
+
+		// set prompts.xml to alertdialog builder
+		alertDialogBuilder.setView(promptsView);
+		final TextView title = (TextView) promptsView.findViewById(R.id.textView1);
+		title.setText("Category Name");
+		final EditText userInput = (EditText) promptsView
+				.findViewById(R.id.editText1);	
+		userInput.setHint("Name");
+		alertDialogBuilder
+		.setCancelable(false)
+		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				Toast.makeText(getApplicationContext(),
+						userInput.getText(), Toast.LENGTH_LONG).show();
+			}
+		})
+		.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();  
+    }
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// get prompts.xml view

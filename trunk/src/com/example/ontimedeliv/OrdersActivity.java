@@ -76,7 +76,7 @@ public class OrdersActivity extends Activity {
 	}
 	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
 	    super.onCreateContextMenu(menu, v, menuInfo);  
-	        menu.setHeaderTitle("Context Menu");  
+	    	menu.clearHeader();  
 	        menu.add(0, v.getId(), 0, "Delete"); 
 	    }
 	public boolean onContextItemSelected(MenuItem item) {  
