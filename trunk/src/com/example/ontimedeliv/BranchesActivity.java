@@ -152,6 +152,12 @@ public class BranchesActivity extends Activity {
 		getMenuInflater().inflate(R.menu.branches, menu);
 		return true;
 	}
+	@Override
+	public void onBackPressed()
+	{
+	     Intent i = new Intent(BranchesActivity.this, NavigationActivity.class);
+	     startActivity(i);
+	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = new Intent(this, AddBranchActivity.class);

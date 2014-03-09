@@ -74,6 +74,12 @@ public class OldOrdersActivity extends Activity {
 		getMenuInflater().inflate(R.menu.old_orders, menu);
 		return true;
 	}
+	@Override
+	public void onBackPressed()
+	{
+	     Intent i = new Intent(OldOrdersActivity.this, NavigationActivity.class);
+	     startActivity(i);
+	}
 	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
 	    super.onCreateContextMenu(menu, v, menuInfo);  
 	    	menu.clearHeader();  

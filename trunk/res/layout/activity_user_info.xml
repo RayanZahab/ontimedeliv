@@ -50,24 +50,25 @@
     <EditText
         android:id="@+id/nameinput"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_alignBaseline="@+id/username"
         android:layout_alignBottom="@+id/username"
-        android:layout_marginLeft="22dp"
+        android:layout_toRightOf="@+id/phonenumb"
         android:background="@drawable/myedittext"
-        android:layout_toRightOf="@+id/username"
-        android:ems="10" />
+        android:ems="10"
+        android:gravity="center" />
 
     <EditText
         android:id="@+id/inputphone"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_alignBaseline="@+id/phonenumb"
         android:layout_alignBottom="@+id/phonenumb"
-        android:layout_alignLeft="@+id/button1"
+        android:layout_alignLeft="@+id/nameinput"
         android:layout_alignRight="@+id/nameinput"
-        android:ems="10"
         android:background="@drawable/myedittext"
+        android:ems="10"
+        android:gravity="center"
         android:inputType="phone" >
 
         <requestFocus />
@@ -87,10 +88,9 @@
         android:id="@+id/branchesSP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/inputphone"
-        android:background="@drawable/myspinner"
-        android:layout_alignTop="@+id/textView1" />
-
+        android:layout_alignTop="@+id/textView1"
+        android:layout_toRightOf="@+id/textView1"
+        android:background="@drawable/myspinner" />
 
     <CheckBox
         android:id="@+id/preparer"
@@ -102,15 +102,6 @@
         android:text="Preparer" />
 
     <CheckBox
-        android:id="@+id/delivery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/branchesSP"
-        style="@style/mytextview"
-        android:text="Delivery" />
-
-    <CheckBox
         android:id="@+id/admin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -118,18 +109,28 @@
         android:layout_below="@+id/preparer"
         style="@style/mytextview"
         android:text="Admin" />
-    
-    <Button
-        android:id="@+id/submit" 
+
+    <CheckBox
+        android:id="@+id/delivery"
+        style="@style/mytextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/preparer"
+        android:layout_below="@+id/branchesSP"
+        android:layout_marginTop="39dp"
+        android:text="Delivery" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/admin"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="43dp"
-        android:onClick="addUser"
         android:background="@drawable/mybutton"
-		android:textColor="#ffffff"
-        android:text="Add" />
+        android:onClick="addUser"
+        android:text="Add"
+        android:minWidth="80dp"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>
 </ScrollView>

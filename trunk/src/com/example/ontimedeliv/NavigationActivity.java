@@ -1,22 +1,15 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class NavigationActivity extends Activity {
@@ -78,7 +71,12 @@ public class NavigationActivity extends Activity {
 
 		
 	}
-
+	@Override
+	public void onBackPressed() {
+	    // TODO Auto-generated method stub
+	    super.onBackPressed();
+	    NavigationActivity.this.finishAffinity();
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

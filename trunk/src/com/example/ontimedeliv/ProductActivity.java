@@ -65,6 +65,12 @@ public class ProductActivity extends Activity {
 	public void setDialog(DialogInterface dialog) {
 		this.dialog = dialog;
 	}
+	@Override
+	public void onBackPressed()
+	{
+	     Intent i = new Intent(ProductActivity.this, CategoriesActivity.class);
+	     startActivity(i);
+	}
 
 	private void checkButtonClick() {
 
