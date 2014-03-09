@@ -1,6 +1,7 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,10 +10,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -125,6 +128,7 @@ public class CategoriesActivity extends Activity {
 		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
 				categoryItems);
 		ListView listView = (ListView) findViewById(R.id.categorylist);
+		registerForContextMenu(listView);
 		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
 
@@ -152,6 +156,20 @@ public class CategoriesActivity extends Activity {
 		getMenuInflater().inflate(R.menu.categories, menu);
 		return true;
 	}
+	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
+	    super.onCreateContextMenu(menu, v, menuInfo);  
+	        menu.setHeaderTitle("Context Menu");  
+	        menu.add(0, v.getId(), 0, "Delete"); 
+	    }
+	public boolean onContextItemSelected(MenuItem item) {  
+        if(item.getTitle()=="Delete"){Delete(item.getItemId());} 
+        else {return false;}  
+    return true;  
+    }  
+      
+    public void Delete(int id){  
+        Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();  
+    } 
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// get prompts.xml view

@@ -8,6 +8,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,6 +56,8 @@ public class BranchesActivity extends Activity {
 		dataAdapter = new MyCustomAdapter(this, R.layout.branches_list,
 				branchesItem);
 		ListView listView = (ListView) findViewById(R.id.list);
+		
+		registerForContextMenu(listView);
 		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
 
@@ -84,6 +88,21 @@ public class BranchesActivity extends Activity {
 		});
 
 	}
+	
+	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
+	    super.onCreateContextMenu(menu, v, menuInfo);  
+	        menu.setHeaderTitle("Context Menu");  
+	        menu.add(0, v.getId(), 0, "Delete"); 
+	    }
+	public boolean onContextItemSelected(MenuItem item) {  
+        if(item.getTitle()=="Delete"){Delete(item.getItemId());} 
+        else {return false;}  
+    return true;  
+    }  
+      
+    public void Delete(int id){  
+        Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();  
+    } 
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
