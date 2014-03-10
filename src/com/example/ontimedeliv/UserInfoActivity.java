@@ -18,16 +18,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
-public class UserInfoActivity extends Activity implements OnItemSelectedListener {
+public class UserInfoActivity extends Activity implements
+		OnItemSelectedListener {
 
 	Button addButton;
 	EditText username, inputphone;
 	CheckBox admin, preparer, delivery;
 	Spinner branchesSP;
 	User currentUser;
-	int branchId,userId=0 ;
+	int branchId, userId = 0;
 	ArrayList<Branch> branches;
-	ProgressDialog Dialog ;
+	ProgressDialog Dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 			try {
 				userId = Integer.parseInt((String) extras.getString("id"));
 				getCurrentUser(userId);
-				Button submit= (Button) findViewById(R.id.submit);
+				Button submit = (Button) findViewById(R.id.submit);
 				submit.setText("Update");
 			} catch (Exception e) {
 
@@ -69,12 +70,12 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 	public void getCurrentUser(int userId) {
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
-		Log.d("rays", "ray url" + url);		
-		new MyJs(Dialog, "setUserInfo", this, "GET",true).execute(serverURL);
+		Log.d("rays", "ray url" + url);
+		new MyJs(Dialog, "setUserInfo", this, "GET", true).execute(serverURL);
 	}
 
 	public void setUserInfo(String s) {
-		
+
 		currentUser = (new APIManager().getUsers(s)).get(0);
 
 		username = (EditText) findViewById(R.id.nameinput);
@@ -90,13 +91,11 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 		admin.setChecked(currentUser.isIs_admin());
 		preparer.setChecked(currentUser.isIs_preparer());
 		delivery.setChecked(currentUser.isIs_delivery());
-		
-		
 
 	}
 
 	public void getBranches() {
-		String serverURL = new myURL("branches", "shops", 37, 30).getURL();		
+		String serverURL = new myURL("branches", "shops", 37, 30).getURL();
 		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
 	}
 
@@ -111,14 +110,12 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 		branchesSP.setAdapter(branchAdapter);
 		branchesSP.setOnItemSelectedListener(this);
 
-		for (int position = 0; position < branchAdapter.getCount(); position++)
-	    {
-	        if(branchAdapter.getItemId(position) == currentUser.getBranch_id())
-	        {
-	        	branchesSP.setSelection(position);
-	        	break;
-	        }
-	    }
+		for (int position = 0; position < branchAdapter.getCount(); position++) {
+			if (branchAdapter.getItemId(position) == currentUser.getBranch_id()) {
+				branchesSP.setSelection(position);
+				break;
+			}
+		}
 	}
 
 	public void addUser(View view) {
@@ -130,37 +127,37 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 		delivery = (CheckBox) findViewById(R.id.delivery);
 		User user = null;
 		String serverURL = "";
-		String method="POST";
-		if(userId>0)
-		{
+		String method = "POST";
+		if (userId > 0) {
 			serverURL = new myURL(null, "users", userId, 0).getURL();
 			user = new User(0, username.getText().toString(), username
 					.getText().toString(), "", inputphone.getText().toString(),
-					inputphone.getText().toString(), 0, null, branchId,admin.isChecked(),preparer.isChecked(),delivery.isChecked());
-			method="PUT";
-		}
-		else
-		{
-			serverURL = new myURL("users", null, 0, 0).getURL();		
+					inputphone.getText().toString(), 0, null, branchId,
+					admin.isChecked(), preparer.isChecked(),
+					delivery.isChecked());
+			method = "PUT";
+		} else {
+			serverURL = new myURL("users", null, 0, 0).getURL();
 			user = new User(0, username.getText().toString(), username
 					.getText().toString(), "", inputphone.getText().toString(),
-					inputphone.getText().toString(), 0, null, branchId,admin.isChecked(),preparer.isChecked(),delivery.isChecked());
-			
+					inputphone.getText().toString(), 0, null, branchId,
+					admin.isChecked(), preparer.isChecked(),
+					delivery.isChecked());
+
 		}
-		new MyJs(Dialog, "setRoles", this, method, (Object) user,true).execute(serverURL);
+		new MyJs(Dialog, "setRoles", this, method, (Object) user, true)
+				.execute(serverURL);
 
 	}
 
 	public void setRoles(String s) {
-		int id=userId;
-		
-		if(id<1)
-		{
-			id = new APIManager().getUserId(s);	
-		}
-		else
-		{
-			String makePreparerURL = new myURL("set_roles", "users", id, 0).getURL();
+		int id = userId;
+
+		if (id < 1) {
+			id = new APIManager().getUserId(s);
+		} else {
+			String makePreparerURL = new myURL("set_roles", "users", id, 0)
+					.getURL();
 			admin = (CheckBox) findViewById(R.id.admin);
 			preparer = (CheckBox) findViewById(R.id.preparer);
 			delivery = (CheckBox) findViewById(R.id.delivery);
@@ -173,7 +170,7 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 		}
 	}
 
-	public void afterRoles(String s) {		
+	public void afterRoles(String s) {
 		Intent i = new Intent(this, UsersActivity.class);
 		startActivity(i);
 	}

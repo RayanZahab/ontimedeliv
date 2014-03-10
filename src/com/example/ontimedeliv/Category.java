@@ -1,11 +1,11 @@
 package com.example.ontimedeliv;
 
 public class Category {
-	private int id,shopId;
+	private int id, shopId;
 	private String name;
 	private boolean active;
 
-	public Category(int id, String name,boolean is_active,int shopId) {
+	public Category(int id, String name, boolean is_active, int shopId) {
 		this.setId(id);
 		this.setName(name);
 		this.setActive(is_active);
@@ -27,9 +27,9 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String toString()
-	{
-		return this.id+" - "+this.name;
+
+	public String toString() {
+		return this.id + " - " + this.name;
 	}
 
 	public boolean isActive() {
@@ -48,5 +48,4 @@ public class Category {
 		this.shopId = shopId;
 	}
 
-	
 }

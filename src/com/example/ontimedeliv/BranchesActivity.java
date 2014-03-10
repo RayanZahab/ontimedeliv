@@ -27,16 +27,16 @@ public class BranchesActivity extends Activity {
 
 	MyCustomAdapter dataAdapter = null;
 	ArrayList<Branch> branches;
-	ArrayList<Item> branchesItem;	
-	ProgressDialog Dialog ;
+	ArrayList<Item> branchesItem;
+	ProgressDialog Dialog;
 	int shopId;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_branches);
 		Bundle extras = getIntent().getExtras();
-		shopId=extras.getInt("shopId");
+		shopId = extras.getInt("shopId");
 		Dialog = new ProgressDialog(BranchesActivity.this);
 		Dialog.setCancelable(false);
 		getBranches();
@@ -44,7 +44,7 @@ public class BranchesActivity extends Activity {
 	}
 
 	public void getBranches() {
-		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();		
+		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
 		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
 	}
 
@@ -62,7 +62,7 @@ public class BranchesActivity extends Activity {
 		dataAdapter = new MyCustomAdapter(this, R.layout.branches_list,
 				branchesItem);
 		ListView listView = (ListView) findViewById(R.id.list);
-		
+
 		registerForContextMenu(listView);
 		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
@@ -83,7 +83,7 @@ public class BranchesActivity extends Activity {
 					i.putExtra("branchId", ""
 							+ branchesItem.get(position).getId());
 
-					i.putExtra("shopId", ""+ shopId);
+					i.putExtra("shopId", "" + shopId);
 					startActivity(i);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -94,53 +94,61 @@ public class BranchesActivity extends Activity {
 		});
 
 	}
-	
-	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
-	    super.onCreateContextMenu(menu, v, menuInfo);  
-	    	menu.clearHeader();  
-	        menu.add(0, v.getId(), 0, "Delete");
-	        menu.add(0, v.getId(), 0, "Edit");
-	    }
-	public boolean onContextItemSelected(MenuItem item) {  
-        if(item.getTitle()=="Delete"){Delete(item.getItemId());}
-        else if(item.getTitle()=="Edit"){Edit(item.getItemId());}
-        else {return false;}  
-    return true;  
-    }  
-      
-    public void Delete(int id){  
-        Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();  
-    }
-    public void Edit(int id){  
-    	LayoutInflater li = LayoutInflater
-				.from(getApplicationContext());
+
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		menu.clearHeader();
+		menu.add(0, v.getId(), 0, "Delete");
+		menu.add(0, v.getId(), 0, "Edit");
+	}
+
+	public boolean onContextItemSelected(MenuItem item) {
+		if (item.getTitle() == "Delete") {
+			Delete(item.getItemId());
+		} else if (item.getTitle() == "Edit") {
+			Edit(item.getItemId());
+		} else {
+			return false;
+		}
+		return true;
+	}
+
+	public void Delete(int id) {
+		Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();
+	}
+
+	public void Edit(int id) {
+		LayoutInflater li = LayoutInflater.from(getApplicationContext());
 		View promptsView = li.inflate(R.layout.prompt_cancel, null);
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BranchesActivity.this);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				BranchesActivity.this);
 
 		alertDialogBuilder.setView(promptsView);
-		final TextView title = (TextView) promptsView.findViewById(R.id.textView1);
+		final TextView title = (TextView) promptsView
+				.findViewById(R.id.textView1);
 		title.setText("Branch Name");
 		final EditText userInput = (EditText) promptsView
-				.findViewById(R.id.editText1);	
+				.findViewById(R.id.editText1);
 		userInput.setHint("Name");
 		alertDialogBuilder
-		.setCancelable(false)
-		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				Toast.makeText(getApplicationContext(),
-						userInput.getText(), Toast.LENGTH_LONG).show();
-			}
-		})
-		.setNegativeButton("Cancel",
-				new DialogInterface.OnClickListener() {
+				.setCancelable(false)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
+						Toast.makeText(getApplicationContext(),
+								userInput.getText(), Toast.LENGTH_LONG).show();
 					}
-				});
+				})
+				.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.cancel();
+							}
+						});
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
-		alertDialog.show();  
-    } 
+		alertDialog.show();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -149,20 +157,20 @@ public class BranchesActivity extends Activity {
 		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
 	}
+
 	@Override
-	public void onBackPressed()
-	{
-	     Intent i = new Intent(BranchesActivity.this, NavigationActivity.class);
-	     startActivity(i);
+	public void onBackPressed() {
+		Intent i = new Intent(BranchesActivity.this, NavigationActivity.class);
+		startActivity(i);
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if(SharedMenu.onOptionsItemSelected(item, this) == false) {		    
-		Intent intent = new Intent(this, AddBranchActivity.class);
-		intent.putExtra("shopId", 37);
-		startActivity(intent);
+		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+			Intent intent = new Intent(this, AddBranchActivity.class);
+			intent.putExtra("shopId", 37);
+			startActivity(intent);
 		}
-		
+
 		return super.onOptionsItemSelected(item);
 	}
 

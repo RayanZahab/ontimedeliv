@@ -17,7 +17,8 @@ public class Address {
 
 	public Address(int id, String country, String city, String area,
 			String building, String floor, String street, String details,
-			int customer_id, String longitude, String latitude, String created_at, String update_at) {
+			int customer_id, String longitude, String latitude,
+			String created_at, String update_at) {
 		this.id = id;
 		this.country = country;
 		this.city = city;
@@ -137,9 +138,9 @@ public class Address {
 	public void setCreated_at(String created_at) {
 		this.created_at = created_at;
 	}
-	public String toString()
-	{
-		return this.country+","+this.city+","+this.area;
+
+	public String toString() {
+		return this.country + "," + this.city + "," + this.area;
 	}
 
 }

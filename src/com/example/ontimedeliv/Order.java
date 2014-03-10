@@ -18,12 +18,12 @@ public class Order {
 		this.setCount(count);
 		this.setAddress_id(address_id);
 	}
-	public Order(int id, Customer customer,String total,int count)
-	{
-		this.id=id;
-		this.customer=customer;
-		this.total=total;
-		this.count=count;
+
+	public Order(int id, Customer customer, String total, int count) {
+		this.id = id;
+		this.customer = customer;
+		this.total = total;
+		this.count = count;
 	}
 
 	public int getId() {
@@ -73,7 +73,9 @@ public class Order {
 	public void setAddress_id(int address_id) {
 		this.address_id = address_id;
 	}
-	public String toString(){
-		return this.customer.getName()+"->"+this.getCount()+" - "+this.getTotal();
+
+	public String toString() {
+		return this.customer.getName() + "->" + this.getCount() + " - "
+				+ this.getTotal();
 	}
 }

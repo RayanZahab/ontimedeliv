@@ -35,25 +35,27 @@ public class LoginActivity extends Activity implements OnItemSelectedListener {
 		language = (Spinner) findViewById(R.id.languageSP);
 		language.setBackgroundResource(R.drawable.myspinner);
 		CheckBox keeplog = (CheckBox) findViewById(R.id.keeploggedin);
-		//language.setOnItemSelectedListener(this);
-		
+		// language.setOnItemSelectedListener(this);
+
 		keeplog.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
-		    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
-		        SharedPreferences.Editor editor = settings.edit();
-		        editor.putBoolean("isChecked", isChecked);
-		        editor.commit();
-		    }
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				SharedPreferences settings = getSharedPreferences("PREFS_NAME",
+						0);
+				SharedPreferences.Editor editor = settings.edit();
+				editor.putBoolean("isChecked", isChecked);
+				editor.commit();
+			}
 		});
-		
+
 		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
 		isChecked = settings1.getBoolean("isChecked", false);
 		if (isChecked) {
-		    Intent i = new Intent(LoginActivity.this, NavigationActivity.class);
-		    startActivity(i);}
+			Intent i = new Intent(LoginActivity.this, NavigationActivity.class);
+			startActivity(i);
+		}
 	}
-	
 
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,

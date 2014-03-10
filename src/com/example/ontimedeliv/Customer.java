@@ -32,7 +32,7 @@ public class Customer {
 		this.setMobile(mobile);
 		this.setPhoto(photo);
 	}
-	
+
 	public Customer(int id, String name) {
 		this.setId(id);
 		this.setName(name);

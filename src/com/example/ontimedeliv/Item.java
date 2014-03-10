@@ -12,56 +12,65 @@ public class Item {
 	private int id;
 	int quantity;
 	String price;
-	
-	public Item(String title, Integer quantity, String price){
+
+	public Item(String title, Integer quantity, String price) {
 		super();
 		this.title = title;
 		this.quantity = quantity;
 		this.price = price;
 	}
 
-	public Item(int id,String address, boolean status){
+	public Item(int id, String address, boolean status) {
 		super();
 		this.address = address;
 		this.isNew = status;
-		this.id=id;
-	}
-	public Item(int id,Bitmap image, String title) {
-		super();
-		this.image = image;
-		this.title = title;
-		this.id=id;
+		this.id = id;
 	}
 
-	public Item(int id,Bitmap image, String title, boolean selected) {
+	public Item(int id, Bitmap image, String title) {
 		super();
 		this.image = image;
 		this.title = title;
-		this.id=id;
-		this.selected=selected;
+		this.id = id;
 	}
-	public Item (String title){
+
+	public Item(int id, Bitmap image, String title, boolean selected) {
+		super();
+		this.image = image;
+		this.title = title;
+		this.id = id;
+		this.selected = selected;
+	}
+
+	public Item(String title) {
 		super();
 		this.title = title;
 	}
+
 	public Bitmap getImage() {
 		return image;
 	}
+
 	public void setImage(Bitmap image) {
 		this.image = image;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public boolean getStatus() {
 		return isNew;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public void setName(String name) {
 		this.title = name;
 	}
@@ -73,6 +82,7 @@ public class Item {
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
+
 	public String getCode() {
 		return code;
 	}
@@ -80,12 +90,13 @@ public class Item {
 	public void setCode(String code) {
 		this.code = code;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 
 }

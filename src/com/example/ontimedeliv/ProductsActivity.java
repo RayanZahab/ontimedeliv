@@ -45,8 +45,9 @@ public class ProductsActivity extends Activity {
 				shopId = Integer.parseInt((String) extras.getString("shopId"));
 				Log.d("ray", "ray branch:" + categoryId);
 
-				url = new myURL("items", "branches/" + branchId
-						+ "/categories", categoryId, 30).getURL();
+				url = new myURL("items",
+						"branches/" + branchId + "/categories", categoryId, 30)
+						.getURL();
 				Toast.makeText(getApplicationContext(),
 						"Selected: " + branchId, Toast.LENGTH_SHORT).show();
 			} catch (Exception e) {
@@ -134,11 +135,13 @@ public class ProductsActivity extends Activity {
 				Toast.makeText(getApplicationContext(),
 						"Selected" + productItems.get(position).getId(),
 						Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent(ProductsActivity.this, ProductInfoActivity.class);
+				Intent intent = new Intent(ProductsActivity.this,
+						ProductInfoActivity.class);
 				intent.putExtra("shopId", "" + shopId);
 				intent.putExtra("branchId", "" + branchId);
-				intent.putExtra("categoryId", "" + categoryId);				
-				intent.putExtra("productId", "" + productItems.get(position).getId());
+				intent.putExtra("categoryId", "" + categoryId);
+				intent.putExtra("productId", ""
+						+ productItems.get(position).getId());
 				startActivity(intent);
 			}
 

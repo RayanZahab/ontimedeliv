@@ -34,31 +34,35 @@ public class OrderInfoActivity extends Activity {
 		cancel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				
 				LayoutInflater li = LayoutInflater
 						.from(getApplicationContext());
 				View promptsView = li.inflate(R.layout.prompt_cancel, null);
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(OrderInfoActivity.this);
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						OrderInfoActivity.this);
 
 				// set prompts.xml to alertdialog builder
 				alertDialogBuilder.setView(promptsView);
 
 				final EditText userInput = (EditText) promptsView
-						.findViewById(R.id.editText1);	
+						.findViewById(R.id.editText1);
 				alertDialogBuilder
-				.setCancelable(false)
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						Toast.makeText(getApplicationContext(),
-								userInput.getText(), Toast.LENGTH_LONG).show();
-					}
-				})
-				.setNegativeButton("Cancel",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						});
+						.setCancelable(false)
+						.setPositiveButton("OK",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										Toast.makeText(getApplicationContext(),
+												userInput.getText(),
+												Toast.LENGTH_LONG).show();
+									}
+								})
+						.setNegativeButton("Cancel",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										dialog.cancel();
+									}
+								});
 
 				// create alert dialog
 				AlertDialog alertDialog = alertDialogBuilder.create();

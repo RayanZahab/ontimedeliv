@@ -115,9 +115,9 @@ public class UsersActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if(SharedMenu.onOptionsItemSelected(item, this) == false) {
-		Intent intent = new Intent(this, UserInfoActivity.class);
-		startActivity(intent);
+		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+			Intent intent = new Intent(this, UserInfoActivity.class);
+			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);
 	}
