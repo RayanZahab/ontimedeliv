@@ -31,10 +31,11 @@ public class CategoriesActivity extends Activity {
 	ArrayList<Item> categoryItems;
 	String url = new myURL("categories", null, 0, 30).getURL();
 	DialogInterface dialog;
-	ArrayList<Integer> selectedIds =new ArrayList<Integer>();
-	ArrayList<Integer> unselectedIds =new ArrayList<Integer>();
+	ArrayList<Integer> selectedIds = new ArrayList<Integer>();
+	ArrayList<Integer> unselectedIds = new ArrayList<Integer>();
 	Activate myCat;
 	ProgressDialog Dialog;
+
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
 		super.onCreate(savedInstancecat);
@@ -73,37 +74,40 @@ public class CategoriesActivity extends Activity {
 		responseText.append("Selected Categories are...\n");
 
 		ArrayList<Item> stateList = dataAdapter.getCurrentList();
-		
-		
+
 		for (int i = 0; i < stateList.size(); i++) {
 			Item cat = stateList.get(i);
 			if (cat.isSelected()) {
-				selectedIds.add( cat.getId());
-			}else{
+				selectedIds.add(cat.getId());
+			} else {
 				unselectedIds.add(cat.getId());
 			}
 		}
-		myCat= new Activate(unselectedIds);
+		myCat = new Activate(unselectedIds);
 
 		Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG)
 				.show();
-		
-		String serverURL =new myURL("deactivate_categories", "branches", branchId, 0).getURL();
-		new MyJs(Dialog, "afterDeactivate", this, "PUT",(Object)myCat,true).execute(serverURL);
+
+		String serverURL = new myURL("deactivate_categories", "branches",
+				branchId, 0).getURL();
+		new MyJs(Dialog, "afterDeactivate", this, "PUT", (Object) myCat, true)
+				.execute(serverURL);
 	}
-	public void afterDeactivate(String s)
-	{
-		Toast.makeText(getApplicationContext(),
-				"DeActivate : " + s, Toast.LENGTH_SHORT).show();
-		myCat= new Activate(selectedIds);
-		String serverURL =new myURL("activate_categories", "branches", branchId, 0).getURL();
-		
-		new MyJs(Dialog, "afterActivate", this, "PUT",(Object)myCat).execute(serverURL);
+
+	public void afterDeactivate(String s) {
+		Toast.makeText(getApplicationContext(), "DeActivate : " + s,
+				Toast.LENGTH_SHORT).show();
+		myCat = new Activate(selectedIds);
+		String serverURL = new myURL("activate_categories", "branches",
+				branchId, 0).getURL();
+
+		new MyJs(Dialog, "afterActivate", this, "PUT", (Object) myCat)
+				.execute(serverURL);
 	}
-	public void afterActivate(String s )
-	{
-		Toast.makeText(getApplicationContext(),
-				"Activate : " + s, Toast.LENGTH_SHORT).show();			
+
+	public void afterActivate(String s) {
+		Toast.makeText(getApplicationContext(), "Activate : " + s,
+				Toast.LENGTH_SHORT).show();
 	}
 
 	public void getCategories() {
@@ -157,81 +161,50 @@ public class CategoriesActivity extends Activity {
 		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
 	}
-	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
-	    super.onCreateContextMenu(menu, v, menuInfo);  
-	    	menu.clearHeader();  
-	        menu.add(0, v.getId(), 0, "Delete");
-	        menu.add(0, v.getId(), 0, "Edit");
-	    }
-	public boolean onContextItemSelected(MenuItem item) {  
-        if(item.getTitle()=="Delete"){Delete(item.getItemId());} 
-        else if(item.getTitle()=="Edit"){Edit(item.getItemId());}
-        else {return false;}  
-    return true;  
-    }  
-      
-    public void Delete(int id){  
-        Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();  
-    }
-    public void Edit(int id){  
-    	LayoutInflater li = LayoutInflater
-				.from(getApplicationContext());
+
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		menu.clearHeader();
+		menu.add(0, v.getId(), 0, "Delete");
+		menu.add(0, v.getId(), 0, "Edit");
+	}
+
+	public boolean onContextItemSelected(MenuItem item) {
+		if (item.getTitle() == "Delete") {
+			Delete(item.getItemId());
+		} else if (item.getTitle() == "Edit") {
+			Edit(item.getItemId());
+		} else {
+			return false;
+		}
+		return true;
+	}
+
+	public void Delete(int id) {
+		Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();
+	}
+
+	public void Edit(int id) {
+		LayoutInflater li = LayoutInflater.from(getApplicationContext());
 		View promptsView = li.inflate(R.layout.prompt_cancel, null);
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CategoriesActivity.this);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				CategoriesActivity.this);
 
 		// set prompts.xml to alertdialog builder
 		alertDialogBuilder.setView(promptsView);
-		final TextView title = (TextView) promptsView.findViewById(R.id.textView1);
+		final TextView title = (TextView) promptsView
+				.findViewById(R.id.textView1);
 		title.setText("Category Name");
 		final EditText userInput = (EditText) promptsView
-				.findViewById(R.id.editText1);	
+				.findViewById(R.id.editText1);
 		userInput.setHint("Name");
-		alertDialogBuilder
-		.setCancelable(false)
-		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				Toast.makeText(getApplicationContext(),
-						userInput.getText(), Toast.LENGTH_LONG).show();
-			}
-		})
-		.setNegativeButton("Cancel",
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
-					}
-				});
-
-		// create alert dialog
-		AlertDialog alertDialog = alertDialogBuilder.create();
-
-		// show it
-		alertDialog.show();  
-    }
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if(SharedMenu.onOptionsItemSelected(item, this) == false) {
-		  
-		// get prompts.xml view
-		LayoutInflater li = LayoutInflater.from(this);
-		View promptsView = li.inflate(R.layout.prompt_addcategory, null);
-
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-		// set prompts.xml to alertdialog builder
-		alertDialogBuilder.setView(promptsView);
-
-		final EditText userInput = (EditText) promptsView
-				.findViewById(R.id.editTextDialogUserInput);
-
-		// set dialog message
 		alertDialogBuilder
 				.setCancelable(false)
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						setDialog(dialog);
 						Toast.makeText(getApplicationContext(),
 								userInput.getText(), Toast.LENGTH_LONG).show();
-						addCategory(userInput.getText().toString(), shopId);
 					}
 				})
 				.setNegativeButton("Cancel",
@@ -246,15 +219,61 @@ public class CategoriesActivity extends Activity {
 
 		// show it
 		alertDialog.show();
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+
+			// get prompts.xml view
+			LayoutInflater li = LayoutInflater.from(this);
+			View promptsView = li.inflate(R.layout.prompt_addcategory, null);
+
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					this);
+
+			// set prompts.xml to alertdialog builder
+			alertDialogBuilder.setView(promptsView);
+
+			final EditText userInput = (EditText) promptsView
+					.findViewById(R.id.editTextDialogUserInput);
+
+			// set dialog message
+			alertDialogBuilder
+					.setCancelable(false)
+					.setPositiveButton("OK",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									setDialog(dialog);
+									Toast.makeText(getApplicationContext(),
+											userInput.getText(),
+											Toast.LENGTH_LONG).show();
+									addCategory(userInput.getText().toString(),
+											shopId);
+								}
+							})
+					.setNegativeButton("Cancel",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									dialog.cancel();
+								}
+							});
+
+			// create alert dialog
+			AlertDialog alertDialog = alertDialogBuilder.create();
+
+			// show it
+			alertDialog.show();
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
+
 	@Override
-	public void onBackPressed()
-	{
-	     Intent i = new Intent(CategoriesActivity.this, NavigationActivity.class);
-	     startActivity(i);
+	public void onBackPressed() {
+		Intent i = new Intent(CategoriesActivity.this, NavigationActivity.class);
+		startActivity(i);
 	}
 
 	public void addCategory(String categoryName, int shopId) {

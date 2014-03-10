@@ -13,7 +13,9 @@ public class User {
 	private boolean is_admin, is_preparer, is_delivery;
 
 	public User(int id, String name, String username, String password,
-			String phone, String mobile, int is_fired, Address address,int branch_id,boolean is_admin,boolean is_preparer,boolean is_delivery) {
+			String phone, String mobile, int is_fired, Address address,
+			int branch_id, boolean is_admin, boolean is_preparer,
+			boolean is_delivery) {
 
 		this.setId(id);
 		this.setName(name);
@@ -92,9 +94,10 @@ public class User {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public String toString()
-	{
-		return this.id+"-"+this.name+"\n"+this.is_admin+","+this.is_delivery+","+this.is_preparer;
+
+	public String toString() {
+		return this.id + "-" + this.name + "\n" + this.is_admin + ","
+				+ this.is_delivery + "," + this.is_preparer;
 	}
 
 	public int getBranch_id() {

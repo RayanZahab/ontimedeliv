@@ -18,8 +18,4 @@ public class Activate {
 		this.toUpdate = toUpdate;
 	}
 
-	
-
-
-
 }

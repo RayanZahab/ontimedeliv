@@ -23,7 +23,7 @@ public class OrdersAdapter extends ArrayAdapter<Item> {
 		super(context, textViewResourceId, navList);
 		this.orderList = new ArrayList<Item>();
 		this.orderList.addAll(navList);
-		this.context=context;
+		this.context = context;
 	}
 
 	class ViewHolder {

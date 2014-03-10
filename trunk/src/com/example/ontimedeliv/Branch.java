@@ -129,6 +129,7 @@ public class Branch {
 	}
 
 	public String toString() {
-		return this.id+"-"+this.name + "\n" + this.area.toString() + "," + this.address;
+		return this.id + "-" + this.name + "\n" + this.area.toString() + ","
+				+ this.address;
 	}
 }

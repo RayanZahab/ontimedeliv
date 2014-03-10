@@ -26,8 +26,8 @@ public class AddLocationDetails extends Activity implements
 	Spinner countrySp, citySp;
 	ArrayList<Country> countries = new ArrayList<Country>();
 	ArrayList<City> cities = new ArrayList<City>();
-	String type ="Country";
-	Button addButton ;
+	String type = "Country";
+	Button addButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,27 +40,26 @@ public class AddLocationDetails extends Activity implements
 		if (extras != null) {
 			type = extras.getString("type");
 			RelativeLayout layoutToHide;
-			setTitle("Add "+type);
-			addButton.setText("Add "+type);
-			if (type.equals("Country") ) {
+			setTitle("Add " + type);
+			addButton.setText("Add " + type);
+			if (type.equals("Country")) {
 
 				layoutToHide = (RelativeLayout) findViewById(R.id.addCityView);
 				layoutToHide.setVisibility(View.GONE);
 
-			} else if (type.equals("Business") ) {
+			} else if (type.equals("Business")) {
 				label = getString(R.string.add_business);
 				labelTxt.setText(label);
-				
+
 				layoutToHide = (RelativeLayout) findViewById(R.id.addCityView);
 				layoutToHide.setVisibility(View.GONE);
 
 			} else {
 
-				
 				countrySp = (Spinner) findViewById(R.id.countriesSP);
 				if (type.equals("City")) {
 					label = getString(R.string.add_city);
-					labelTxt.setText(label);								
+					labelTxt.setText(label);
 					layoutToHide = (RelativeLayout) findViewById(R.id.addAreaView);
 					layoutToHide.setVisibility(View.GONE);
 
@@ -80,36 +79,33 @@ public class AddLocationDetails extends Activity implements
 
 	public void add(View view) {
 		locationName = (EditText) findViewById(R.id.name);
-		if(type.equals("Country"))
-		{			
-			if (locationName.getText().toString() != null  && locationName.getText().length()>=3) {
+		if (type.equals("Country")) {
+			if (locationName.getText().toString() != null
+					&& locationName.getText().length() >= 3) {
 				addCountry(locationName.getText().toString());
-	
+
 			} else {
 				Toast.makeText(getApplicationContext(), "Invalid Name Entered",
 						Toast.LENGTH_SHORT).show();
 			}
-		}
-		else if (type.equals("City"))
-		{
-			Country selectedCountry =(Country)countrySp.getSelectedItem();
-			
-			Toast.makeText( getApplicationContext(), "You selected: "+ selectedCountry.getId(), Toast.LENGTH_SHORT)
-					.show();
-			addCity(locationName.getText().toString(),selectedCountry.getId());
-		}
-		else if (type.equals("Area"))
-		{
-			City selectedCity =(City)citySp.getSelectedItem();
-			Toast.makeText( getApplicationContext(), "Area selected: "+ selectedCity.getId(), Toast.LENGTH_SHORT)
-			.show();
-			addArea(locationName.getText().toString(),selectedCity.getId());
-		}
-		else if (type.equals("Business"))
-		{
-			if (locationName.getText().toString() != null  && locationName.getText().length()>=3) {
+		} else if (type.equals("City")) {
+			Country selectedCountry = (Country) countrySp.getSelectedItem();
+
+			Toast.makeText(getApplicationContext(),
+					"You selected: " + selectedCountry.getId(),
+					Toast.LENGTH_SHORT).show();
+			addCity(locationName.getText().toString(), selectedCountry.getId());
+		} else if (type.equals("Area")) {
+			City selectedCity = (City) citySp.getSelectedItem();
+			Toast.makeText(getApplicationContext(),
+					"Area selected: " + selectedCity.getId(),
+					Toast.LENGTH_SHORT).show();
+			addArea(locationName.getText().toString(), selectedCity.getId());
+		} else if (type.equals("Business")) {
+			if (locationName.getText().toString() != null
+					&& locationName.getText().length() >= 3) {
 				addBusiness(locationName.getText().toString());
-	
+
 			} else {
 				Toast.makeText(getApplicationContext(), "Invalid Name Entered",
 						Toast.LENGTH_SHORT).show();
@@ -124,36 +120,37 @@ public class AddLocationDetails extends Activity implements
 		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newCountry)
 				.execute(serverURL);
 	}
+
 	public void addBusiness(String businessName) {
 		String serverURL = new myURL("businesses", null, 0, 30).getURL();
 		ProgressDialog Dialog = new ProgressDialog(this);
 		Business newBusiness = new Business(0, businessName);
 		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newBusiness)
 				.execute(serverURL);
-		Activity currentActivity= AddLocationDetails.this;
+		Activity currentActivity = AddLocationDetails.this;
 	}
 
-	public void addCity(String cityName,int countryId) {
+	public void addCity(String cityName, int countryId) {
 		String serverURL = new myURL("cities", null, 0, 30).getURL();
 		ProgressDialog Dialog = new ProgressDialog(this);
-		City newCity = new City(0,countryId, cityName);
+		City newCity = new City(0, countryId, cityName);
 		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newCity)
 				.execute(serverURL);
 	}
-	public void addArea(String areaName,int cityId) {
-		String serverURL =new myURL("areas", null, 0, 30).getURL();
+
+	public void addArea(String areaName, int cityId) {
+		String serverURL = new myURL("areas", null, 0, 30).getURL();
 		ProgressDialog Dialog = new ProgressDialog(this);
-		Area newArea = new Area(0,cityId, areaName);
+		Area newArea = new Area(0, cityId, areaName);
 		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newArea)
 				.execute(serverURL);
 	}
-	
-	
-	public void backToSelection(String s)
-	{
+
+	public void backToSelection(String s) {
 		Intent i = new Intent(this, SelectionActivity.class);
 		startActivity(i);
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -162,7 +159,7 @@ public class AddLocationDetails extends Activity implements
 	}
 
 	public void getCountries() {
-		String serverURL = new myURL("countries", null, 0, 30).getURL();//"http://enigmatic-springs-5176.herokuapp.com/api/v1/countries?limit=30";
+		String serverURL = new myURL("countries", null, 0, 30).getURL();// "http://enigmatic-springs-5176.herokuapp.com/api/v1/countries?limit=30";
 		ProgressDialog Dialog = new ProgressDialog(this);
 
 		new MyJs(Dialog, "setCountries", this, "GET").execute(serverURL);
@@ -182,8 +179,9 @@ public class AddLocationDetails extends Activity implements
 	}
 
 	public void getCities(int CountryId) {
-		String serverURL = new myURL("cities", "countries", CountryId, 30).getURL();//"http://enigmatic-springs-5176.herokuapp.com/api/v1/countries/"
-				//+ CountryId + "/cities";
+		String serverURL = new myURL("cities", "countries", CountryId, 30)
+				.getURL();// "http://enigmatic-springs-5176.herokuapp.com/api/v1/countries/"
+		// + CountryId + "/cities";
 		ProgressDialog Dialog = new ProgressDialog(this);
 
 		new MyJs(Dialog, "setCities", this, "GET").execute(serverURL);

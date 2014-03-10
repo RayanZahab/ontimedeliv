@@ -9,19 +9,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class oldorderAdapter extends ArrayAdapter<Item> {
+public class OldoOdersAdapter extends ArrayAdapter<Item> {
 
 	private ArrayList<Item> currentList;
 	private Context context;
 
-	public oldorderAdapter(Context context, int textViewResourceId, ArrayList<Item> currentList) {
+	public OldoOdersAdapter(Context context, int textViewResourceId,
+			ArrayList<Item> currentList) {
 		super(context, textViewResourceId, currentList);
 		this.context = context;
 		this.currentList = new ArrayList<Item>();
 		this.currentList.addAll(currentList);
 	}
-	public ArrayList<Item> getCurrentList()
-	{
+
+	public ArrayList<Item> getCurrentList() {
 		return currentList;
 	}
 
@@ -39,19 +40,21 @@ public class oldorderAdapter extends ArrayAdapter<Item> {
 
 		if (convertView == null) {
 
-			LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater vi = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 			convertView = vi.inflate(R.layout.row_old_order_info, null);
 
 			holder = new ViewHolder();
-			
-			holder.itemname = (TextView) convertView.findViewById(R.id.itemname);
-			holder.quantity = (TextView) convertView.findViewById(R.id.quantity);
+
+			holder.itemname = (TextView) convertView
+					.findViewById(R.id.itemname);
+			holder.quantity = (TextView) convertView
+					.findViewById(R.id.quantity);
 			holder.price = (TextView) convertView.findViewById(R.id.price);
 
 			convertView.setTag(holder);
 
-			
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
@@ -61,7 +64,6 @@ public class oldorderAdapter extends ArrayAdapter<Item> {
 		holder.itemname.setText(order.getTitle());
 		holder.quantity.setText(order.getTitle());
 		holder.price.setText(order.getTitle());
-		
 
 		return convertView;
 	}

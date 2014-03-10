@@ -47,17 +47,16 @@ public class ProductInfoActivity extends Activity {
 			} catch (Exception e) {
 
 			}
-			if ( getIntent().hasExtra("productId")) {
-				productId = Integer.parseInt((String) extras.getString("productId"));
+			if (getIntent().hasExtra("productId")) {
+				productId = Integer.parseInt((String) extras
+						.getString("productId"));
 				getProduct(productId);
-			}
-			else
-			{
+			} else {
 				getUnits();
 			}
-				
+
 		}
-		
+
 		upload = (Button) findViewById(R.id.uploadimage);
 		upload.setOnClickListener(new View.OnClickListener() {
 
@@ -72,10 +71,12 @@ public class ProductInfoActivity extends Activity {
 			}
 		});
 	}
+
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
 		new MyJs(Dialog, "setProduct", this, "GET").execute(serverURL);
 	}
+
 	public void setProduct(String s) {
 		currentProduct = new APIManager().getItemsByCategoryAndBranch(s).get(0);
 		TextView name = (TextView) findViewById(R.id.productName);
@@ -83,9 +84,9 @@ public class ProductInfoActivity extends Activity {
 		TextView price = (TextView) findViewById(R.id.price);
 		name.setText(currentProduct.getName());
 		desc.setText(currentProduct.getDescription());
-		price.setText(currentProduct.getPrice());	
+		price.setText(currentProduct.getPrice());
 		getUnits();
-		
+
 	}
 
 	public void addProduct(View view) {
@@ -114,7 +115,7 @@ public class ProductInfoActivity extends Activity {
 		 * i.putExtra("categoryId", ""+categoryId); i.putExtra("branchId", ""+
 		 * branchId); i.putExtra("shopId", ""+ shopId); startActivity(i);
 		 */
-		Toast.makeText(getApplicationContext(), "created: "+s,
+		Toast.makeText(getApplicationContext(), "created: " + s,
 				Toast.LENGTH_LONG).show();
 	}
 
@@ -146,18 +147,18 @@ public class ProductInfoActivity extends Activity {
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		unitsSP.setAdapter(dataAdapter);
-		
-		if(currentProduct != null)
-		{
-			for (int position = 0; position <dataAdapter.getCount(); position++)
-		    {
-		        if(dataAdapter.getItemId(position) == currentProduct.getUnit().getId())
-		        {Toast.makeText(getApplicationContext(), "here: "+unitsSP.getItemIdAtPosition(position),
-						Toast.LENGTH_LONG).show();
-		        	unitsSP.setSelection(position);
-		        	break;
-		        }
-		    }
+
+		if (currentProduct != null) {
+			for (int position = 0; position < dataAdapter.getCount(); position++) {
+				if (dataAdapter.getItemId(position) == currentProduct.getUnit()
+						.getId()) {
+					Toast.makeText(getApplicationContext(),
+							"here: " + unitsSP.getItemIdAtPosition(position),
+							Toast.LENGTH_LONG).show();
+					unitsSP.setSelection(position);
+					break;
+				}
+			}
 		}
 	}
 

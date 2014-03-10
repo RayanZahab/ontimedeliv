@@ -30,7 +30,7 @@ public class OrdersActivity extends Activity {
 	OrdersAdapter dataAdapter;
 	ProgressDialog Dialog;
 	ArrayList<Order> morders;
-	ArrayList<Item> orderItems= new ArrayList<Item>();;
+	ArrayList<Item> orderItems = new ArrayList<Item>();;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +51,11 @@ public class OrdersActivity extends Activity {
 				R.drawable.user);
 		morders = new APIManager().getOrders(s);
 		for (int i = 0; i < morders.size(); i++) {
-			orderItems.add(
-				new Item(morders.get(i).getId(),morders.get(i).toString(), false));
+			orderItems.add(new Item(morders.get(i).getId(), morders.get(i)
+					.toString(), false));
 		}
-		dataAdapter = new OrdersAdapter(OrdersActivity.this, R.layout.row_order, orderItems);
+		dataAdapter = new OrdersAdapter(OrdersActivity.this,
+				R.layout.row_order, orderItems);
 		ListView listView = (ListView) findViewById(R.id.list);
 		registerForContextMenu(listView);
 		listView.setAdapter(dataAdapter);
@@ -80,27 +81,32 @@ public class OrdersActivity extends Activity {
 		getMenuInflater().inflate(R.menu.orders, menu);
 		return true;
 	}
-	 public boolean onOptionsItemSelected(MenuItem item) {
-		    if(SharedMenu.onOptionsItemSelected(item, this) == false) {
-		      // handle local menu items here or leave blank
-		    }
-		    return super.onOptionsItemSelected(item);
-	 }
-	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
-	    super.onCreateContextMenu(menu, v, menuInfo);  
-	    	menu.clearHeader();  
-	        menu.add(0, v.getId(), 0, "Delete"); 
-	    }
-	public boolean onContextItemSelected(MenuItem item) {  
-        if(item.getTitle()=="Delete"){Delete(item.getItemId());} 
-        else {return false;}  
-    return true;  
-    }  
-      
-    public void Delete(int id){  
-        Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();  
-    } 
 
-	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+			// handle local menu items here or leave blank
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		menu.clearHeader();
+		menu.add(0, v.getId(), 0, "Delete");
+	}
+
+	public boolean onContextItemSelected(MenuItem item) {
+		if (item.getTitle() == "Delete") {
+			Delete(item.getItemId());
+		} else {
+			return false;
+		}
+		return true;
+	}
+
+	public void Delete(int id) {
+		Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();
+	}
 
 }

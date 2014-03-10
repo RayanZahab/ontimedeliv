@@ -30,6 +30,7 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
+
 // Class with extends AsyncTask class
 
 public class MyJs extends AsyncTask<String, Void, Void> {
@@ -41,8 +42,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	public TextView uiUpdate;
 	int sizeData = 0;
 	private Activity mc;
-	private String method; 
-	boolean secondMethod=false;
+	private String method;
+	boolean secondMethod = false;
 	private Object objectToAdd;
 
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
@@ -59,10 +60,11 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		this.Dialog = dialog2;
 		this.mc = m;
 		this.method = method;
-		this.secondMethod=sm;
+		this.secondMethod = sm;
 	}
+
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
-			String method, Object o,boolean secondMethod) {
+			String method, Object o, boolean secondMethod) {
 		this.returnFunction = returnFunction;
 		this.Dialog = dialog2;
 		this.mc = m;
@@ -82,8 +84,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
 	protected void onPreExecute() {
 		Dialog.setMessage("Please wait..");
-		if(!this.returnFunction.equals("afterActivate") )
-		Dialog.show();
+		if (!this.returnFunction.equals("afterActivate"))
+			Dialog.show();
 		try {
 			Log.d("Output : ", "Ray &" + URLEncoder.encode("data", "UTF-8"));
 
@@ -104,11 +106,10 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
 			URL url = new URL(urls[0]);
 
-
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			
-				conn.addRequestProperty("auth_token", "274cb0a7508fb6dd90bb");
-			
+
+			conn.addRequestProperty("auth_token", "274cb0a7508fb6dd90bb");
+
 			if (this.method.equals("Upload")) {
 				conn.setRequestMethod("POST");
 			} else {
@@ -116,7 +117,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				conn.setRequestProperty("Content-Type",
 						"application/json; charset=utf-8");
 			}
-			
 
 			if (this.method.equals("GET")) {
 				reader = new BufferedReader(new InputStreamReader(
@@ -128,11 +128,12 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					sb.append(line + "\n");
 				}
 				Content = sb.toString();
-				Log.d("ray","ray get Cont: "+Content);
+				Log.d("ray", "ray get Cont: " + Content);
 			} else if (this.method.equals("POST")) {
 				conn.addRequestProperty("Accept", "application/json");
 				conn.addRequestProperty("Accept-Encoding", "gzip");
-				conn.addRequestProperty("Cache-Control","max-stale=0,max-age=60");
+				conn.addRequestProperty("Cache-Control",
+						"max-stale=0,max-age=60");
 				conn.setDoOutput(true);
 				conn.setDoInput(true);
 
@@ -140,13 +141,14 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 						.objToCreate(this.objectToAdd);
 				OutputStreamWriter wr = new OutputStreamWriter(
 						conn.getOutputStream());
-				Log.d("ray","ray writing: "+jsonObjSend.toString());
+				Log.d("ray", "ray writing: " + jsonObjSend.toString());
 				wr.write(jsonObjSend.toString());
 				wr.flush();
 				wr.close();
-				
+
 				if (conn.getResponseCode() != 201) {
-					Log.d("ray", "Failed: "+url+"\n" + conn.getResponseMessage());
+					Log.d("ray",
+							"Failed: " + url + "\n" + conn.getResponseMessage());
 					Content = conn.getResponseMessage();
 				} else {
 					BufferedReader responseContent = new BufferedReader(
@@ -157,181 +159,173 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					while ((line = responseContent.readLine()) != null) {
 						sb.append(line + "\n");
 					}
-					Content = sb.toString();					
+					Content = sb.toString();
 				}
-			}else if(this.method.equals("PUT")) 
-			{
+			} else if (this.method.equals("PUT")) {
 				conn.addRequestProperty("Accept", "application/json");
-				conn.addRequestProperty("Accept-Encoding", "gzip");				
+				conn.addRequestProperty("Accept-Encoding", "gzip");
 				conn.addRequestProperty("Cache-Control",
 						"max-stale=0,max-age=60");
 				conn.setDoOutput(true);
 				conn.setDoInput(true);
-				Log.d("ray","ray req: "+conn.getRequestProperties().toString());
+				Log.d("ray", "ray req: "
+						+ conn.getRequestProperties().toString());
 				JSONObject jsonObjSend = (new APIManager())
 						.objToCreate(this.objectToAdd);
 				OutputStreamWriter wr = new OutputStreamWriter(
 						conn.getOutputStream());
-				Log.d("ray","ray writing: "+jsonObjSend.toString());
+				Log.d("ray", "ray writing: " + jsonObjSend.toString());
 				wr.write(jsonObjSend.toString());
 				wr.flush();
 				wr.close();
-				
+
 				if (conn.getResponseCode() != 200) {
-					Log.d("ray", "Failed: "+url+"\n" + conn.getResponseMessage());
+					Log.d("ray",
+							"Failed: " + url + "\n" + conn.getResponseMessage());
 					Content = conn.getResponseMessage();
 				} else {
-					Content="done";					
+					Content = "done";
 				}
-							
-			}
-			else if (this.method.equals("Upload")) {
+
+			} else if (this.method.equals("Upload")) {
 				/*
-				Product p = (Product) this.objectToAdd;
-				String path = p.getPhoto().getUrl();
-				String lineEnd = "\r\n";
-				String twoHyphens = "--";
-				String boundary = "*****";
-				FileInputStream fileInputStream = new FileInputStream(path);
-				// Open a HTTP connection to the URL
-				conn.setDoInput(true); // Allow Inputs
-				conn.setDoOutput(true); // Allow Outputs
-				conn.setUseCaches(false); // Don't use a Cached Copy
-				conn.setRequestMethod("POST");
-				conn.setRequestProperty("Connection", "Keep-Alive");
-				conn.setRequestProperty("ENCTYPE", "multipart/form-data");
-				conn.setRequestProperty("Content-Type",
-						"multipart/form-data; charset=UTF-8"
-								);
-				conn.setRequestProperty("uploaded_file", "myFile");
-
-				DataOutputStream dos = new DataOutputStream(
-						conn.getOutputStream());
-
-				// dos.writeBytes(twoHyphens + boundary + lineEnd);
-				String formData = " --form name=\"" + p.getName()
-						+ "\" --form shop_id=\"" + p.getShop_id()
-						+ "\" --form category_id=\"" + p.getCategory().getId()
-						+ "\" --form price=\"" + p.getPrice()
-						+ "\" --form unit_id=\"" + p.getUnit().getId()
-						+ "\" --form description=\"" + p.getDescription()
-						+ "\" --form photo=\"@" + path + "\"";
-				Log.d("rays", "upload" + formData);
-				dos.writeBytes(twoHyphens + boundary + lineEnd);
-				dos.writeBytes("Content-Disposition: form-data; " + formData);
-				dos.writeBytes(lineEnd);
-
-				int bytesRead, bytesAvailable, bufferSize;
-				byte[] buffer;
-				int maxBufferSize = 1 * 1024 * 1024;
-				// create a buffer of maximum size
-				bytesAvailable = fileInputStream.available();
-
-				bufferSize = Math.min(bytesAvailable, maxBufferSize);
-				buffer = new byte[bufferSize];
-
-				// read file and write it into form...
-				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-
-				while (bytesRead > 0) {
-
-					dos.write(buffer, 0, bufferSize);
-					bytesAvailable = fileInputStream.available();
-					bufferSize = Math.min(bytesAvailable, maxBufferSize);
-					bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-
-				}
-
-				// send multipart form data necesssary after file data...
-				dos.writeBytes(lineEnd);
-				dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-				// Responses from the server (code and message)
-				int serverResponseCode = conn.getResponseCode();
-				String serverResponseMessage = conn.getResponseMessage();
-
-				Log.i("uploadFile", "HTTP Response is : "
-						+ serverResponseMessage + ": " + serverResponseCode);
-				fileInputStream.close();
-				dos.flush();
-				dos.close();
-				*/
+				 * Product p = (Product) this.objectToAdd; String path =
+				 * p.getPhoto().getUrl(); String lineEnd = "\r\n"; String
+				 * twoHyphens = "--"; String boundary = "*****"; FileInputStream
+				 * fileInputStream = new FileInputStream(path); // Open a HTTP
+				 * connection to the URL conn.setDoInput(true); // Allow Inputs
+				 * conn.setDoOutput(true); // Allow Outputs
+				 * conn.setUseCaches(false); // Don't use a Cached Copy
+				 * conn.setRequestMethod("POST");
+				 * conn.setRequestProperty("Connection", "Keep-Alive");
+				 * conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+				 * conn.setRequestProperty("Content-Type",
+				 * "multipart/form-data; charset=UTF-8" );
+				 * conn.setRequestProperty("uploaded_file", "myFile");
+				 * 
+				 * DataOutputStream dos = new DataOutputStream(
+				 * conn.getOutputStream());
+				 * 
+				 * // dos.writeBytes(twoHyphens + boundary + lineEnd); String
+				 * formData = " --form name=\"" + p.getName() +
+				 * "\" --form shop_id=\"" + p.getShop_id() +
+				 * "\" --form category_id=\"" + p.getCategory().getId() +
+				 * "\" --form price=\"" + p.getPrice() + "\" --form unit_id=\""
+				 * + p.getUnit().getId() + "\" --form description=\"" +
+				 * p.getDescription() + "\" --form photo=\"@" + path + "\"";
+				 * Log.d("rays", "upload" + formData); dos.writeBytes(twoHyphens
+				 * + boundary + lineEnd);
+				 * dos.writeBytes("Content-Disposition: form-data; " +
+				 * formData); dos.writeBytes(lineEnd);
+				 * 
+				 * int bytesRead, bytesAvailable, bufferSize; byte[] buffer; int
+				 * maxBufferSize = 1 * 1024 * 1024; // create a buffer of
+				 * maximum size bytesAvailable = fileInputStream.available();
+				 * 
+				 * bufferSize = Math.min(bytesAvailable, maxBufferSize); buffer
+				 * = new byte[bufferSize];
+				 * 
+				 * // read file and write it into form... bytesRead =
+				 * fileInputStream.read(buffer, 0, bufferSize);
+				 * 
+				 * while (bytesRead > 0) {
+				 * 
+				 * dos.write(buffer, 0, bufferSize); bytesAvailable =
+				 * fileInputStream.available(); bufferSize =
+				 * Math.min(bytesAvailable, maxBufferSize); bytesRead =
+				 * fileInputStream.read(buffer, 0, bufferSize);
+				 * 
+				 * }
+				 * 
+				 * // send multipart form data necesssary after file data...
+				 * dos.writeBytes(lineEnd); dos.writeBytes(twoHyphens + boundary
+				 * + twoHyphens + lineEnd);
+				 * 
+				 * // Responses from the server (code and message) int
+				 * serverResponseCode = conn.getResponseCode(); String
+				 * serverResponseMessage = conn.getResponseMessage();
+				 * 
+				 * Log.i("uploadFile", "HTTP Response is : " +
+				 * serverResponseMessage + ": " + serverResponseCode);
+				 * fileInputStream.close(); dos.flush(); dos.close();
+				 */
 				Product p = (Product) this.objectToAdd;
 				String path = p.getPhoto().getUrl();
 				String USER_AGENT = "Mozilla/5.0";
-				//URL obj = new URL(url);
-		 
-				//add reuqest header
-				
-				
-				//===============================
+				// URL obj = new URL(url);
+
+				// add reuqest header
+
+				// ===============================
 				String myurl = "http://enigmatic-springs-5176.herokuapp.com/api/v1/items";
 				URL obj = new URL(myurl);
-				HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-		 
-				//add reuqest header
+				HttpURLConnection con = (HttpURLConnection) obj
+						.openConnection();
+
+				// add reuqest header
 				con.setRequestMethod("POST");
 				con.setRequestProperty("User-Agent", USER_AGENT);
 				con.setRequestProperty("auth_token", "274cb0a7508fb6dd90bb");
 				con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-		 
-				/*Bitmap bm = BitmapFactory.decodeFile(p.getPhoto().getUrl());
-				ByteArrayOutputStream bos = new ByteArrayOutputStream();
-	            bm.compress(CompressFormat.JPEG, 75, bos);
-	            byte[] data = bos.toByteArray();
-				*/
-				
-				//String myurlParameters = "name=item-001&category_id=19&shop_id=37&price=12&unit_id=4&description=desc";
-				String urlParameters = "name="+p.getName()+""
-						+ "&category_id="+p.getCategory().getId()
-					    + "&shop_id="+p.getShop_id()
-					    +"&price="+p.getPrice()
-					    +"&unit_id="+p.getUnit().getId()
-					    +"&description="+p.getDescription()
-					    +"&photo=";
+
+				/*
+				 * Bitmap bm = BitmapFactory.decodeFile(p.getPhoto().getUrl());
+				 * ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				 * bm.compress(CompressFormat.JPEG, 75, bos); byte[] data =
+				 * bos.toByteArray();
+				 */
+
+				// String myurlParameters =
+				// "name=item-001&category_id=19&shop_id=37&price=12&unit_id=4&description=desc";
+				String urlParameters = "name=" + p.getName() + ""
+						+ "&category_id=" + p.getCategory().getId()
+						+ "&shop_id=" + p.getShop_id() + "&price="
+						+ p.getPrice() + "&unit_id=" + p.getUnit().getId()
+						+ "&description=" + p.getDescription() + "&photo=";
 				// Send post request
 				con.setDoOutput(true);
 				con.setUseCaches(false);
-				DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+				DataOutputStream wr = new DataOutputStream(
+						con.getOutputStream());
 				wr.writeBytes(urlParameters);
-                
-                FileInputStream fileInputStream = new FileInputStream(p.getPhoto().getUrl());
-                int bytesAvailable = fileInputStream.available();
-                    
-                int maxBufferSize = 1024*1024*1024;
-                int bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                byte[ ] buffer = new byte[bufferSize];
 
-                // read file and write it into form...
-                int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+				FileInputStream fileInputStream = new FileInputStream(p
+						.getPhoto().getUrl());
+				int bytesAvailable = fileInputStream.available();
 
-                while (bytesRead > 0)
-                {
-                        wr.write(buffer, 0, bufferSize);
-                        bytesAvailable = fileInputStream.available();
-                        bufferSize = Math.min(bytesAvailable,maxBufferSize);
-                        bytesRead = fileInputStream.read(buffer, 0,bufferSize);
-                }
-                 
+				int maxBufferSize = 1024 * 1024 * 1024;
+				int bufferSize = Math.min(bytesAvailable, maxBufferSize);
+				byte[] buffer = new byte[bufferSize];
+
+				// read file and write it into form...
+				int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+				while (bytesRead > 0) {
+					wr.write(buffer, 0, bufferSize);
+					bytesAvailable = fileInputStream.available();
+					bufferSize = Math.min(bytesAvailable, maxBufferSize);
+					bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+				}
+
 				wr.flush();
 				wr.close();
 				fileInputStream.close();
 				int responseCode = con.getResponseCode();
-				System.out.println("\nSending 'POST' request to URL : " + myurl);
+				System.out
+						.println("\nSending 'POST' request to URL : " + myurl);
 				System.out.println("Post parameters : " + urlParameters);
 				System.out.println("Response Code : " + responseCode);
-		 
-				BufferedReader in = new BufferedReader(
-				        new InputStreamReader(con.getInputStream()));
+
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						con.getInputStream()));
 				String inputLine;
 				StringBuffer response = new StringBuffer();
-		 
+
 				while ((inputLine = in.readLine()) != null) {
 					response.append(inputLine);
 				}
 				in.close();
-		 
-				
+
 			}
 		} catch (Exception ex) {
 			Error = ex.getLocalizedMessage();
@@ -343,13 +337,13 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			} catch (Exception ex) {
 			}
 		}
-		Log.d("ray","ray url: "+urls[0] + "\n content:"+Content );
+		Log.d("ray", "ray url: " + urls[0] + "\n content:" + Content);
 		/*****************************************************/
 		return null;
 	}
 
 	protected void onPostExecute(Void unused) {
-		if(!this.secondMethod)
+		if (!this.secondMethod)
 			Dialog.dismiss();
 		try {
 			if (Content == null)

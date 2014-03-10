@@ -17,78 +17,80 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class AddBranchActivity extends Activity  implements
-OnItemSelectedListener {
+public class AddBranchActivity extends Activity implements
+		OnItemSelectedListener {
 
 	Button from, to;
 	int fmHour, fmMinute, tHour, tMinute, shopId;
 	ArrayList<Country> countries = new ArrayList<Country>();
 	ArrayList<City> cities = new ArrayList<City>();
 	ArrayList<Area> areas = new ArrayList<Area>();
-	Spinner countrySp, citySp,areasSp;
-	ProgressDialog Dialog ;
+	Spinner countrySp, citySp, areasSp;
+	ProgressDialog Dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_branch);
 		Bundle extras = getIntent().getExtras();
-		shopId=extras.getInt("shopId");
+		shopId = extras.getInt("shopId");
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);
 		areasSp = (Spinner) findViewById(R.id.areasSP);
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
-		
+
 		getCountries();
 		from = (Button) findViewById(R.id.fromBtnn);
 		to = (Button) findViewById(R.id.toBtn);
 	}
-	public void from(View view)
-	{
-		TimePickerDialog tpd = new TimePickerDialog(
-				AddBranchActivity.this,
+
+	public void from(View view) {
+		TimePickerDialog tpd = new TimePickerDialog(AddBranchActivity.this,
 				new TimePickerDialog.OnTimeSetListener() {
 
 					@Override
-					public void onTimeSet(TimePicker view,
-							int hourOfDay, int minute) {
+					public void onTimeSet(TimePicker view, int hourOfDay,
+							int minute) {
 						from.setText(hourOfDay + ":" + minute);
 					}
 				}, fmHour, fmMinute, false);
 		tpd.show();
 	}
-	public void to(View view)
-	{
-		TimePickerDialog tpd = new TimePickerDialog(
-				AddBranchActivity.this,
+
+	public void to(View view) {
+		TimePickerDialog tpd = new TimePickerDialog(AddBranchActivity.this,
 				new TimePickerDialog.OnTimeSetListener() {
 
 					@Override
-					public void onTimeSet(TimePicker view,
-							int hourOfDay, int minute) {
+					public void onTimeSet(TimePicker view, int hourOfDay,
+							int minute) {
 						to.setText(hourOfDay + ":" + minute);
 					}
 				}, tHour, tMinute, false);
 		tpd.show();
 	}
-	public void addBranch(View v)
-	{
+
+	public void addBranch(View v) {
 		areasSp = (Spinner) findViewById(R.id.areasSP);
-		int selectedArea =((Area)areasSp.getSelectedItem()).getId();
-		String name=((EditText) findViewById(R.id.editTextAddName) ).getText().toString();
-		String desc=((EditText) findViewById(R.id.addDesc) ).getText().toString();
-		String address=((EditText) findViewById(R.id.editTextAddress) ).getText().toString();
-		String estimation=((EditText) findViewById(R.id.estimation)).getText().toString();
+		int selectedArea = ((Area) areasSp.getSelectedItem()).getId();
+		String name = ((EditText) findViewById(R.id.editTextAddName)).getText()
+				.toString();
+		String desc = ((EditText) findViewById(R.id.addDesc)).getText()
+				.toString();
+		String address = ((EditText) findViewById(R.id.editTextAddress))
+				.getText().toString();
+		String estimation = ((EditText) findViewById(R.id.estimation))
+				.getText().toString();
 		String serverURL = new myURL("branches", null, 0, 30).getURL();
-		
-		Branch newBranch = new Branch(0,name, desc, 
-				new Area(selectedArea), address, 1, new Shop(shopId), "0", "0", 0, 0, estimation);
+
+		Branch newBranch = new Branch(0, name, desc, new Area(selectedArea),
+				address, 1, new Shop(shopId), "0", "0", 0, 0, estimation);
 		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newBranch)
 				.execute(serverURL);
 	}
-	public void backToSelection(String s)
-	{
+
+	public void backToSelection(String s) {
 		Intent intent = new Intent(this, BranchesActivity.class);
 		intent.putExtra("shopId", 37);
 		startActivity(intent);
@@ -100,11 +102,11 @@ OnItemSelectedListener {
 		getMenuInflater().inflate(R.menu.add_branch, menu);
 		return true;
 	}
-	
+
 	public void getCountries() {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
 
-		new MyJs(Dialog, "setCountries", AddBranchActivity.this, "GET",true)
+		new MyJs(Dialog, "setCountries", AddBranchActivity.this, "GET", true)
 				.execute(serverURL);
 	}
 
@@ -122,8 +124,9 @@ OnItemSelectedListener {
 	}
 
 	public void getCities(int CountryId) {
-		String serverURL = new myURL("cities", "countries", CountryId, 30).getURL();
-		new MyJs(Dialog, "setCities", AddBranchActivity.this, "GET",true)
+		String serverURL = new myURL("cities", "countries", CountryId, 30)
+				.getURL();
+		new MyJs(Dialog, "setCities", AddBranchActivity.this, "GET", true)
 				.execute(serverURL);
 	}
 
@@ -157,6 +160,7 @@ OnItemSelectedListener {
 		areasSp.setOnItemSelectedListener(this);
 
 	}
+
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {

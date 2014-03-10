@@ -85,7 +85,8 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void getCities(int CountryId) {
-		String serverURL = new myURL("cities", "countries", CountryId, 30).getURL();
+		String serverURL = new myURL("cities", "countries", CountryId, 30)
+				.getURL();
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
 		new MyJs(Dialog, "setCities", SelectionActivity.this, "GET")
@@ -126,7 +127,7 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void getBusinesses() {
-		String serverURL =  new myURL("businesses", null, 0, 30).getURL();
+		String serverURL = new myURL("businesses", null, 0, 30).getURL();
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
 		new MyJs(Dialog, "setBusiness", SelectionActivity.this, "GET")
