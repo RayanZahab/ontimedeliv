@@ -64,7 +64,7 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void getCountries() {
-		String serverURL = new myURL().getURL("countries", null, 0, 30);;
+		String serverURL = new myURL("countries", null, 0, 30).getURL();
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
 		new MyJs(Dialog, "setCountries", SelectionActivity.this, "GET")
@@ -85,7 +85,7 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void getCities(int CountryId) {
-		String serverURL = new myURL().getURL("cities", "countries", CountryId, 30);
+		String serverURL = new myURL("cities", "countries", CountryId, 30).getURL();
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
 		new MyJs(Dialog, "setCities", SelectionActivity.this, "GET")
@@ -106,7 +106,7 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void getAreas(int CityId) {
-		String serverURL = new myURL().getURL("areas", "cities", CityId, 30);
+		String serverURL = new myURL("areas", "cities", CityId, 30).getURL();
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
 		new MyJs(Dialog, "setAreas", SelectionActivity.this, "GET")
@@ -126,7 +126,7 @@ public class SelectionActivity extends Activity implements
 	}
 
 	public void getBusinesses() {
-		String serverURL =  new myURL().getURL("businesses", null, 0, 30);
+		String serverURL =  new myURL("businesses", null, 0, 30).getURL();
 		ProgressDialog Dialog = new ProgressDialog(SelectionActivity.this);
 
 		new MyJs(Dialog, "setBusiness", SelectionActivity.this, "GET")

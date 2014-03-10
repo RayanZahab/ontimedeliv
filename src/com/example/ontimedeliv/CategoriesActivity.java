@@ -29,7 +29,7 @@ public class CategoriesActivity extends Activity {
 	int branchId, shopId;
 	ArrayList<Category> categories;
 	ArrayList<Item> categoryItems;
-	String url = new myURL().getURL("categories", null, 0, 30);
+	String url = new myURL("categories", null, 0, 30).getURL();
 	DialogInterface dialog;
 	ArrayList<Integer> selectedIds =new ArrayList<Integer>();
 	ArrayList<Integer> unselectedIds =new ArrayList<Integer>();
@@ -48,8 +48,8 @@ public class CategoriesActivity extends Activity {
 						.getString("branchId"));
 				this.shopId = Integer.parseInt((String) extras
 						.getString("shopId"));
-				url = new myURL()
-						.getURL("categories", "branches", branchId, 30);
+				url = new myURL("categories", "branches", branchId, 30)
+						.getURL();
 
 			} catch (Exception e) {
 
@@ -88,9 +88,7 @@ public class CategoriesActivity extends Activity {
 		Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG)
 				.show();
 		
-		String serverURL =new myURL().getURL("deactivate_categories", "branches", branchId, 0);		
-		
-
+		String serverURL =new myURL("deactivate_categories", "branches", branchId, 0).getURL();
 		new MyJs(Dialog, "afterDeactivate", this, "PUT",(Object)myCat,true).execute(serverURL);
 	}
 	public void afterDeactivate(String s)
@@ -98,7 +96,7 @@ public class CategoriesActivity extends Activity {
 		Toast.makeText(getApplicationContext(),
 				"DeActivate : " + s, Toast.LENGTH_SHORT).show();
 		myCat= new Activate(selectedIds);
-		String serverURL =new myURL().getURL("activate_categories", "branches", branchId, 0);
+		String serverURL =new myURL("activate_categories", "branches", branchId, 0).getURL();
 		
 		new MyJs(Dialog, "afterActivate", this, "PUT",(Object)myCat).execute(serverURL);
 	}
@@ -260,7 +258,7 @@ public class CategoriesActivity extends Activity {
 	}
 
 	public void addCategory(String categoryName, int shopId) {
-		String serverURL = new myURL().getURL("categories", null, 0, 0);
+		String serverURL = new myURL("categories", null, 0, 0).getURL();
 		Category newCategory = new Category(0, categoryName, true, shopId);
 		new MyJs(Dialog, "afterCreation", this, "POST", (Object) newCategory)
 				.execute(serverURL);

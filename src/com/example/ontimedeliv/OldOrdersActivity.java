@@ -35,13 +35,13 @@ public class OldOrdersActivity extends Activity {
 
 		ArrayList<Item> oldorders = new ArrayList<Item>();
 
-		Item _Item = new Item("Tripoli, Abu Samra", true);
+		Item _Item = new Item(1,"Tripoli, Abu Samra", true);
 		oldorders.add(_Item);
-		_Item = new Item("Tripoli, ma3rad street", false);
+		_Item = new Item(2,"Tripoli, ma3rad street", false);
 		oldorders.add(_Item);
-		_Item = new Item("Beirut, salim slem", false);
+		_Item = new Item(3,"Beirut, salim slem", false);
 		oldorders.add(_Item);
-		_Item = new Item("jbeil", true);
+		_Item = new Item(4,"jbeil", true);
 		oldorders.add(_Item);
 		
 

@@ -35,7 +35,7 @@ public class UsersActivity extends Activity {
 	}
 
 	public void getUsers() {
-		String serverURL = new myURL().getURL("users", null, 0, 30);
+		String serverURL = new myURL("users", null, 0, 30).getURL();
 		new MyJs(Dialog, "setUsers", this, "GET").execute(serverURL);
 	}
 
@@ -87,26 +87,33 @@ public class UsersActivity extends Activity {
 		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
 	}
+
 	@Override
-	public void onBackPressed()
-	{
-	     Intent i = new Intent(UsersActivity.this, NavigationActivity.class);
-	     startActivity(i);
+	public void onBackPressed() {
+		Intent i = new Intent(UsersActivity.this, NavigationActivity.class);
+		startActivity(i);
 	}
-	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
-	    super.onCreateContextMenu(menu, v, menuInfo);  
-	        menu.clearHeader(); 
-	        menu.add(0, v.getId(), 0, "Delete"); 
-	    }
-	public boolean onContextItemSelected(MenuItem item) {  
-        if(item.getTitle()=="Delete"){Delete(item.getItemId());} 
-        else {return false;}  
-    return true;  
-    }  
-      
-    public void Delete(int id){  
-        Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();  
-    } 
+
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		menu.clearHeader();
+		menu.add(0, v.getId(), 0, "Delete");
+	}
+
+	public boolean onContextItemSelected(MenuItem item) {
+		if (item.getTitle() == "Delete") {
+			Delete(item.getItemId());
+		} else {
+			return false;
+		}
+		return true;
+	}
+
+	public void Delete(int id) {
+		Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();
+	}
+
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if(SharedMenu.onOptionsItemSelected(item, this) == false) {
 		Intent intent = new Intent(this, UserInfoActivity.class);

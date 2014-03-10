@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -25,53 +27,51 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class OrdersActivity extends Activity {
-	MyCustomAdapter dataAdapter;
+	OrdersAdapter dataAdapter;
+	ProgressDialog Dialog;
+	ArrayList<Order> morders;
+	ArrayList<Item> orderItems= new ArrayList<Item>();;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_orders);
-		displayListView();
+		this.Dialog = new ProgressDialog(OrdersActivity.this);
+		getOrders();
 	}
 
-	private void displayListView() {
+	public void getOrders() {
+		String serverURL = new myURL(null, "orders", "opened", 30).getURL();
 
-		// Array list of Categories
-		ArrayList<Item> orders = new ArrayList<Item>();
+		new MyJs(Dialog, "setOrders", this, "GET").execute(serverURL);
+	}
 
-		Item _Item = new Item("Tripoli, Abu Samra", true);
-		orders.add(_Item);
-		_Item = new Item("Tripoli, ma3rad street", false);
-		orders.add(_Item);
-		_Item = new Item("Beirut, salim slem", false);
-		orders.add(_Item);
-		_Item = new Item("jbeil", true);
-		orders.add(_Item);
-		
-
-		// create an ArrayAdaptar from the String Array
-		dataAdapter = new MyCustomAdapter(this, R.layout.row_order, orders);
+	public void setOrders(String s) {
+		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
+				R.drawable.user);
+		morders = new APIManager().getOrders(s);
+		for (int i = 0; i < morders.size(); i++) {
+			orderItems.add(
+				new Item(morders.get(i).getId(),morders.get(i).toString(), false));
+		}
+		dataAdapter = new OrdersAdapter(OrdersActivity.this, R.layout.row_order, orderItems);
 		ListView listView = (ListView) findViewById(R.id.list);
 		registerForContextMenu(listView);
-		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> parent, View view,int position, long id) { 
-				// When clicked, Navigate to the selected item
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				Intent i = new Intent(getBaseContext(), OrderInfoActivity.class);
 				startActivity(i);
 			}
-
 		});
-
 	}
+
 	@Override
-	public void onBackPressed()
-	{
-	     Intent i = new Intent(OrdersActivity.this, NavigationActivity.class);
-	     startActivity(i);
+	public void onBackPressed() {
+		Intent i = new Intent(OrdersActivity.this, NavigationActivity.class);
+		startActivity(i);
 	}
 
 	@Override
@@ -101,73 +101,6 @@ public class OrdersActivity extends Activity {
         Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();  
     } 
 
-	class MyCustomAdapter extends ArrayAdapter<Item> {
+	
 
-		private ArrayList<Item> orderList;
-
-		public MyCustomAdapter(Context context, int textViewResourceId,
-				ArrayList<Item> navList) {
-			super(context, textViewResourceId, navList);
-			this.orderList = new ArrayList<Item>();
-			this.orderList.addAll(navList);
-		}
-
-		class ViewHolder {
-			TextView address;
-			TextView numbofitems;
-			TextView totalamount;
-			Bitmap reject;
-			Bitmap accept;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-
-			ViewHolder holder = null;
-
-			Log.v("ConvertView", String.valueOf(position));
-
-			if (convertView == null) {
-
-				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-				convertView = vi.inflate(R.layout.row_order, null);
-
-				holder = new ViewHolder();
-				if (this.orderList.get(position).isNew) {
-					RelativeLayout main = (RelativeLayout) convertView
-							.findViewById(R.id.roworder);
-					main.setBackgroundColor(Color.parseColor("#FF9999"));
-				} 
-
-				
-
-				holder.address = (TextView) convertView
-						.findViewById(R.id.useraddress);
-				holder.numbofitems = (TextView) convertView
-						.findViewById(R.id.numbofitems);
-				holder.totalamount = (TextView) convertView
-						.findViewById(R.id.totalamount);
-
-
-				convertView.setTag(holder);
-
-			} else {
-				holder = (ViewHolder) convertView.getTag();
-			}
-
-			Item orderitem = orderList.get(position);
-
-			holder.address.setText(orderitem.getAddress());
-			holder.address.setTag(orderitem);
-
-			holder.numbofitems.setText(orderitem.getTitle());
-			holder.numbofitems.setTag(orderitem);
-
-			holder.totalamount.setText(orderitem.getTitle());
-			holder.totalamount.setTag(orderitem);
-
-			return convertView;
-		}
-	}
 }

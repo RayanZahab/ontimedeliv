@@ -275,11 +275,11 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				con.setRequestProperty("auth_token", "274cb0a7508fb6dd90bb");
 				con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 		 
-				Bitmap bm = BitmapFactory.decodeFile(p.getPhoto().getUrl());
+				/*Bitmap bm = BitmapFactory.decodeFile(p.getPhoto().getUrl());
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
 	            bm.compress(CompressFormat.JPEG, 75, bos);
 	            byte[] data = bos.toByteArray();
-				
+				*/
 				
 				//String myurlParameters = "name=item-001&category_id=19&shop_id=37&price=12&unit_id=4&description=desc";
 				String urlParameters = "name="+p.getName()+""

@@ -44,7 +44,7 @@ public class BranchesActivity extends Activity {
 	}
 
 	public void getBranches() {
-		String serverURL = new myURL().getURL("branches", "shops", shopId, 30);		
+		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();		
 		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
 	}
 

@@ -18,7 +18,7 @@ import android.widget.Toast;
 public class OrderInfoActivity extends Activity {
 	Spinner prep, deliv, status;
 	Button cancel;
-	orderAdapter dataAdapter;
+	OrdersAdapter dataAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +125,7 @@ public class OrderInfoActivity extends Activity {
 		orderitem.add(_Item);
 
 		// create an ArrayAdaptar from the String Array
-		dataAdapter = new orderAdapter(this, R.layout.row_order_info,
+		dataAdapter = new OrdersAdapter(this, R.layout.row_order_info,
 				orderitem);
 		ListView listView = (ListView) findViewById(R.id.orderlist);
 		// Assign adapter to ListView
