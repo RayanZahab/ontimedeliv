@@ -80,6 +80,12 @@ public class OrdersActivity extends Activity {
 		getMenuInflater().inflate(R.menu.orders, menu);
 		return true;
 	}
+	 public boolean onOptionsItemSelected(MenuItem item) {
+		    if(SharedMenu.onOptionsItemSelected(item, this) == false) {
+		      // handle local menu items here or leave blank
+		    }
+		    return super.onOptionsItemSelected(item);
+	 }
 	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
 	    super.onCreateContextMenu(menu, v, menuInfo);  
 	    	menu.clearHeader();  

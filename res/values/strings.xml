@@ -46,6 +46,8 @@
     <string name="textview">TextView</string>
     <string name="checkbox">CheckBox</string>
     <string name="estimation">Estimated Time</string>
+    <string name="About">About us</string>
+    <string name="navigation">Navigation Menu</string>
     
 
     <string-array name="acc_type">

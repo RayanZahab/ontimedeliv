@@ -146,6 +146,7 @@ public class BranchesActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.branches, menu);
+		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
 	}
 	@Override
@@ -156,9 +157,11 @@ public class BranchesActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
+		if(SharedMenu.onOptionsItemSelected(item, this) == false) {		    
 		Intent intent = new Intent(this, AddBranchActivity.class);
 		intent.putExtra("shopId", 37);
 		startActivity(intent);
+		}
 		
 		return super.onOptionsItemSelected(item);
 	}

@@ -72,8 +72,15 @@ public class OldOrdersActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.old_orders, menu);
+		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
 	}
+	 public boolean onOptionsItemSelected(MenuItem item) {
+		    if(SharedMenu.onOptionsItemSelected(item, this) == false) {
+		      
+		    }
+		    return super.onOptionsItemSelected(item);
+		  }
 	@Override
 	public void onBackPressed()
 	{
