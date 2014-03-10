@@ -156,6 +156,7 @@ public class CategoriesActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.categories, menu);
+		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
 	}
 	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
@@ -210,6 +211,8 @@ public class CategoriesActivity extends Activity {
     }
 
 	public boolean onOptionsItemSelected(MenuItem item) {
+		if(SharedMenu.onOptionsItemSelected(item, this) == false) {
+		  
 		// get prompts.xml view
 		LayoutInflater li = LayoutInflater.from(this);
 		View promptsView = li.inflate(R.layout.prompt_addcategory, null);
@@ -245,6 +248,7 @@ public class CategoriesActivity extends Activity {
 
 		// show it
 		alertDialog.show();
+		}
 
 		return super.onOptionsItemSelected(item);
 	}

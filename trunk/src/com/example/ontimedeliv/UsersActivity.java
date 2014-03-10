@@ -84,6 +84,7 @@ public class UsersActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.users, menu);
+		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
 	}
 	@Override
@@ -107,9 +108,10 @@ public class UsersActivity extends Activity {
         Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();  
     } 
 	public boolean onOptionsItemSelected(MenuItem item) {
+		if(SharedMenu.onOptionsItemSelected(item, this) == false) {
 		Intent intent = new Intent(this, UserInfoActivity.class);
 		startActivity(intent);
-
+		}
 		return super.onOptionsItemSelected(item);
 	}
 }
