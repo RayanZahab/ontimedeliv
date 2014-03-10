@@ -22,13 +22,12 @@ import android.widget.AdapterView.OnItemClickListener;
 public class ProductsActivity extends Activity {
 
 	CheckboxAdapter dataAdapter = null;
-	int categoryId, branchId,shopId;
+	int categoryId, branchId, shopId;
 	ArrayList<Product> products;
 	ArrayList<Item> productItems;
-	String url = new myURL().getURL("products", null, 0, 30);
+	String url;
 	DialogInterface dialog;
-	ProgressDialog Dialog ;
-
+	ProgressDialog Dialog;
 
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
@@ -36,18 +35,20 @@ public class ProductsActivity extends Activity {
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
 		setContentView(R.layout.activity_product);
-		if ( getIntent().hasExtra("categoryId")) {
+		if (getIntent().hasExtra("categoryId")) {
 			Bundle extras = getIntent().getExtras();
 			try {
-				categoryId = Integer.parseInt((String) extras.getString("categoryId"));
-				branchId = Integer.parseInt((String) extras.getString("branchId"));
+				categoryId = Integer.parseInt((String) extras
+						.getString("categoryId"));
+				branchId = Integer.parseInt((String) extras
+						.getString("branchId"));
 				shopId = Integer.parseInt((String) extras.getString("shopId"));
 				Log.d("ray", "ray branch:" + categoryId);
-				
-				url =  new myURL().getURL("items", "branches/"+branchId+"/categories", categoryId,30);
+
+				url = new myURL("items", "branches/" + branchId
+						+ "/categories", categoryId, 30).getURL();
 				Toast.makeText(getApplicationContext(),
-						"Selected: " + branchId,
-						Toast.LENGTH_SHORT).show();
+						"Selected: " + branchId, Toast.LENGTH_SHORT).show();
 			} catch (Exception e) {
 
 			}
@@ -65,11 +66,14 @@ public class ProductsActivity extends Activity {
 	public void setDialog(DialogInterface dialog) {
 		this.dialog = dialog;
 	}
+
 	@Override
-	public void onBackPressed()
-	{
-	     Intent i = new Intent(ProductsActivity.this, CategoriesActivity.class);
-	     startActivity(i);
+	public void onBackPressed() {
+		Intent i = new Intent(ProductsActivity.this, CategoriesActivity.class);
+		i.putExtra("shopId", "" + shopId);
+		i.putExtra("branchId", "" + branchId);
+		i.putExtra("categoryId", "" + categoryId);
+		startActivity(i);
 	}
 
 	private void checkButtonClick() {
@@ -80,7 +84,6 @@ public class ProductsActivity extends Activity {
 			public void onClick(View v) {
 
 				StringBuffer responseText = new StringBuffer();
-				responseText.append("Selected Product are...\n");
 
 				ArrayList<Item> stateList = dataAdapter.getCurrentList();
 
@@ -113,8 +116,8 @@ public class ProductsActivity extends Activity {
 
 		for (int i = 0; i < products.size(); i++) {
 			productItems.add(new Item(products.get(i).getId(), picture,
-					products.get(i).toString(),products.get(i).isAvailable()));
-			
+					products.get(i).toString(), products.get(i).isAvailable()));
+
 		}
 		// create an ArrayAdaptar from the String Array
 		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
@@ -131,13 +134,12 @@ public class ProductsActivity extends Activity {
 				Toast.makeText(getApplicationContext(),
 						"Selected" + productItems.get(position).getId(),
 						Toast.LENGTH_SHORT).show();
-				/*
-				 * Intent i; try { i = new Intent(getBaseContext(), Class
-				 * .forName(getPackageName() + "." + "CategoriesActivity"));
-				 * i.putExtra("branchId", productItems.get(position).getId());
-				 * startActivity(i); } catch (ClassNotFoundException e) { //
-				 * TODO Auto-generated catch block e.printStackTrace(); }
-				 */
+				Intent intent = new Intent(ProductsActivity.this, ProductInfoActivity.class);
+				intent.putExtra("shopId", "" + shopId);
+				intent.putExtra("branchId", "" + branchId);
+				intent.putExtra("categoryId", "" + categoryId);				
+				intent.putExtra("productId", "" + productItems.get(position).getId());
+				startActivity(intent);
 			}
 
 		});
@@ -153,16 +155,16 @@ public class ProductsActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = new Intent(this, ProductInfoActivity.class);
-		intent.putExtra("shopId", ""+ shopId);
-		intent.putExtra("branchId", ""+ branchId);
-		intent.putExtra("categoryId", ""+ categoryId);
+		intent.putExtra("shopId", "" + shopId);
+		intent.putExtra("branchId", "" + branchId);
+		intent.putExtra("categoryId", "" + categoryId);
 		startActivity(intent);
 		return super.onOptionsItemSelected(item);
 	}
 
 	public void addCategory(String categoryName) {
-		String serverURL = new myURL().getURL("categories", null, 0, 0);
-		Category newCategory = new Category(0, categoryName,true,0);
+		String serverURL = new myURL("categories", null, 0, 0).getURL();
+		Category newCategory = new Category(0, categoryName, true, 0);
 		new MyJs(Dialog, "afterCreation", this, "POST", (Object) newCategory)
 				.execute(serverURL);
 	}

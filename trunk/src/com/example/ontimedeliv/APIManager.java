@@ -658,7 +658,56 @@ public class APIManager {
 		return 0;
 	}
 
-	public void getCustomer(Integer customer_id) {
+	public ArrayList<Customer> getCustomer(String cont) {
+		JSONObject jsonResponse,jsonRole;
+		Log.d("ray","ray user cont"+cont);
+		ArrayList<Customer> gridArray = new ArrayList<Customer>();
+
+		try {
+			jsonResponse = new JSONObject(cont);
+			if (!errorCheck(jsonResponse)) {
+				int id;
+				boolean is_fired,admin,preparer,delivery;
+				String name, phone, password, username, mobile, roles_str;
+				if (jsonResponse.has("elements")) {
+					JSONArray jsonMainNode = jsonResponse
+							.optJSONArray("elements");
+					int lengthJsonArr = jsonMainNode.length();
+					for (int i = 0; i < lengthJsonArr; i++) {
+						JSONObject jsonChildNode = jsonMainNode
+								.getJSONObject(i);
+
+						id = Integer.parseInt(jsonChildNode.optString("id")
+								.toString());
+						name = jsonChildNode.optString("name").toString();
+						phone = jsonChildNode.optString("phone").toString();
+						mobile = jsonChildNode.optString("mobile").toString();
+						
+						Customer c = new Customer(id, name, phone,mobile, null);
+						gridArray.add(c);
+
+					}
+				} else {
+					id = Integer.parseInt(jsonResponse.optString("id")
+							.toString());
+					name = jsonResponse.optString("name").toString();
+					phone = jsonResponse.optString("phone").toString();
+					mobile = jsonResponse.optString("mobile").toString();
+
+					Customer c = new Customer(id, name, phone,mobile, null);
+					gridArray.add(c);
+
+				}
+
+			} else {
+				return gridArray;
+			}
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+
+		return gridArray;
 	}
 
 	public void getCustomers() {
@@ -667,10 +716,71 @@ public class APIManager {
 	public void getCustomerAddresses(Integer customer_id) {
 	}
 
-	public void getCustomerDefaultAddress(Integer customer_id) {
+	public void getCustomerDefaultAddress(String cont) {
 	}
 
-	public void getOrderStatus(Integer order_id) {
+	public ArrayList<Order> getOrders(String cont) {
+		JSONObject jsonResponse,jsonCustomer;
+		Log.d("ray","ray user cont"+cont);
+		ArrayList<Order> gridArray = new ArrayList<Order>();
+
+		try {
+			jsonResponse = new JSONObject(cont);
+			if (!errorCheck(jsonResponse)) {
+				int id,count;
+				boolean is_fired,admin,preparer,delivery;
+				String name, total, password, username, mobile, customer_str;
+				Customer customer;
+				if (jsonResponse.has("elements")) {
+					JSONArray jsonMainNode = jsonResponse
+							.optJSONArray("elements");
+					int lengthJsonArr = jsonMainNode.length();
+					for (int i = 0; i < lengthJsonArr; i++) {
+						JSONObject jsonChildNode = jsonMainNode
+								.getJSONObject(i);
+
+						id = Integer.parseInt(jsonChildNode.optString("id")
+								.toString());
+						customer_str = jsonChildNode.optString("customer").toString();
+						jsonCustomer = new JSONObject(customer_str);
+						customer = new Customer(
+								Integer.parseInt(jsonCustomer.optString("id").toString()),
+								jsonChildNode.optString("name").toString());
+						
+						total = jsonChildNode.optString("total").toString();
+						count =  Integer.parseInt(jsonChildNode.optString("count")
+								.toString());
+						
+						Order c = new Order(id, customer, total,count);
+						gridArray.add(c);
+
+					}
+				} else {
+					id = Integer.parseInt(jsonResponse.optString("id")
+							.toString());
+					customer_str = jsonResponse.optString("customer").toString();
+					jsonCustomer = new JSONObject(customer_str);
+					customer = new Customer(
+							Integer.parseInt(jsonCustomer.optString("id").toString()),
+							jsonResponse.optString("name").toString());
+					
+					total = jsonResponse.optString("total").toString();
+					count =  Integer.parseInt(jsonResponse.optString("count")
+							.toString());
+					
+					Order c = new Order(id, customer, total,count);
+					gridArray.add(c);
+				}
+
+			} else {
+				return gridArray;
+			}
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+
+		return gridArray;
 	}
 
 	public void getOrderStatusSequence(Integer order_id) {

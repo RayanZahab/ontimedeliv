@@ -118,29 +118,30 @@ public class AddLocationDetails extends Activity implements
 	}
 
 	public void addCountry(String countryName) {
-		String serverURL = new myURL().getURL("countries", null, 0, 30);;
+		String serverURL = new myURL("countries", null, 0, 30).getURL();
 		ProgressDialog Dialog = new ProgressDialog(this);
 		Country newCountry = new Country(0, countryName);
 		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newCountry)
 				.execute(serverURL);
 	}
 	public void addBusiness(String businessName) {
-		String serverURL = new myURL().getURL("businesses", null, 0, 30);;
+		String serverURL = new myURL("businesses", null, 0, 30).getURL();
 		ProgressDialog Dialog = new ProgressDialog(this);
 		Business newBusiness = new Business(0, businessName);
 		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newBusiness)
 				.execute(serverURL);
+		Activity currentActivity= AddLocationDetails.this;
 	}
 
 	public void addCity(String cityName,int countryId) {
-		String serverURL = new myURL().getURL("cities", null, 0, 30);;
+		String serverURL = new myURL("cities", null, 0, 30).getURL();
 		ProgressDialog Dialog = new ProgressDialog(this);
 		City newCity = new City(0,countryId, cityName);
 		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newCity)
 				.execute(serverURL);
 	}
 	public void addArea(String areaName,int cityId) {
-		String serverURL =new myURL().getURL("areas", null, 0, 30);;
+		String serverURL =new myURL("areas", null, 0, 30).getURL();
 		ProgressDialog Dialog = new ProgressDialog(this);
 		Area newArea = new Area(0,cityId, areaName);
 		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newArea)
@@ -161,7 +162,7 @@ public class AddLocationDetails extends Activity implements
 	}
 
 	public void getCountries() {
-		String serverURL = new myURL().getURL("countries", null, 0, 30);//"http://enigmatic-springs-5176.herokuapp.com/api/v1/countries?limit=30";
+		String serverURL = new myURL("countries", null, 0, 30).getURL();//"http://enigmatic-springs-5176.herokuapp.com/api/v1/countries?limit=30";
 		ProgressDialog Dialog = new ProgressDialog(this);
 
 		new MyJs(Dialog, "setCountries", this, "GET").execute(serverURL);
@@ -181,7 +182,7 @@ public class AddLocationDetails extends Activity implements
 	}
 
 	public void getCities(int CountryId) {
-		String serverURL = new myURL().getURL("cities", "countries", CountryId, 30);//"http://enigmatic-springs-5176.herokuapp.com/api/v1/countries/"
+		String serverURL = new myURL("cities", "countries", CountryId, 30).getURL();//"http://enigmatic-springs-5176.herokuapp.com/api/v1/countries/"
 				//+ CountryId + "/cities";
 		ProgressDialog Dialog = new ProgressDialog(this);
 

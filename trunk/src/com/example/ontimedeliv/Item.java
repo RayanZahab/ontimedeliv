@@ -20,10 +20,11 @@ public class Item {
 		this.price = price;
 	}
 
-	public Item(String address, boolean status){
+	public Item(int id,String address, boolean status){
 		super();
 		this.address = address;
 		this.isNew = status;
+		this.id=id;
 	}
 	public Item(int id,Bitmap image, String title) {
 		super();

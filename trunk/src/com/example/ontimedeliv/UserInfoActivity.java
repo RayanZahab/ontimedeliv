@@ -67,7 +67,7 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 	}
 
 	public void getCurrentUser(int userId) {
-		String url = new myURL().getURL(null, "users", userId, 1);
+		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
 		Log.d("rays", "ray url" + url);		
 		new MyJs(Dialog, "setUserInfo", this, "GET",true).execute(serverURL);
@@ -96,7 +96,7 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 	}
 
 	public void getBranches() {
-		String serverURL = new myURL().getURL("branches", "shops", 37, 30);		
+		String serverURL = new myURL("branches", "shops", 37, 30).getURL();		
 		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
 	}
 
@@ -133,7 +133,7 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 		String method="POST";
 		if(userId>0)
 		{
-			serverURL = new myURL().getURL(null, "users", userId, 0);
+			serverURL = new myURL(null, "users", userId, 0).getURL();
 			user = new User(0, username.getText().toString(), username
 					.getText().toString(), "", inputphone.getText().toString(),
 					inputphone.getText().toString(), 0, null, branchId,admin.isChecked(),preparer.isChecked(),delivery.isChecked());
@@ -141,7 +141,7 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 		}
 		else
 		{
-			serverURL = new myURL().getURL("users", null, 0, 0);		
+			serverURL = new myURL("users", null, 0, 0).getURL();		
 			user = new User(0, username.getText().toString(), username
 					.getText().toString(), "", inputphone.getText().toString(),
 					inputphone.getText().toString(), 0, null, branchId,admin.isChecked(),preparer.isChecked(),delivery.isChecked());
@@ -160,7 +160,7 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 		}
 		else
 		{
-			String makePreparerURL = new myURL().getURL("set_roles", "users", id, 0);
+			String makePreparerURL = new myURL("set_roles", "users", id, 0).getURL();
 			admin = (CheckBox) findViewById(R.id.admin);
 			preparer = (CheckBox) findViewById(R.id.preparer);
 			delivery = (CheckBox) findViewById(R.id.delivery);
