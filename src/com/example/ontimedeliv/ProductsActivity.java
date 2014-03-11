@@ -109,7 +109,7 @@ public class ProductsActivity extends Activity {
 		new MyJs(Dialog, "setProducts", this, "GET").execute(serverURL);
 	}
 
-	public void setProducts(String s) {
+	public void setProducts(String s,String error) {
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
 		products = new APIManager().getItemsByCategoryAndBranch(s);
@@ -172,7 +172,7 @@ public class ProductsActivity extends Activity {
 				.execute(serverURL);
 	}
 
-	public void afterCreation(String s) {
+	public void afterCreation(String s,String error) {
 		Intent i = new Intent(this, CategoriesActivity.class);
 		startActivity(i);
 	}

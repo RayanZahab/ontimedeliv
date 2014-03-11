@@ -94,7 +94,7 @@ public class CategoriesActivity extends Activity {
 				.execute(serverURL);
 	}
 
-	public void afterDeactivate(String s) {
+	public void afterDeactivate(String s,String error) {
 		Toast.makeText(getApplicationContext(), "DeActivate : " + s,
 				Toast.LENGTH_SHORT).show();
 		myCat = new Activate(selectedIds);
@@ -105,7 +105,7 @@ public class CategoriesActivity extends Activity {
 				.execute(serverURL);
 	}
 
-	public void afterActivate(String s) {
+	public void afterActivate(String s,String error) {
 		Toast.makeText(getApplicationContext(), "Activate : " + s,
 				Toast.LENGTH_SHORT).show();
 	}
@@ -116,7 +116,7 @@ public class CategoriesActivity extends Activity {
 		new MyJs(Dialog, "setCategories", this, "GET").execute(serverURL);
 	}
 
-	public void setCategories(String s) {
+	public void setCategories(String s,String error) {
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
 		categories = new APIManager().getCategoriesByBranch(s);
@@ -283,7 +283,7 @@ public class CategoriesActivity extends Activity {
 				.execute(serverURL);
 	}
 
-	public void afterCreation(String s) {
+	public void afterCreation(String s,String error) {
 		Intent i = new Intent(this, CategoriesActivity.class);
 		i.putExtra("branchId", "" + branchId);
 

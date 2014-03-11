@@ -39,7 +39,7 @@ public class UsersActivity extends Activity {
 		new MyJs(Dialog, "setUsers", this, "GET").execute(serverURL);
 	}
 
-	public void setUsers(String s) {
+	public void setUsers(String s,String error) {
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
 		users = new APIManager().getUsers(s);

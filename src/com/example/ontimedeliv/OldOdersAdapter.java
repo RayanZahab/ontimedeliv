@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class OldoOdersAdapter extends ArrayAdapter<Item> {
+public class OldOdersAdapter extends ArrayAdapter<Item> {
 
 	private ArrayList<Item> currentList;
 	private Context context;
 
-	public OldoOdersAdapter(Context context, int textViewResourceId,
+	public OldOdersAdapter(Context context, int textViewResourceId,
 			ArrayList<Item> currentList) {
 		super(context, textViewResourceId, currentList);
 		this.context = context;

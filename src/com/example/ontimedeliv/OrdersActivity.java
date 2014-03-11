@@ -46,13 +46,14 @@ public class OrdersActivity extends Activity {
 		new MyJs(Dialog, "setOrders", this, "GET").execute(serverURL);
 	}
 
-	public void setOrders(String s) {
+	public void setOrders(String s,String error) {
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
 		morders = new APIManager().getOrders(s);
 		for (int i = 0; i < morders.size(); i++) {
 			orderItems.add(new Item(morders.get(i).getId(), morders.get(i)
-					.toString(), false));
+					.toString(), morders.get(i).getCount(), morders.get(i)
+					.getTotal(), false));
 		}
 		dataAdapter = new OrdersAdapter(OrdersActivity.this,
 				R.layout.row_order, orderItems);

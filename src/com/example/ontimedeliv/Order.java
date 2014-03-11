@@ -75,7 +75,6 @@ public class Order {
 	}
 
 	public String toString() {
-		return this.customer.getName() + "->" + this.getCount() + " - "
-				+ this.getTotal();
+		return this.customer.getName();
 	}
 }

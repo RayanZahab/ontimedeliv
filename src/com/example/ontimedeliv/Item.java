@@ -10,21 +10,23 @@ public class Item {
 	String address;
 	boolean isNew = false;
 	private int id;
-	int quantity;
-	String price;
+	private int quantity;
+	private String price;
 
 	public Item(String title, Integer quantity, String price) {
 		super();
 		this.title = title;
-		this.quantity = quantity;
-		this.price = price;
+		this.setQuantity(quantity);
+		this.setPrice(price);
 	}
 
-	public Item(int id, String address, boolean status) {
+	public Item(int id, String title, Integer quantity, String price, boolean status) {
 		super();
-		this.address = address;
+		this.title = title;
 		this.isNew = status;
 		this.id = id;
+		this.setQuantity(quantity);
+		this.setPrice(price);
 	}
 
 	public Item(int id, Bitmap image, String title) {
@@ -97,6 +99,22 @@ public class Item {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 }
