@@ -784,7 +784,8 @@ public class APIManager {
 						total = jsonChildNode.optString("total").toString();
 						count = Integer.parseInt(jsonChildNode.optString(
 								"count").toString());
-
+						Log.d("ray","ray customer" +customer_str+ "->"+jsonCustomer
+								.optString("id"));
 						Order c = new Order(id, customer, total, count);
 						gridArray.add(c);
 
