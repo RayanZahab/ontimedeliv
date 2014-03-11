@@ -164,7 +164,7 @@
 	<EditText
 	    android:id="@+id/noteinput"
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
+	    android:layout_height="35dp"
 	    android:layout_alignLeft="@+id/select"
 	    android:layout_below="@+id/notes"
 	    android:ems="10"
