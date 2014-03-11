@@ -1,5 +1,8 @@
 package com.example.ontimedeliv;
 
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
+
 public class User {
 	private int id;
 	private String name;
@@ -29,6 +32,14 @@ public class User {
 		this.setIs_admin(is_admin);
 		this.setIs_preparer(is_preparer);
 		this.setIs_delivery(is_delivery);
+	}
+
+	public User(String phone, String password) {
+		this.setPassword(//Hashing.sha256().hashString(
+				password
+				//, Charsets.UTF_8).toString()
+				);
+		this.setPhone(phone);
 	}
 
 	public String getMobile() {

@@ -71,7 +71,7 @@ public class SelectionActivity extends Activity implements
 				.execute(serverURL);
 	}
 
-	public void setCountries(String s) {
+	public void setCountries(String s,String error) {
 
 		countries = new APIManager().getCountries(s);
 		ArrayAdapter<Country> counrytAdapter = new ArrayAdapter<Country>(this,
@@ -93,7 +93,7 @@ public class SelectionActivity extends Activity implements
 				.execute(serverURL);
 	}
 
-	public void setCities(String s) {
+	public void setCities(String s,String error) {
 		cities = new APIManager().getCitiesByCountry(s);
 		ArrayAdapter<City> cityAdapter = new ArrayAdapter<City>(this,
 				android.R.layout.simple_spinner_item, cities);
@@ -114,7 +114,7 @@ public class SelectionActivity extends Activity implements
 				.execute(serverURL);
 	}
 
-	public void setAreas(String s) {
+	public void setAreas(String s,String error) {
 		areas = new APIManager().getAreasByCity(s);
 		ArrayAdapter<Area> areaAdapter = new ArrayAdapter<Area>(this,
 				android.R.layout.simple_spinner_item, areas);
@@ -134,7 +134,7 @@ public class SelectionActivity extends Activity implements
 				.execute(serverURL);
 	}
 
-	public void setBusiness(String s) {
+	public void setBusiness(String s,String error) {
 
 		business = new APIManager().getBusinesses(s);
 

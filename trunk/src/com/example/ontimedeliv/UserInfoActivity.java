@@ -74,7 +74,7 @@ public class UserInfoActivity extends Activity implements
 		new MyJs(Dialog, "setUserInfo", this, "GET", true).execute(serverURL);
 	}
 
-	public void setUserInfo(String s) {
+	public void setUserInfo(String s,String error) {
 
 		currentUser = (new APIManager().getUsers(s)).get(0);
 
@@ -99,7 +99,7 @@ public class UserInfoActivity extends Activity implements
 		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
 	}
 
-	public void setBranches(String s) {
+	public void setBranches(String s,String error) {
 		this.branches = new APIManager().getBranchesByShop(s);
 		branchesSP = (Spinner) findViewById(R.id.branchesSP);
 		ArrayAdapter<Branch> branchAdapter = new ArrayAdapter<Branch>(this,
@@ -150,7 +150,7 @@ public class UserInfoActivity extends Activity implements
 
 	}
 
-	public void setRoles(String s) {
+	public void setRoles(String s,String error) {
 		int id = userId;
 
 		if (id < 1) {
@@ -170,7 +170,7 @@ public class UserInfoActivity extends Activity implements
 		}
 	}
 
-	public void afterRoles(String s) {
+	public void afterRoles(String s,String error) {
 		Intent i = new Intent(this, UsersActivity.class);
 		startActivity(i);
 	}

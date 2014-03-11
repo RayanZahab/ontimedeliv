@@ -9,8 +9,26 @@ import org.json.JSONObject;
 import android.util.Log;
 
 public class APIManager {
-
+	
 	public APIManager() {
+
+	}
+
+	public String getLogedInToken(String cont) {
+		JSONObject jsonResponse;
+
+		try {
+			jsonResponse = new JSONObject(cont);
+			if (!errorCheck(jsonResponse)) {
+				Log.d("ray","ray log resp: "+jsonResponse.optString("auth_token").toString());
+				return jsonResponse.optString("auth_token").toString();
+			}
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+
+		}
+		return null;
 
 	}
 
@@ -778,14 +796,15 @@ public class APIManager {
 								.toString();
 						jsonCustomer = new JSONObject(customer_str);
 						customer = new Customer(Integer.parseInt(jsonCustomer
-								.optString("id").toString()), jsonChildNode
+								.optString("id").toString()), jsonCustomer
 								.optString("name").toString());
 
 						total = jsonChildNode.optString("total").toString();
 						count = Integer.parseInt(jsonChildNode.optString(
 								"count").toString());
-						Log.d("ray","ray customer" +customer_str+ "->"+jsonCustomer
-								.optString("id"));
+						Log.d("ray", "ray customer" + customer_str + "->"
+								+ jsonCustomer.optString("id") + "->"
+								+ jsonCustomer.optString("name").toString());
 						Order c = new Order(id, customer, total, count);
 						gridArray.add(c);
 
@@ -901,13 +920,17 @@ public class APIManager {
 
 			JSONObject body = new JSONObject();
 			try {
-				body.put("name", c.getName());
 				body.put("phone", c.getPhone());
-				body.put("password", c.getPassword());
-				body.put("pass", c.getPassword());
-				body.put("branch_id", c.getBranch_id());
-				body.put("customer_address_id", 0);
-				body.put("is_fired", 0);
+				if (c.getPassword() != null) {
+					body.put("pass", c.getPassword());
+				} else {
+					body.put("name", c.getName());
+					body.put("password", c.getPassword());
+					body.put("pass", c.getPassword());
+					body.put("branch_id", c.getBranch_id());
+					body.put("customer_address_id", 0);
+					body.put("is_fired", 0);
+				}
 
 				jsonObjSend.put("user", body);
 			} catch (JSONException e) {

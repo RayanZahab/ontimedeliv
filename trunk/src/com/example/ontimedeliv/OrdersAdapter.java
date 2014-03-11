@@ -18,8 +18,7 @@ public class OrdersAdapter extends ArrayAdapter<Item> {
 	private ArrayList<Item> orderList;
 	Context context;
 
-	public OrdersAdapter(Context context, int textViewResourceId,
-			ArrayList<Item> navList) {
+	public OrdersAdapter(Context context, int textViewResourceId, ArrayList<Item> navList) {
 		super(context, textViewResourceId, navList);
 		this.orderList = new ArrayList<Item>();
 		this.orderList.addAll(navList);
@@ -70,13 +69,13 @@ public class OrdersAdapter extends ArrayAdapter<Item> {
 
 		Item orderitem = orderList.get(position);
 
-		holder.address.setText(orderitem.getAddress());
+		holder.address.setText(orderitem.getTitle());
 		holder.address.setTag(orderitem);
 
-		holder.numbofitems.setText(orderitem.getTitle());
+		holder.numbofitems.setText(orderitem.getQuantity()+" Items");
 		holder.numbofitems.setTag(orderitem);
 
-		holder.totalamount.setText(orderitem.getTitle());
+		holder.totalamount.setText(orderitem.getPrice()+" $$");
 		holder.totalamount.setTag(orderitem);
 
 		return convertView;

@@ -22,11 +22,13 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
@@ -45,6 +47,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	private String method;
 	boolean secondMethod = false;
 	private Object objectToAdd;
+	String token= "274cb0a7508fb6dd90bb";
 
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
 			String method) {
@@ -52,6 +55,10 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		this.Dialog = dialog2;
 		this.mc = m;
 		this.method = method;
+		SharedPreferences settings1 = PreferenceManager.getDefaultSharedPreferences(m);
+		//token = settings1.getString("token",null );
+		//Log.d("ray","ray token: "+token);
+		
 	}
 
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
@@ -108,7 +115,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-			conn.addRequestProperty("auth_token", "274cb0a7508fb6dd90bb");
+			conn.addRequestProperty("auth_token", token);
 
 			if (this.method.equals("Upload")) {
 				conn.setRequestMethod("POST");
@@ -128,6 +135,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					sb.append(line + "\n");
 				}
 				Content = sb.toString();
+				Error = null;
 				Log.d("ray", "ray get Cont: " + Content);
 			} else if (this.method.equals("POST")) {
 				conn.addRequestProperty("Accept", "application/json");
@@ -146,10 +154,12 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				wr.flush();
 				wr.close();
 
-				if (conn.getResponseCode() != 201) {
+				if (conn.getResponseCode() != 201
+						&& conn.getResponseCode() != 200) {
 					Log.d("ray",
 							"Failed: " + url + "\n" + conn.getResponseMessage());
 					Content = conn.getResponseMessage();
+					Error = conn.getResponseMessage();
 				} else {
 					BufferedReader responseContent = new BufferedReader(
 							new InputStreamReader(conn.getInputStream()));
@@ -160,6 +170,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 						sb.append(line + "\n");
 					}
 					Content = sb.toString();
+					Error = null;
 				}
 			} else if (this.method.equals("PUT")) {
 				conn.addRequestProperty("Accept", "application/json");
@@ -182,9 +193,11 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				if (conn.getResponseCode() != 200) {
 					Log.d("ray",
 							"Failed: " + url + "\n" + conn.getResponseMessage());
-					Content = conn.getResponseMessage();
+					Content = null;
+					Error = conn.getResponseMessage();
 				} else {
 					Content = "done";
+					Error = null;
 				}
 
 			} else if (this.method.equals("Upload")) {
@@ -265,7 +278,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				// add reuqest header
 				con.setRequestMethod("POST");
 				con.setRequestProperty("User-Agent", USER_AGENT);
-				con.setRequestProperty("auth_token", "274cb0a7508fb6dd90bb");
+				con.setRequestProperty("auth_token", token);
 				con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
 				/*
@@ -348,10 +361,11 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		try {
 			if (Content == null)
 				Content = "";
-			Method returnFunction = this.mc.getClass().getMethod(
-					this.returnFunction, Content.getClass());
-			returnFunction.invoke(this.mc, Content);
-			Log.d("ray", "Ray zabt");
+			Method returnFunction = this.mc.getClass()
+					.getMethod(this.returnFunction, Content.getClass(),
+							Content.getClass());
+			returnFunction.invoke(this.mc, Content, Error);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			Log.d("ray", "Ray excep: " + e.getMessage());

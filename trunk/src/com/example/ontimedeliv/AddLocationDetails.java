@@ -146,7 +146,7 @@ public class AddLocationDetails extends Activity implements
 				.execute(serverURL);
 	}
 
-	public void backToSelection(String s) {
+	public void backToSelection(String s,String error) {
 		Intent i = new Intent(this, SelectionActivity.class);
 		startActivity(i);
 	}

@@ -48,7 +48,7 @@ public class BranchesActivity extends Activity {
 		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
 	}
 
-	public void setBranches(String s) {
+	public void setBranches(String s , String error) {
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
 		branches = new APIManager().getBranchesByShop(s);

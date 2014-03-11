@@ -77,7 +77,7 @@ public class ProductInfoActivity extends Activity {
 		new MyJs(Dialog, "setProduct", this, "GET").execute(serverURL);
 	}
 
-	public void setProduct(String s) {
+	public void setProduct(String s,String error) {
 		currentProduct = new APIManager().getItemsByCategoryAndBranch(s).get(0);
 		TextView name = (TextView) findViewById(R.id.productName);
 		TextView desc = (TextView) findViewById(R.id.description);
@@ -109,7 +109,7 @@ public class ProductInfoActivity extends Activity {
 				.execute(serverURL);
 	}
 
-	public void afterCreation(String s) {
+	public void afterCreation(String s,String error) {
 		/*
 		 * Intent i = new Intent(this, ProductActivity.class);
 		 * i.putExtra("categoryId", ""+categoryId); i.putExtra("branchId", ""+
@@ -139,7 +139,7 @@ public class ProductInfoActivity extends Activity {
 		}
 	}
 
-	public void setUnits(String s) {
+	public void setUnits(String s,String error) {
 		unitsSP = (Spinner) findViewById(R.id.units);
 		units = new APIManager().getUnits(s);
 		ArrayAdapter<Unit> dataAdapter = new ArrayAdapter<Unit>(this,
