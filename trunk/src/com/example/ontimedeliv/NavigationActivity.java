@@ -1,9 +1,11 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.Menu;
@@ -33,17 +35,31 @@ public class NavigationActivity extends Activity {
 		// R.drawable.ic_launcher);
 		// Array list of Categories
 		ArrayList<Item> categories = new ArrayList<Item>();
+		// String role
+		// if()
+		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
+		boolean isAdmin = settings1.getBoolean("admin", false);
+		boolean isPreparer = settings1.getBoolean("preparer", false);
+		boolean isDelivery = settings1.getBoolean("delivery", false);
+		Item _Item;
+		if (isPreparer || isDelivery || isAdmin) {
 
-		Item _Item = new Item(0, picture, "Branches");
-		categories.add(_Item);
-		_Item = new Item(0, picture, "Orders");
-		categories.add(_Item);
-		_Item = new Item(0, picture, "Users");
-		categories.add(_Item);
-		_Item = new Item(0, picture, "Selection");
-		categories.add(_Item);
-		_Item = new Item(0, picture, "OldOrders");
-		categories.add(_Item);
+			_Item = new Item(0, picture, "Orders");
+			categories.add(_Item);
+		}
+		if (isAdmin) 
+		{
+
+			_Item = new Item(0, picture, "Branches");
+			categories.add(_Item);
+
+			_Item = new Item(0, picture, "Users");
+			categories.add(_Item);
+			_Item = new Item(0, picture, "Selection");
+			categories.add(_Item);
+			_Item = new Item(0, picture, "OldOrders");
+			categories.add(_Item);
+		}
 
 		// create an ArrayAdaptar from the String Array
 		dataAdapter = new MyCustomAdapter(this, R.layout.categories_list,

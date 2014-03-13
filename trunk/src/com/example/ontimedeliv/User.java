@@ -8,7 +8,7 @@ public class User {
 	private String name;
 	private String username;
 	private String password;
-	private String phone;
+	private String phone,token;
 	private String mobile;
 	private int is_fired;
 	private Address address;
@@ -33,12 +33,19 @@ public class User {
 		this.setIs_preparer(is_preparer);
 		this.setIs_delivery(is_delivery);
 	}
+	public User(int id,String token,int branch_id,boolean is_admin, boolean is_preparer,
+			boolean is_delivery )
+	{
+		this.setId(id);
+		this.setBranch_id(branch_id);
+		this.setIs_admin(is_admin);
+		this.setIs_preparer(is_preparer);
+		this.setIs_delivery(is_delivery);
+		this.setToken(token);
+	}
 
 	public User(String phone, String password) {
-		this.setPassword(//Hashing.sha256().hashString(
-				password
-				//, Charsets.UTF_8).toString()
-				);
+		this.setPassword(password);
 		this.setPhone(phone);
 	}
 
@@ -63,7 +70,9 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = Hashing.sha256().hashString(
+				password
+				, Charsets.UTF_8).toString();
 	}
 
 	public String getUsername() {
@@ -141,6 +150,12 @@ public class User {
 
 	public void setIs_preparer(boolean is_preparer) {
 		this.is_preparer = is_preparer;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }
