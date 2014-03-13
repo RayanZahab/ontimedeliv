@@ -14,14 +14,27 @@ public class APIManager {
 
 	}
 
-	public String getLogedInToken(String cont) {
-		JSONObject jsonResponse;
+	public User getLogedInUser(String cont) {
+		JSONObject jsonResponse, jsonRole;
 
 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				Log.d("ray","ray log resp: "+jsonResponse.optString("auth_token").toString());
-				return jsonResponse.optString("auth_token").toString();
+				int id =  Integer.parseInt(jsonResponse.optString("id").toString());
+				int branch_id =  Integer.parseInt(jsonResponse.optString("branch_id").toString());
+				String token= jsonResponse.optString("auth_token").toString();
+				String role_str =jsonResponse.optString("roles").toString();
+				jsonRole = new JSONObject(role_str);
+				boolean admin = Boolean.parseBoolean(jsonRole.optString("admin")
+						.toString());
+				boolean preparer = Boolean.parseBoolean(jsonRole.optString(
+						"preparer").toString());
+				boolean delivery = Boolean.parseBoolean(jsonRole.optString(
+						"deliverer").toString());
+				
+				return new User(id,token,branch_id,admin,preparer,delivery);
+				
 			}
 		} catch (JSONException e) {
 
@@ -637,7 +650,7 @@ public class APIManager {
 						preparer = Boolean.parseBoolean(jsonRole.optString(
 								"preparer").toString());
 						delivery = Boolean.parseBoolean(jsonRole.optString(
-								"delivery").toString());
+								"deliverer").toString());
 
 						username = "";// jsonChildNode.optString("username").toString();
 						password = "";// jsonChildNode.optString("password").toString();
@@ -669,7 +682,7 @@ public class APIManager {
 					preparer = Boolean.parseBoolean(jsonRole.optString(
 							"preparer").toString());
 					delivery = Boolean.parseBoolean(jsonRole.optString(
-							"delivery").toString());
+							"deliverer").toString());
 
 					gridArray.add(new User(id, name, username, password, phone,
 							mobile, (is_fired) ? 1 : 0, null, 0, admin,
@@ -992,7 +1005,7 @@ public class APIManager {
 			try {
 				body.put("is_admin", c.getAdmin() ? 1 : 0);
 				body.put("is_preparer", c.getPreparer() ? 1 : 0);
-				body.put("is_delivery", c.getDelivery() ? 1 : 0);
+				body.put("is_deliverer", c.getDelivery() ? 1 : 0);
 
 				jsonObjSend.put("roles", body);
 			} catch (JSONException e) {

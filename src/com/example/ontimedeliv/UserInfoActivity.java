@@ -130,11 +130,16 @@ public class UserInfoActivity extends Activity implements
 		String method = "POST";
 		if (userId > 0) {
 			serverURL = new myURL(null, "users", userId, 0).getURL();
-			user = new User(0, username.getText().toString(), username
-					.getText().toString(), "", inputphone.getText().toString(),
-					inputphone.getText().toString(), 0, null, branchId,
-					admin.isChecked(), preparer.isChecked(),
-					delivery.isChecked());
+			user = new User(0, 
+					username.getText().toString(),//name 
+					inputphone.getText().toString(),//username
+					inputphone.getText().toString(),//password
+					inputphone.getText().toString(),//phone
+					inputphone.getText().toString(),//mobile
+					0,//is fired
+					null,//address
+					branchId,//branch
+					admin.isChecked(), preparer.isChecked(), delivery.isChecked());	//roles		
 			method = "PUT";
 		} else {
 			serverURL = new myURL("users", null, 0, 0).getURL();

@@ -1,6 +1,9 @@
 package com.example.ontimedeliv;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -79,17 +82,23 @@ public class LoginActivity extends Activity implements OnItemSelectedListener {
 
 	public void getLoggedIn(String s, String error) {
 		if (error == null) {
-			String token = new APIManager().getLogedInToken(s);
+			User user = new APIManager().getLogedInUser(s);
 			CheckBox keeplog = (CheckBox) findViewById(R.id.keeploggedin);
 			SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
 			SharedPreferences.Editor editor = settings.edit();
+			
 			editor.putBoolean("isChecked", keeplog.isChecked());
-			editor.putString("token", token);
+			editor.putString("token", user.getToken());			
+			editor.putBoolean("admin", user.isIs_admin());
+			editor.putBoolean("preparer", user.isIs_preparer());
+			editor.putBoolean("delivery", user.isIs_delivery());
+			editor.putInt("id", user.getId());
+
 			editor.commit();
 
 			Intent i = new Intent(this, NavigationActivity.class);
 			i.putExtra("shopId", 37);
-			startActivity(i);
+			startActivity(i);	
 		} else {
 			Toast.makeText(getApplicationContext(), "Wrong Credentials",
 					Toast.LENGTH_SHORT).show();

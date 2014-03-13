@@ -28,6 +28,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -56,9 +57,18 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		this.mc = m;
 		this.method = method;
 		SharedPreferences settings1 = PreferenceManager.getDefaultSharedPreferences(m);
+		
 		//token = settings1.getString("token",null );
 		//Log.d("ray","ray token: "+token);
 		
+	}
+	public void timerDelayRemoveDialog(long time, final ProgressDialog d){
+	    new Handler().postDelayed(new Runnable() {
+	        public void run() {  
+	        	Log.d("ray","ray late");
+	            d.dismiss();         
+	        }
+	    }, time); 
 	}
 
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
@@ -93,6 +103,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		Dialog.setMessage("Please wait..");
 		if (!this.returnFunction.equals("afterActivate"))
 			Dialog.show();
+			timerDelayRemoveDialog(10000,Dialog);
 		try {
 			Log.d("Output : ", "Ray &" + URLEncoder.encode("data", "UTF-8"));
 
