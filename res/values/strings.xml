@@ -49,7 +49,6 @@
     <string name="About">About us</string>
     <string name="navigation">Navigation Menu</string>
     <string name="Logout">Logout</string>
-    
 
     <string-array name="acc_type">
         <item>Income</item>
@@ -59,7 +58,6 @@
         <item>English</item>
         <item>Arabic</item>
     </string-array>
-    
     <string-array name="country_arr">
         <item>Afghanistan</item>
         <item>Bangladesh</item>
@@ -97,5 +95,6 @@
     <string name="title_activity_add_product">AddProductActivity</string>
     <string name="title_activity_old_orders">OldOrdersActivity</string>
     <string name="title_activity_old_orders_info">OldOrdersInfoActivity</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
 
 </resources>
