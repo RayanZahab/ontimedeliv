@@ -42,7 +42,8 @@ public class NavigationActivity extends Activity {
 		boolean isPreparer = settings1.getBoolean("preparer", false);
 		boolean isDelivery = settings1.getBoolean("delivery", false);
 		Item _Item;
-		if (isPreparer || isDelivery || isAdmin) {
+		if (isPreparer || isDelivery || isAdmin) 
+		{
 
 			_Item = new Item(0, picture, "Orders");
 			categories.add(_Item);
@@ -103,6 +104,7 @@ public class NavigationActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.navigation, menu);
+		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
 	}
 }
