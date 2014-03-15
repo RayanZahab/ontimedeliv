@@ -25,11 +25,11 @@ public class OrderInfoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_info);
 
-		addItemsOndelivery();
-		addItemsOnpreparer();
-		addItemsOnStatus();
+		//addItemsOndelivery();
+		//addItemsOnpreparer();
+		//addItemsOnStatus();
 		displayListView();
-
+/*
 		cancel = (Button) findViewById(R.id.cancel);
 		cancel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -72,7 +72,7 @@ public class OrderInfoActivity extends Activity {
 
 			}
 		});
-
+*/
 	}
 
 	// add items into spinner dynamically
@@ -103,6 +103,7 @@ public class OrderInfoActivity extends Activity {
 	}
 
 	public void addItemsOnStatus() {
+	/*
 		status = (Spinner) findViewById(R.id.order_status);
 		List<String> list = new ArrayList<String>();
 		list.add("Prepared");
@@ -112,7 +113,7 @@ public class OrderInfoActivity extends Activity {
 				android.R.layout.simple_spinner_item, list);
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		status.setAdapter(dataAdapter);
+		status.setAdapter(dataAdapter);*/
 	}
 
 	private void displayListView() {
@@ -131,9 +132,12 @@ public class OrderInfoActivity extends Activity {
 		// create an ArrayAdaptar from the String Array
 		dataAdapter = new OrdersAdapter(this, R.layout.row_order_info,
 				orderitem);
-		ListView listView = (ListView) findViewById(R.id.orderlist);
+		
+		ListView listView = (ListView) findViewById(R.id.listView);
+		
 		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
+		dataAdapter.getListViewSize(listView);
 
 		/*
 		 * listView.setOnItemClickListener(new OnItemClickListener() { // set

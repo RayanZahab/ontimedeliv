@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -40,12 +41,28 @@ public class UsersActivity extends Activity {
 	}
 
 	public void setUsers(String s,String error) {
-		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.user);
+		
 		users = new APIManager().getUsers(s);
-
+		int icon = 0;
 		for (int i = 0; i < users.size(); i++) {
-			usersItem.add(new Item(users.get(i).getId(), picture, users.get(i)
+			if(users.get(i).isIs_admin())
+			{
+				icon = R.drawable.admin;
+			}
+			else if(users.get(i).isIs_preparer())
+			{
+				icon = R.drawable.user;
+			}
+			else if(users.get(i).isIs_delivery())
+			{
+				icon = R.drawable.delivery;
+			}
+			else if((users.get(i).isIs_delivery())&&(users.get(i).isIs_preparer()))
+			{
+				icon = R.drawable.delivery;
+			}
+			else icon = R.drawable.user;
+			usersItem.add(new Item(users.get(i).getId(), icon, users.get(i)
 					.toString()));
 		}
 		// create an ArrayAdaptar from the String Array
@@ -85,6 +102,11 @@ public class UsersActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.users, menu);
 		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
+                .getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getComponentName()));
 		return true;
 	}
 
