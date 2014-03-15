@@ -1,13 +1,10 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,12 +24,6 @@ public class NavigationActivity extends Activity {
 
 	private void displayListView() {
 
-		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.ic_launcher);
-		// Bitmap albanajban = BitmapFactory.decodeResource(this.getResources(),
-		// R.drawable.ic_launcher);
-		// Bitmap drinks = BitmapFactory.decodeResource(this.getResources(),
-		// R.drawable.ic_launcher);
 		// Array list of Categories
 		ArrayList<Item> categories = new ArrayList<Item>();
 		// String role
@@ -45,20 +36,19 @@ public class NavigationActivity extends Activity {
 		if (isPreparer || isDelivery || isAdmin) 
 		{
 
-			_Item = new Item(0, picture, "Orders");
+			_Item = new Item(0, R.drawable.ic_launcher, "Orders");
 			categories.add(_Item);
 		}
 		if (isAdmin) 
 		{
 
-			_Item = new Item(0, picture, "Branches");
+			_Item = new Item(0, R.drawable.branches , "Branches");
 			categories.add(_Item);
-
-			_Item = new Item(0, picture, "Users");
+			_Item = new Item(1, R.drawable.users , "Users");
 			categories.add(_Item);
-			_Item = new Item(0, picture, "Selection");
+			_Item = new Item(2, R.drawable.ic_launcher, "Selection");
 			categories.add(_Item);
-			_Item = new Item(0, picture, "OldOrders");
+			_Item = new Item(3, R.drawable.ic_launcher, "OldOrders");
 			categories.add(_Item);
 		}
 

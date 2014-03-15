@@ -9,7 +9,7 @@ public class Item {
 	String code = null;
 	String address;
 	boolean isNew = false;
-	private int id;
+	private int id, img;
 	private int quantity;
 	private String price;
 
@@ -18,6 +18,12 @@ public class Item {
 		this.title = title;
 		this.setQuantity(quantity);
 		this.setPrice(price);
+	}
+	public Item(int id, int img, String title) {
+		super();
+		this.setImg(img);
+		this.title = title;
+		this.id = id;
 	}
 
 	public Item(int id, String title, Integer quantity, String price, boolean status) {
@@ -115,6 +121,12 @@ public class Item {
 
 	public void setPrice(String price) {
 		this.price = price;
+	}
+	public int getImg() {
+		return img;
+	}
+	public void setImg(int img) {
+		this.img = img;
 	}
 
 }

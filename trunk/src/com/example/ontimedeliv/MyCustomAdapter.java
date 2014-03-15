@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 class MyCustomAdapter extends ArrayAdapter<Item> {
@@ -30,7 +31,7 @@ class MyCustomAdapter extends ArrayAdapter<Item> {
 
 	class ViewHolder {
 		TextView name;
-		Bitmap picture;
+		ImageView picture;
 	}
 
 	@Override
@@ -48,27 +49,26 @@ class MyCustomAdapter extends ArrayAdapter<Item> {
 			convertView = vi.inflate(R.layout.categories_list, null);
 
 			holder = new ViewHolder();
-			View v = convertView.findViewById(R.id.picture);
-			v.setDrawingCacheEnabled(true);
-
-			v.buildDrawingCache();
-
-			Bitmap picture = v.getDrawingCache();
-			holder.name = (TextView) convertView.findViewById(R.id.name);
-			holder.picture = picture;
+			
 
 			convertView.setTag(holder);
 
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
+				
 		Item navitem = currentList.get(position);
-
+		Log.d("Ray","ray pic: "+navitem.getImg());
+		//holder.picture =navitem.getImg();
+		//holder.picture ;
+		holder.name = (TextView) convertView.findViewById(R.id.name);
 		holder.name.setText(navitem.getTitle());
 
+		holder.picture = (ImageView) convertView.findViewById(R.id.picture);
+		holder.picture.setImageResource(navitem.getImg());
+		
 		holder.name.setTag(navitem);
-
+		
 		return convertView;
 	}
 }

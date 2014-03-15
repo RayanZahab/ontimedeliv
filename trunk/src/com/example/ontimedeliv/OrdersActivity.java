@@ -45,9 +45,8 @@ public class OrdersActivity extends Activity {
 		new MyJs(Dialog, "setOrders", this, "GET").execute(serverURL);
 	}
 
-	public void setOrders(String s,String error) {
-		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.user);
+	public void setOrders(String s, String error) {
+
 		morders = new APIManager().getOrders(s);
 		for (int i = 0; i < morders.size(); i++) {
 			orderItems.add(new Item(morders.get(i).getId(), morders.get(i)
@@ -56,8 +55,10 @@ public class OrdersActivity extends Activity {
 		}
 		dataAdapter = new OrdersAdapter(OrdersActivity.this,
 				R.layout.row_order, orderItems);
+
 		ListView listView = (ListView) findViewById(R.id.list);
 		registerForContextMenu(listView);
+
 		listView.setAdapter(dataAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {

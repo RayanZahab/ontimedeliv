@@ -49,6 +49,8 @@
     <string name="About">About us</string>
     <string name="navigation">Navigation Menu</string>
     <string name="Logout">Logout</string>
+    <string name="search_hint">Search Here</string>
+    
 
     <string-array name="acc_type">
         <item>Income</item>
@@ -96,5 +98,6 @@
     <string name="title_activity_old_orders">OldOrdersActivity</string>
     <string name="title_activity_old_orders_info">OldOrdersInfoActivity</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="title_activity_search_results">SearchResultsActivity</string>
 
 </resources>
