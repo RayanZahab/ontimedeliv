@@ -994,7 +994,7 @@ public class APIManager {
 				for (int i = 0; i < c.getToUpdate().size(); i++) {
 					jsonArray.put(c.getToUpdate().get(i));
 				}
-				jsonObjSend.put("categories", jsonArray);
+				jsonObjSend.put(c.getType(), jsonArray);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

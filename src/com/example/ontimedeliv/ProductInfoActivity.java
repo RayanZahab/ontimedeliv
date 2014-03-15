@@ -28,7 +28,7 @@ public class ProductInfoActivity extends Activity {
 	int RESULT_LOAD_IMAGE = 1;
 	String picturePath;
 	ProgressDialog Dialog;
-	Product currentProduct;
+	Product currentProduct=null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class ProductInfoActivity extends Activity {
 
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
-		new MyJs(Dialog, "setProduct", this, "GET").execute(serverURL);
+		new MyJs(Dialog, "setProduct", this, "GET",true).execute(serverURL);
 	}
 
 	public void setProduct(String s,String error) {
@@ -104,7 +104,15 @@ public class ProductInfoActivity extends Activity {
 	}
 
 	public void addProduct(Product p) {
-		String serverURL = new myURL("items", null, 0, 0).getURL();// "http://www.androidexample.com/media/UploadToServer.php";
+		String serverURL;
+		if(currentProduct==null)
+		{
+			serverURL = new myURL("items", null, 0, 0).getURL();
+		}
+		else
+		{
+			serverURL = new myURL( null,"items", currentProduct.getId(), 0).getURL();// "http://www.androidexample.com/media/UploadToServer.php";
+		}
 		new MyJs(Dialog, "afterCreation", this, "Upload", (Object) p)
 				.execute(serverURL);
 	}

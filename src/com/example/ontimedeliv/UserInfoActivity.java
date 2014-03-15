@@ -71,10 +71,10 @@ public class UserInfoActivity extends Activity implements
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
 		Log.d("rays", "ray url" + url);
-		new MyJs(Dialog, "setUserInfo", this, "GET", true).execute(serverURL);
+		new MyJs(Dialog, "setUserInfo", this, "GET", false).execute(serverURL);
 	}
 
-	public void setUserInfo(String s,String error) {
+	public void setUserInfo(String s, String error) {
 
 		currentUser = (new APIManager().getUsers(s)).get(0);
 
@@ -99,7 +99,7 @@ public class UserInfoActivity extends Activity implements
 		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
 	}
 
-	public void setBranches(String s,String error) {
+	public void setBranches(String s, String error) {
 		this.branches = new APIManager().getBranchesByShop(s);
 		branchesSP = (Spinner) findViewById(R.id.branchesSP);
 		ArrayAdapter<Branch> branchAdapter = new ArrayAdapter<Branch>(this,
@@ -130,16 +130,16 @@ public class UserInfoActivity extends Activity implements
 		String method = "POST";
 		if (userId > 0) {
 			serverURL = new myURL(null, "users", userId, 0).getURL();
-			user = new User(0, 
-					username.getText().toString(),//name 
-					inputphone.getText().toString(),//username
-					inputphone.getText().toString(),//password
-					inputphone.getText().toString(),//phone
-					inputphone.getText().toString(),//mobile
-					0,//is fired
-					null,//address
-					branchId,//branch
-					admin.isChecked(), preparer.isChecked(), delivery.isChecked());	//roles		
+			user = new User(0, username.getText().toString(),// name
+					inputphone.getText().toString(),// username
+					inputphone.getText().toString(),// password
+					inputphone.getText().toString(),// phone
+					inputphone.getText().toString(),// mobile
+					0,// is fired
+					null,// address
+					branchId,// branch
+					admin.isChecked(), preparer.isChecked(),
+					delivery.isChecked()); // roles
 			method = "PUT";
 		} else {
 			serverURL = new myURL("users", null, 0, 0).getURL();
@@ -155,7 +155,7 @@ public class UserInfoActivity extends Activity implements
 
 	}
 
-	public void setRoles(String s,String error) {
+	public void setRoles(String s, String error) {
 		int id = userId;
 
 		if (id < 1) {
@@ -175,7 +175,7 @@ public class UserInfoActivity extends Activity implements
 		}
 	}
 
-	public void afterRoles(String s,String error) {
+	public void afterRoles(String s, String error) {
 		Intent i = new Intent(this, UsersActivity.class);
 		startActivity(i);
 	}

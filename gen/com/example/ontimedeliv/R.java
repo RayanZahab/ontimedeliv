@@ -112,9 +112,11 @@ public final class R {
         public static final int citiesSP=0x7f09000b;
         public static final int countriesSP=0x7f09000c;
         public static final int countryLabel=0x7f090011;
+        public static final int delete=0x7f09005a;
         public static final int delivery=0x7f090042;
         public static final int delivery_Spinner=0x7f09002d;
         public static final int description=0x7f09001d;
+        public static final int edit=0x7f090059;
         public static final int editText1=0x7f090050;
         public static final int editTextAddName=0x7f090005;
         public static final int editTextAddress=0x7f090007;
@@ -205,18 +207,19 @@ public final class R {
         public static final int add_category=0x7f080001;
         public static final int add_product=0x7f080002;
         public static final int branches=0x7f080003;
-        public static final int categories=0x7f080004;
-        public static final int login=0x7f080005;
-        public static final int navigation=0x7f080006;
-        public static final int old_orders=0x7f080007;
-        public static final int old_orders_info=0x7f080008;
-        public static final int order_info=0x7f080009;
-        public static final int orders=0x7f08000a;
-        public static final int product=0x7f08000b;
-        public static final int search_results=0x7f08000c;
-        public static final int splash_screen=0x7f08000d;
-        public static final int user_info=0x7f08000e;
-        public static final int users=0x7f08000f;
+        public static final int cat_context_menu=0x7f080004;
+        public static final int categories=0x7f080005;
+        public static final int login=0x7f080006;
+        public static final int navigation=0x7f080007;
+        public static final int old_orders=0x7f080008;
+        public static final int old_orders_info=0x7f080009;
+        public static final int order_info=0x7f08000a;
+        public static final int orders=0x7f08000b;
+        public static final int product=0x7f08000c;
+        public static final int search_results=0x7f08000d;
+        public static final int splash_screen=0x7f08000e;
+        public static final int user_info=0x7f08000f;
+        public static final int users=0x7f080010;
     }
     public static final class string {
         public static final int About=0x7f05002d;

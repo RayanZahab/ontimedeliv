@@ -41,7 +41,8 @@
 		android:textColor="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/submit" />
+        android:text="@string/submit"
+        android:onClick="submit" />
 
 </LinearLayout>
 </LinearLayout>

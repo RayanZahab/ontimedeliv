@@ -1,6 +1,7 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -21,12 +22,13 @@ public class AddBranchActivity extends Activity implements
 		OnItemSelectedListener {
 
 	Button from, to;
-	int fmHour, fmMinute, tHour, tMinute, shopId;
+	int fmHour, fmMinute, tHour, tMinute, shopId,branchId;
 	ArrayList<Country> countries = new ArrayList<Country>();
 	ArrayList<City> cities = new ArrayList<City>();
 	ArrayList<Area> areas = new ArrayList<Area>();
 	Spinner countrySp, citySp, areasSp;
 	ProgressDialog Dialog;
+	Branch currentBranch;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +41,43 @@ public class AddBranchActivity extends Activity implements
 		areasSp = (Spinner) findViewById(R.id.areasSP);
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
+		
+		if (getIntent().hasExtra("id")) {
+			try {
+				branchId = Integer.parseInt((String) extras.getString("id"));
+				getCurrentBranch(branchId);
+				Button submit = (Button) findViewById(R.id.submit);
+				submit.setText("Update");
+			} catch (Exception e) {
 
-		getCountries();
+			}
+		}
+		//getCountries();
 		from = (Button) findViewById(R.id.fromBtnn);
 		to = (Button) findViewById(R.id.toBtn);
+	}
+	public void getCurrentBranch(int branchId) {
+		String url = new myURL(null, "branches", branchId, 1).getURL();
+		String serverURL = url;
+		Log.d("rays", "ray url" + url);
+		new MyJs(Dialog, "setBranchInfo", this, "GET").execute(serverURL);
+		
+	}
+	public void setBranchInfo(String s,String error) {
+		currentBranch = (new APIManager().getBranchesByShop(s)).get(0);
+		
+		countrySp = (Spinner) findViewById(R.id.countriesSP);
+		citySp = (Spinner) findViewById(R.id.citiesSP);
+		areasSp = (Spinner) findViewById(R.id.areasSP);
+		EditText name = ((EditText) findViewById(R.id.editTextAddName));
+		EditText desc = ((EditText) findViewById(R.id.addDesc));
+		EditText address = ((EditText) findViewById(R.id.editTextAddress));
+		EditText estimation = ((EditText) findViewById(R.id.estimation));
+		
+		name.setText(currentBranch.getName());
+		desc.setText(currentBranch.getDescription());
+		address.setText(currentBranch.getAddress());
+		estimation.setText(currentBranch.getEstimation_time());
 	}
 
 	public void from(View view) {
