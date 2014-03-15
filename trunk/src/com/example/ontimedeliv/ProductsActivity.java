@@ -31,6 +31,9 @@ public class ProductsActivity extends Activity {
 	String url;
 	DialogInterface dialog;
 	ProgressDialog Dialog;
+	ArrayList<Integer> selectedIds = new ArrayList<Integer>();
+	ArrayList<Integer> unselectedIds = new ArrayList<Integer>();
+	Activate myProd;
 
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
@@ -59,7 +62,7 @@ public class ProductsActivity extends Activity {
 		}
 		// Generate list View from ArrayList
 		getProducts();
-		checkButtonClick();
+		//checkButtonClick();
 
 	}
 
@@ -79,7 +82,46 @@ public class ProductsActivity extends Activity {
 		i.putExtra("categoryId", "" + categoryId);
 		startActivity(i);
 	}
+	public void submit(View v) {
 
+		StringBuffer responseText = new StringBuffer();
+		responseText.append("Selected Products are...\n");
+
+		ArrayList<Item> stateList = dataAdapter.getCurrentList();
+
+		for (int i = 0; i < stateList.size(); i++) {
+			Item cat = stateList.get(i);
+			if (cat.isSelected()) {
+				selectedIds.add(cat.getId());
+			} else {
+				unselectedIds.add(cat.getId());
+			}
+		}
+		myProd = new Activate("items",unselectedIds);
+
+		Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG)
+				.show();
+
+		String serverURL = new myURL("deactivate_items", "branches",
+				branchId, 0).getURL();
+		new MyJs(Dialog, "afterDeactivate", this, "PUT", (Object) myProd, true)
+				.execute(serverURL);
+	}
+	public void afterDeactivate(String s,String error) {
+		Toast.makeText(getApplicationContext(), "DeActivate : " + s,
+				Toast.LENGTH_SHORT).show();
+		myProd = new Activate("items",selectedIds);
+		String serverURL = new myURL("activate_items", "branches",
+				branchId, 0).getURL();
+
+		new MyJs(Dialog, "afterActivate", this, "PUT", (Object) myProd)
+				.execute(serverURL);
+	}
+
+	public void afterActivate(String s,String error) {
+		Toast.makeText(getApplicationContext(), "Activate : " + s,
+				Toast.LENGTH_SHORT).show();
+	}
 	private void checkButtonClick() {
 
 		Button myButton = (Button) findViewById(R.id.submit);

@@ -281,8 +281,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				// add reuqest header
 
 				// ===============================
-				String myurl = "http://enigmatic-springs-5176.herokuapp.com/api/v1/items";
-				URL obj = new URL(myurl);
+				//String myurl = "http://enigmatic-springs-5176.herokuapp.com/api/v1/items";
+				URL obj = url;//new URL(myurl);
 				HttpURLConnection con = (HttpURLConnection) obj
 						.openConnection();
 
@@ -313,7 +313,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 						con.getOutputStream());
 				wr.writeBytes(urlParameters);
 
-				FileInputStream fileInputStream = new FileInputStream(p
+				/*FileInputStream fileInputStream = new FileInputStream(p
 						.getPhoto().getUrl());
 				int bytesAvailable = fileInputStream.available();
 
@@ -330,13 +330,15 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					bufferSize = Math.min(bytesAvailable, maxBufferSize);
 					bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 				}
+				fileInputStream.close();
+				*/
 
 				wr.flush();
 				wr.close();
-				fileInputStream.close();
+				
 				int responseCode = con.getResponseCode();
 				System.out
-						.println("\nSending 'POST' request to URL : " + myurl);
+						.println("\nSending 'POST' request to URL : " + url.toURI());
 				System.out.println("Post parameters : " + urlParameters);
 				System.out.println("Response Code : " + responseCode);
 

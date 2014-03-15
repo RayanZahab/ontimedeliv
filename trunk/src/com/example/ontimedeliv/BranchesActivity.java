@@ -16,6 +16,7 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +25,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class BranchesActivity extends Activity {
@@ -101,18 +103,24 @@ public class BranchesActivity extends Activity {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		menu.clearHeader();
-		menu.add(0, v.getId(), 0, "Delete");
-		menu.add(0, v.getId(), 0, "Edit");
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.cat_context_menu, menu);
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
-		if (item.getTitle() == "Delete") {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+
+		switch (item.getItemId()) {
+		case R.id.edit:
+			Edit(branchesItem.get((int) info.id));
+			break;
+		case R.id.delete:
 			Delete(item.getItemId());
-		} else if (item.getTitle() == "Edit") {
-			Edit(item.getItemId());
-		} else {
-			return false;
+			break;
+		default:
+			break;
+
 		}
 		return true;
 	}
@@ -121,36 +129,13 @@ public class BranchesActivity extends Activity {
 		Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();
 	}
 
-	public void Edit(int id) {
-		LayoutInflater li = LayoutInflater.from(getApplicationContext());
-		View promptsView = li.inflate(R.layout.prompt_cancel, null);
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				BranchesActivity.this);
+	public void Edit(Item item) {
+		Intent i = new Intent(BranchesActivity.this, AddBranchActivity.class);
+		Toast.makeText(this, "editing: " + item.getId(), Toast.LENGTH_SHORT)
+		.show();
 
-		alertDialogBuilder.setView(promptsView);
-		final TextView title = (TextView) promptsView
-				.findViewById(R.id.textView1);
-		title.setText("Branch Name");
-		final EditText userInput = (EditText) promptsView
-				.findViewById(R.id.editText1);
-		userInput.setHint("Name");
-		alertDialogBuilder
-				.setCancelable(false)
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						Toast.makeText(getApplicationContext(),
-								userInput.getText(), Toast.LENGTH_LONG).show();
-					}
-				})
-				.setNegativeButton("Cancel",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						});
-
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		alertDialog.show();
+		i.putExtra("id", ""+item.getId());
+		startActivity(i);
 	}
 
 	@Override

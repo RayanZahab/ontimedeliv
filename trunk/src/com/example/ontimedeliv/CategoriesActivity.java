@@ -15,10 +15,12 @@ import android.graphics.BitmapFactory;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -86,7 +88,7 @@ public class CategoriesActivity extends Activity {
 				unselectedIds.add(cat.getId());
 			}
 		}
-		myCat = new Activate(unselectedIds);
+		myCat = new Activate("categories", unselectedIds);
 
 		Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG)
 				.show();
@@ -97,10 +99,10 @@ public class CategoriesActivity extends Activity {
 				.execute(serverURL);
 	}
 
-	public void afterDeactivate(String s,String error) {
+	public void afterDeactivate(String s, String error) {
 		Toast.makeText(getApplicationContext(), "DeActivate : " + s,
 				Toast.LENGTH_SHORT).show();
-		myCat = new Activate(selectedIds);
+		myCat = new Activate("categories", selectedIds);
 		String serverURL = new myURL("activate_categories", "branches",
 				branchId, 0).getURL();
 
@@ -108,7 +110,7 @@ public class CategoriesActivity extends Activity {
 				.execute(serverURL);
 	}
 
-	public void afterActivate(String s,String error) {
+	public void afterActivate(String s, String error) {
 		Toast.makeText(getApplicationContext(), "Activate : " + s,
 				Toast.LENGTH_SHORT).show();
 	}
@@ -119,7 +121,7 @@ public class CategoriesActivity extends Activity {
 		new MyJs(Dialog, "setCategories", this, "GET").execute(serverURL);
 	}
 
-	public void setCategories(String s,String error) {
+	public void setCategories(String s, String error) {
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
 		categories = new APIManager().getCategoriesByBranch(s);
@@ -173,18 +175,27 @@ public class CategoriesActivity extends Activity {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		menu.clearHeader();
-		menu.add(0, v.getId(), 0, "Delete");
-		menu.add(0, v.getId(), 0, "Edit");
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.cat_context_menu, menu);
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
-		if (item.getTitle() == "Delete") {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+
+		Toast.makeText(this, "edit: " + item.getItemId(), Toast.LENGTH_SHORT)
+				.show();
+
+		switch (item.getItemId()) {
+		case R.id.edit:
+			Edit(categoryItems.get((int) info.id));
+			break;
+		case R.id.delete:
 			Delete(item.getItemId());
-		} else if (item.getTitle() == "Edit") {
-			Edit(item.getItemId());
-		} else {
-			return false;
+			break;
+		default:
+			break;
+
 		}
 		return true;
 	}
@@ -193,7 +204,7 @@ public class CategoriesActivity extends Activity {
 		Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();
 	}
 
-	public void Edit(int id) {
+	public void Edit(Item item) {
 		LayoutInflater li = LayoutInflater.from(getApplicationContext());
 		View promptsView = li.inflate(R.layout.prompt_cancel, null);
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -206,13 +217,14 @@ public class CategoriesActivity extends Activity {
 		title.setText("Category Name");
 		final EditText userInput = (EditText) promptsView
 				.findViewById(R.id.editText1);
-		userInput.setHint("Name");
+		userInput.setHint(item.getTitle());
+
+		final int itemId = item.getId();
 		alertDialogBuilder
 				.setCancelable(false)
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						Toast.makeText(getApplicationContext(),
-								userInput.getText(), Toast.LENGTH_LONG).show();
+						editCategory(itemId, userInput.getText().toString());
 					}
 				})
 				.setNegativeButton("Cancel",
@@ -291,7 +303,16 @@ public class CategoriesActivity extends Activity {
 				.execute(serverURL);
 	}
 
-	public void afterCreation(String s,String error) {
+	public void editCategory(int categoryId, String categoryName) {
+		String serverURL = new myURL(null, "categories", categoryId, 0)
+				.getURL();
+		Category newCategory = new Category(categoryId, categoryName, true,
+				shopId);
+		new MyJs(Dialog, "afterCreation", this, "PUT", (Object) newCategory)
+				.execute(serverURL);
+	}
+
+	public void afterCreation(String s, String error) {
 		Intent i = new Intent(this, CategoriesActivity.class);
 		i.putExtra("branchId", "" + branchId);
 
