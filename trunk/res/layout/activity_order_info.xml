@@ -47,6 +47,7 @@
             android:id="@+id/listView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:background="@drawable/mylistview"
             android:layout_marginTop="8dp" >
         </ListView>
 
@@ -75,32 +76,6 @@
                 android:text="@string/total"
                 android:textSize="19sp" />
         </RelativeLayout>
-
-        <EditText
-            android:id="@+id/noteinput"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="@drawable/myedittext"
-            android:ems="10"
-            android:inputType="text" />
-
-        <Button
-            android:id="@+id/select"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:background="@drawable/mybutton"
-            android:text="@string/submit"
-            android:textColor="#ffffff" />
-
-        <TextView
-            android:id="@+id/notes"
-            style="@style/mytextview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
-            android:text="@string/notes" />
-
         <RelativeLayout
             android:id="@+id/orderbuttons"
             android:layout_width="match_parent"
@@ -169,6 +144,33 @@
                 android:text="@string/cancel"
                 android:textColor="#ffffff" />
         </RelativeLayout>
+        
+        <TextView
+            android:id="@+id/notes"
+            style="@style/mytextview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:text="@string/notes" />
+
+        <EditText
+            android:id="@+id/noteinput"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/myedittext"
+            android:ems="10"
+            android:minLines="3"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/select"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/mybutton"
+            android:text="@string/submit"
+            android:textColor="#ffffff" />
+
     </LinearLayout>
 
 </ScrollView>
