@@ -25,11 +25,11 @@ public class OrderInfoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_info);
 
-		//addItemsOndelivery();
-		//addItemsOnpreparer();
+		addItemsOndelivery();
+		addItemsOnpreparer();
 		//addItemsOnStatus();
 		displayListView();
-/*
+
 		cancel = (Button) findViewById(R.id.cancel);
 		cancel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -72,7 +72,7 @@ public class OrderInfoActivity extends Activity {
 
 			}
 		});
-*/
+
 	}
 
 	// add items into spinner dynamically
@@ -103,7 +103,6 @@ public class OrderInfoActivity extends Activity {
 	}
 
 	public void addItemsOnStatus() {
-	/*
 		status = (Spinner) findViewById(R.id.order_status);
 		List<String> list = new ArrayList<String>();
 		list.add("Prepared");
@@ -113,7 +112,7 @@ public class OrderInfoActivity extends Activity {
 				android.R.layout.simple_spinner_item, list);
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		status.setAdapter(dataAdapter);*/
+		status.setAdapter(dataAdapter);
 	}
 
 	private void displayListView() {

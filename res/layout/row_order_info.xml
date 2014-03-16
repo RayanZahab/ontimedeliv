@@ -11,16 +11,25 @@
         style="@style/mytextview"
         android:text="@string/checkbox" />
 
+    <EditText
+        android:id="@+id/quantity"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:background="@drawable/myedittext"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+    
     <TextView
         android:id="@+id/price"
+        style="@style/mytextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/mytextview"
+        android:layout_marginLeft="10dp"
         android:text="@string/textview" />
-
-    <NumberPicker
-        android:id="@+id/quantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>

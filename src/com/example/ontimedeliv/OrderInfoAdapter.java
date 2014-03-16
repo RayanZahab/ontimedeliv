@@ -36,7 +36,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 	class ViewHolder {
 		CheckBox itemname;
 		TextView price;
-		NumberPicker quantity;
+		EditText quantity;
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 				main.setBackgroundColor(Color.parseColor("#FF9999"));
 			}
 
-			holder.quantity = (NumberPicker) convertView
+			holder.quantity = (EditText) convertView
 					.findViewById(R.id.quantity);
 			holder.price = (TextView) convertView.findViewById(R.id.price);
 			holder.itemname = (CheckBox) convertView
@@ -77,11 +77,6 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 
 		holder.price.setText(orderitem.getTitle());
 		holder.price.setTag(orderitem);
-
-		holder.quantity.setValue(3);
-		holder.quantity.setTag(orderitem);
-		holder.quantity.setMaxValue(10);
-		holder.quantity.setMinValue(1);
 
 		return convertView;
 	}
