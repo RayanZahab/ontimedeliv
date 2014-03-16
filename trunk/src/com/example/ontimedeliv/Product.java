@@ -1,14 +1,14 @@
 package com.example.ontimedeliv;
 
 public class Product {
-	private int id, shop_id;
-	private String description, price, name;
+	private int id, price,shop_id;
+	private String description,  name;
 	private Photo photo;
 	private Category category;
 	private Unit unit;
 	private boolean available;
 
-	public Product(int id, String price, String name, String description,
+	public Product(int id, int price, String name, String description,
 			Photo photo, Category category, Unit unit, boolean is_available,
 			int shop_id) {
 		this.id = id;
@@ -47,11 +47,11 @@ public class Product {
 		this.id = id;
 	}
 
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 

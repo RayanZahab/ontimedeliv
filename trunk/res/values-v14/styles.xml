@@ -7,11 +7,11 @@
     -->
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <!-- API 14 theme customizations can go here. -->
-        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">false</item>
         <item name="android:actionBarStyle">@style/myActionbarTransparent</item>
     </style>
     <style name="myActionbarTransparent" parent="@android:style/Widget.Holo.ActionBar">
-	    <item name="android:background">#D4000000</item>
+	    <item name="android:background">#D40000</item>
      <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
   </style>
 

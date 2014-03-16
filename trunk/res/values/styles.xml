@@ -17,11 +17,11 @@
     <!-- the theme applied to change action bar opacity -->
     <style name="CustomActionBarTheme"
            parent="@android:style/Theme.Holo">
-        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">false</item>
         <item name="android:actionBarStyle">@style/myActionbarTransparent</item>
     </style>
     <style name="myActionbarTransparent" parent="@android:style/Widget.Holo.ActionBar">
-	    <item name="android:background">#C4000000</item>
+	    <item name="android:background">#C40000</item>
 	    <item name="android:textColor">#ffffff</item>
 	</style>
 	

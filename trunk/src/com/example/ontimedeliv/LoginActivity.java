@@ -88,7 +88,8 @@ public class LoginActivity extends Activity implements OnItemSelectedListener {
 			SharedPreferences.Editor editor = settings.edit();
 			
 			editor.putBoolean("isChecked", keeplog.isChecked());
-			editor.putString("token", user.getToken());			
+			editor.putString("token", user.getToken());		
+			Log.d("ray","ray token: "+user.getToken());
 			editor.putBoolean("admin", user.isIs_admin());
 			editor.putBoolean("preparer", user.isIs_preparer());
 			editor.putBoolean("delivery", user.isIs_delivery());
