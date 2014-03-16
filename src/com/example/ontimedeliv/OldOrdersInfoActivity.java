@@ -21,13 +21,13 @@ public class OldOrdersInfoActivity extends Activity {
 
 		ArrayList<Item> orderitem = new ArrayList<Item>();
 
-		Item _Item = new Item("rez b7alib", 5, "10000L.L");
+		Item _Item = new Item(1,"rez b7alib", 5, 10000);
 		orderitem.add(_Item);
-		_Item = new Item("Nido", 1, "16000L.L");
+		_Item = new Item(2,"Nido", 1, 16000);
 		orderitem.add(_Item);
-		_Item = new Item("khebez", 5, "5000L.L");
+		_Item = new Item(3,"khebez", 5, 2000);
 		orderitem.add(_Item);
-		_Item = new Item("drink", 5, "10000L.L");
+		_Item = new Item(4,"drink", 5, 1250);
 		orderitem.add(_Item);
 
 		// create an ArrayAdaptar from the String Array

@@ -34,7 +34,18 @@ public class Address {
 		this.setUpdate_at(update_at);
 
 	}
-
+	public Address(int id, String country, String city, String area,
+			String building, String floor, String street, String details)
+	{
+		this.id = id;
+		this.country = country;
+		this.city = city;
+		this.area = area;
+		this.building = building;
+		this.floor = floor;
+		this.street = street;
+		this.details = details;
+	}
 	public Integer getId() {
 		return id;
 	}

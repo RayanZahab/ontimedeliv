@@ -11,10 +11,11 @@ public class Item {
 	boolean isNew = false;
 	private int id, img;
 	private int quantity;
-	private String price;
+	private double price;
 
-	public Item(String title, Integer quantity, String price) {
+	public Item(int id,String title, Integer quantity, double price) {
 		super();
+		this.id= id;
 		this.title = title;
 		this.setQuantity(quantity);
 		this.setPrice(price);
@@ -26,7 +27,7 @@ public class Item {
 		this.id = id;
 	}
 
-	public Item(int id, String title, Integer quantity, String price, boolean status) {
+	public Item(int id, String title, Integer quantity, double price, boolean status) {
 		super();
 		this.title = title;
 		this.isNew = status;
@@ -115,11 +116,11 @@ public class Item {
 		this.quantity = quantity;
 	}
 
-	public String getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 	public int getImg() {

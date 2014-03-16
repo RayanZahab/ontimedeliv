@@ -191,7 +191,7 @@ public class CategoriesActivity extends Activity {
 			Edit(categoryItems.get((int) info.id));
 			break;
 		case R.id.delete:
-			Delete(item.getItemId());
+			Delete((categoryItems.get((int) info.id)).getId());
 			break;
 		default:
 			break;
@@ -200,9 +200,7 @@ public class CategoriesActivity extends Activity {
 		return true;
 	}
 
-	public void Delete(int id) {
-		Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();
-	}
+	
 
 	public void Edit(Item item) {
 		LayoutInflater li = LayoutInflater.from(getApplicationContext());
@@ -317,6 +315,35 @@ public class CategoriesActivity extends Activity {
 		i.putExtra("branchId", "" + branchId);
 
 		i.putExtra("shopId", "" + shopId);
+		startActivity(i);
+	}
+	
+	public void Delete(final int catId) {
+
+		new AlertDialog.Builder(this)
+				.setTitle("Delete this category?")
+				.setIcon(R.drawable.categories)
+				.setPositiveButton(android.R.string.yes,
+						new DialogInterface.OnClickListener() {
+
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								String serverURL = new myURL(null, "categories",
+										catId, 0).getURL();
+								new MyJs(Dialog, "afterDelete",
+										CategoriesActivity.this, "DELETE")
+										.execute(serverURL);
+							}
+						}).setNegativeButton(android.R.string.no, null).show();
+	}
+
+	public void afterDelete(String s, String error) {
+		backToActivity(CategoriesActivity.class);
+	}
+	public void backToActivity(Class activity) {
+		Intent i = new Intent(CategoriesActivity.this, activity);
+		i.putExtra("shopId", shopId);
+		i.putExtra("branchId", "" + branchId);
 		startActivity(i);
 	}
 }

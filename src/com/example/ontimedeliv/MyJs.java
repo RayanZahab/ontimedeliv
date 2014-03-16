@@ -211,7 +211,26 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					Error = null;
 				}
 
-			} else if (this.method.equals("Upload")) {
+			}
+			else if (this.method.equals("DELETE"))
+			{
+				conn.addRequestProperty("Accept", "application/json");
+				conn.addRequestProperty("Accept-Encoding", "gzip");
+				conn.addRequestProperty("Cache-Control",
+						"max-stale=0,max-age=60");
+				Log.d("ray", "ray req: ");
+				if (conn.getResponseCode() != 204) {
+					Log.d("ray",
+							"Failed: " + url + "\n" + conn.getResponseMessage());
+					Content = null;
+					Error = conn.getResponseMessage();
+				} else {
+					Log.d("rays : ", "Rayz deleted " );
+					Content = "done";
+					Error = null;
+				}
+			}		
+			else if (this.method.equals("Upload")) {
 				/*
 				 * Product p = (Product) this.objectToAdd; String path =
 				 * p.getPhoto().getUrl(); String lineEnd = "\r\n"; String

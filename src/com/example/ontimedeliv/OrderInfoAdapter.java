@@ -74,34 +74,10 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 		}
 
 		Item orderitem = orderList.get(position);
-
-		holder.price.setText(orderitem.getTitle());
+		holder.itemname.setText(orderitem.getTitle());
+		holder.price.setText(""+orderitem.getPrice());
 		holder.price.setTag(orderitem);
-
+		holder.quantity.setText(""+orderitem.getQuantity());
 		return convertView;
-	}
-
-	public void getListViewSize(ListView myListView) {
-		ListAdapter myListAdapter = myListView.getAdapter();
-
-		if (myListAdapter == null) {
-			// do nothing return null
-			return;
-		}
-		Log.d("ray", "ray Number :" + myListAdapter.getCount());
-		// set listAdapter in loop for getting final size
-		int totalHeight = 0;
-		for (int size = 0; size < myListAdapter.getCount(); size++) {
-			View listItem = myListAdapter.getView(size, this.convertView,
-					myListView);
-			// listItem.measure(0, 0);
-			totalHeight += listItem.getMeasuredHeight() * 33;
-		}
-		// setting listview item in adapter
-		ViewGroup.LayoutParams params = myListView.getLayoutParams();
-		params.height = totalHeight
-				+ (myListView.getDividerHeight() * (myListAdapter.getCount() - 1));
-		myListView.setLayoutParams(params);
-
 	}
 }

@@ -53,7 +53,7 @@ public class BranchesActivity extends Activity {
 		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
 	}
 
-	public void setBranches(String s , String error) {
+	public void setBranches(String s, String error) {
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
 		branches = new APIManager().getBranchesByShop(s);
@@ -116,7 +116,7 @@ public class BranchesActivity extends Activity {
 			Edit(branchesItem.get((int) info.id));
 			break;
 		case R.id.delete:
-			Delete(item.getItemId());
+			Delete(branchesItem.get((int) info.id).getId());
 			break;
 		default:
 			break;
@@ -125,16 +125,35 @@ public class BranchesActivity extends Activity {
 		return true;
 	}
 
-	public void Delete(int id) {
-		Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();
+	public void Delete(final int branchId) {
+
+		new AlertDialog.Builder(this)
+				.setTitle("Delete this branch?")
+				.setIcon(R.drawable.branches)
+				.setPositiveButton(android.R.string.yes,
+						new DialogInterface.OnClickListener() {
+
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								String serverURL = new myURL(null, "branches",
+										branchId, 0).getURL();
+								new MyJs(Dialog, "afterDelete",
+										BranchesActivity.this, "DELETE")
+										.execute(serverURL);
+							}
+						}).setNegativeButton(android.R.string.no, null).show();
+	}
+
+	public void afterDelete(String s, String error) {
+		backToActivity(BranchesActivity.class);
 	}
 
 	public void Edit(Item item) {
 		Intent i = new Intent(BranchesActivity.this, AddBranchActivity.class);
 		Toast.makeText(this, "editing: " + item.getId(), Toast.LENGTH_SHORT)
-		.show();
+				.show();
 
-		i.putExtra("id", ""+item.getId());
+		i.putExtra("id", "" + item.getId());
 		startActivity(i);
 	}
 
@@ -144,17 +163,16 @@ public class BranchesActivity extends Activity {
 		getMenuInflater().inflate(R.menu.branches, menu);
 		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
-                .getActionView();
-        searchView.setSearchableInfo(searchManager
-                .getSearchableInfo(getComponentName()));
+		SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
+				.getActionView();
+		searchView.setSearchableInfo(searchManager
+				.getSearchableInfo(getComponentName()));
 		return true;
 	}
 
 	@Override
 	public void onBackPressed() {
-		Intent i = new Intent(BranchesActivity.this, NavigationActivity.class);
-		startActivity(i);
+		backToActivity(NavigationActivity.class);
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -165,6 +183,12 @@ public class BranchesActivity extends Activity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void backToActivity(Class activity) {
+		Intent i = new Intent(BranchesActivity.this, activity);
+		i.putExtra("shopId", shopId);
+		startActivity(i);
 	}
 
 }

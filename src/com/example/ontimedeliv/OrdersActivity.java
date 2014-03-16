@@ -41,7 +41,6 @@ public class OrdersActivity extends Activity {
 
 	public void getOrders() {
 		String serverURL = new myURL(null, "orders", "opened", 30).getURL();
-
 		new MyJs(Dialog, "setOrders", this, "GET").execute(serverURL);
 	}
 
@@ -65,6 +64,8 @@ public class OrdersActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent i = new Intent(getBaseContext(), OrderInfoActivity.class);
+				i.putExtra("orderId", ""
+						+ orderItems.get(position).getId());
 				startActivity(i);
 			}
 		});

@@ -96,8 +96,8 @@ public class ProductInfoActivity extends Activity {
 		TextView price = (TextView) findViewById(R.id.price);
 		String name_str = name.getText().toString();
 		String desc_str = desc.getText().toString();
-		String price_str = price.getText().toString();
-		Product p = new Product(0, price_str, name_str, desc_str, new Photo(0,
+		int price_val = Integer.parseInt(price.getText().toString());
+		Product p = new Product(0, price_val, name_str, desc_str, new Photo(0,
 				picturePath, ""), new Category(categoryId, "", true, 0),
 				(Unit) unitsSP.getSelectedItem(), true, shopId);
 		addProduct(p);

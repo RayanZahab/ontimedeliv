@@ -2,10 +2,13 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,12 +16,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class OrderInfoActivity extends Activity {
 	Spinner prep, deliv, status;
 	Button cancel;
 	OrderInfoAdapter dataAdapter;
+	int orderId;
+	ProgressDialog Dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,51 +33,52 @@ public class OrderInfoActivity extends Activity {
 
 		addItemsOndelivery();
 		addItemsOnpreparer();
-		//addItemsOnStatus();
-		displayListView();
+		addItemsOnStatus();
 
-		cancel = (Button) findViewById(R.id.cancel);
-		cancel.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				LayoutInflater li = LayoutInflater
-						.from(getApplicationContext());
-				View promptsView = li.inflate(R.layout.prompt_cancel, null);
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-						OrderInfoActivity.this);
-
-				// set prompts.xml to alertdialog builder
-				alertDialogBuilder.setView(promptsView);
-
-				final EditText userInput = (EditText) promptsView
-						.findViewById(R.id.editText1);
-				alertDialogBuilder
-						.setCancelable(false)
-						.setPositiveButton("OK",
-								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,
-											int id) {
-										Toast.makeText(getApplicationContext(),
-												userInput.getText(),
-												Toast.LENGTH_LONG).show();
-									}
-								})
-						.setNegativeButton("Cancel",
-								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,
-											int id) {
-										dialog.cancel();
-									}
-								});
-
-				// create alert dialog
-				AlertDialog alertDialog = alertDialogBuilder.create();
-
-				// show it
-				alertDialog.show();
+		Dialog = new ProgressDialog(this);
+		Dialog.setCancelable(false);
+		Bundle extras = getIntent().getExtras();
+		if (getIntent().hasExtra("orderId")) {
+			try {
+				orderId = Integer
+						.parseInt((String) extras.getString("orderId"));
+				getCurrentOrder(orderId);
+				Button submit = (Button) findViewById(R.id.submit);
+				submit.setText("Update");
+			} catch (Exception e) {
 
 			}
-		});
+		}
+
+	}
+
+	public void cancel(View v) {
+		LayoutInflater li = LayoutInflater.from(getApplicationContext());
+		View promptsView = li.inflate(R.layout.prompt_cancel, null);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				OrderInfoActivity.this);
+
+		alertDialogBuilder.setView(promptsView);
+
+		final EditText userInput = (EditText) promptsView
+				.findViewById(R.id.editText1);
+		alertDialogBuilder
+				.setCancelable(false)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						Toast.makeText(getApplicationContext(),
+								userInput.getText(), Toast.LENGTH_LONG).show();
+					}
+				})
+				.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.cancel();
+							}
+						});
+
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
 
 	}
 
@@ -115,49 +122,40 @@ public class OrderInfoActivity extends Activity {
 		status.setAdapter(dataAdapter);
 	}
 
-	private void displayListView() {
+	public void getCurrentOrder(int orderId) {
+		String serverURL = new myURL(null, "orders", orderId, 30).getURL();
+		new MyJs(Dialog, "setOrderInfo", this, "GET").execute(serverURL);
+	}
 
-		ArrayList<Item> orderitem = new ArrayList<Item>();
+	public void setOrderInfo(String s, String error) {
+		Order currentOrder = new APIManager().getOrder(s);
+		ArrayList<OrderItem> orderitem = currentOrder.getOrderItems();
+		ArrayList<Item> items = new ArrayList<Item>();
+		Item _Item;
+		double total = 0;
+		Log.d("rays", "ray items: " + currentOrder.toString());
+		for (int i = 0; i < orderitem.size(); i++) {
+			_Item = new Item(orderitem.get(i).getId(), orderitem.get(i)
+					.toString(), orderitem.get(i).getQuantity(), orderitem.get(
+					i).getTotalPrice());
+			items.add(_Item);
+			Log.d("ray","ray quant"+_Item.getQuantity());
+			total = total + orderitem.get(i).getTotalPrice();
+			dataAdapter = new OrderInfoAdapter(OrderInfoActivity.this,
+					R.layout.row_order_info, items);
 
-		Item _Item = new Item("rez b7alib", 5, "10000L.L");
-		orderitem.add(_Item);
-		_Item = new Item("Nido", 1, "16000L.L");
-		orderitem.add(_Item);
-		_Item = new Item("khebez", 5, "5000L.L");
-		orderitem.add(_Item);
-		_Item = new Item("drink", 5, "10000L.L");
-		orderitem.add(_Item);
+			ListView listView = (ListView) findViewById(R.id.listView);
 
-		// create an ArrayAdaptar from the String Array
-		dataAdapter = new OrderInfoAdapter(this, R.layout.row_order_info,
-				orderitem);
-		
-		ListView listView = (ListView) findViewById(R.id.listView);
-		
-		// Assign adapter to ListView
-		listView.setAdapter(dataAdapter);
-		Helper.getListViewSize(listView);
-
-		/*
-		 * listView.setOnItemClickListener(new OnItemClickListener() { // set
-		 * dialog message
-		 * alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new
-		 * DialogInterface.OnClickListener() { public void
-		 * onClick(DialogInterface dialog, int id) {
-		 * Toast.makeText(getApplicationContext(), userInput.getText(),
-		 * Toast.LENGTH_LONG) .show(); dialog.cancel(); }
-		 * 
-		 * public void onItemClick(AdapterView<?> parent, View view, int
-		 * position, long id) { // When clicked, Navigate to the selected item
-		 * Item navitem = (Item) parent.getItemAtPosition(position); String
-		 * title = navitem.getTitle(); Intent i; try { i = new
-		 * Intent(getBaseContext(), Class.forName(getPackageName() + "." + title
-		 * + "Activity")); startActivity(i); } catch (ClassNotFoundException e)
-		 * { // TODO Auto-generated catch block e.printStackTrace(); } }
-		 * 
-		 * });
-		 */
-
+			listView.setAdapter(dataAdapter);
+			Helper.getListViewSize(listView);
+		}
+		TextView totalTxt =(TextView) findViewById(R.id.total);
+		totalTxt.setText(total+" L.L");
+		TextView customerName = (TextView) findViewById(R.id.customerName);
+		customerName.append(" " + currentOrder.getCustomer().toString());
+		TextView customerAdd = (TextView) findViewById(R.id.customerAdd);
+		customerAdd
+				.append(" This is add"/* currentOrder.getAddress().toString() */);
 	}
 
 }
