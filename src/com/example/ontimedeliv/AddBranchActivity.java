@@ -1,7 +1,10 @@
 package com.example.ontimedeliv;
 
-import java.util.ArrayList;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -14,9 +17,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ExpandableListView.OnGroupCollapseListener;
+import android.widget.ExpandableListView.OnGroupExpandListener;
 
 public class AddBranchActivity extends Activity implements
 		OnItemSelectedListener {
@@ -29,6 +38,10 @@ public class AddBranchActivity extends Activity implements
 	Spinner countrySp, citySp, areasSp;
 	ProgressDialog Dialog;
 	Branch currentBranch;
+	ExpandableListAdapter listAdapter;
+	ExpandableListView expListView;
+	List<String> listDataHeader;
+	HashMap<String, List<String>> listDataChild;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +65,72 @@ public class AddBranchActivity extends Activity implements
 
 			}
 		}
-		//getCountries();
-		from = (Button) findViewById(R.id.fromBtnn);
-		to = (Button) findViewById(R.id.toBtn);
+		// get the listview
+				expListView = (ExpandableListView) findViewById(R.id.lvExp);
+
+				// preparing list data
+				prepareListData();
+
+				listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+				// setting list adapter
+				expListView.setAdapter(listAdapter);
+
+				// Listview Group click listener
+				expListView.setOnGroupClickListener(new OnGroupClickListener() {
+
+					@Override
+					public boolean onGroupClick(ExpandableListView parent, View v,
+							int groupPosition, long id) {
+						// Toast.makeText(getApplicationContext(),
+						// "Group Clicked " + listDataHeader.get(groupPosition),
+						// Toast.LENGTH_SHORT).show();
+						return false;
+					}
+				});
+
+				// Listview Group expanded listener
+				expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
+
+					@Override
+					public void onGroupExpand(int groupPosition) {
+						Toast.makeText(getApplicationContext(),
+								listDataHeader.get(groupPosition) + " Expanded",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
+
+				// Listview Group collasped listener
+				expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
+
+					@Override
+					public void onGroupCollapse(int groupPosition) {
+						Toast.makeText(getApplicationContext(),
+								listDataHeader.get(groupPosition) + " Collapsed",
+								Toast.LENGTH_SHORT).show();
+
+					}
+				});
+
+				// Listview on child click listener
+				expListView.setOnChildClickListener(new OnChildClickListener() {
+
+					@Override
+					public boolean onChildClick(ExpandableListView parent, View v,
+							int groupPosition, int childPosition, long id) {
+						// TODO Auto-generated method stub
+						Toast.makeText(
+								getApplicationContext(),
+								listDataHeader.get(groupPosition)
+										+ " : "
+										+ listDataChild.get(
+												listDataHeader.get(groupPosition)).get(
+												childPosition), Toast.LENGTH_SHORT)
+								.show();
+						return false;
+					}
+				});
+		
 	}
 	public void getCurrentBranch(int branchId) {
 		String url = new myURL(null, "branches", branchId, 1).getURL();
@@ -63,6 +139,30 @@ public class AddBranchActivity extends Activity implements
 		new MyJs(Dialog, "setBranchInfo", this, "GET").execute(serverURL);
 		
 	}
+	private void prepareListData() {
+		listDataHeader = new ArrayList<String>();
+		listDataChild = new HashMap<String, List<String>>();
+
+		// Adding child data
+		listDataHeader.add("Opening Hours");
+		
+
+		// Adding child data
+		List<String> openhour = new ArrayList<String>();
+		openhour.add("Monday");
+		openhour.add("Tuesday");
+		openhour.add("Wednesday");
+		openhour.add("Thursday");
+		openhour.add("Friday");
+		openhour.add("Saturday");
+		openhour.add("Sunday");
+
+		
+
+		listDataChild.put(listDataHeader.get(0), openhour); // Header, Child data
+		
+	}
+	
 	public void setBranchInfo(String s,String error) {
 		currentBranch = (new APIManager().getBranchesByShop(s)).get(0);
 		

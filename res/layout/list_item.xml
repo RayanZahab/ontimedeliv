@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dip"
+    android:orientation="horizontal" >
+
+    <CheckBox
+        android:id="@+id/weekCheck"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="Ray" />
+
+    <Button
+        android:id="@+id/fromBtnn"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:minWidth="120sp"
+        android:text="From"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/toBtn"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:minWidth="120sp"
+        android:text="To"
+        android:textColor="#ffffff" />
+
+</LinearLayout>
