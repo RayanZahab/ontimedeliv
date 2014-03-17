@@ -38,7 +38,7 @@ public class SharedMenu extends Activity {
 	      case SharedMenu.ABOUT:
 	    	  Toast msg = Toast.makeText(
 	    			  context,
-	    			  "Developped by Rayan&Bachir", Toast.LENGTH_LONG);
+	    			  "Developped by ArrayFusion", Toast.LENGTH_LONG);
 	    	  msg.show();
 	        return true;
 	      case SharedMenu.navigation:
@@ -50,7 +50,8 @@ public class SharedMenu extends Activity {
 	    	  	SharedPreferences.Editor editor = sharedPref.edit();
 		        editor.clear();
 		        editor.commit();
-		        caller.finishAffinity();
+		        intent = new Intent(caller, LoginActivity.class);
+		        caller.startActivity(intent);
 		        return true;  
 	      default:
 	        return false;

@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="55dip"
+    android:background="@drawable/myspinner"
     android:orientation="horizontal" >
 
     <CheckBox
         android:id="@+id/weekCheck"
-        android:layout_width="120dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
+        style="@style/mytextview"
         android:text="Ray" />
 
     <Button
@@ -16,7 +18,8 @@
         android:layout_height="wrap_content"
         android:minWidth="120sp"
         android:text="From"
-        android:textColor="#ffffff" />
+        android:background="@drawable/mybutton"
+		android:textColor="#ffffff" />
 
     <Button
         android:id="@+id/toBtn"
@@ -25,6 +28,7 @@
         android:layout_marginLeft="10dp"
         android:minWidth="120sp"
         android:text="To"
-        android:textColor="#ffffff" />
+        android:background="@drawable/mybutton"
+		android:textColor="#ffffff"/>
 
 </LinearLayout>
