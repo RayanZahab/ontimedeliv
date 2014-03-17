@@ -133,24 +133,27 @@ public class OrderInfoActivity extends Activity {
 		ArrayList<Item> items = new ArrayList<Item>();
 		Item _Item;
 		double total = 0;
-		Log.d("rays", "ray items: " + currentOrder.toString());
+		TextView totalTxt = (TextView) findViewById(R.id.total);
+
 		for (int i = 0; i < orderitem.size(); i++) {
-			_Item = new Item(orderitem.get(i).getId(), orderitem.get(i)
-					.toString(), orderitem.get(i).getQuantity(), orderitem.get(
-					i).getTotalPrice());
+			_Item = new Item(orderitem.get(i).getId(),
+					orderitem.get(i).toString(),
+					orderitem.get(i).getQuantity(),
+					orderitem.get(i).getUnitPrice());
 			items.add(_Item);
-			Log.d("ray","ray quant"+_Item.getQuantity());
+
 			total = total + orderitem.get(i).getTotalPrice();
 			dataAdapter = new OrderInfoAdapter(OrderInfoActivity.this,
 					R.layout.row_order_info, items);
+			dataAdapter.setTotal(totalTxt);
 
 			ListView listView = (ListView) findViewById(R.id.listView);
 
 			listView.setAdapter(dataAdapter);
 			Helper.getListViewSize(listView);
 		}
-		TextView totalTxt =(TextView) findViewById(R.id.total);
-		totalTxt.setText(total+" L.L");
+
+		totalTxt.setText(total + "");
 		TextView customerName = (TextView) findViewById(R.id.customerName);
 		customerName.append(" " + currentOrder.getCustomer().toString());
 		TextView customerAdd = (TextView) findViewById(R.id.customerAdd);

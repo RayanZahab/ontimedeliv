@@ -36,5 +36,9 @@ public class OrderItem {
 	{
 		return product.toString();
 	}
+	public double getUnitPrice()
+	{
+		return product.getPrice() ;
+	}
 
 }
