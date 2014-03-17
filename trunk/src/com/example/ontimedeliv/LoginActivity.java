@@ -7,9 +7,11 @@ import java.util.Set;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.Menu;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -110,8 +112,21 @@ public class LoginActivity extends Activity implements OnItemSelectedListener {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
+		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
 	}
+	
+	@Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    	LoginActivity.this.finishAffinity();
+                    }
+                }).setNegativeButton("No", null).show();
+    }
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {

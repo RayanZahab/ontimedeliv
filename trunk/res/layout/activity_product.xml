@@ -33,6 +33,7 @@
         android:id="@+id/categorylist"
         android:layout_width="fill_parent"
         android:layout_height="0dip"
+        android:background="@drawable/mylistview"
         android:layout_weight="0.64" />
 
     <Button

@@ -52,6 +52,7 @@
     <ListView
         android:id="@+id/oldorderlist"
         android:layout_width="fill_parent"
+        android:background="@drawable/mylistview"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView2"

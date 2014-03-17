@@ -11,6 +11,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -237,7 +238,15 @@ public class AddBranchActivity extends Activity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.add_branch, menu);
+		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+			// handle local menu items here or leave blank
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	public void getCountries() {
@@ -315,5 +324,6 @@ public class AddBranchActivity extends Activity implements
 	public void onNothingSelected(AdapterView<?> arg0) {
 		Log.d("ray", "ray nothing");
 	}
+	
 
 }
