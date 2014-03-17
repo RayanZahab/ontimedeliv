@@ -65,7 +65,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	public void timerDelayRemoveDialog(long time, final ProgressDialog d){
 	    new Handler().postDelayed(new Runnable() {
 	        public void run() {  
-	        	Log.d("ray","ray late");
 	            d.dismiss();         
 	        }
 	    }, time); 
@@ -102,16 +101,10 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	protected void onPreExecute() {
 		Dialog.setMessage("Please wait..");
 		if (!this.returnFunction.equals("afterActivate"))
+		{
 			Dialog.show();
-			timerDelayRemoveDialog(10000,Dialog);
-		try {
-			Log.d("Output : ", "Ray &" + URLEncoder.encode("data", "UTF-8"));
-
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			timerDelayRemoveDialog(10000,Dialog);		
 		}
-
 	}
 
 	// Call after onPreExecute returnFunction
@@ -147,7 +140,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				}
 				Content = sb.toString();
 				Error = null;
-				Log.d("ray", "ray get Cont: " + Content);
 			} else if (this.method.equals("POST")) {
 				conn.addRequestProperty("Accept", "application/json");
 				conn.addRequestProperty("Accept-Encoding", "gzip");
@@ -218,14 +210,12 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				conn.addRequestProperty("Accept-Encoding", "gzip");
 				conn.addRequestProperty("Cache-Control",
 						"max-stale=0,max-age=60");
-				Log.d("ray", "ray req: ");
 				if (conn.getResponseCode() != 204) {
 					Log.d("ray",
 							"Failed: " + url + "\n" + conn.getResponseMessage());
 					Content = null;
 					Error = conn.getResponseMessage();
 				} else {
-					Log.d("rays : ", "Rayz deleted " );
 					Content = "done";
 					Error = null;
 				}
@@ -382,7 +372,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			} catch (Exception ex) {
 			}
 		}
-		Log.d("ray", "ray url: " + urls[0] + "\n content:" + Content);
+		Log.d("ray", "ray url: " + urls[0] );
 		/*****************************************************/
 		return null;
 	}

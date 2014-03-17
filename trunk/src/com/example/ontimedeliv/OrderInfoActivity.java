@@ -33,12 +33,12 @@ public class OrderInfoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_info);
 
-		addItemsOndelivery();
-		addItemsOnpreparer();
-		addItemsOnStatus();
-
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
+		getDelivery();
+		getPreparers();
+		addItemsOnStatus();
+
 		Bundle extras = getIntent().getExtras();
 		if (getIntent().hasExtra("orderId")) {
 			try {
@@ -84,31 +84,39 @@ public class OrderInfoActivity extends Activity {
 
 	}
 
-	// add items into spinner dynamically
-	public void addItemsOndelivery() {
-		deliv = (Spinner) findViewById(R.id.delivery_Spinner);
-		List<String> list = new ArrayList<String>();
-		list.add("deliv 1");
-		list.add("deliv 2");
-		list.add("deliv 3");
-		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, list);
-		dataAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		deliv.setAdapter(dataAdapter);
+	public void getPreparers(){
+		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
+		new MyJs(Dialog, "serPreparers", this, "GET").execute(serverURL);
 	}
 
-	public void addItemsOnpreparer() {
+	public void serPreparers(String s,String error) {
+		ArrayList<User> userItems = new APIManager().getUsers(s);
+		
+		
 		prep = (Spinner) findViewById(R.id.preparer_spinner);
-		List<String> list = new ArrayList<String>();
-		list.add("prep 1");
-		list.add("prep 2");
-		list.add("prep 3");
-		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, list);
+		
+		ArrayAdapter<User> dataAdapter = new ArrayAdapter<User>(this,
+				android.R.layout.simple_spinner_item, userItems);
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		prep.setAdapter(dataAdapter);
+	}
+	public void getDelivery(){
+		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
+		new MyJs(Dialog, "setDeivery", this, "GET").execute(serverURL);
+	}
+
+	public void setDeivery(String s,String error) {
+		ArrayList<User> userItems = new APIManager().getUsers(s);
+		
+		
+		deliv = (Spinner) findViewById(R.id.delivery_Spinner);
+		
+		ArrayAdapter<User> dataAdapter = new ArrayAdapter<User>(this,
+				android.R.layout.simple_spinner_item, userItems);
+		dataAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		deliv.setAdapter(dataAdapter);
 	}
 
 	public void addItemsOnStatus() {
@@ -159,8 +167,7 @@ public class OrderInfoActivity extends Activity {
 		TextView customerName = (TextView) findViewById(R.id.customerName);
 		customerName.append(" " + currentOrder.getCustomer().toString());
 		TextView customerAdd = (TextView) findViewById(R.id.customerAdd);
-		customerAdd
-				.append(" This is add"/* currentOrder.getAddress().toString() */);
+		customerAdd.append(" This is add"/* currentOrder.getAddress().toString() */);
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
