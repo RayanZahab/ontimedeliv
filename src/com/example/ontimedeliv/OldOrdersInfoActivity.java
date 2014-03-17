@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 public class OldOrdersInfoActivity extends Activity {
@@ -42,7 +43,15 @@ public class OldOrdersInfoActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.old_orders_info, menu);
+		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+			// handle local menu items here or leave blank
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 }

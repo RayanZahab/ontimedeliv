@@ -79,7 +79,7 @@
                 android:background="@drawable/mybutton"
                 android:minWidth="80dp"
                 android:onClick="login"
-                android:text="@string/buttonlogin"
+                android:text="@string/submit"
                 android:textColor="#ffffff" />
 
             <TextView

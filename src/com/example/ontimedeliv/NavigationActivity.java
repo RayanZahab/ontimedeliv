@@ -1,11 +1,15 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -84,11 +88,17 @@ public class NavigationActivity extends Activity {
 	}
 
 	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		super.onBackPressed();
-		NavigationActivity.this.finishAffinity();
-	}
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    	NavigationActivity.this.finishAffinity();
+                    }
+                }).setNegativeButton("No", null).show();
+    }
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,5 +106,12 @@ public class NavigationActivity extends Activity {
 		getMenuInflater().inflate(R.menu.navigation, menu);
 		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+			// handle local menu items here or leave blank
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

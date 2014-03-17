@@ -10,6 +10,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -159,6 +161,20 @@ public class OrderInfoActivity extends Activity {
 		TextView customerAdd = (TextView) findViewById(R.id.customerAdd);
 		customerAdd
 				.append(" This is add"/* currentOrder.getAddress().toString() */);
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.order_info, menu);
+		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+			// handle local menu items here or leave blank
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 }

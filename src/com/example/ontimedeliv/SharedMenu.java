@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class SharedMenu extends Activity {
 
 	public static final int ABOUT = 1000;
-	public static final int navigation = 1001;
+	public static final int settings = 1001;
 	public static final int LogOut   = 1002;
 	public static Context context;
 	public static Menu menu;
@@ -22,10 +22,10 @@ public class SharedMenu extends Activity {
 	}
 
 	public static void onCreateOptionsMenu(Menu menu, Context ctx) {
-	    menu.add(Menu.NONE, navigation, Menu.NONE,
-	             ctx.getString(R.string.navigation));
 	    menu.add(Menu.NONE, ABOUT, Menu.NONE,
 	             ctx.getString(R.string.About));
+	    menu.add(Menu.NONE, settings, Menu.NONE,
+	             ctx.getString(R.string.settings));
 	    menu.add(Menu.NONE, LogOut, Menu.NONE,
 	             ctx.getString(R.string.Logout));
 	    
@@ -41,8 +41,8 @@ public class SharedMenu extends Activity {
 	    			  "Developped by ArrayFusion", Toast.LENGTH_LONG);
 	    	  msg.show();
 	        return true;
-	      case SharedMenu.navigation:
-	        intent = new Intent(caller, NavigationActivity.class);
+	      case SharedMenu.settings:
+	        intent = new Intent(caller, UserProfileActivity.class);
 	        caller.startActivity(intent);
 	        return true;
 	      case SharedMenu.LogOut:

@@ -114,6 +114,10 @@
             android:name="com.example.ontimedeliv.SearchResultsActivity"
             android:label="@string/title_activity_search_results" >
         </activity>
+        <activity
+            android:name="com.example.ontimedeliv.UserProfileActivity"
+            android:label="@string/title_activity_user_profile" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
