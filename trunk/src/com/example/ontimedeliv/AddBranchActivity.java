@@ -1,10 +1,9 @@
 package com.example.ontimedeliv;
 
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -31,7 +30,7 @@ public class AddBranchActivity extends Activity implements
 		OnItemSelectedListener {
 
 	Button from, to;
-	int fmHour, fmMinute, tHour, tMinute, shopId,branchId;
+	int fmHour, fmMinute, tHour, tMinute, shopId, branchId;
 	ArrayList<Country> countries = new ArrayList<Country>();
 	ArrayList<City> cities = new ArrayList<City>();
 	ArrayList<Area> areas = new ArrayList<Area>();
@@ -54,7 +53,7 @@ public class AddBranchActivity extends Activity implements
 		areasSp = (Spinner) findViewById(R.id.areasSP);
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
-		
+
 		if (getIntent().hasExtra("id")) {
 			try {
 				branchId = Integer.parseInt((String) extras.getString("id"));
@@ -66,86 +65,90 @@ public class AddBranchActivity extends Activity implements
 			}
 		}
 		// get the listview
-				expListView = (ExpandableListView) findViewById(R.id.lvExp);
+		expListView = (ExpandableListView) findViewById(R.id.lvExp);
 
-				// preparing list data
-				prepareListData();
+		// preparing list data
+		prepareListData();
 
-				listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+		listAdapter = new ExpandableListAdapter(this, listDataHeader,
+				listDataChild);
 
-				// setting list adapter
-				expListView.setAdapter(listAdapter);
+		// setting list adapter
+		expListView.setAdapter(listAdapter);
 
-				// Listview Group click listener
-				expListView.setOnGroupClickListener(new OnGroupClickListener() {
+		// Listview Group click listener
+		expListView.setOnGroupClickListener(new OnGroupClickListener() {
 
-					@Override
-					public boolean onGroupClick(ExpandableListView parent, View v,
-							int groupPosition, long id) {
-						// Toast.makeText(getApplicationContext(),
-						// "Group Clicked " + listDataHeader.get(groupPosition),
-						// Toast.LENGTH_SHORT).show();
-						return false;
-					}
-				});
+			@Override
+			public boolean onGroupClick(ExpandableListView parent, View v,
+					int groupPosition, long id) {
+				// Toast.makeText(getApplicationContext(),
+				// "Group Clicked " + listDataHeader.get(groupPosition),
+				// Toast.LENGTH_SHORT).show();
+				return false;
+			}
+		});
 
-				// Listview Group expanded listener
-				expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
+		// Listview Group expanded listener
+		expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
 
-					@Override
-					public void onGroupExpand(int groupPosition) {
-						Toast.makeText(getApplicationContext(),
-								listDataHeader.get(groupPosition) + " Expanded",
-								Toast.LENGTH_SHORT).show();
-					}
-				});
+			@Override
+			public void onGroupExpand(int groupPosition) {
+				Toast.makeText(getApplicationContext(),
+						listDataHeader.get(groupPosition) + " Expanded",
+						Toast.LENGTH_SHORT).show();
+				Helper.getListViewSize(expListView);
+			}
+		});
 
-				// Listview Group collasped listener
-				expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
+		// Listview Group collasped listener
+		expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
 
-					@Override
-					public void onGroupCollapse(int groupPosition) {
-						Toast.makeText(getApplicationContext(),
-								listDataHeader.get(groupPosition) + " Collapsed",
-								Toast.LENGTH_SHORT).show();
+			@Override
+			public void onGroupCollapse(int groupPosition) {
+				Toast.makeText(getApplicationContext(),
+						listDataHeader.get(groupPosition) + " Collapsed",
+						Toast.LENGTH_SHORT).show();
+				Helper.getListViewSize(expListView);
 
-					}
-				});
+			}
+		});
 
-				// Listview on child click listener
-				expListView.setOnChildClickListener(new OnChildClickListener() {
+		// Listview on child click listener
+		expListView.setOnChildClickListener(new OnChildClickListener() {
 
-					@Override
-					public boolean onChildClick(ExpandableListView parent, View v,
-							int groupPosition, int childPosition, long id) {
-						// TODO Auto-generated method stub
-						Toast.makeText(
-								getApplicationContext(),
-								listDataHeader.get(groupPosition)
-										+ " : "
-										+ listDataChild.get(
-												listDataHeader.get(groupPosition)).get(
-												childPosition), Toast.LENGTH_SHORT)
-								.show();
-						return false;
-					}
-				});
-		
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				// TODO Auto-generated method stub
+				Toast.makeText(
+						getApplicationContext(),
+						listDataHeader.get(groupPosition)
+								+ " : "
+								+ listDataChild.get(
+										listDataHeader.get(groupPosition)).get(
+										childPosition), Toast.LENGTH_SHORT)
+						.show();
+				return false;
+			}
+		});
+
 	}
+
 	public void getCurrentBranch(int branchId) {
 		String url = new myURL(null, "branches", branchId, 1).getURL();
 		String serverURL = url;
 		Log.d("rays", "ray url" + url);
 		new MyJs(Dialog, "setBranchInfo", this, "GET").execute(serverURL);
-		
+
 	}
+
 	private void prepareListData() {
 		listDataHeader = new ArrayList<String>();
 		listDataChild = new HashMap<String, List<String>>();
 
 		// Adding child data
 		listDataHeader.add("Opening Hours");
-		
 
 		// Adding child data
 		List<String> openhour = new ArrayList<String>();
@@ -157,15 +160,14 @@ public class AddBranchActivity extends Activity implements
 		openhour.add("Saturday");
 		openhour.add("Sunday");
 
-		
+		listDataChild.put(listDataHeader.get(0), openhour); // Header, Child
+															// data
 
-		listDataChild.put(listDataHeader.get(0), openhour); // Header, Child data
-		
 	}
-	
-	public void setBranchInfo(String s,String error) {
+
+	public void setBranchInfo(String s, String error) {
 		currentBranch = (new APIManager().getBranchesByShop(s)).get(0);
-		
+/*
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);
 		areasSp = (Spinner) findViewById(R.id.areasSP);
@@ -173,11 +175,11 @@ public class AddBranchActivity extends Activity implements
 		EditText desc = ((EditText) findViewById(R.id.addDesc));
 		EditText address = ((EditText) findViewById(R.id.editTextAddress));
 		EditText estimation = ((EditText) findViewById(R.id.estimation));
-		
+
 		name.setText(currentBranch.getName());
 		desc.setText(currentBranch.getDescription());
 		address.setText(currentBranch.getAddress());
-		estimation.setText(currentBranch.getEstimation_time());
+		estimation.setText(currentBranch.getEstimation_time());*/
 	}
 
 	public void from(View view) {
@@ -206,7 +208,7 @@ public class AddBranchActivity extends Activity implements
 		tpd.show();
 	}
 
-	public void addBranch(View v) {
+	public void addBranch(View v) {/*
 		areasSp = (Spinner) findViewById(R.id.areasSP);
 		int selectedArea = ((Area) areasSp.getSelectedItem()).getId();
 		String name = ((EditText) findViewById(R.id.editTextAddName)).getText()
@@ -222,10 +224,10 @@ public class AddBranchActivity extends Activity implements
 		Branch newBranch = new Branch(0, name, desc, new Area(selectedArea),
 				address, 1, new Shop(shopId), "0", "0", 0, 0, estimation);
 		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newBranch)
-				.execute(serverURL);
+				.execute(serverURL);*/
 	}
 
-	public void backToSelection(String s,String error) {
+	public void backToSelection(String s, String error) {
 		Intent intent = new Intent(this, BranchesActivity.class);
 		intent.putExtra("shopId", 37);
 		startActivity(intent);
@@ -245,7 +247,7 @@ public class AddBranchActivity extends Activity implements
 				.execute(serverURL);
 	}
 
-	public void setCountries(String s,String error) {
+	public void setCountries(String s, String error) {
 
 		countries = new APIManager().getCountries(s);
 		ArrayAdapter<Country> counrytAdapter = new ArrayAdapter<Country>(this,
@@ -284,7 +286,7 @@ public class AddBranchActivity extends Activity implements
 				.execute(serverURL);
 	}
 
-	public void setAreas(String s,String error) {
+	public void setAreas(String s, String error) {
 		areas = new APIManager().getAreasByCity(s);
 		ArrayAdapter<Area> areaAdapter = new ArrayAdapter<Area>(this,
 				android.R.layout.simple_spinner_item, areas);
