@@ -122,6 +122,7 @@ public class OrderInfoActivity extends Activity {
 	public void addItemsOnStatus() {
 		status = (Spinner) findViewById(R.id.order_status);
 		List<String> list = new ArrayList<String>();
+		list.add("Open");
 		list.add("Prepared");
 		list.add("Delivered");
 
