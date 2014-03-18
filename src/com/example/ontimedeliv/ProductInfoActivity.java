@@ -36,6 +36,7 @@ public class ProductInfoActivity extends Activity {
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
 		setContentView(R.layout.activity_add_product);
+		
 		if (getIntent().hasExtra("categoryId")) {
 			Bundle extras = getIntent().getExtras();
 			try {
@@ -51,7 +52,9 @@ public class ProductInfoActivity extends Activity {
 				productId = Integer.parseInt((String) extras
 						.getString("productId"));
 				getProduct(productId);
-			} else {
+			}
+			else
+			{
 				getUnits();
 			}
 
@@ -84,9 +87,8 @@ public class ProductInfoActivity extends Activity {
 		TextView price = (TextView) findViewById(R.id.price);
 		name.setText(currentProduct.getName());
 		desc.setText(currentProduct.getDescription());
-		price.setText(currentProduct.getPrice());
+		price.setText(""+currentProduct.getPrice());
 		getUnits();
-
 	}
 
 	public void addProduct(View view) {
@@ -98,7 +100,7 @@ public class ProductInfoActivity extends Activity {
 		String desc_str = desc.getText().toString();
 		int price_val = Integer.parseInt(price.getText().toString());
 		Product p = new Product(0, price_val, name_str, desc_str, new Photo(0,
-				picturePath, ""), new Category(categoryId, "", true, 0),
+				picturePath, ""), new Category(categoryId),
 				(Unit) unitsSP.getSelectedItem(), true, shopId);
 		addProduct(p);
 	}
@@ -111,18 +113,18 @@ public class ProductInfoActivity extends Activity {
 		}
 		else
 		{
-			serverURL = new myURL( null,"items", currentProduct.getId(), 0).getURL();// "http://www.androidexample.com/media/UploadToServer.php";
+			serverURL = new myURL( null,"items", currentProduct.getId(), 0).getURL();
 		}
 		new MyJs(Dialog, "afterCreation", this, "Upload", (Object) p)
 				.execute(serverURL);
 	}
 
 	public void afterCreation(String s,String error) {
-		/*
-		 * Intent i = new Intent(this, ProductActivity.class);
-		 * i.putExtra("categoryId", ""+categoryId); i.putExtra("branchId", ""+
-		 * branchId); i.putExtra("shopId", ""+ shopId); startActivity(i);
-		 */
+		
+		  Intent i = new Intent(this, ProductsActivity.class);
+		  i.putExtra("categoryId", ""+categoryId); i.putExtra("branchId", ""+
+		  branchId); i.putExtra("shopId", ""+ shopId); startActivity(i);
+		 
 		Toast.makeText(getApplicationContext(), "created: " + s,
 				Toast.LENGTH_LONG).show();
 	}
@@ -157,12 +159,12 @@ public class ProductInfoActivity extends Activity {
 		unitsSP.setAdapter(dataAdapter);
 
 		if (currentProduct != null) {
-			for (int position = 0; position < dataAdapter.getCount(); position++) {
-				if (dataAdapter.getItemId(position) == currentProduct.getUnit()
-						.getId()) {
-					Toast.makeText(getApplicationContext(),
-							"here: " + unitsSP.getItemIdAtPosition(position),
-							Toast.LENGTH_LONG).show();
+			
+			for (int position = 0; position < units.size(); position++) {
+				Log.d("ray","ray spin: "+units.get(position).getId() + " == "+currentProduct.getUnit()
+						.getId());
+				if (units.get(position).getId() == currentProduct.getUnit().getId()) {
+					
 					unitsSP.setSelection(position);
 					break;
 				}
@@ -173,7 +175,6 @@ public class ProductInfoActivity extends Activity {
 	public void getUnits() {
 		// getUnits
 		String serverURL = new myURL("units", null, 0, 30).getURL();
-
 		new MyJs(Dialog, "setUnits", this, "GET").execute(serverURL);
 
 	}

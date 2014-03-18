@@ -11,7 +11,9 @@ public class Category {
 		this.setActive(is_active);
 		this.setShopId(shopId);
 	}
-
+	public Category(int id) {
+		this.setId(id);
+	}
 	public int getId() {
 		return id;
 	}
