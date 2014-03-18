@@ -416,9 +416,9 @@ public class APIManager {
 	}
 
 	public ArrayList<Product> getItemsByCategoryAndBranch(String cont) {
-		JSONObject jsonResponse;
+		JSONObject jsonResponse, jsonUnit;
 		ArrayList<Product> gridArray = new ArrayList<Product>();
-
+		
 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
@@ -426,6 +426,7 @@ public class APIManager {
 				boolean is_available;
 				String name, description, photo_str, category_str, unit_str;
 				int price;
+				Unit unit;
 				if (jsonResponse.has("elements")) {
 					JSONArray jsonMainNode = jsonResponse
 							.optJSONArray("elements");
@@ -436,30 +437,39 @@ public class APIManager {
 
 						id = Integer.parseInt(jsonChildNode.optString("id")
 								.toString());
-						price = 50;//= Integer.parseInt(jsonChildNode.optString("price").toString());
+						price = Integer.parseInt(jsonChildNode.optString("price").toString());
 						name = jsonChildNode.optString("name").toString();
 						description = jsonChildNode.optString("description")
 								.toString();
 						photo_str = jsonChildNode.optString("photo").toString();
+						unit_str = jsonChildNode.optString("unit").toString();
+						jsonUnit = new JSONObject(unit_str);
+						unit = new Unit(Integer.parseInt(jsonUnit.optString("id")
+								.toString()),jsonUnit.optString("name").toString());
+								
 						is_available = Boolean.valueOf(jsonChildNode.optString(
 								"is_available").toString());
 						gridArray.add(new Product(id, price, name, description,
-								getPhoto(photo_str), new Category(0, "", true,
-										0), new Unit(0, ""), is_available, 0));
+								getPhoto(photo_str), new Category(0), unit, is_available, 0));
 					}
 				} else {
 					id = Integer.parseInt(jsonResponse.optString("id")
 							.toString());
-					price = 55;//Integer.parseInt(jsonResponse.optString("price").toString());
+					price = Integer.parseInt(jsonResponse.optString("price").toString());
 					name = jsonResponse.optString("name").toString();
 					description = jsonResponse.optString("description")
 							.toString();
 					photo_str = jsonResponse.optString("photo").toString();
 					is_available = Boolean.valueOf(jsonResponse.optString(
 							"is_available").toString());
+					unit_str = jsonResponse.optString("unit").toString();
+					jsonUnit = new JSONObject(unit_str);
+					unit = new Unit(Integer.parseInt(jsonUnit.optString("id")
+							.toString()),jsonUnit.optString("name").toString());
+							
 					gridArray.add(new Product(id, price, name, description,
-							getPhoto(photo_str), new Category(0, "", true, 0),
-							new Unit(0, ""), is_available, 0));
+							getPhoto(photo_str), new Category(0),
+							unit, is_available, 0));
 				}
 			} else {
 				return gridArray;
