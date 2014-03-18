@@ -4,6 +4,7 @@ package com.example.ontimedeliv;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
  
@@ -30,10 +31,26 @@ public class SplashScreenActivity extends Activity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
-                startActivity(i);
- 
-                // close this activity
+            	SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
+        		String lang = settings1.getString("lang", null);
+        		Intent i;
+        		if(lang==null)
+        		{
+        			i = new Intent(SplashScreenActivity.this, SelectLanguageActivity.class);
+        		}
+        		else
+        		{
+        			boolean isChecked = settings1.getBoolean("isChecked", false);
+        			if(isChecked)
+        			{
+        				i = new Intent(SplashScreenActivity.this,NavigationActivity.class);
+        			}
+        			else
+        			{
+        				i = new Intent(SplashScreenActivity.this, LoginActivity.class);
+        			}
+        		}
+                startActivity(i); 
                 finish();
             }
         }, SPLASH_TIME_OUT);

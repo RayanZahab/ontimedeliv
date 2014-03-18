@@ -46,11 +46,11 @@ public class SharedMenu extends Activity {
 	        caller.startActivity(intent);
 	        return true;
 	      case SharedMenu.LogOut:
-	    	  	SharedPreferences sharedPref = context.getSharedPreferences("PREFS_NAME", MODE_PRIVATE);
+	    	  	SharedPreferences sharedPref = context.getSharedPreferences("PREFS_NAME", 0);
 	    	  	SharedPreferences.Editor editor = sharedPref.edit();
 		        editor.clear();
 		        editor.commit();
-		        intent = new Intent(caller, LoginActivity.class);
+		        intent = new Intent(caller, SelectLanguageActivity		.class);
 		        caller.startActivity(intent);
 		        return true;  
 	      default:

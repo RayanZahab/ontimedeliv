@@ -118,6 +118,10 @@
             android:name="com.example.ontimedeliv.UserProfileActivity"
             android:label="@string/title_activity_user_profile" >
         </activity>
+        <activity
+            android:name="com.example.ontimedeliv.SelectLanguageActivity"
+            android:label="Select language" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

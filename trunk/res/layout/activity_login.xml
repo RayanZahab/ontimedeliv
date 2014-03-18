@@ -81,37 +81,17 @@
                 android:onClick="login"
                 android:text="@string/buttonlogin"
                 android:textColor="#ffffff" />
-
-            <TextView
-                android:id="@+id/textView1"
+            
+            <CheckBox
+                android:id="@+id/keeploggedin"
                 style="@style/mytextview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/textView3"
-                android:layout_below="@+id/textView3"
-                android:layout_marginTop="29dp"
-                android:text="@string/selectlanguage" />
-
-            <Spinner
-                android:id="@+id/languageSP"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/password"
-                android:layout_alignRight="@+id/password"
                 android:layout_below="@+id/password"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="22dp"
-                android:background="@drawable/myspinner"
-                android:entries="@array/languages" />
-            
-            <CheckBox
-		        android:id="@+id/keeploggedin"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        style="@style/mytextview"
-		        android:layout_marginTop="22dp"
-		        android:layout_centerHorizontal="true"
-		        android:layout_below="@+id/languageSP"
-		        android:text="@string/keeploggedin" />
+                android:text="@string/keeploggedin" />
+
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
