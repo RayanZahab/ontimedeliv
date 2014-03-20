@@ -27,6 +27,7 @@ public class SelectLanguageActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_language);
+		
 		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
 		String lang = settings1.getString("lang", null);
 		if(lang!=null)
@@ -41,7 +42,7 @@ public class SelectLanguageActivity extends Activity {
 		Log.d("rays","ray changed"+lang);
 		String lang_ab = "en";
 		if (!lang.equals("English")) {
-			lang_ab = "fr";
+			lang_ab = "ar";
 			
 		} else {
 			lang_ab = "en";
@@ -50,12 +51,14 @@ public class SelectLanguageActivity extends Activity {
 		Locale.setDefault(locale);
 		Configuration config = new Configuration();
 		config.locale = locale;
+
 		getBaseContext().getResources().updateConfiguration(config,
 				getBaseContext().getResources().getDisplayMetrics());
 
 		SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
 		SharedPreferences.Editor editor = settings.edit();
-
+		//View.LAYOUT_DIRECTION_RTL
+		view.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 		editor.putString("lang", lang_ab);
 		editor.commit();
 		Intent i = new Intent(SelectLanguageActivity.this, LoginActivity.class);

@@ -1,5 +1,7 @@
 package com.example.ontimedeliv;
 
+import android.util.Log;
+
 public class Branch {
 	private Integer id;
 	private String name;
@@ -30,6 +32,10 @@ public class Branch {
 		this.open_hour = open_hour;
 		this.close_hour = close_hour;
 		this.estimation_time = estimation_time;
+	}
+	public Branch(int id)
+	{
+		this.id = id;
 	}
 
 	public Integer getId() {
@@ -131,5 +137,13 @@ public class Branch {
 	public String toString() {
 		return this.id + "-" + this.name + "\n" + this.area.toString() + ","
 				+ this.address;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		Branch c = (Branch) obj;
+		Log.d("br","br : "+ this.id +"=="+ c.getId());
+		if(this.id == c.getId())
+			return true;
+		return false;
 	}
 }

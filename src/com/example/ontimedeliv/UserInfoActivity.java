@@ -30,7 +30,7 @@ public class UserInfoActivity extends Activity implements
 	int branchId, userId = 0;
 	ArrayList<Branch> branches;
 	ProgressDialog Dialog;
-
+	GlobalM glob= new GlobalM();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,7 +48,7 @@ public class UserInfoActivity extends Activity implements
 
 			}
 		}
-		getBranches();
+		
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class UserInfoActivity extends Activity implements
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
 		Log.d("rays", "ray url" + url);
-		new MyJs(Dialog, "setUserInfo", this, "GET", false).execute(serverURL);
+		new MyJs(Dialog, "setUserInfo", this, "GET", true).execute(serverURL);
 	}
 
 	public void setUserInfo(String s, String error) {
@@ -99,7 +99,7 @@ public class UserInfoActivity extends Activity implements
 		admin.setChecked(currentUser.isIs_admin());
 		preparer.setChecked(currentUser.isIs_preparer());
 		delivery.setChecked(currentUser.isIs_delivery());
-
+		getBranches();
 	}
 
 	public void getBranches() {
@@ -117,13 +117,8 @@ public class UserInfoActivity extends Activity implements
 		branchAdapter.notifyDataSetChanged();
 		branchesSP.setAdapter(branchAdapter);
 		branchesSP.setOnItemSelectedListener(this);
+		glob.setSelected(branchesSP, branchAdapter, new Branch(currentUser.getBranch_id()));
 
-		for (int position = 0; position < branchAdapter.getCount(); position++) {
-			if (branchAdapter.getItemId(position) == currentUser.getBranch_id()) {
-				branchesSP.setSelection(position);
-				break;
-			}
-		}
 	}
 
 	public void addUser(View view) {
@@ -139,7 +134,6 @@ public class UserInfoActivity extends Activity implements
 		if (userId > 0) {
 			serverURL = new myURL(null, "users", userId, 0).getURL();
 			user = new User(0, username.getText().toString(),// name
-					inputphone.getText().toString(),// username
 					inputphone.getText().toString(),// password
 					inputphone.getText().toString(),// phone
 					inputphone.getText().toString(),// mobile
@@ -151,8 +145,7 @@ public class UserInfoActivity extends Activity implements
 			method = "PUT";
 		} else {
 			serverURL = new myURL("users", null, 0, 0).getURL();
-			user = new User(0, username.getText().toString(), username
-					.getText().toString(), "", inputphone.getText().toString(),
+			user = new User(0, username.getText().toString(),  "", inputphone.getText().toString(),
 					inputphone.getText().toString(), 0, null, branchId,
 					admin.isChecked(), preparer.isChecked(),
 					delivery.isChecked());

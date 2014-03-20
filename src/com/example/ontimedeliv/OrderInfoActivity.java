@@ -27,7 +27,8 @@ public class OrderInfoActivity extends Activity {
 	OrderInfoAdapter dataAdapter;
 	int orderId;
 	ProgressDialog Dialog;
-
+	AlertDialog alertDialog;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,22 +67,54 @@ public class OrderInfoActivity extends Activity {
 				.findViewById(R.id.editText1);
 		alertDialogBuilder
 				.setCancelable(false)
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						Toast.makeText(getApplicationContext(),
-								userInput.getText(), Toast.LENGTH_LONG).show();
-					}
-				})
-				.setNegativeButton("Cancel",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						});
+				.setPositiveButton("OK", null)				
+				.setNegativeButton("Cancel",null);
+		
+		alertDialog = alertDialogBuilder.create();
+		alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 
-		AlertDialog alertDialog = alertDialogBuilder.create();
+		    @Override
+		    public void onShow(DialogInterface dialog) {
+
+		        Button b = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+		        b.setOnClickListener(new View.OnClickListener() {
+
+		            @Override
+		            public void onClick(View view) {
+		            	if(userInput.getText().toString() !=null && !userInput.getText().toString().isEmpty())
+		        		{
+		        			Order order = new Order();
+		        			order.setId(orderId);
+		        			order.setCancel(true);
+		        			String serverURL = new myURL("cancel", "orders",6, 0).getURL();
+		        			new MyJs(Dialog, "cancelOrder", OrderInfoActivity.this, "PUT", (Object) order ).execute(serverURL);
+		        			
+		        		}
+		        		else
+		        		{
+		        			Toast.makeText(getApplicationContext(), "Please enter a reason",
+		        					Toast.LENGTH_SHORT).show();
+		        		}
+		            }
+		        });
+		    }
+		});
+				
 		alertDialog.show();
 
+	}
+	public void cancelOrder(String s, String Error) {
+		
+		if(Error== null)
+		{
+			Toast.makeText(getApplicationContext(), "Order Canceled",
+					Toast.LENGTH_SHORT).show();
+			alertDialog.dismiss();
+		}
+		else
+		{
+			alertDialog.dismiss();
+		}
 	}
 
 	public void getPreparers(){

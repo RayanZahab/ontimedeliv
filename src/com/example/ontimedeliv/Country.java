@@ -2,6 +2,8 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
+import android.util.Log;
+
 public class Country {
 	private Integer id;
 	private String name;
@@ -9,6 +11,9 @@ public class Country {
 	public Country(Integer id, String name) {
 		this.setId(id);
 		this.setName(name);
+	}
+	public Country(Integer id) {
+		this.setId(id);
 	}
 
 	public Integer getId() {
@@ -40,5 +45,12 @@ public class Country {
 		}
 		return currentCities;
 	}
-
+	@Override
+	public boolean equals(Object obj) {
+		Country c = (Country) obj;
+		Log.d("ray","Cont: "+c.getId() +" == "+this.id);
+		if(this.id == c.getId())
+			return true;
+		return false;
+	}
 }

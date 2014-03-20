@@ -42,7 +42,8 @@ public class AddBranchActivity extends Activity implements
 	ExpandableListView expListView;
 	List<String> listDataHeader;
 	HashMap<String, List<String>> listDataChild;
-
+	GlobalM glob= new GlobalM();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,25 +60,19 @@ public class AddBranchActivity extends Activity implements
 			try {
 				branchId = Integer.parseInt((String) extras.getString("id"));
 				getCurrentBranch(branchId);
+
 				Button submit = (Button) findViewById(R.id.submit);
 				submit.setText("Update");
 			} catch (Exception e) {
 
 			}
 		}
-		// get the listview
+
 		expListView = (ExpandableListView) findViewById(R.id.lvExp);
-
-		// preparing list data
 		prepareListData();
-
 		listAdapter = new ExpandableListAdapter(this, listDataHeader,
 				listDataChild);
-
-		// setting list adapter
 		expListView.setAdapter(listAdapter);
-
-		// Listview Group click listener
 		expListView.setOnGroupClickListener(new OnGroupClickListener() {
 
 			@Override
@@ -90,7 +85,6 @@ public class AddBranchActivity extends Activity implements
 			}
 		});
 
-		// Listview Group expanded listener
 		expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
 
 			@Override
@@ -140,7 +134,7 @@ public class AddBranchActivity extends Activity implements
 		String url = new myURL(null, "branches", branchId, 1).getURL();
 		String serverURL = url;
 		Log.d("rays", "ray url" + url);
-		new MyJs(Dialog, "setBranchInfo", this, "GET").execute(serverURL);
+		new MyJs(Dialog, "setBranchInfo", this, "GET", true).execute(serverURL);
 
 	}
 
@@ -148,10 +142,8 @@ public class AddBranchActivity extends Activity implements
 		listDataHeader = new ArrayList<String>();
 		listDataChild = new HashMap<String, List<String>>();
 
-		// Adding child data
 		listDataHeader.add("Opening Hours");
 
-		// Adding child data
 		List<String> openhour = new ArrayList<String>();
 		openhour.add("Monday");
 		openhour.add("Tuesday");
@@ -161,14 +153,12 @@ public class AddBranchActivity extends Activity implements
 		openhour.add("Saturday");
 		openhour.add("Sunday");
 
-		listDataChild.put(listDataHeader.get(0), openhour); // Header, Child
-															// data
-
+		listDataChild.put(listDataHeader.get(0), openhour);
 	}
 
 	public void setBranchInfo(String s, String error) {
 		currentBranch = (new APIManager().getBranchesByShop(s)).get(0);
-/*
+
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);
 		areasSp = (Spinner) findViewById(R.id.areasSP);
@@ -180,13 +170,13 @@ public class AddBranchActivity extends Activity implements
 		name.setText(currentBranch.getName());
 		desc.setText(currentBranch.getDescription());
 		address.setText(currentBranch.getAddress());
-		estimation.setText(currentBranch.getEstimation_time());*/
+		estimation.setText(currentBranch.getEstimation_time());
+		getCountries();
 	}
 
 	public void from(View view) {
 		TimePickerDialog tpd = new TimePickerDialog(AddBranchActivity.this,
 				new TimePickerDialog.OnTimeSetListener() {
-
 					@Override
 					public void onTimeSet(TimePicker view, int hourOfDay,
 							int minute) {
@@ -199,7 +189,6 @@ public class AddBranchActivity extends Activity implements
 	public void to(View view) {
 		TimePickerDialog tpd = new TimePickerDialog(AddBranchActivity.this,
 				new TimePickerDialog.OnTimeSetListener() {
-
 					@Override
 					public void onTimeSet(TimePicker view, int hourOfDay,
 							int minute) {
@@ -209,7 +198,7 @@ public class AddBranchActivity extends Activity implements
 		tpd.show();
 	}
 
-	public void addBranch(View v) {/*
+	public void addBranch(View v) {
 		areasSp = (Spinner) findViewById(R.id.areasSP);
 		int selectedArea = ((Area) areasSp.getSelectedItem()).getId();
 		String name = ((EditText) findViewById(R.id.editTextAddName)).getText()
@@ -225,7 +214,7 @@ public class AddBranchActivity extends Activity implements
 		Branch newBranch = new Branch(0, name, desc, new Area(selectedArea),
 				address, 1, new Shop(shopId), "0", "0", 0, 0, estimation);
 		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newBranch)
-				.execute(serverURL);*/
+				.execute(serverURL);
 	}
 
 	public void backToSelection(String s, String error) {
@@ -251,7 +240,6 @@ public class AddBranchActivity extends Activity implements
 
 	public void getCountries() {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
-
 		new MyJs(Dialog, "setCountries", AddBranchActivity.this, "GET", true)
 				.execute(serverURL);
 	}
@@ -267,6 +255,7 @@ public class AddBranchActivity extends Activity implements
 		areasSp.setAdapter(null);
 		countrySp.setAdapter(counrytAdapter);
 		countrySp.setOnItemSelectedListener(this);
+		glob.setSelected(countrySp, counrytAdapter, new Country(currentBranch.getArea().getCountry_id()));
 	}
 
 	public void getCities(int CountryId) {
@@ -286,7 +275,7 @@ public class AddBranchActivity extends Activity implements
 		areasSp.setAdapter(null);
 		citySp.setAdapter(cityAdapter);
 		citySp.setOnItemSelectedListener(this);
-
+		glob.setSelected(citySp, cityAdapter, new City(currentBranch.getArea().getCity_id()));
 	}
 
 	public void getAreas(int CityId) {
@@ -304,26 +293,24 @@ public class AddBranchActivity extends Activity implements
 		areaAdapter.notifyDataSetChanged();
 		areasSp.setAdapter(areaAdapter);
 		areasSp.setOnItemSelectedListener(this);
+		glob.setSelected(areasSp, areaAdapter, new Area(currentBranch.getArea().getId()));
 
 	}
-
+	
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
-
 		Object sp1 = arg0.getSelectedItem();
 		if (sp1 instanceof Country) {
 			getCities(((Country) sp1).getId());
 		} else if (sp1 instanceof City) {
 			getAreas(((City) sp1).getId());
 		}
-
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
 		Log.d("ray", "ray nothing");
 	}
-	
 
 }
