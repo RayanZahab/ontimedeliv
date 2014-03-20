@@ -4,6 +4,7 @@ public class Area {
 	private Integer id;
 	private String name;
 	private Integer city_id;
+	private int country_id;
 
 	public Area(int id) {
 		this.id = id;
@@ -15,6 +16,12 @@ public class Area {
 		this.city_id = city_id;
 	}
 
+	public Area(int id, int city_id,int country_id, String name) {
+		this.id = id;
+		this.name = name;
+		this.city_id = city_id;
+		this.country_id = country_id;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -41,5 +48,20 @@ public class Area {
 
 	public String toString() {
 		return id + " - " + city_id + " - " + name;
+	}
+
+	public int getCountry_id() {
+		return country_id;
+	}
+
+	public void setCountry_id(int country_id) {
+		this.country_id = country_id;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		Area area = (Area) obj;
+		if(this.id == area.getId())
+			return true;
+		return false;
 	}
 }

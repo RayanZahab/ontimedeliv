@@ -15,7 +15,7 @@ public class User {
 	private int branch_id;
 	private boolean is_admin, is_preparer, is_delivery;
 
-	public User(int id, String name, String username, String password,
+	public User(int id, String name, String password,
 			String phone, String mobile, int is_fired, Address address,
 			int branch_id, boolean is_admin, boolean is_preparer,
 			boolean is_delivery) {
@@ -47,6 +47,10 @@ public class User {
 	public User(String phone, String password) {
 		this.setPassword(password);
 		this.setPhone(phone);
+	}
+	public User(int id)
+	{
+		this.setId(id);
 	}
 
 	public String getMobile() {
@@ -157,5 +161,11 @@ public class User {
 	public void setToken(String token) {
 		this.token = token;
 	}
-
+	@Override
+	public boolean equals(Object obj) {
+		User u = (User) obj;
+		if(this.id == u.getId())
+			return true;
+		return false;
+	}
 }

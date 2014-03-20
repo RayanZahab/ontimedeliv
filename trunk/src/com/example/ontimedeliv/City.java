@@ -10,7 +10,10 @@ public class City {
 		this.setCountry_id(country_id);
 		this.setName(name);
 	}
-
+	public City(int id)
+	{
+		this.setId(id);
+	}
 	public int getId() {
 		return id;
 	}
@@ -38,5 +41,11 @@ public class City {
 	public String toString() {
 		return id + " - " + country_id + " - " + name;
 	}
-
+	@Override
+	public boolean equals(Object obj) {
+		City c = (City) obj;
+		if(this.id == c.getId())
+			return true;
+		return false;
+	}
 }

@@ -136,9 +136,8 @@ public class APIManager {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 
-				int id;
+				int id,country_id,city_id;
 				String name;
-				int city;
 				if (jsonResponse.has("elements")) {
 					JSONArray jsonMainNode = jsonResponse
 							.optJSONArray("elements");
@@ -149,16 +148,22 @@ public class APIManager {
 
 						id = Integer.parseInt(jsonChildNode.optString("id")
 								.toString());
-						city = 1;
+						country_id = Integer.parseInt(jsonChildNode.optString("country_id")
+								.toString());
+						city_id = Integer.parseInt(jsonChildNode.optString("city_id")
+								.toString());						
 						name = jsonChildNode.optString("name").toString();
-						gridArray.add(new Area(id, city, name));
+						gridArray.add(new Area(id, city_id, country_id, name));
 					}
 				} else {
 					id = Integer.parseInt(jsonResponse.optString("id")
 							.toString());
-					city = 1;
 					name = jsonResponse.optString("name").toString();
-					gridArray.add(new Area(id, city, name));
+					country_id = Integer.parseInt(jsonResponse.optString("country_id")
+							.toString());
+					city_id = Integer.parseInt(jsonResponse.optString("city_id")
+							.toString());	
+					gridArray.add(new Area(id, city_id, country_id, name));
 				}
 			} else {
 				return gridArray;
@@ -622,7 +627,7 @@ public class APIManager {
 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
-				int id;
+				int id,branch_id;
 				boolean is_fired, admin, preparer, delivery;
 				String name, phone, password, username, mobile, roles_str;
 				if (jsonResponse.has("elements")) {
@@ -645,15 +650,15 @@ public class APIManager {
 						delivery = Boolean.parseBoolean(jsonRole.optString(
 								"deliverer").toString());
 
-						username = "";// jsonChildNode.optString("username").toString();
+						branch_id = Integer.parseInt(jsonChildNode.optString("branch_id").toString());
 						password = "";// jsonChildNode.optString("password").toString();
 						phone = jsonChildNode.optString("phone").toString();
 						mobile = "";// jsonChildNode.optString("mobile").toString();
 						is_fired = Boolean.parseBoolean(jsonChildNode
 								.optString("is_fired").toString());
 
-						User u = new User(id, name, username, password, phone,
-								mobile, (is_fired) ? 1 : 0, null, 0, admin,
+						User u = new User(id, name,  password, phone,
+								mobile, (is_fired) ? 1 : 0, null, branch_id, admin,
 								preparer, delivery);
 						gridArray.add(u);
 
@@ -662,7 +667,7 @@ public class APIManager {
 					id = Integer.parseInt(jsonResponse.optString("id")
 							.toString());
 					name = jsonResponse.optString("name").toString();
-					username = "";// jsonResponse.optString("username").toString();
+					branch_id =  Integer.parseInt(jsonResponse.optString("branch_id").toString());
 					password = "";// jsonResponse.optString("password").toString();
 					phone = jsonResponse.optString("phone").toString();
 					mobile = "";// jsonResponse.optString("mobile").toString();
@@ -677,8 +682,8 @@ public class APIManager {
 					delivery = Boolean.parseBoolean(jsonRole.optString(
 							"deliverer").toString());
 
-					gridArray.add(new User(id, name, username, password, phone,
-							mobile, (is_fired) ? 1 : 0, null, 0, admin,
+					gridArray.add(new User(id, name,  password, phone,
+							mobile, (is_fired) ? 1 : 0, null, branch_id, admin,
 							preparer, delivery));
 
 				}
@@ -1112,6 +1117,22 @@ public class APIManager {
 				body.put("is_deliverer", c.getDelivery() ? 1 : 0);
 
 				jsonObjSend.put("roles", body);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		} else if (o instanceof Order ) {
+			Order c = (Order) o;
+			JSONObject body = new JSONObject();
+			try {
+				if(c.isCancel())
+				{
+					jsonObjSend.put("cancel_reason", c.getCancelReason());
+				}
+				else
+				{
+					jsonObjSend.put("roles", body);
+				//	body.put("is_admin", c.getAdmin() ? 1 : 0);
+				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

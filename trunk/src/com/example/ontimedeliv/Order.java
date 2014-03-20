@@ -12,7 +12,8 @@ public class Order {
 	private Customer customer;
 	private Address address;
 	private ArrayList<OrderItem> orderItems;
-	
+	private boolean cancel = false;
+	private String cancelReason;
 	public Order(){}
 	public Order(int id, int customer_id, int status_id, double total,
 			int count, int address_id) {
@@ -109,5 +110,17 @@ public class Order {
 	}
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+	public boolean isCancel() {
+		return cancel;
+	}
+	public void setCancel(boolean cancel) {
+		this.cancel = cancel;
+	}
+	public String getCancelReason() {
+		return cancelReason;
+	}
+	public void setCancelReason(String cancelReason) {
+		this.cancelReason = cancelReason;
 	}
 }

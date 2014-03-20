@@ -87,8 +87,7 @@
             android:layout_alignLeft="@+id/addDesc"
             android:layout_below="@+id/estimation"
             android:layout_marginTop="29dp"
-            android:background="@drawable/myspinner"
-            android:entries="@array/acc_type" />
+            android:background="@drawable/myspinner" />
 
         <EditText
             android:id="@+id/estimation"
