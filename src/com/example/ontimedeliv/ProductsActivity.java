@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -12,14 +13,18 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ProductsActivity extends Activity {
@@ -117,6 +122,68 @@ public class ProductsActivity extends Activity {
 		new MyJs(Dialog, "afterActivate", this ,((ontimedeliv) this.getApplication()), "PUT", (Object) myProd)
 				.execute(serverURL);
 	}
+	
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.cat_context_menu, menu);
+	}
+	
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+
+		switch (item.getItemId()) {
+		case R.id.edit:
+			Edit(productItems.get((int) info.id));
+			break;
+		case R.id.delete:
+			Delete(productItems.get((int) info.id).getId());
+			break;
+		default:
+			break;
+
+		}
+		return true;
+	}
+
+	public void Delete(final int branchId) {
+
+		new AlertDialog.Builder(this)
+				.setTitle("Delete this Product?")
+				.setIcon(R.drawable.branches)
+				.setPositiveButton(android.R.string.yes,
+						new DialogInterface.OnClickListener() {
+
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								String serverURL = new myURL(null, "branches",branchId, 0).getURL();
+								new MyJs(Dialog, "afterDelete",
+								ProductsActivity.this,((ontimedeliv) ProductsActivity.this.getApplication()), "DELETE")
+								.execute(serverURL);
+							}
+						}).setNegativeButton(android.R.string.no, null).show();
+	}
+
+	public void afterDelete(String s, String error) {
+		backToActivity(BranchesActivity.class);
+	}
+	
+	public void backToActivity(Class activity) {
+		Intent i = new Intent(ProductsActivity.this, activity);
+		i.putExtra("shopId", shopId);
+		startActivity(i);
+	}
+
+	public void Edit(Item item) {
+		Intent i = new Intent(ProductsActivity.this, ProductInfoActivity.class);
+		Toast.makeText(this, "editing: " + item.getId(), Toast.LENGTH_SHORT)
+				.show();
+
+		i.putExtra("id", "" + item.getId());
+		startActivity(i);
+	}
 
 	public void afterActivate(String s,String error) {
 		Toast.makeText(getApplicationContext(), "Activate : " + s,
@@ -171,6 +238,7 @@ public class ProductsActivity extends Activity {
 		ListView listView = (ListView) findViewById(R.id.categorylist);
 		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
+		registerForContextMenu(listView);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
