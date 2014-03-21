@@ -48,62 +48,75 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	private String method;
 	boolean secondMethod = false;
 	private Object objectToAdd;
-	String token= "274cb0a7508fb6dd90bb";
+	String token;
+	private ontimedeliv global;
+
+	private void MyJs() {
+		try {
+			token = global.getToken();
+		} catch (Exception exp) {
+			if (token == null) {
+				token = "274cb0a7508fb6dd90bb";
+			}
+			Log.d("exep","excep"+exp.toString());
+		}
+	}
 
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
-			String method) {
+			ontimedeliv mg, String method) {
 		this.returnFunction = returnFunction;
 		this.Dialog = dialog2;
 		this.mc = m;
 		this.method = method;
-		SharedPreferences settings1 = PreferenceManager.getDefaultSharedPreferences(m);
-		
-		//token = settings1.getString("token",null );
-		//Log.d("ray","ray token: "+token);
-		
+		MyJs();
 	}
-	public void timerDelayRemoveDialog(long time, final ProgressDialog d){
-	    new Handler().postDelayed(new Runnable() {
-	        public void run() {  
-	            d.dismiss();         
-	        }
-	    }, time); 
+
+	public void timerDelayRemoveDialog(long time, final ProgressDialog d) {
+		new Handler().postDelayed(new Runnable() {
+			public void run() {
+				d.dismiss();
+			}
+		}, time);
 	}
 
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
-			String method, boolean sm) {
+			ontimedeliv mg, String method, boolean sm) {
 		this.returnFunction = returnFunction;
 		this.Dialog = dialog2;
 		this.mc = m;
 		this.method = method;
 		this.secondMethod = sm;
+		MyJs();
 	}
 
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
-			String method, Object o, boolean secondMethod) {
+			ontimedeliv mg, String method, Object o, boolean secondMethod) {
 		this.returnFunction = returnFunction;
 		this.Dialog = dialog2;
 		this.mc = m;
 		this.method = method;
 		this.objectToAdd = o;
 		this.setSecondMethod(secondMethod);
+		MyJs();
 	}
 
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
-			String method, Object o) {
+			ontimedeliv mg, String method, Object o) {
 		this.returnFunction = returnFunction;
 		this.Dialog = dialog2;
 		this.mc = m;
+		this.global = mg;
 		this.method = method;
 		this.objectToAdd = o;
+		Log.d("shi", "shi: " + mg.toString());
+		MyJs();
 	}
 
 	protected void onPreExecute() {
 		Dialog.setMessage("Please wait..");
-		if (!this.returnFunction.equals("afterActivate"))
-		{
+		if (!this.returnFunction.equals("afterActivate")) {
 			Dialog.show();
-			timerDelayRemoveDialog(10000,Dialog);		
+			timerDelayRemoveDialog(10000, Dialog);
 		}
 	}
 
@@ -203,9 +216,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					Error = null;
 				}
 
-			}
-			else if (this.method.equals("DELETE"))
-			{
+			} else if (this.method.equals("DELETE")) {
 				conn.addRequestProperty("Accept", "application/json");
 				conn.addRequestProperty("Accept-Encoding", "gzip");
 				conn.addRequestProperty("Cache-Control",
@@ -219,8 +230,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					Content = "done";
 					Error = null;
 				}
-			}		
-			else if (this.method.equals("Upload")) {
+			} else if (this.method.equals("Upload")) {
 				/*
 				 * Product p = (Product) this.objectToAdd; String path =
 				 * p.getPhoto().getUrl(); String lineEnd = "\r\n"; String
@@ -290,8 +300,9 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				// add reuqest header
 
 				// ===============================
-				//String myurl = "http://enigmatic-springs-5176.herokuapp.com/api/v1/items";
-				URL obj = url;//new URL(myurl);
+				// String myurl =
+				// "http://enigmatic-springs-5176.herokuapp.com/api/v1/items";
+				URL obj = url;// new URL(myurl);
 				HttpURLConnection con = (HttpURLConnection) obj
 						.openConnection();
 
@@ -322,32 +333,31 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 						con.getOutputStream());
 				wr.writeBytes(urlParameters);
 
-				/*FileInputStream fileInputStream = new FileInputStream(p
-						.getPhoto().getUrl());
-				int bytesAvailable = fileInputStream.available();
-
-				int maxBufferSize = 1024 * 1024 * 1024;
-				int bufferSize = Math.min(bytesAvailable, maxBufferSize);
-				byte[] buffer = new byte[bufferSize];
-
-				// read file and write it into form...
-				int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-
-				while (bytesRead > 0) {
-					wr.write(buffer, 0, bufferSize);
-					bytesAvailable = fileInputStream.available();
-					bufferSize = Math.min(bytesAvailable, maxBufferSize);
-					bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-				}
-				fileInputStream.close();
-				*/
+				/*
+				 * FileInputStream fileInputStream = new FileInputStream(p
+				 * .getPhoto().getUrl()); int bytesAvailable =
+				 * fileInputStream.available();
+				 * 
+				 * int maxBufferSize = 1024 * 1024 * 1024; int bufferSize =
+				 * Math.min(bytesAvailable, maxBufferSize); byte[] buffer = new
+				 * byte[bufferSize];
+				 * 
+				 * // read file and write it into form... int bytesRead =
+				 * fileInputStream.read(buffer, 0, bufferSize);
+				 * 
+				 * while (bytesRead > 0) { wr.write(buffer, 0, bufferSize);
+				 * bytesAvailable = fileInputStream.available(); bufferSize =
+				 * Math.min(bytesAvailable, maxBufferSize); bytesRead =
+				 * fileInputStream.read(buffer, 0, bufferSize); }
+				 * fileInputStream.close();
+				 */
 
 				wr.flush();
 				wr.close();
-				
+
 				int responseCode = con.getResponseCode();
-				System.out
-						.println("\nSending 'POST' request to URL : " + url.toURI());
+				System.out.println("\nSending 'POST' request to URL : "
+						+ url.toURI());
 				System.out.println("Post parameters : " + urlParameters);
 				System.out.println("Response Code : " + responseCode);
 
@@ -372,7 +382,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			} catch (Exception ex) {
 			}
 		}
-		Log.d("ray", "ray url: " + urls[0] );
+		Log.d("ray", "ray url: " + urls[0]);
 		/*****************************************************/
 		return null;
 	}
@@ -402,6 +412,14 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
 	public void setSecondMethod(boolean secondMethod) {
 		this.secondMethod = secondMethod;
+	}
+
+	public ontimedeliv getGlobal() {
+		return global;
+	}
+
+	public void setGlobal(ontimedeliv global) {
+		this.global = global;
 	}
 
 }

@@ -104,7 +104,7 @@ public class ProductsActivity extends Activity {
 
 		String serverURL = new myURL("deactivate_items", "branches",
 				branchId, 0).getURL();
-		new MyJs(Dialog, "afterDeactivate", this, "PUT", (Object) myProd, true)
+		new MyJs(Dialog, "afterDeactivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myProd, true)
 				.execute(serverURL);
 	}
 	public void afterDeactivate(String s,String error) {
@@ -114,7 +114,7 @@ public class ProductsActivity extends Activity {
 		String serverURL = new myURL("activate_items", "branches",
 				branchId, 0).getURL();
 
-		new MyJs(Dialog, "afterActivate", this, "PUT", (Object) myProd)
+		new MyJs(Dialog, "afterActivate", this ,((ontimedeliv) this.getApplication()), "PUT", (Object) myProd)
 				.execute(serverURL);
 	}
 
@@ -151,7 +151,7 @@ public class ProductsActivity extends Activity {
 	public void getProducts() {
 		String serverURL = this.url;
 		Log.d("rays", "ray url" + this.url);
-		new MyJs(Dialog, "setProducts", this, "GET").execute(serverURL);
+		new MyJs(Dialog, "setProducts", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
 	}
 
 	public void setProducts(String s,String error) {
@@ -218,7 +218,7 @@ public class ProductsActivity extends Activity {
 	public void addCategory(String categoryName) {
 		String serverURL = new myURL("categories", null, 0, 0).getURL();
 		Category newCategory = new Category(0, categoryName, true, 0);
-		new MyJs(Dialog, "afterCreation", this, "POST", (Object) newCategory)
+		new MyJs(Dialog, "afterCreation", this,((ontimedeliv) this.getApplication()), "POST", (Object) newCategory)
 				.execute(serverURL);
 	}
 

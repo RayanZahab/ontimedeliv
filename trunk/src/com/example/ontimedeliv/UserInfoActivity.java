@@ -79,7 +79,7 @@ public class UserInfoActivity extends Activity implements
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
 		Log.d("rays", "ray url" + url);
-		new MyJs(Dialog, "setUserInfo", this, "GET", true).execute(serverURL);
+		new MyJs(Dialog, "setUserInfo", this,((ontimedeliv) this.getApplication()), "GET", true).execute(serverURL);
 	}
 
 	public void setUserInfo(String s, String error) {
@@ -104,7 +104,7 @@ public class UserInfoActivity extends Activity implements
 
 	public void getBranches() {
 		String serverURL = new myURL("branches", "shops", 37, 30).getURL();
-		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
+		new MyJs(Dialog, "setBranches", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
 	}
 
 	public void setBranches(String s, String error) {
@@ -151,7 +151,7 @@ public class UserInfoActivity extends Activity implements
 					delivery.isChecked());
 
 		}
-		new MyJs(Dialog, "setRoles", this, method, (Object) user, true)
+		new MyJs(Dialog, "setRoles", this,((ontimedeliv) this.getApplication()), method, (Object) user, true)
 				.execute(serverURL);
 
 	}
@@ -171,7 +171,7 @@ public class UserInfoActivity extends Activity implements
 			role.setPreparer(preparer.isChecked());
 			role.setAdmin(admin.isChecked());
 			role.setDelivery(delivery.isChecked());
-			new MyJs(Dialog, "afterRoles", this, "POST", (Object) role)
+			new MyJs(Dialog, "afterRoles", this,((ontimedeliv) this.getApplication()), "POST", (Object) role)
 					.execute(makePreparerURL);
 		}
 	}

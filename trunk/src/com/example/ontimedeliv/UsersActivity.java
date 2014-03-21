@@ -37,7 +37,7 @@ public class UsersActivity extends Activity {
 
 	public void getUsers() {
 		String serverURL = new myURL("users", null, 0, 30).getURL();
-		new MyJs(Dialog, "setUsers", this, "GET").execute(serverURL);
+		new MyJs(Dialog, "setUsers", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
 	}
 
 	public void setUsers(String s,String error) {

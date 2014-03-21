@@ -87,7 +87,7 @@ public class OrderInfoActivity extends Activity {
 		        			order.setId(orderId);
 		        			order.setCancel(true);
 		        			String serverURL = new myURL("cancel", "orders",6, 0).getURL();
-		        			new MyJs(Dialog, "cancelOrder", OrderInfoActivity.this, "PUT", (Object) order ).execute(serverURL);
+		        			new MyJs(Dialog, "cancelOrder", OrderInfoActivity.this,((ontimedeliv) OrderInfoActivity.this.getApplication()), "PUT", (Object) order ).execute(serverURL);
 		        			
 		        		}
 		        		else
@@ -119,7 +119,7 @@ public class OrderInfoActivity extends Activity {
 
 	public void getPreparers(){
 		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
-		new MyJs(Dialog, "serPreparers", this, "GET").execute(serverURL);
+		new MyJs(Dialog, "serPreparers", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
 	}
 
 	public void serPreparers(String s,String error) {
@@ -136,7 +136,7 @@ public class OrderInfoActivity extends Activity {
 	}
 	public void getDelivery(){
 		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
-		new MyJs(Dialog, "setDeivery", this, "GET").execute(serverURL);
+		new MyJs(Dialog, "setDeivery", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
 	}
 
 	public void setDeivery(String s,String error) {
@@ -168,7 +168,7 @@ public class OrderInfoActivity extends Activity {
 
 	public void getCurrentOrder(int orderId) {
 		String serverURL = new myURL(null, "orders", orderId, 30).getURL();
-		new MyJs(Dialog, "setOrderInfo", this, "GET").execute(serverURL);
+		new MyJs(Dialog, "setOrderInfo", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
 	}
 
 	public void setOrderInfo(String s, String error) {

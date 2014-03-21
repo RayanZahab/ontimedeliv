@@ -77,7 +77,7 @@ public class ProductInfoActivity extends Activity {
 
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
-		new MyJs(Dialog, "setProduct", this, "GET",true).execute(serverURL);
+		new MyJs(Dialog, "setProduct", this,((ontimedeliv) this.getApplication()), "GET",true).execute(serverURL);
 	}
 
 	public void setProduct(String s,String error) {
@@ -115,7 +115,7 @@ public class ProductInfoActivity extends Activity {
 		{
 			serverURL = new myURL( null,"items", currentProduct.getId(), 0).getURL();
 		}
-		new MyJs(Dialog, "afterCreation", this, "Upload", (Object) p)
+		new MyJs(Dialog, "afterCreation", this,((ontimedeliv) this.getApplication()), "Upload", (Object) p)
 				.execute(serverURL);
 	}
 
@@ -175,7 +175,7 @@ public class ProductInfoActivity extends Activity {
 	public void getUnits() {
 		// getUnits
 		String serverURL = new myURL("units", null, 0, 30).getURL();
-		new MyJs(Dialog, "setUnits", this, "GET").execute(serverURL);
+		new MyJs(Dialog, "setUnits", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
 
 	}
 

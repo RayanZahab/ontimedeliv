@@ -9,118 +9,118 @@
         android:targetSdkVersion="19" />
 
     <application
+        android:name=".ontimedeliv"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppBaseTheme" 
-        android:supportsRtl="true" >
+        android:supportsRtl="true"
+        android:theme="@style/AppBaseTheme" >
         <activity
-            android:name="com.example.ontimedeliv.SplashScreenActivity"
+            android:name="SplashScreenActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.LoginActivity"
+            android:name="LoginActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.NavigationActivity"
+            android:name="NavigationActivity"
             android:label="@string/title_activity_navigation"
             android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.CategoriesActivity"
+            android:name="CategoriesActivity"
             android:label="@string/title_activity_categories"
             android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.BranchesActivity"
+            android:name="BranchesActivity"
             android:label="@string/title_activity_branches"
             android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.AddBranchActivity"
+            android:name="AddBranchActivity"
             android:label="@string/title_activity_add_branch"
             android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.SelectionActivity"
+            android:name="SelectionActivity"
             android:label="@string/title_activity_selection"
             android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.AddLocationDetails"
+            android:name="AddLocationDetails"
             android:label="@string/add_country"
             android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.UsersActivity"
+            android:name="UsersActivity"
             android:label="@string/title_activity_users"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.UserInfoActivity"
+            android:name="UserInfoActivity"
             android:label="@string/title_activity_user_info"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.AddCategoryActivity"
+            android:name="AddCategoryActivity"
             android:label="@string/title_activity_add_category"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.OrderInfoActivity"
+            android:name="OrderInfoActivity"
             android:label="@string/title_activity_order_info"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.OrdersActivity"
+            android:name="OrdersActivity"
             android:label="@string/title_activity_orders"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.ProductsActivity"
+            android:name="ProductsActivity"
             android:label="@string/title_activity_product"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.ProductInfoActivity"
+            android:name="ProductInfoActivity"
             android:label="@string/title_activity_add_product"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.OldOrdersActivity"
+            android:name="OldOrdersActivity"
             android:label="@string/title_activity_old_orders"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.OldOrdersInfoActivity"
+            android:name="OldOrdersInfoActivity"
             android:label="@string/title_activity_old_orders_info"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.SearchResultsActivity"
+            android:name="SearchResultsActivity"
             android:label="@string/title_activity_search_results" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.UserProfileActivity"
+            android:name="UserProfileActivity"
             android:label="@string/title_activity_user_profile" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.SelectLanguageActivity"
+            android:name="SelectLanguageActivity"
             android:label="Select language" >
         </activity>
     </application>
