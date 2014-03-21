@@ -2,9 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="55dip"
-    android:background="@drawable/myspinner"
+    android:background="@drawable/mystyle"
     android:orientation="horizontal" >
-
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <CheckBox
         android:id="@+id/weekCheck"
         android:layout_width="130dp"
@@ -13,22 +15,28 @@
         android:text="Ray" />
 
     <Button
-        android:id="@+id/fromBtnn"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:minWidth="120sp"
-        android:text="From"
-        android:background="@drawable/mybutton"
-		android:textColor="#ffffff" />
-
-    <Button
         android:id="@+id/toBtn"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:minWidth="120sp"
-        android:text="To"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:background="@drawable/mybutton"
-		android:textColor="#ffffff"/>
+        android:minWidth="120sp"
+        android:text="@string/to"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/fromBtnn"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="24dp"
+        android:layout_toRightOf="@+id/weekCheck"
+        android:background="@drawable/mybutton"
+        android:minWidth="120sp"
+        android:text="@string/from"
+        android:textColor="#ffffff" />
+
+    </RelativeLayout>
 
 </LinearLayout>

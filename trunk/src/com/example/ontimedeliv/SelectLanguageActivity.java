@@ -58,7 +58,7 @@ public class SelectLanguageActivity extends Activity {
 		SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
 		SharedPreferences.Editor editor = settings.edit();
 		//View.LAYOUT_DIRECTION_RTL
-		view.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+		//view.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 		editor.putString("lang", lang_ab);
 		editor.commit();
 		Intent i = new Intent(SelectLanguageActivity.this, LoginActivity.class);
@@ -82,7 +82,6 @@ public class SelectLanguageActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.navigation, menu);
-		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
 	}
 
