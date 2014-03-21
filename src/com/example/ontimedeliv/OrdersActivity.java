@@ -55,7 +55,7 @@ public class OrdersActivity extends Activity {
 		} else {
 			serverURL = new myURL(null, "orders", "opened", 30).getURL();
 		}
-		new MyJs(Dialog, "setOrders", this, "GET").execute(serverURL);
+		new MyJs(Dialog, "setOrders", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
 	}
 
 	public void setOrders(String s, String error) {

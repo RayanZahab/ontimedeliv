@@ -47,7 +47,7 @@ public class BranchesActivity extends Activity {
 
 	public void getBranches() {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		new MyJs(Dialog, "setBranches", this, "GET").execute(serverURL);
+		new MyJs(Dialog, "setBranches", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
 	}
 
 	public void setBranches(String s, String error) {
@@ -135,7 +135,7 @@ public class BranchesActivity extends Activity {
 								String serverURL = new myURL(null, "branches",
 										branchId, 0).getURL();
 								new MyJs(Dialog, "afterDelete",
-										BranchesActivity.this, "DELETE")
+										BranchesActivity.this,((ontimedeliv) BranchesActivity.this.getApplication()), "DELETE")
 										.execute(serverURL);
 							}
 						}).setNegativeButton(android.R.string.no, null).show();

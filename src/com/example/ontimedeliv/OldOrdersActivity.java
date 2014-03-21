@@ -61,8 +61,6 @@ public class OldOrdersActivity extends Activity {
 				Intent i = new Intent(getBaseContext(), OldOrdersInfoActivity.class);
 					startActivity(i);	
 				}		
-			
-		
 		});
 
 	

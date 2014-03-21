@@ -134,7 +134,7 @@ public class AddBranchActivity extends Activity implements
 		String url = new myURL(null, "branches", branchId, 1).getURL();
 		String serverURL = url;
 		Log.d("rays", "ray url" + url);
-		new MyJs(Dialog, "setBranchInfo", this, "GET", true).execute(serverURL);
+		new MyJs(Dialog, "setBranchInfo", this,((ontimedeliv) this.getApplication()), "GET", true).execute(serverURL);
 
 	}
 
@@ -213,7 +213,7 @@ public class AddBranchActivity extends Activity implements
 
 		Branch newBranch = new Branch(0, name, desc, new Area(selectedArea),
 				address, 1, new Shop(shopId), "0", "0", 0, 0, estimation);
-		new MyJs(Dialog, "backToSelection", this, "POST", (Object) newBranch)
+		new MyJs(Dialog, "backToSelection", this,((ontimedeliv) this.getApplication()), "POST", (Object) newBranch)
 				.execute(serverURL);
 	}
 
@@ -240,7 +240,7 @@ public class AddBranchActivity extends Activity implements
 
 	public void getCountries() {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
-		new MyJs(Dialog, "setCountries", AddBranchActivity.this, "GET", true)
+		new MyJs(Dialog, "setCountries", AddBranchActivity.this,((ontimedeliv) this.getApplication()), "GET", true)
 				.execute(serverURL);
 	}
 
@@ -261,7 +261,7 @@ public class AddBranchActivity extends Activity implements
 	public void getCities(int CountryId) {
 		String serverURL = new myURL("cities", "countries", CountryId, 30)
 				.getURL();
-		new MyJs(Dialog, "setCities", AddBranchActivity.this, "GET", true)
+		new MyJs(Dialog, "setCities", AddBranchActivity.this,((ontimedeliv) this.getApplication()), "GET", true)
 				.execute(serverURL);
 	}
 
@@ -280,7 +280,7 @@ public class AddBranchActivity extends Activity implements
 
 	public void getAreas(int CityId) {
 		String serverURL = new myURL("areas", "cities", CityId, 30).getURL();
-		new MyJs(Dialog, "setAreas", AddBranchActivity.this, "GET")
+		new MyJs(Dialog, "setAreas", AddBranchActivity.this, ((ontimedeliv) this.getApplication()),"GET")
 				.execute(serverURL);
 	}
 
