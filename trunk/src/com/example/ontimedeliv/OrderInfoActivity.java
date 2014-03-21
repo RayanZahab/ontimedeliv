@@ -187,16 +187,16 @@ public class OrderInfoActivity extends Activity {
 			items.add(_Item);
 
 			total = total + orderitem.get(i).getTotalPrice();
-			dataAdapter = new OrderInfoAdapter(OrderInfoActivity.this,
-					R.layout.row_order_info, items);
-			dataAdapter.setTotal(totalTxt);
-
-			ListView listView = (ListView) findViewById(R.id.listView);
-
-			listView.setAdapter(dataAdapter);
-			Helper.getListViewSize(listView);
+			
 		}
+		dataAdapter = new OrderInfoAdapter(OrderInfoActivity.this,
+				R.layout.row_order_info, items);
+		dataAdapter.setTotal(totalTxt);
 
+		ListView listView = (ListView) findViewById(R.id.listView);
+
+		listView.setAdapter(dataAdapter);
+		Helper.getListViewSize(listView);
 		totalTxt.setText(total + "");
 		TextView customerName = (TextView) findViewById(R.id.customerName);
 		customerName.append(" " + currentOrder.getCustomer().toString());

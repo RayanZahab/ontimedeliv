@@ -12,6 +12,7 @@ public class Item {
 	private int id, img;
 	private int quantity;
 	private double price;
+	private String method;
 
 	public Item(int id,String title, Integer quantity, double price) {
 		super();
@@ -128,6 +129,12 @@ public class Item {
 	}
 	public void setImg(int img) {
 		this.img = img;
+	}
+	public String getMethod() {
+		return method;
+	}
+	public void setMethod(String method) {
+		this.method = method;
 	}
 
 }

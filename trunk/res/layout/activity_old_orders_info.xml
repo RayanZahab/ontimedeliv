@@ -1,130 +1,149 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/myred"
-    android:fillViewport="true"   
-    android:paddingBottom="@dimen/activity_vertical_margin"    
-    android:paddingLeft="@dimen/activity_horizontal_margin"    
-    android:paddingRight="@dimen/activity_horizontal_margin"    
-    android:paddingTop="@dimen/activity_horizontal_margin"
-    android:orientation="vertical" >
-    
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/myborder"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:paddingTop="@dimen/activity_horizontal_margin"
+    tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        style="@style/mytextview"
-        android:layout_marginLeft="10dp"
-        android:text="@string/clientinfo"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/myborder"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/mytextview"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="10dp"
-        android:text="@string/username" />
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/mytextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/clientinfo"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="10dp"
-        style="@style/mytextview"
-        android:text="@string/address" />
+        <TextView
+            android:id="@+id/customerName"
+            style="@style/mytextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/username" />
 
-    <ListView
-        android:id="@+id/oldorderlist"
-        android:layout_width="fill_parent"
-        android:background="@drawable/mylistview"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="8dp"
-        android:layout_weight="0.64" >
-    </ListView>
-    
-	<TextView
-	    android:id="@+id/textView4"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignBaseline="@+id/total"
-	    android:layout_alignBottom="@+id/total"
-	    android:textSize="19sp"
-	    style="@style/mytextview"
-	    android:layout_alignRight="@+id/orderbuttons"
-	    android:text="25000 L.L" />
-	
-	<TextView
-	    android:id="@+id/total"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignLeft="@+id/orderbuttons"
-	    android:layout_below="@+id/oldorderlist"
-	    android:text="@string/total"
-	    style="@style/mytextview"
-	    android:textSize="19sp" />
+        <TextView
+            android:id="@+id/customerAdd"
+            style="@style/mytextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/address" />
 
-<RelativeLayout
-    android:id="@+id/orderbuttons"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignLeft="@+id/textView2"
-    android:layout_below="@+id/textView4"
-    android:layout_marginTop="32dp" >
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/mylistview" >
+        </ListView>
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/mytextview"
-        android:layout_above="@+id/preparer_spinner"
-        android:layout_alignLeft="@+id/preparer_spinner"
-        android:text="@string/preparerguy" />
+        <RelativeLayout
+            android:id="@+id/totalamount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        style="@style/mytextview"
-        android:layout_alignParentTop="true"
-        android:text="@string/deliveryguy" />
+            <TextView
+                android:id="@+id/lira"
+                style="@style/mytextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/total"
+                android:layout_alignBottom="@+id/total"
+                android:layout_alignParentRight="true"
+                android:text="L.L"
+                android:textSize="19sp" />
 
-    <TextView
-        android:id="@+id/delivery_Spinner"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        style="@style/mytextview"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView6"
-        android:text="Ahmad Said" />
+            <TextView
+                android:id="@+id/total"
+                style="@style/mytextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/totallabel"
+                android:layout_alignBottom="@+id/totallabel"
+                android:layout_toLeftOf="@+id/lira"
+                android:text="25"
+                android:textSize="19sp" />
 
-    <TextView
-        android:id="@+id/preparer_spinner"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        style="@style/mytextview"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView6"
-        android:text="khalil mohamad" />
-</RelativeLayout>
-</RelativeLayout>
+            <TextView
+                android:id="@+id/totallabel"
+                style="@style/mytextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/total"
+                android:textSize="19sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/orderbuttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp" >
+
+            <TextView
+                android:id="@+id/textView6"
+                style="@style/mytextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/deliveryguy" />
+
+            <Spinner
+                android:id="@+id/delivery_Spinner"
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textView6"
+                android:background="@drawable/myspinner"
+                 />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textView7"
+            style="@style/mytextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/preparer" />
+
+        <Spinner
+            android:id="@+id/preparer_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/myspinner"
+             />
+
+        <TextView
+            android:id="@+id/notes"
+            style="@style/mytextview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:text="@string/notes" />
+
+        <TextView
+            android:id="@+id/noteinput"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:background="@drawable/myedittext"
+            android:ems="10"
+            android:singleLine="false" />
+
+    </LinearLayout>
+
 </ScrollView>
-

@@ -27,7 +27,7 @@ public class OldOrdersActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_old_orders);
+		setContentView(R.layout.activity_orders);
 		displayListView();
 	}
 	
