@@ -1,48 +1,133 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class OldOrdersInfoActivity extends Activity {
-	OldOdersAdapter dataAdapter;
-
+	Spinner prep, deliv, status;
+	Button cancel;
+	OrderInfoAdapter dataAdapter;
+	int orderId;
+	ProgressDialog Dialog;
+	AlertDialog alertDialog;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_old_orders_info);
-		displayListView();
+
+		Dialog = new ProgressDialog(this);
+		Dialog.setCancelable(false);
+		
+
+		Bundle extras = getIntent().getExtras();
+		if (getIntent().hasExtra("orderId")) {
+			try {
+				orderId = Integer
+						.parseInt((String) extras.getString("orderId"));
+				getCurrentOrder(orderId);
+				
+			} catch (Exception e) {
+
+			}
+		}
+
 	}
-	
-	private void displayListView() {
 
-		ArrayList<Item> orderitem = new ArrayList<Item>();
+	public void getPreparers(){
+		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
+		new MyJs(Dialog, "serPreparers", this, "GET").execute(serverURL);
+	}
 
-		Item _Item = new Item(1,"rez b7alib", 5, 10000);
-		orderitem.add(_Item);
-		_Item = new Item(2,"Nido", 1, 16000);
-		orderitem.add(_Item);
-		_Item = new Item(3,"khebez", 5, 2000);
-		orderitem.add(_Item);
-		_Item = new Item(4,"drink", 5, 1250);
-		orderitem.add(_Item);
+	public void serPreparers(String s,String error) {
+		ArrayList<User> userItems = new APIManager().getUsers(s);
+		
+		
+		prep = (Spinner) findViewById(R.id.preparer_spinner);
+		
+		ArrayAdapter<User> dataAdapter = new ArrayAdapter<User>(this,
+				android.R.layout.simple_spinner_item, userItems);
+		dataAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		prep.setAdapter(dataAdapter);
+	}
+	public void getDelivery(){
+		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
+		new MyJs(Dialog, "setDeivery", this, "GET").execute(serverURL);
+	}
 
-		// create an ArrayAdaptar from the String Array
-		dataAdapter = new OldOdersAdapter(this, R.layout.row_old_order_info,
-				orderitem);
-		ListView listView = (ListView) findViewById(R.id.oldorderlist);
-		// Assign adapter to ListView
+	public void setDeivery(String s,String error) {
+		ArrayList<User> userItems = new APIManager().getUsers(s);
+		
+		
+		deliv = (Spinner) findViewById(R.id.delivery_Spinner);
+		
+		ArrayAdapter<User> dataAdapter = new ArrayAdapter<User>(this,
+				android.R.layout.simple_spinner_item, userItems);
+		dataAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		deliv.setAdapter(dataAdapter);
+	}
+
+	public void getCurrentOrder(int orderId) {
+		String serverURL = new myURL(null, "orders", orderId, 30).getURL();
+		new MyJs(Dialog, "setOrderInfo", this, "GET").execute(serverURL);
+	}
+
+	public void setOrderInfo(String s, String error) {
+		Order currentOrder = new APIManager().getOrder(s);
+		ArrayList<OrderItem> orderitem = currentOrder.getOrderItems();
+		ArrayList<Item> items = new ArrayList<Item>();
+		Item _Item;
+		double total = 0;
+		TextView totalTxt = (TextView) findViewById(R.id.total);
+		ListView listView = (ListView) findViewById(R.id.listView);
+		for (int i = 0; i < orderitem.size(); i++) {
+			_Item = new Item(orderitem.get(i).getId(),
+					orderitem.get(i).toString(),
+					orderitem.get(i).getQuantity(),
+					orderitem.get(i).getUnitPrice());
+			items.add(_Item);		
+			total = total + orderitem.get(i).getTotalPrice();
+		}
+		Log.d("ray","ray items"+orderitem.size());
+		dataAdapter = new OrderInfoAdapter(OldOrdersInfoActivity.this,
+				R.layout.row_old_order_info, items,true);
+		dataAdapter.setTotal(totalTxt);
+		
 		listView.setAdapter(dataAdapter);
-	}
+		Helper.getListViewSize(listView);
 
+		totalTxt.setText(total + "");
+		TextView customerName = (TextView) findViewById(R.id.customerName);
+		customerName.append(" " + currentOrder.getCustomer().toString());
+		TextView customerAdd = (TextView) findViewById(R.id.customerAdd);
+		customerAdd.append(" This is add"/* currentOrder.getAddress().toString() */);
+		getDelivery();
+		getPreparers();
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.old_orders_info, menu);
+		getMenuInflater().inflate(R.menu.order_info, menu);
 		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
 	}

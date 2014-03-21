@@ -41,18 +41,24 @@ public class NavigationActivity extends Activity {
 		{
 
 			_Item = new Item(0, R.drawable.ic_launcher, "Orders");
+			_Item.setMethod("Orders");
 			categories.add(_Item);
 		}
 		if (isAdmin) 
 		{
 
 			_Item = new Item(0, R.drawable.branches , "Branches");
+			_Item.setMethod("Branches");
 			categories.add(_Item);
+			
 			_Item = new Item(1, R.drawable.users , "Users");
+			_Item.setMethod("Users");
 			categories.add(_Item);
 			_Item = new Item(2, R.drawable.ic_launcher, "Selection");
+			_Item.setMethod("Selection");
 			categories.add(_Item);
 			_Item = new Item(3, R.drawable.ic_launcher, "OldOrders");
+			_Item.setMethod("Orders");
 			categories.add(_Item);
 		}
 
@@ -73,9 +79,13 @@ public class NavigationActivity extends Activity {
 				Intent i;
 				try {
 					i = new Intent(getBaseContext(), Class
-							.forName(getPackageName() + "." + title
+							.forName(getPackageName() + "." + navitem.getMethod()
 									+ "Activity"));
 					i.putExtra("shopId", 37);
+					if(navitem.getId()==3)
+					{
+						i.putExtra("old", true);
+					}
 					startActivity(i);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block

@@ -30,18 +30,31 @@ public class OrdersActivity extends Activity {
 	OrdersAdapter dataAdapter;
 	ProgressDialog Dialog;
 	ArrayList<Order> morders;
-	ArrayList<Item> orderItems = new ArrayList<Item>();;
+	ArrayList<Item> orderItems = new ArrayList<Item>();
+	boolean old = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_orders);
+		if (getIntent().hasExtra("old")
+				&& getIntent().getBooleanExtra("old", false)) {
+			old = getIntent().getBooleanExtra("old", false);
+			setContentView(R.layout.activity_old_orders);
+		} else {
+			setContentView(R.layout.activity_orders);
+		}
 		this.Dialog = new ProgressDialog(OrdersActivity.this);
 		getOrders();
 	}
 
 	public void getOrders() {
-		String serverURL = new myURL(null, "orders", "opened", 30).getURL();
+		String serverURL;
+		if (getIntent().hasExtra("old")
+				&& getIntent().getBooleanExtra("old", false)) {
+			serverURL = new myURL(null, "orders", "cancelled", 30).getURL();
+		} else {
+			serverURL = new myURL(null, "orders", "opened", 30).getURL();
+		}
 		new MyJs(Dialog, "setOrders", this, "GET").execute(serverURL);
 	}
 
@@ -64,9 +77,15 @@ public class OrdersActivity extends Activity {
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent i = new Intent(getBaseContext(), OrderInfoActivity.class);
-				i.putExtra("orderId", ""
-						+ orderItems.get(position).getId());
+				Intent i;
+				Log.d("ray","rayclik: "+old);
+				if (old) {
+					i = new Intent(getBaseContext(),
+							OldOrdersInfoActivity.class);
+				} else {
+					i = new Intent(getBaseContext(), OrderInfoActivity.class);
+				}
+				i.putExtra("orderId", "" + orderItems.get(position).getId());
 				startActivity(i);
 			}
 		});

@@ -29,7 +29,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 	View convertView;
 	int adapterView;
 	private TextView totalTxt;
-	
+	private boolean old=false;
 
 	public OrderInfoAdapter(Context context, int adapterView,
 			ArrayList<Item> navList) {
@@ -40,52 +40,88 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 		this.adapterView = adapterView;
 	}
 
+	public OrderInfoAdapter(Context context, int adapterView,
+			ArrayList<Item> navList, boolean old) {
+		super(context, adapterView, navList);
+		this.orderList = new ArrayList<Item>();
+		this.orderList.addAll(navList);
+		this.context = context;
+		this.adapterView = adapterView;
+		this.old = old;
+	}
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		ViewHolder holder = null;
+		OldViewHolder oldHolder = null;
 
 		Log.v("ConvertView", String.valueOf(position));
-
+		
 		if (convertView == null) {
-
 			LayoutInflater vi = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 			convertView = vi.inflate(adapterView, null);
 
-			holder = new ViewHolder();
-			if (this.orderList.get(position).isNew) {
-				RelativeLayout main = (RelativeLayout) convertView
-						.findViewById(R.id.roworder);
-				main.setBackgroundColor(Color.parseColor("#FF9999"));
+			if(!old)
+			{				
+				holder = new ViewHolder();
+				if (this.orderList.get(position).isNew) {
+					RelativeLayout main = (RelativeLayout) convertView
+							.findViewById(R.id.roworder);
+					main.setBackgroundColor(Color.parseColor("#FF9999"));
+				}
+	
+				holder.quantity = (EditText) convertView
+						.findViewById(R.id.quantity);
+				holder.price = (TextView) convertView.findViewById(R.id.price);
+				holder.itemname = (CheckBox) convertView
+						.findViewById(R.id.itemname);
+				holder.quantity.addTextChangedListener(new addListenerOnTextChange(context, holder));
+				holder.itemname.setOnCheckedChangeListener(new addCheckListener(context,holder));
+				convertView.setTag(holder);
 			}
-
-			holder.quantity = (EditText) convertView
-					.findViewById(R.id.quantity);
-			holder.price = (TextView) convertView.findViewById(R.id.price);
-			holder.itemname = (CheckBox) convertView
-					.findViewById(R.id.itemname);
-
-			convertView.setTag(holder);
+			else
+			{
+				oldHolder = new OldViewHolder();	
+				oldHolder.quantity = (TextView) convertView
+						.findViewById(R.id.quantity);
+				oldHolder.price = (TextView) convertView.findViewById(R.id.price);
+				oldHolder.itemname = (TextView) convertView
+						.findViewById(R.id.itemname);
+				convertView.setTag(oldHolder);
+			}
+			
 
 		} else {
-			holder = (ViewHolder) convertView.getTag();
+			if(!old)
+			{
+				holder = (ViewHolder) convertView.getTag();
+			}
+			else
+			{
+				oldHolder = (OldViewHolder) convertView.getTag();
+			}
 			this.convertView = convertView;
 		}
 
 		Item orderitem = orderList.get(position);
-		holder.itemname.setText(orderitem.getTitle());
-		holder.price.setText("" + orderitem.getPrice()*orderitem.getQuantity());
-		holder.price.setTag(orderitem);
-		holder.quantity.setText("" + orderitem.getQuantity());
-		holder.unitPrice=orderitem.getPrice();
-		Log.d("ray","unit price: "+holder.unitPrice);
-		holder.quantity.addTextChangedListener(new addListenerOnTextChange(context, holder));
-		holder.itemname.setOnCheckedChangeListener(new addCheckListener(context,holder));
-		
-
+		if(!old)
+		{
+			holder.itemname.setText(orderitem.getTitle());
+			holder.quantity.setText("" + orderitem.getQuantity());
+			holder.price.setText("" + orderitem.getPrice()*orderitem.getQuantity());			
+			holder.unitPrice=orderitem.getPrice();
+		}
+		else
+		{
+			oldHolder.itemname.setText(orderitem.getTitle());
+			oldHolder.quantity.setText("" + orderitem.getQuantity());
+			oldHolder.price.setText("" + orderitem.getPrice()*orderitem.getQuantity());
+			oldHolder.unitPrice=orderitem.getPrice();
+			oldHolder.unitPrice=orderitem.getPrice();
+		}
 		return convertView;
 	}
 	
@@ -101,6 +137,10 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 		CheckBox itemname;
 		TextView price;
 		EditText quantity;
+		double unitPrice;
+	}
+	class OldViewHolder {
+		TextView price, itemname,quantity;
 		double unitPrice;
 	}
 	class addCheckListener implements OnCheckedChangeListener{
