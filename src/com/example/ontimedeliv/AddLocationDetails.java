@@ -85,20 +85,20 @@ public class AddLocationDetails extends Activity implements
 				addCountry(locationName.getText().toString());
 
 			} else {
-				Toast.makeText(getApplicationContext(), "Invalid Name Entered",
+				Toast.makeText(getApplicationContext(), R.string.invalednameentered,
 						Toast.LENGTH_SHORT).show();
 			}
 		} else if (type.equals("City")) {
 			Country selectedCountry = (Country) countrySp.getSelectedItem();
 
 			Toast.makeText(getApplicationContext(),
-					"You selected: " + selectedCountry.getId(),
+					R.string.youselected + selectedCountry.getId(),
 					Toast.LENGTH_SHORT).show();
 			addCity(locationName.getText().toString(), selectedCountry.getId());
 		} else if (type.equals("Area")) {
 			City selectedCity = (City) citySp.getSelectedItem();
 			Toast.makeText(getApplicationContext(),
-					"Area selected: " + selectedCity.getId(),
+					R.string.areaselected + selectedCity.getId(),
 					Toast.LENGTH_SHORT).show();
 			addArea(locationName.getText().toString(), selectedCity.getId());
 		} else if (type.equals("Business")) {
@@ -107,7 +107,7 @@ public class AddLocationDetails extends Activity implements
 				addBusiness(locationName.getText().toString());
 
 			} else {
-				Toast.makeText(getApplicationContext(), "Invalid Name Entered",
+				Toast.makeText(getApplicationContext(), R.string.invalednameentered,
 						Toast.LENGTH_SHORT).show();
 			}
 		}

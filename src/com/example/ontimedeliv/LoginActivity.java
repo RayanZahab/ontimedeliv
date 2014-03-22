@@ -75,7 +75,7 @@ public class LoginActivity extends Activity {
 			i.putExtra("shopId", 37);
 			startActivity(i);
 		} else {
-			Toast.makeText(getApplicationContext(), "Wrong Credentials",
+			Toast.makeText(getApplicationContext(), R.string.wrongcredentials,
 					Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -91,8 +91,8 @@ public class LoginActivity extends Activity {
 	public void onBackPressed() {
 		new AlertDialog.Builder(this)
 				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setTitle("Exit")
-				.setMessage("Are you sure you want to exit?")
+				.setTitle(R.string.exit)
+				.setMessage(R.string.exitquest)
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
 							@Override

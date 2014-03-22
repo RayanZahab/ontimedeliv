@@ -145,13 +145,13 @@ public class AddBranchActivity extends Activity implements
 		listDataHeader.add("Opening Hours");
 
 		List<String> openhour = new ArrayList<String>();
-		openhour.add("Monday");
-		openhour.add("Tuesday");
-		openhour.add("Wednesday");
-		openhour.add("Thursday");
-		openhour.add("Friday");
-		openhour.add("Saturday");
-		openhour.add("Sunday");
+		openhour.add(getString(R.string.monday));
+		openhour.add(getString(R.string.tuseday));
+		openhour.add(getString(R.string.wednesday));
+		openhour.add(getString(R.string.thursday));
+		openhour.add(getString(R.string.friday));
+		openhour.add(getString(R.string.saturday));
+		openhour.add(getString(R.string.sunday));
 
 		listDataChild.put(listDataHeader.get(0), openhour);
 	}

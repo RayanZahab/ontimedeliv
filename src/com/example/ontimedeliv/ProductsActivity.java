@@ -151,7 +151,7 @@ public class ProductsActivity extends Activity {
 	public void Delete(final int branchId) {
 
 		new AlertDialog.Builder(this)
-				.setTitle("Delete this Product?")
+				.setTitle(R.string.deletethisprod)
 				.setIcon(R.drawable.branches)
 				.setPositiveButton(android.R.string.yes,
 						new DialogInterface.OnClickListener() {
@@ -178,7 +178,7 @@ public class ProductsActivity extends Activity {
 
 	public void Edit(Item item) {
 		Intent i = new Intent(ProductsActivity.this, ProductInfoActivity.class);
-		Toast.makeText(this, "editing: " + item.getId(), Toast.LENGTH_SHORT)
+		Toast.makeText(this, R.string.editing + item.getId(), Toast.LENGTH_SHORT)
 				.show();
 
 		i.putExtra("id", "" + item.getId());
@@ -186,7 +186,7 @@ public class ProductsActivity extends Activity {
 	}
 
 	public void afterActivate(String s,String error) {
-		Toast.makeText(getApplicationContext(), "Activate : " + s,
+		Toast.makeText(getApplicationContext(), R.string.activate + s,
 				Toast.LENGTH_SHORT).show();
 	}
 	private void checkButtonClick() {
@@ -246,7 +246,7 @@ public class ProductsActivity extends Activity {
 					int position, long id) {
 				// When clicked, Navigate to the selected item
 				Toast.makeText(getApplicationContext(),
-						"Selected" + productItems.get(position).getId(),
+						R.string.selected + productItems.get(position).getId(),
 						Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(ProductsActivity.this,
 						ProductInfoActivity.class);
