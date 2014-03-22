@@ -75,7 +75,7 @@ public class BranchesActivity extends Activity {
 					int position, long id) {
 				// When clicked, Navigate to the selected item
 				Toast.makeText(getApplicationContext(),
-						"Selected" + branchesItem.get(position).getId(),
+						R.string.selected + branchesItem.get(position).getId(),
 						Toast.LENGTH_SHORT).show();
 				Intent i;
 				try {
@@ -147,7 +147,7 @@ public class BranchesActivity extends Activity {
 
 	public void Edit(Item item) {
 		Intent i = new Intent(BranchesActivity.this, AddBranchActivity.class);
-		Toast.makeText(this, "editing: " + item.getId(), Toast.LENGTH_SHORT)
+		Toast.makeText(this, R.string.editing + item.getId(), Toast.LENGTH_SHORT)
 				.show();
 
 		i.putExtra("id", "" + item.getId());

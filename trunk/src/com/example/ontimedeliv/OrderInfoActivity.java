@@ -92,7 +92,7 @@ public class OrderInfoActivity extends Activity {
 		        		}
 		        		else
 		        		{
-		        			Toast.makeText(getApplicationContext(), "Please enter a reason",
+		        			Toast.makeText(getApplicationContext(), R.string.cancelreason,
 		        					Toast.LENGTH_SHORT).show();
 		        		}
 		            }
@@ -107,7 +107,7 @@ public class OrderInfoActivity extends Activity {
 		
 		if(Error== null)
 		{
-			Toast.makeText(getApplicationContext(), "Order Canceled",
+			Toast.makeText(getApplicationContext(), R.string.ordercanceled,
 					Toast.LENGTH_SHORT).show();
 			alertDialog.dismiss();
 		}

@@ -100,7 +100,7 @@ public class CategoriesActivity extends Activity {
 	}
 
 	public void afterDeactivate(String s, String error) {
-		Toast.makeText(getApplicationContext(), "DeActivate : " + s,
+		Toast.makeText(getApplicationContext(), R.string.deactivate + s,
 				Toast.LENGTH_SHORT).show();
 		myCat = new Activate("categories", selectedIds);
 		String serverURL = new myURL("activate_categories", "branches",
@@ -111,7 +111,7 @@ public class CategoriesActivity extends Activity {
 	}
 
 	public void afterActivate(String s, String error) {
-		Toast.makeText(getApplicationContext(), "Activate : " + s,
+		Toast.makeText(getApplicationContext(), R.string.activate + s,
 				Toast.LENGTH_SHORT).show();
 	}
 
@@ -212,7 +212,7 @@ public class CategoriesActivity extends Activity {
 		alertDialogBuilder.setView(promptsView);
 		final TextView title = (TextView) promptsView
 				.findViewById(R.id.textView1);
-		title.setText("Category Name");
+		title.setText(R.string.categoryname);
 		final EditText userInput = (EditText) promptsView
 				.findViewById(R.id.editText1);
 		userInput.setHint(item.getTitle());
@@ -321,7 +321,7 @@ public class CategoriesActivity extends Activity {
 	public void Delete(final int catId) {
 
 		new AlertDialog.Builder(this)
-				.setTitle("Delete this category?")
+				.setTitle(R.string.deletethiscat)
 				.setIcon(R.drawable.categories)
 				.setPositiveButton(android.R.string.yes,
 						new DialogInterface.OnClickListener() {
