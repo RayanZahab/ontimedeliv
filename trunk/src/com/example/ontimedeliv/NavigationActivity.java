@@ -22,77 +22,74 @@ public class NavigationActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_navigation);
-		
 		displayListView();
 	}
 
 	private void displayListView() {
-
-		// Array list of Categories
 		ArrayList<Item> categories = new ArrayList<Item>();
-		// String role
-		// if()
 		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
 		boolean isAdmin = settings1.getBoolean("admin", false);
 		boolean isPreparer = settings1.getBoolean("preparer", false);
 		boolean isDelivery = settings1.getBoolean("delivery", false);
 		Item _Item;
-		if (isPreparer || isDelivery || isAdmin) 
-		{
+		
+		if (isPreparer || isDelivery || isAdmin) {
 
 			_Item = new Item(0, R.drawable.ic_launcher, "Orders");
 			_Item.setMethod("Orders");
 			categories.add(_Item);
 		}
-		if (isAdmin) 
-		{
+		if (isAdmin) {
 
-			_Item = new Item(0, R.drawable.branches , "Branches");
+			_Item = new Item(0, R.drawable.branches, "Branches");
 			_Item.setMethod("Branches");
 			categories.add(_Item);
-			
-			_Item = new Item(1, R.drawable.users , "Users");
+			_Item = new Item(1, R.drawable.users, "Users");
 			_Item.setMethod("Users");
 			categories.add(_Item);
-			_Item = new Item(2, R.drawable.ic_launcher, "Selection");
-			_Item.setMethod("Selection");
+			/*_Item = new Item(2, R.drawable.ic_launcher, "Selection");*/
+			_Item = new Item(2, R.drawable.ic_launcher, "New Orders");
+			_Item.setMethod("Orders");
 			categories.add(_Item);
-			_Item = new Item(3, R.drawable.ic_launcher, "OldOrders");
+			_Item = new Item(3, R.drawable.ic_launcher, "In preparation");
+			_Item.setMethod("Orders");
+			_Item.setOrderStatus("preparation");//open +  assigned to a preparer
+			categories.add(_Item);
+			_Item = new Item(4, R.drawable.ic_launcher, "In Delivery");
+			_Item.setMethod("Orders");
+			_Item.setOrderStatus("delivery");//prepared +  assigned to a delivery
+			categories.add(_Item);
+			_Item = new Item(5, R.drawable.ic_launcher, "Canceled");
+			_Item.setMethod("Orders");
+			categories.add(_Item);
+			_Item = new Item(6, R.drawable.ic_launcher, "Closed");
 			_Item.setMethod("Orders");
 			categories.add(_Item);
 		}
 
-		// create an ArrayAdaptar from the String Array
 		dataAdapter = new MyCustomAdapter(this, R.layout.categories_list,
 				categories);
 		ListView listView = (ListView) findViewById(R.id.list);
-		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// When clicked, Navigate to the selected item
 				Item navitem = (Item) parent.getItemAtPosition(position);
-				String title = navitem.getTitle();
 				Intent i;
 				try {
 					i = new Intent(getBaseContext(), Class
-							.forName(getPackageName() + "." + navitem.getMethod()
-									+ "Activity"));
-					i.putExtra("shopId", 37);
-					if(navitem.getId()==3)
-					{
+							.forName(getPackageName() + "."+ navitem.getMethod() + "Activity"));
+					if (navitem.getId() == 5 || navitem.getId() == 6) {
 						i.putExtra("old", true);
+						((ontimedeliv) NavigationActivity.this.getApplication()).setOrderStatus("prepared");
 					}
 					startActivity(i);
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-
 		});
 
 	}
@@ -112,7 +109,6 @@ public class NavigationActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.navigation, menu);
 		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;

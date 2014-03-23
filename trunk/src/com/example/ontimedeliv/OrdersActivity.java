@@ -24,12 +24,10 @@ public class OrdersActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		 setContentView(R.layout.activity_orders);
 		if (getIntent().hasExtra("old")
 				&& getIntent().getBooleanExtra("old", false)) {
 			old = getIntent().getBooleanExtra("old", false);
-			setContentView(R.layout.activity_old_orders);
-		} else {
-			setContentView(R.layout.activity_orders);
 		}
 		this.Dialog = new ProgressDialog(OrdersActivity.this);
 		getOrders();
@@ -37,9 +35,8 @@ public class OrdersActivity extends Activity {
 
 	public void getOrders() {
 		String serverURL;
-		if (getIntent().hasExtra("old")
-				&& getIntent().getBooleanExtra("old", false)) {
-			serverURL = new myURL(null, "orders", "cancelled", 30).getURL();
+		if (old){
+			serverURL = new myURL(null, "orders", "prepared", 30).getURL();
 		} else {
 			serverURL = new myURL(null, "orders", "opened", 30).getURL();
 		}
@@ -54,6 +51,7 @@ public class OrdersActivity extends Activity {
 					.toString(), morders.get(i).getCount(), morders.get(i)
 					.getTotal(), false));
 		}
+		
 		dataAdapter = new OrdersAdapter(OrdersActivity.this,
 				R.layout.row_order, orderItems);
 
@@ -65,14 +63,13 @@ public class OrdersActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent i;
-				Log.d("ray","rayclik: "+old);
 				if (old) {
 					i = new Intent(getBaseContext(),
 							OldOrdersInfoActivity.class);
 				} else {
 					i = new Intent(getBaseContext(), OrderInfoActivity.class);
 				}
-				i.putExtra("orderId", "" + orderItems.get(position).getId());
+				((ontimedeliv) OrdersActivity.this.getApplication()).setOrderId(orderItems.get(position).getId());
 				startActivity(i);
 			}
 		});

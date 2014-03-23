@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Order {
 	private int id;
 	private int customer_id;
-	private int status_id;
+	private String status;
 	private double total;
 	private int count;
 	private int address_id;
@@ -14,21 +14,23 @@ public class Order {
 	private ArrayList<OrderItem> orderItems;
 	private boolean cancel = false;
 	private String cancelReason;
+	private User Preparer,Delivery;
+	
 	public Order(){}
-	public Order(int id, int customer_id, int status_id, double total,
+	public Order(int id, int customer_id, String status, double total,
 			int count, int address_id) {
 		this.setId(id);
 		this.setCustomer_id(customer_id);
-		this.setStatus_id(status_id);
+		this.setStatus(status);
 		this.setTotal(total);
 		this.setCount(count);
 		this.setAddress_id(address_id);
 	}
-	public Order(int id, int customer_id, int status_id, double total,
+	public Order(int id, int customer_id, String status, double total,
 			int count, int address_id,ArrayList<OrderItem> orderItems) {
 		this.setId(id);
 		this.setCustomer_id(customer_id);
-		this.setStatus_id(status_id);
+		this.setStatus(status);
 		this.setTotal(total);
 		this.setCount(count);
 		this.setAddress_id(address_id);
@@ -56,14 +58,6 @@ public class Order {
 
 	public void setCustomer_id(int customer_id) {
 		this.customer_id = customer_id;
-	}
-
-	public int getStatus_id() {
-		return status_id;
-	}
-
-	public void setStatus_id(int status_id) {
-		this.status_id = status_id;
 	}
 
 	public double getTotal() {
@@ -122,5 +116,23 @@ public class Order {
 	}
 	public void setCancelReason(String cancelReason) {
 		this.cancelReason = cancelReason;
+	}
+	public User getPreparer() {
+		return Preparer;
+	}
+	public void setPreparer(User preparer) {
+		Preparer = preparer;
+	}
+	public User getDelivery() {
+		return Delivery;
+	}
+	public void setDelivery(User delivery) {
+		Delivery = delivery;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

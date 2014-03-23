@@ -12,8 +12,10 @@ public class Item {
 	private int id, img;
 	private int quantity;
 	private double price;
-	private String method;
-
+	private String method,orderStatus;
+	
+	public Item(){}
+	
 	public Item(int id,String title, Integer quantity, double price) {
 		super();
 		this.id= id;
@@ -135,6 +137,12 @@ public class Item {
 	}
 	public void setMethod(String method) {
 		this.method = method;
+	}
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 
 }

@@ -172,7 +172,8 @@
             android:layout_marginTop="17dp"
             android:background="@drawable/mybutton"
             android:text="@string/submit"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:onClick="submit" />
     </LinearLayout>
 
 </ScrollView>

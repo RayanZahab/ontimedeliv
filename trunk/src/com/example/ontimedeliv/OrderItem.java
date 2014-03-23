@@ -4,6 +4,10 @@ public class OrderItem {
 	private int id;
 	private Product product;
 	private int quantity;
+	public OrderItem()
+	{
+		
+	}
 	public OrderItem(Product p,int q)
 	{		
 		this.setProduct(p);

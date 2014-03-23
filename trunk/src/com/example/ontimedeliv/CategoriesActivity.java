@@ -47,20 +47,11 @@ public class CategoriesActivity extends Activity {
 		setContentView(R.layout.activity_categories);
 		this.Dialog = new ProgressDialog(CategoriesActivity.this);
 		Dialog.setCancelable(false);
-		if (getIntent().hasExtra("branchId")) {
-			Bundle extras = getIntent().getExtras();
-			try {
-				this.branchId = Integer.parseInt((String) extras
-						.getString("branchId"));
-				this.shopId = Integer.parseInt((String) extras
-						.getString("shopId"));
-				url = new myURL("categories", "branches", branchId, 30)
-						.getURL();
+		
+		this.branchId = ((ontimedeliv) this.getApplication()).getBranchId();
+		this.shopId = ((ontimedeliv) this.getApplication()).getShopId();
+		url = new myURL("categories", "branches", branchId, 30).getURL();
 
-			} catch (Exception e) {
-
-			}
-		}
 		getCategories();
 
 	}
@@ -149,10 +140,7 @@ public class CategoriesActivity extends Activity {
 				Toast.makeText(getApplicationContext(),
 						"Selected: " + branchId, Toast.LENGTH_SHORT).show();
 				Intent i = new Intent(getBaseContext(), ProductsActivity.class);
-				i.putExtra("categoryId", ""
-						+ categoryItems.get(position).getId());
-				i.putExtra("branchId", "" + branchId);
-				i.putExtra("shopId", "" + shopId);
+				((ontimedeliv) CategoriesActivity.this.getApplication()).setCategoryId(categoryItems.get(position).getId());
 				startActivity(i);
 			}
 
@@ -312,9 +300,6 @@ public class CategoriesActivity extends Activity {
 
 	public void afterCreation(String s, String error) {
 		Intent i = new Intent(this, CategoriesActivity.class);
-		i.putExtra("branchId", "" + branchId);
-
-		i.putExtra("shopId", "" + shopId);
 		startActivity(i);
 	}
 	
@@ -342,8 +327,6 @@ public class CategoriesActivity extends Activity {
 	}
 	public void backToActivity(Class activity) {
 		Intent i = new Intent(CategoriesActivity.this, activity);
-		i.putExtra("shopId", shopId);
-		i.putExtra("branchId", "" + branchId);
 		startActivity(i);
 	}
 }

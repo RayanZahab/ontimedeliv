@@ -15,6 +15,9 @@ public class Address {
 	private String update_at;
 	private String created_at;
 
+	public Address(int id){
+		this.id=id;
+	}
 	public Address(int id, String country, String city, String area,
 			String building, String floor, String street, String details,
 			int customer_id, String longitude, String latitude,
