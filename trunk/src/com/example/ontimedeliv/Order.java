@@ -12,7 +12,7 @@ public class Order {
 	private Customer customer;
 	private Address address;
 	private ArrayList<OrderItem> orderItems;
-	private boolean cancel = false;
+	private boolean cancel = false,newCustomer;
 	private String cancelReason;
 	private User Preparer,Delivery;
 	
@@ -134,5 +134,11 @@ public class Order {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public boolean isNewCustomer() {
+		return newCustomer;
+	}
+	public void setNewCustomer(boolean newCustomer) {
+		this.newCustomer = newCustomer;
 	}
 }

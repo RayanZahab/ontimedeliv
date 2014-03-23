@@ -35,35 +35,35 @@ public class NavigationActivity extends Activity {
 		
 		if (isPreparer || isDelivery || isAdmin) {
 
-			_Item = new Item(0, R.drawable.ic_launcher, "Orders");
+			_Item = new Item(0, R.drawable.ic_launcher, "New Orders");
 			_Item.setMethod("Orders");
+			_Item.setOrderStatus("opened");
 			categories.add(_Item);
 		}
 		if (isAdmin) {
 
-			_Item = new Item(0, R.drawable.branches, "Branches");
+			_Item = new Item(1, R.drawable.branches, "Branches");
 			_Item.setMethod("Branches");
 			categories.add(_Item);
-			_Item = new Item(1, R.drawable.users, "Users");
+			_Item = new Item(2, R.drawable.users, "Users");
 			_Item.setMethod("Users");
 			categories.add(_Item);
-			/*_Item = new Item(2, R.drawable.ic_launcher, "Selection");*/
-			_Item = new Item(2, R.drawable.ic_launcher, "New Orders");
+			/*_Item = new Item(2, R.drawable.ic_launcher, "Selection");*/			
+			_Item = new Item(3, R.drawable.ic_launcher, "Assigned Orders");
 			_Item.setMethod("Orders");
+			_Item.setOrderStatus("assigned");			
 			categories.add(_Item);
-			_Item = new Item(3, R.drawable.ic_launcher, "In preparation");
+			_Item = new Item(4, R.drawable.ic_launcher, "Prepared Orders");
 			_Item.setMethod("Orders");
-			_Item.setOrderStatus("preparation");//open +  assigned to a preparer
+			_Item.setOrderStatus("prepared");
 			categories.add(_Item);
-			_Item = new Item(4, R.drawable.ic_launcher, "In Delivery");
+			_Item = new Item(5, R.drawable.ic_launcher, "Canceled Orders");
 			_Item.setMethod("Orders");
-			_Item.setOrderStatus("delivery");//prepared +  assigned to a delivery
+			_Item.setOrderStatus("cancelled");
 			categories.add(_Item);
-			_Item = new Item(5, R.drawable.ic_launcher, "Canceled");
+			_Item = new Item(6, R.drawable.ic_launcher, "Closed Orders");
 			_Item.setMethod("Orders");
-			categories.add(_Item);
-			_Item = new Item(6, R.drawable.ic_launcher, "Closed");
-			_Item.setMethod("Orders");
+			_Item.setOrderStatus("closed");
 			categories.add(_Item);
 		}
 
@@ -83,7 +83,10 @@ public class NavigationActivity extends Activity {
 							.forName(getPackageName() + "."+ navitem.getMethod() + "Activity"));
 					if (navitem.getId() == 5 || navitem.getId() == 6) {
 						i.putExtra("old", true);
-						((ontimedeliv) NavigationActivity.this.getApplication()).setOrderStatus("prepared");
+					}
+					if(navitem.getId()!=1 && navitem.getId()!=2)
+					{
+						((ontimedeliv) NavigationActivity.this.getApplication()).setOrderStatus(navitem.getOrderStatus());
 					}
 					startActivity(i);
 				} catch (ClassNotFoundException e) {

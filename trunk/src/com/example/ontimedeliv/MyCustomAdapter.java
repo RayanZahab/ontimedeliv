@@ -39,8 +39,6 @@ class MyCustomAdapter extends ArrayAdapter<Item> {
 
 		ViewHolder holder = null;
 
-		Log.v("ConvertView", String.valueOf(position));
-
 		if (convertView == null) {
 
 			LayoutInflater vi = (LayoutInflater) this.context
@@ -58,7 +56,6 @@ class MyCustomAdapter extends ArrayAdapter<Item> {
 		}
 				
 		Item navitem = currentList.get(position);
-		Log.d("Ray","ray pic: "+navitem.getImg());
 		//holder.picture =navitem.getImg();
 		//holder.picture ;
 		holder.name = (TextView) convertView.findViewById(R.id.name);

@@ -20,6 +20,7 @@ public class OrdersActivity extends Activity {
 	ArrayList<Order> morders;
 	ArrayList<Item> orderItems = new ArrayList<Item>();
 	boolean old = false;
+	String status;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +30,15 @@ public class OrdersActivity extends Activity {
 				&& getIntent().getBooleanExtra("old", false)) {
 			old = getIntent().getBooleanExtra("old", false);
 		}
+		status = ((ontimedeliv) OrdersActivity.this.getApplication()).getOrderStatus();
+
 		this.Dialog = new ProgressDialog(OrdersActivity.this);
 		getOrders();
 	}
 
 	public void getOrders() {
 		String serverURL;
-		if (old){
-			serverURL = new myURL(null, "orders", "prepared", 30).getURL();
-		} else {
-			serverURL = new myURL(null, "orders", "opened", 30).getURL();
-		}
+		serverURL = new myURL(null, "orders", status, 30).getURL();		
 		new MyJs(Dialog, "setOrders", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
 	}
 
@@ -49,7 +48,7 @@ public class OrdersActivity extends Activity {
 		for (int i = 0; i < morders.size(); i++) {
 			orderItems.add(new Item(morders.get(i).getId(), morders.get(i)
 					.toString(), morders.get(i).getCount(), morders.get(i)
-					.getTotal(), false));
+					.getTotal(), morders.get(i).isNewCustomer()));
 		}
 		
 		dataAdapter = new OrdersAdapter(OrdersActivity.this,

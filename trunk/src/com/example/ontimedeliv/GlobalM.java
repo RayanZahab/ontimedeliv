@@ -1,8 +1,11 @@
 package com.example.ontimedeliv;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class GlobalM {
 
@@ -20,5 +23,12 @@ public class GlobalM {
 			}
 		}
 
+	}
+	public void bkToNav(Activity a)
+	{
+		Intent i = new Intent(a, NavigationActivity.class);
+		Toast.makeText(a.getApplicationContext(),"No net Connection",
+				Toast.LENGTH_SHORT).show();
+		a.startActivity(i);
 	}
 }

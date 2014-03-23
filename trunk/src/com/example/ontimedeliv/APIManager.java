@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 public class APIManager {
-	
+
 	public APIManager() {
 
 	}
@@ -20,20 +20,22 @@ public class APIManager {
 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
-				int id =  Integer.parseInt(jsonResponse.optString("id").toString());
-				int branch_id =  Integer.parseInt(jsonResponse.optString("branch_id").toString());
-				String token= jsonResponse.optString("auth_token").toString();
-				String role_str =jsonResponse.optString("roles").toString();
-				jsonRole = new JSONObject(role_str);
-				boolean admin = Boolean.parseBoolean(jsonRole.optString("admin")
+				int id = Integer.parseInt(jsonResponse.optString("id")
 						.toString());
+				int branch_id = Integer.parseInt(jsonResponse.optString(
+						"branch_id").toString());
+				String token = jsonResponse.optString("auth_token").toString();
+				String role_str = jsonResponse.optString("roles").toString();
+				jsonRole = new JSONObject(role_str);
+				boolean admin = Boolean.parseBoolean(jsonRole
+						.optString("admin").toString());
 				boolean preparer = Boolean.parseBoolean(jsonRole.optString(
 						"preparer").toString());
 				boolean delivery = Boolean.parseBoolean(jsonRole.optString(
 						"deliverer").toString());
-				
-				return new User(id,token,branch_id,admin,preparer,delivery);
-				
+
+				return new User(id, token, branch_id, admin, preparer, delivery);
+
 			}
 		} catch (JSONException e) {
 
@@ -136,7 +138,7 @@ public class APIManager {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 
-				int id,country_id,city_id;
+				int id, country_id, city_id;
 				String name;
 				if (jsonResponse.has("elements")) {
 					JSONArray jsonMainNode = jsonResponse
@@ -148,10 +150,10 @@ public class APIManager {
 
 						id = Integer.parseInt(jsonChildNode.optString("id")
 								.toString());
-						country_id = Integer.parseInt(jsonChildNode.optString("country_id")
-								.toString());
-						city_id = Integer.parseInt(jsonChildNode.optString("city_id")
-								.toString());						
+						country_id = Integer.parseInt(jsonChildNode.optString(
+								"country_id").toString());
+						city_id = Integer.parseInt(jsonChildNode.optString(
+								"city_id").toString());
 						name = jsonChildNode.optString("name").toString();
 						gridArray.add(new Area(id, city_id, country_id, name));
 					}
@@ -159,10 +161,10 @@ public class APIManager {
 					id = Integer.parseInt(jsonResponse.optString("id")
 							.toString());
 					name = jsonResponse.optString("name").toString();
-					country_id = Integer.parseInt(jsonResponse.optString("country_id")
-							.toString());
-					city_id = Integer.parseInt(jsonResponse.optString("city_id")
-							.toString());	
+					country_id = Integer.parseInt(jsonResponse.optString(
+							"country_id").toString());
+					city_id = Integer.parseInt(jsonResponse
+							.optString("city_id").toString());
 					gridArray.add(new Area(id, city_id, country_id, name));
 				}
 			} else {
@@ -423,7 +425,7 @@ public class APIManager {
 	public ArrayList<Product> getItemsByCategoryAndBranch(String cont) {
 		JSONObject jsonResponse, jsonUnit;
 		ArrayList<Product> gridArray = new ArrayList<Product>();
-		
+
 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
@@ -442,25 +444,29 @@ public class APIManager {
 
 						id = Integer.parseInt(jsonChildNode.optString("id")
 								.toString());
-						price = Integer.parseInt(jsonChildNode.optString("price").toString());
+						price = Integer.parseInt(jsonChildNode.optString(
+								"price").toString());
 						name = jsonChildNode.optString("name").toString();
 						description = jsonChildNode.optString("description")
 								.toString();
 						photo_str = jsonChildNode.optString("photo").toString();
 						unit_str = jsonChildNode.optString("unit").toString();
 						jsonUnit = new JSONObject(unit_str);
-						unit = new Unit(Integer.parseInt(jsonUnit.optString("id")
-								.toString()),jsonUnit.optString("name").toString());
-								
+						unit = new Unit(Integer.parseInt(jsonUnit.optString(
+								"id").toString()), jsonUnit.optString("name")
+								.toString());
+
 						is_available = Boolean.valueOf(jsonChildNode.optString(
 								"is_available").toString());
 						gridArray.add(new Product(id, price, name, description,
-								getPhoto(photo_str), new Category(0), unit, is_available, 0));
+								getPhoto(photo_str), new Category(0), unit,
+								is_available, 0));
 					}
 				} else {
 					id = Integer.parseInt(jsonResponse.optString("id")
 							.toString());
-					price = Integer.parseInt(jsonResponse.optString("price").toString());
+					price = Integer.parseInt(jsonResponse.optString("price")
+							.toString());
 					name = jsonResponse.optString("name").toString();
 					description = jsonResponse.optString("description")
 							.toString();
@@ -470,11 +476,11 @@ public class APIManager {
 					unit_str = jsonResponse.optString("unit").toString();
 					jsonUnit = new JSONObject(unit_str);
 					unit = new Unit(Integer.parseInt(jsonUnit.optString("id")
-							.toString()),jsonUnit.optString("name").toString());
-							
+							.toString()), jsonUnit.optString("name").toString());
+
 					gridArray.add(new Product(id, price, name, description,
-							getPhoto(photo_str), new Category(0),
-							unit, is_available, 0));
+							getPhoto(photo_str), new Category(0), unit,
+							is_available, 0));
 				}
 			} else {
 				return gridArray;
@@ -627,7 +633,7 @@ public class APIManager {
 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
-				int id,branch_id;
+				int id, branch_id;
 				boolean is_fired, admin, preparer, delivery;
 				String name, phone, password, username, mobile, roles_str;
 				if (jsonResponse.has("elements")) {
@@ -650,15 +656,16 @@ public class APIManager {
 						delivery = Boolean.parseBoolean(jsonRole.optString(
 								"deliverer").toString());
 
-						branch_id = Integer.parseInt(jsonChildNode.optString("branch_id").toString());
+						branch_id = Integer.parseInt(jsonChildNode.optString(
+								"branch_id").toString());
 						password = "";// jsonChildNode.optString("password").toString();
 						phone = jsonChildNode.optString("phone").toString();
 						mobile = "";// jsonChildNode.optString("mobile").toString();
 						is_fired = Boolean.parseBoolean(jsonChildNode
 								.optString("is_fired").toString());
 
-						User u = new User(id, name,  password, phone,
-								mobile, (is_fired) ? 1 : 0, null, branch_id, admin,
+						User u = new User(id, name, password, phone, mobile,
+								(is_fired) ? 1 : 0, null, branch_id, admin,
 								preparer, delivery);
 						gridArray.add(u);
 
@@ -667,7 +674,8 @@ public class APIManager {
 					id = Integer.parseInt(jsonResponse.optString("id")
 							.toString());
 					name = jsonResponse.optString("name").toString();
-					branch_id =  Integer.parseInt(jsonResponse.optString("branch_id").toString());
+					branch_id = Integer.parseInt(jsonResponse.optString(
+							"branch_id").toString());
 					password = "";// jsonResponse.optString("password").toString();
 					phone = jsonResponse.optString("phone").toString();
 					mobile = "";// jsonResponse.optString("mobile").toString();
@@ -682,8 +690,8 @@ public class APIManager {
 					delivery = Boolean.parseBoolean(jsonRole.optString(
 							"deliverer").toString());
 
-					gridArray.add(new User(id, name,  password, phone,
-							mobile, (is_fired) ? 1 : 0, null, branch_id, admin,
+					gridArray.add(new User(id, name, password, phone, mobile,
+							(is_fired) ? 1 : 0, null, branch_id, admin,
 							preparer, delivery));
 
 				}
@@ -783,13 +791,13 @@ public class APIManager {
 	public ArrayList<Order> getOrders(String cont) {
 		JSONObject jsonResponse, jsonCustomer;
 		ArrayList<Order> gridArray = new ArrayList<Order>();
-		Log.d("ray","get order"+cont);
+		Log.d("ray", "get order" + cont);
 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id, count;
-				boolean is_fired, admin, preparer, delivery;
-				String name,  password, username, mobile, customer_str,status;
+				boolean is_fired, admin, preparer, delivery,is_new;
+				String name, password, username, mobile, customer_str, status;
 				double total;
 				Customer customer;
 				if (jsonResponse.has("elements")) {
@@ -803,32 +811,31 @@ public class APIManager {
 						id = Integer.parseInt(jsonChildNode.optString("id")
 								.toString());
 						status = jsonChildNode.optString("status").toString();
-						
+						is_new = Boolean.parseBoolean(jsonChildNode.optString("is_new").toString());
+
 						customer_str = jsonChildNode.optString("customer")
 								.toString();
-						if(customer_str!= null
-								&& !customer_str.isEmpty() && !jsonChildNode.isNull("customer"))
-						{
-						jsonCustomer = new JSONObject(customer_str);
-						customer = new Customer(
-								Integer.parseInt(jsonCustomer.optString("id").toString()),
-								jsonCustomer.optString("name").toString(), 
-								jsonCustomer.optString("mobile").toString()
-								);
-						}
-						else
-						{
+						if (customer_str != null && !customer_str.isEmpty()
+								&& !jsonChildNode.isNull("customer")) {
+							jsonCustomer = new JSONObject(customer_str);
 							customer = new Customer(
-									4,//Integer.parseInt(jsonCustomer.optString("id").toString()),
-									"Rayz",//jsonCustomer.optString("name").toString(), 
-									"70909090"//jsonCustomer.optString("mobile").toString()
-									);
+									Integer.parseInt(jsonCustomer.optString(
+											"id").toString()), jsonCustomer
+											.optString("name").toString(),
+									jsonCustomer.optString("mobile").toString());
+						} else {
+							customer = new Customer(4,// Integer.parseInt(jsonCustomer.optString("id").toString()),
+									"Rayz",// jsonCustomer.optString("name").toString(),
+									"70909090"// jsonCustomer.optString("mobile").toString()
+							);
 						}
-						total = Double.parseDouble(jsonChildNode.optString("total").toString());
+						total = Double.parseDouble(jsonChildNode.optString(
+								"total").toString());
 						count = Integer.parseInt(jsonChildNode.optString(
-								"count").toString());						
+								"count").toString());
 						Order c = new Order(id, customer, total, count);
 						c.setStatus(status);
+						c.setNewCustomer(is_new);
 						gridArray.add(c);
 
 					}
@@ -843,12 +850,15 @@ public class APIManager {
 							.optString("name").toString(), jsonResponse
 							.optString("mobile").toString());
 					status = jsonResponse.optString("status").toString();
-					total = Double.parseDouble(jsonResponse.optString("total").toString());
+					is_new = Boolean.parseBoolean(jsonResponse.optString("is_new").toString());
+					total = Double.parseDouble(jsonResponse.optString("total")
+							.toString());
 					count = Integer.parseInt(jsonResponse.optString("count")
 							.toString());
 
 					Order c = new Order(id, customer, total, count);
 					c.setStatus(status);
+					c.setNewCustomer(is_new);
 					gridArray.add(c);
 				}
 
@@ -862,98 +872,86 @@ public class APIManager {
 
 		return gridArray;
 	}
-	public Order getOrder(String cont)
-	{
+
+	public Order getOrder(String cont) {
 		JSONObject jsonResponse, jsonCustomer, jsonAdd, jsonItem;
-		Order order= new Order();
-		
+		Order order = new Order();
 
 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
-				int id, count,quantity;
-				String  customer_str,add_str,item_str,status;
+				int id, count, quantity;
+				String customer_str, add_str, item_str, status;
 				double total;
 				Customer customer;
 				Address address;
 				ArrayList<OrderItem> orderItems = new ArrayList<OrderItem>();
 				OrderItem orderItem;
 				Product product;
-			
-				id = Integer.parseInt(jsonResponse.optString("id")
-						.toString());
+
+				id = Integer.parseInt(jsonResponse.optString("id").toString());
 				order.setId(id);
-				total = Double.parseDouble(jsonResponse.optString("total").toString());
+				total = Double.parseDouble(jsonResponse.optString("total")
+						.toString());
 				order.setTotal(total);
 				count = Integer.parseInt(jsonResponse.optString("count")
 						.toString());
 				order.setCount(count);
-				Log.d("ray","status: "+jsonResponse.optString("status").toString());
+				Log.d("ray", "status: "
+						+ jsonResponse.optString("status").toString());
 				status = jsonResponse.optString("status").toString();
 				order.setStatus(status);
-				Log.d("ray","status: "+order.getStatus());
+				Log.d("ray", "status: " + order.getStatus());
 				add_str = jsonResponse.optString("address").toString();
-				if(add_str!= null
-					&& !add_str.isEmpty() && !jsonResponse.isNull("customer"))
-				{
-				
-				jsonAdd = new JSONObject(add_str);
-				address = new Address(Integer.parseInt(jsonAdd
-						.optString("id").toString()), jsonAdd
-						.optString("country").toString(), jsonAdd
-						.optString("city").toString(), jsonAdd
-						.optString("area").toString(), jsonAdd
-						.optString("street").toString(), jsonAdd
-						.optString("building").toString(), jsonAdd
-						.optString("floor").toString(), jsonAdd
-						.optString("details").toString());
-				order.setAddress(address);
-				}
-				else
-				{
+				if (add_str != null && !add_str.isEmpty()
+						&& !jsonResponse.isNull("customer")) {
+
+					jsonAdd = new JSONObject(add_str);
+					address = new Address(Integer.parseInt(jsonAdd.optString(
+							"id").toString()), jsonAdd.optString("country")
+							.toString(), jsonAdd.optString("city").toString(),
+							jsonAdd.optString("area").toString(), jsonAdd
+									.optString("street").toString(), jsonAdd
+									.optString("building").toString(), jsonAdd
+									.optString("floor").toString(), jsonAdd
+									.optString("details").toString());
+					order.setAddress(address);
+				} else {
 					order.setAddress(new Address(8));
 				}
-				customer_str = jsonResponse.optString("customer")
-						.toString();
-				if(customer_str!= null
-						&& !customer_str.isEmpty() && !jsonResponse.isNull("customer"))
-				{
-				jsonCustomer = new JSONObject(customer_str);
-				customer = new Customer(
-						Integer.parseInt(jsonCustomer.optString("id").toString()),
-						jsonCustomer.optString("name").toString(), 
-						jsonCustomer.optString("mobile").toString()
-						);
+				customer_str = jsonResponse.optString("customer").toString();
+				if (customer_str != null && !customer_str.isEmpty()
+						&& !jsonResponse.isNull("customer")) {
+					jsonCustomer = new JSONObject(customer_str);
+					customer = new Customer(Integer.parseInt(jsonCustomer
+							.optString("id").toString()), jsonCustomer
+							.optString("name").toString(), jsonCustomer
+							.optString("mobile").toString());
+				} else {
+					customer = new Customer(4,// Integer.parseInt(jsonCustomer.optString("id").toString()),
+							"Rayz",// jsonCustomer.optString("name").toString(),
+							"70909090"// jsonCustomer.optString("mobile").toString()
+					);
 				}
-				else
-				{
-					customer = new Customer(
-							4,//Integer.parseInt(jsonCustomer.optString("id").toString()),
-							"Rayz",//jsonCustomer.optString("name").toString(), 
-							"70909090"//jsonCustomer.optString("mobile").toString()
-							);
-				}				
 				order.setCustomer(customer);
-				
-				JSONArray jsonItemsNode = jsonResponse
-						.optJSONArray("items");
+
+				JSONArray jsonItemsNode = jsonResponse.optJSONArray("items");
 				int lengthJsonArr = jsonItemsNode.length();
-				
+
 				for (int i = 0; i < lengthJsonArr; i++) {
 					JSONObject jsonItemChildNode = jsonItemsNode
 							.getJSONObject(i);
 
-					quantity = Integer.parseInt(jsonItemChildNode.optString("qty")
-							.toString());
-					item_str=jsonItemChildNode.optString("item")
-							.toString();
-					if(item_str!= null
-							&& !item_str.isEmpty() && !jsonItemChildNode.isNull("item"))
-					{
+					quantity = Integer.parseInt(jsonItemChildNode.optString(
+							"qty").toString());
+					item_str = jsonItemChildNode.optString("item").toString();
+					if (item_str != null && !item_str.isEmpty()
+							&& !jsonItemChildNode.isNull("item")) {
 						jsonItem = new JSONObject(item_str);
 						product = getItemsByCategoryAndBranch(item_str).get(0);
-						orderItem =new OrderItem(product,quantity);
-						Log.d("rays","ray api item: "+quantity+" - "+product.toString());
+						orderItem = new OrderItem(product, quantity);
+						Log.d("rays", "ray api item: " + quantity + " - "
+								+ product.toString());
 						orderItems.add(orderItem);
 					}
 				}
@@ -1130,37 +1128,37 @@ public class APIManager {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-		} else if (o instanceof Order ) {
+		} else if (o instanceof Order) {
 			Order c = (Order) o;
 			JSONObject body = new JSONObject();
 			try {
-				if(c.isCancel())
-				{
+				if (c.isCancel()) {
 					jsonObjSend.put("cancel_reason", c.getCancelReason());
-				}
-				else
-				{
-					//jsonObjSend.put("roles", body);
-				//	body.put("is_admin", c.getAdmin() ? 1 : 0);
-					JSONArray jsonArray = new JSONArray();
-					try {
-						
-						ArrayList<OrderItem> oItems = c.getOrderItems();
-						for (int i = 0; i < oItems.size(); i++) {
-							JSONObject itemObj = new JSONObject(); 
-							itemObj.put("id",oItems.get(i).getId());
-							itemObj.put("qty",oItems.get(i).getQuantity());
-							jsonArray.put(itemObj);
-						}
-						body.put("items", jsonArray);
-						body.put("count", jsonArray.length());
-						body.put("total", c.getTotal());
-						body.put("address_id", c.getAddress_id());
-						body.put("customer_id", c.getCustomer_id());
-						jsonObjSend.put("order", body);
+				} else {
+					if (c.getStatus() != null) {
+						jsonObjSend.put("status", c.getStatus());
+						jsonObjSend.put("user_id", 37);
+					} else {
+						JSONArray jsonArray = new JSONArray();
+						try {
 
-					} catch (JSONException e) {
-						e.printStackTrace();
+							ArrayList<OrderItem> oItems = c.getOrderItems();
+							for (int i = 0; i < oItems.size(); i++) {
+								JSONObject itemObj = new JSONObject();
+								itemObj.put("id", oItems.get(i).getId());
+								itemObj.put("qty", oItems.get(i).getQuantity());
+								jsonArray.put(itemObj);
+							}
+							body.put("items", jsonArray);
+							body.put("count", jsonArray.length());
+							body.put("total", c.getTotal());
+							body.put("address_id", c.getAddress_id());
+							body.put("customer_id", c.getCustomer_id());
+							jsonObjSend.put("order", body);
+
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			} catch (JSONException e) {
@@ -1170,5 +1168,4 @@ public class APIManager {
 
 		return jsonObjSend;
 	}
-
 }
