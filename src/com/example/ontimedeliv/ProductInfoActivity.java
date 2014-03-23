@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -36,6 +37,9 @@ public class ProductInfoActivity extends Activity {
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
 		setContentView(R.layout.activity_add_product);
+		ActionBar actionBar = getActionBar();		 
+        actionBar.setDisplayHomeAsUpEnabled(true);
+		
 		branchId = ((ontimedeliv) this.getApplication()).getBranchId();
 		categoryId = ((ontimedeliv) this.getApplication()).getCategoryId();
 		productId = ((ontimedeliv) this.getApplication()).getProductId();

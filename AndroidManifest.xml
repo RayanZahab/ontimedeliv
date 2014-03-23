@@ -4,6 +4,11 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="19" />
@@ -21,6 +26,7 @@
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -39,18 +45,21 @@
         <activity
             android:name="CategoriesActivity"
             android:label="@string/title_activity_categories"
+            android:parentActivityName="BranchesActivity"
             android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
             android:name="BranchesActivity"
             android:label="@string/title_activity_branches"
+            android:parentActivityName="NavigationActivity"
             android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
             android:name="AddBranchActivity"
             android:label="@string/title_activity_add_branch"
+            android:parentActivityName="BranchesActivity"
             android:windowSoftInputMode="adjustNothing" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
@@ -69,11 +78,13 @@
         <activity
             android:name="UsersActivity"
             android:label="@string/title_activity_users"
+            android:parentActivityName="NavigationActivity"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name="UserInfoActivity"
             android:label="@string/title_activity_user_info"
+            android:parentActivityName="UsersActivity"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
@@ -84,21 +95,25 @@
         <activity
             android:name="OrderInfoActivity"
             android:label="@string/title_activity_order_info"
+            android:parentActivityName="OrdersActivity"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name="OrdersActivity"
             android:label="@string/title_activity_orders"
+            android:parentActivityName="NavigationActivity"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name="ProductsActivity"
             android:label="@string/title_activity_product"
+            android:parentActivityName="CategoriesActivity"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name="ProductInfoActivity"
             android:label="@string/title_activity_add_product"
+            android:parentActivityName="ProductsActivity"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
@@ -109,6 +124,7 @@
         <activity
             android:name="OldOrdersInfoActivity"
             android:label="@string/title_activity_old_orders_info"
+            android:parentActivityName="OrdersActivity"
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
@@ -124,10 +140,5 @@
             android:label="Select language" >
         </activity>
     </application>
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />   
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
 
 </manifest>

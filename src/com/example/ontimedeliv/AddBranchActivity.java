@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -48,6 +49,9 @@ public class AddBranchActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_branch);
+		ActionBar actionBar = getActionBar();		 
+        actionBar.setDisplayHomeAsUpEnabled(true);
+		
 		shopId =((ontimedeliv) this.getApplication()).getShopId();
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);

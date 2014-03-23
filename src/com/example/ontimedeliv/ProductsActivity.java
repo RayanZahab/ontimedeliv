@@ -3,6 +3,7 @@ package com.example.ontimedeliv;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -46,6 +47,9 @@ public class ProductsActivity extends Activity {
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
 		setContentView(R.layout.activity_product);
+		ActionBar actionBar = getActionBar();		 
+        actionBar.setDisplayHomeAsUpEnabled(true);
+		
 		categoryId = ((ontimedeliv) this.getApplication()).getCategoryId();
 		if (categoryId!=0) {
 			branchId = ((ontimedeliv) this.getApplication()).getBranchId();

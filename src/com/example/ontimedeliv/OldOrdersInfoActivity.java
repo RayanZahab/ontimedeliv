@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -33,6 +34,8 @@ public class OldOrdersInfoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_old_orders_info);
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
