@@ -3,6 +3,7 @@ package com.example.ontimedeliv;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -35,6 +36,9 @@ public class UserInfoActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_info);
+		ActionBar actionBar = getActionBar();		 
+        actionBar.setDisplayHomeAsUpEnabled(true);
+		
 		Dialog = new ProgressDialog(UserInfoActivity.this);
 		Dialog.setCancelable(false);
 		if (getIntent().hasExtra("id")) {

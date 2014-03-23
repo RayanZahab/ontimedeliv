@@ -3,6 +3,7 @@ package com.example.ontimedeliv;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -25,12 +26,16 @@ public class OrdersActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		 setContentView(R.layout.activity_orders);
+		setContentView(R.layout.activity_orders);
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+
 		if (getIntent().hasExtra("old")
 				&& getIntent().getBooleanExtra("old", false)) {
 			old = getIntent().getBooleanExtra("old", false);
 		}
-		status = ((ontimedeliv) OrdersActivity.this.getApplication()).getOrderStatus();
+		status = ((ontimedeliv) OrdersActivity.this.getApplication())
+				.getOrderStatus();
 
 		this.Dialog = new ProgressDialog(OrdersActivity.this);
 		getOrders();
@@ -38,8 +43,10 @@ public class OrdersActivity extends Activity {
 
 	public void getOrders() {
 		String serverURL;
-		serverURL = new myURL(null, "orders", status, 30).getURL();		
-		new MyJs(Dialog, "setOrders", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
+		serverURL = new myURL(null, "orders", status, 30).getURL();
+		new MyJs(Dialog, "setOrders", this,
+				((ontimedeliv) this.getApplication()), "GET")
+				.execute(serverURL);
 	}
 
 	public void setOrders(String s, String error) {
@@ -50,7 +57,7 @@ public class OrdersActivity extends Activity {
 					.toString(), morders.get(i).getCount(), morders.get(i)
 					.getTotal(), morders.get(i).isNewCustomer()));
 		}
-		
+
 		dataAdapter = new OrdersAdapter(OrdersActivity.this,
 				R.layout.row_order, orderItems);
 
@@ -68,7 +75,8 @@ public class OrdersActivity extends Activity {
 				} else {
 					i = new Intent(getBaseContext(), OrderInfoActivity.class);
 				}
-				((ontimedeliv) OrdersActivity.this.getApplication()).setOrderId(orderItems.get(position).getId());
+				((ontimedeliv) OrdersActivity.this.getApplication())
+						.setOrderId(orderItems.get(position).getId());
 				startActivity(i);
 			}
 		});

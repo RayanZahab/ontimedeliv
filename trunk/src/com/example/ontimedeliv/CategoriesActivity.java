@@ -3,6 +3,7 @@ package com.example.ontimedeliv;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -45,6 +46,9 @@ public class CategoriesActivity extends Activity {
 	public void onCreate(Bundle savedInstancecat) {
 		super.onCreate(savedInstancecat);
 		setContentView(R.layout.activity_categories);
+		ActionBar actionBar = getActionBar();		 
+        actionBar.setDisplayHomeAsUpEnabled(true);
+		
 		this.Dialog = new ProgressDialog(CategoriesActivity.this);
 		Dialog.setCancelable(false);
 		

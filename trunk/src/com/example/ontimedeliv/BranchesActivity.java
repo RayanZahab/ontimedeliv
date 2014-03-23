@@ -1,8 +1,10 @@
 package com.example.ontimedeliv;
 
+
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -37,6 +39,9 @@ public class BranchesActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_branches);
+		 
+		ActionBar actionBar = getActionBar();		 
+        actionBar.setDisplayHomeAsUpEnabled(true);
 		shopId = ((ontimedeliv) this.getApplication()).getShopId();
 		Dialog = new ProgressDialog(BranchesActivity.this);
 		Dialog.setCancelable(false);
@@ -59,23 +64,18 @@ public class BranchesActivity extends Activity {
 			branchesItem.add(new Item(branches.get(i).getId(), picture,
 					branches.get(i).toString()));
 		}
-		// create an ArrayAdaptar from the String Array
 		dataAdapter = new MyCustomAdapter(this, R.layout.branches_list,
 				branchesItem);
 		ListView listView = (ListView) findViewById(R.id.list);
 
 		registerForContextMenu(listView);
-		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// When clicked, Navigate to the selected item
-				Toast.makeText(getApplicationContext(),
-						R.string.selected + branchesItem.get(position).getId(),
-						Toast.LENGTH_SHORT).show();
+				
 				Intent i;
 				try {
 					i = new Intent(getBaseContext(), Class
@@ -131,8 +131,8 @@ public class BranchesActivity extends Activity {
 								String serverURL = new myURL(null, "branches",
 										branchId, 0).getURL();
 								new MyJs(Dialog, "afterDelete",
-										BranchesActivity.this,((ontimedeliv) BranchesActivity.this.getApplication()), "DELETE")
-										.execute(serverURL);
+								BranchesActivity.this,((ontimedeliv) BranchesActivity.this.getApplication()), "DELETE")
+								.execute(serverURL);
 							}
 						}).setNegativeButton(android.R.string.no, null).show();
 	}
@@ -142,11 +142,8 @@ public class BranchesActivity extends Activity {
 	}
 
 	public void Edit(Item item) {
-		Intent i = new Intent(BranchesActivity.this, AddBranchActivity.class);
-		Toast.makeText(this, R.string.editing + item.getId(), Toast.LENGTH_SHORT)
-				.show();
-
-		i.putExtra("id", "" + item.getId());
+		Intent i = new Intent(BranchesActivity.this, AddBranchActivity.class);	
+		((ontimedeliv) BranchesActivity.this.getApplication()).setBranchId(item.getId());
 		startActivity(i);
 	}
 
@@ -163,17 +160,16 @@ public class BranchesActivity extends Activity {
 		return true;
 	}
 
-	@Override
-	public void onBackPressed() {
-		backToActivity(NavigationActivity.class);
-	}
-
+	
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+		switch (item.getItemId()) {
+		case R.id.action_search:
+			break;
+		case R.id.add:
 			Intent intent = new Intent(this, AddBranchActivity.class);
 			startActivity(intent);
+			break;
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 
