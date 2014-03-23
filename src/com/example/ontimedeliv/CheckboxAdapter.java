@@ -6,11 +6,9 @@ import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 public class CheckboxAdapter extends ArrayAdapter<Item> {
 
@@ -40,8 +38,6 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
-
-		Log.v("ConvertView", String.valueOf(position));
 
 		if (convertView == null) {
 

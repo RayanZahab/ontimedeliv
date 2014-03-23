@@ -24,9 +24,11 @@ public class ProductInfoActivity extends Activity {
 	int categoryId, branchId, shopId, productId;
 	Button upload;
 	int RESULT_LOAD_IMAGE = 1;
-	String picturePath;
+	String picturePath,picName;
 	ProgressDialog Dialog;
-	Product currentProduct=null;
+	Product currentProduct = null;
+	Photo uploaded;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,28 +36,14 @@ public class ProductInfoActivity extends Activity {
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
 		setContentView(R.layout.activity_add_product);
-		
-		if (getIntent().hasExtra("categoryId")) {
-			Bundle extras = getIntent().getExtras();
-			try {
-				categoryId = Integer.parseInt((String) extras
-						.getString("categoryId"));
-				branchId = Integer.parseInt((String) extras
-						.getString("branchId"));
-				shopId = Integer.parseInt((String) extras.getString("shopId"));
-			} catch (Exception e) {
-
-			}
-			if (getIntent().hasExtra("productId")) {
-				productId = Integer.parseInt((String) extras
-						.getString("productId"));
-				getProduct(productId);
-			}
-			else
-			{
-				getUnits();
-			}
-
+		branchId = ((ontimedeliv) this.getApplication()).getBranchId();
+		categoryId = ((ontimedeliv) this.getApplication()).getCategoryId();
+		productId = ((ontimedeliv) this.getApplication()).getProductId();
+		shopId = ((ontimedeliv) this.getApplication()).getShopId();
+		if (productId != 0) {
+			getProduct(productId);
+		} else {
+			getUnits();
 		}
 
 		upload = (Button) findViewById(R.id.uploadimage);
@@ -63,11 +51,9 @@ public class ProductInfoActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-
 				Intent i = new Intent(
 						Intent.ACTION_PICK,
 						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
 				startActivityForResult(i, RESULT_LOAD_IMAGE);
 			}
 		});
@@ -75,17 +61,19 @@ public class ProductInfoActivity extends Activity {
 
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
-		new MyJs(Dialog, "setProduct", this,((ontimedeliv) this.getApplication()), "GET",true).execute(serverURL);
+		new MyJs(Dialog, "setProduct", this,
+				((ontimedeliv) this.getApplication()), "GET", true)
+				.execute(serverURL);
 	}
 
-	public void setProduct(String s,String error) {
+	public void setProduct(String s, String error) {
 		currentProduct = new APIManager().getItemsByCategoryAndBranch(s).get(0);
 		TextView name = (TextView) findViewById(R.id.productName);
 		TextView desc = (TextView) findViewById(R.id.description);
 		TextView price = (TextView) findViewById(R.id.price);
 		name.setText(currentProduct.getName());
 		desc.setText(currentProduct.getDescription());
-		price.setText(""+currentProduct.getPrice());
+		price.setText("" + currentProduct.getPrice());
 		getUnits();
 	}
 
@@ -97,32 +85,31 @@ public class ProductInfoActivity extends Activity {
 		String name_str = name.getText().toString();
 		String desc_str = desc.getText().toString();
 		int price_val = Integer.parseInt(price.getText().toString());
-		Product p = new Product(0, price_val, name_str, desc_str, new Photo(0,
-				picturePath, ""), new Category(categoryId),
+		Product p = new Product(0, price_val, name_str, desc_str, 
+				uploaded, new Category(categoryId),
 				(Unit) unitsSP.getSelectedItem(), true, shopId);
 		addProduct(p);
 	}
 
 	public void addProduct(Product p) {
 		String serverURL;
-		if(currentProduct==null)
-		{
+		if (currentProduct == null) {
 			serverURL = new myURL("items", null, 0, 0).getURL();
+		} else {
+			serverURL = new myURL(null, "items", currentProduct.getId(), 0)
+					.getURL();
 		}
-		else
-		{
-			serverURL = new myURL( null,"items", currentProduct.getId(), 0).getURL();
-		}
-		new MyJs(Dialog, "afterCreation", this,((ontimedeliv) this.getApplication()), "Upload", (Object) p)
+		new MyJs(Dialog, "afterCreation", this,
+				((ontimedeliv) this.getApplication()), "Upload", (Object) p)
 				.execute(serverURL);
 	}
 
-	public void afterCreation(String s,String error) {
-		
-		  Intent i = new Intent(this, ProductsActivity.class);
-		  i.putExtra("categoryId", ""+categoryId); i.putExtra("branchId", ""+
-		  branchId); i.putExtra("shopId", ""+ shopId); startActivity(i);
-		 
+	public void afterCreation(String s, String error) {
+
+		Intent i = new Intent(this, ProductsActivity.class);
+		((ontimedeliv) ProductInfoActivity.this.getApplication()).setProductId(0);
+		startActivity(i);
+
 		Toast.makeText(getApplicationContext(), "created: " + s,
 				Toast.LENGTH_LONG).show();
 	}
@@ -139,15 +126,17 @@ public class ProductInfoActivity extends Activity {
 					filePathColumn, null, null, null);
 			cursor.moveToFirst();
 
-			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);			
 			picturePath = cursor.getString(columnIndex);
+			picName = cursor.getString(columnIndex);
+			uploaded = new Photo(picturePath,picName);
 			cursor.close();
-			Toast.makeText(getApplicationContext(), picturePath,
+			Toast.makeText(getApplicationContext(), uploaded.getName(),
 					Toast.LENGTH_LONG).show();
 		}
 	}
 
-	public void setUnits(String s,String error) {
+	public void setUnits(String s, String error) {
 		unitsSP = (Spinner) findViewById(R.id.units);
 		units = new APIManager().getUnits(s);
 		ArrayAdapter<Unit> dataAdapter = new ArrayAdapter<Unit>(this,
@@ -157,12 +146,13 @@ public class ProductInfoActivity extends Activity {
 		unitsSP.setAdapter(dataAdapter);
 
 		if (currentProduct != null) {
-			
+
 			for (int position = 0; position < units.size(); position++) {
-				Log.d("ray","ray spin: "+units.get(position).getId() + " == "+currentProduct.getUnit()
-						.getId());
-				if (units.get(position).getId() == currentProduct.getUnit().getId()) {
-					
+				Log.d("ray", "ray spin: " + units.get(position).getId()
+						+ " == " + currentProduct.getUnit().getId());
+				if (units.get(position).getId() == currentProduct.getUnit()
+						.getId()) {
+
 					unitsSP.setSelection(position);
 					break;
 				}
@@ -173,7 +163,9 @@ public class ProductInfoActivity extends Activity {
 	public void getUnits() {
 		// getUnits
 		String serverURL = new myURL("units", null, 0, 30).getURL();
-		new MyJs(Dialog, "setUnits", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
+		new MyJs(Dialog, "setUnits", this,
+				((ontimedeliv) this.getApplication()), "GET")
+				.execute(serverURL);
 
 	}
 
@@ -182,6 +174,12 @@ public class ProductInfoActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.add_product, menu);
 		return true;
+	}
+	@Override
+	public void onBackPressed() {
+		((ontimedeliv) ProductInfoActivity.this.getApplication()).setProductId(0);
+		Intent i = new Intent(ProductInfoActivity.this, ProductsActivity.class);
+		startActivity(i);
 	}
 
 }

@@ -76,6 +76,7 @@ public class ProductsActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		Intent i = new Intent(ProductsActivity.this, CategoriesActivity.class);
+		((ontimedeliv) ProductsActivity.this.getApplication()).setCategoryId(0);
 		startActivity(i);
 	}
 	public void submit(View v) {
@@ -163,47 +164,18 @@ public class ProductsActivity extends Activity {
 	
 	public void backToActivity(Class activity) {
 		Intent i = new Intent(ProductsActivity.this, activity);
-		i.putExtra("shopId", shopId);
 		startActivity(i);
 	}
 
 	public void Edit(Item item) {
 		Intent i = new Intent(ProductsActivity.this, ProductInfoActivity.class);
-		Toast.makeText(this, R.string.editing + item.getId(), Toast.LENGTH_SHORT)
-				.show();
-
-		i.putExtra("id", "" + item.getId());
+		((ontimedeliv) this.getApplication()).setProductId(item.getId());
 		startActivity(i);
 	}
 
 	public void afterActivate(String s,String error) {
 		Toast.makeText(getApplicationContext(), R.string.activate + s,
 				Toast.LENGTH_SHORT).show();
-	}
-	private void checkButtonClick() {
-
-		Button myButton = (Button) findViewById(R.id.submit);
-
-		myButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				StringBuffer responseText = new StringBuffer();
-
-				ArrayList<Item> stateList = dataAdapter.getCurrentList();
-
-				for (int i = 0; i < stateList.size(); i++) {
-					Item cat = stateList.get(i);
-
-					if (cat.isSelected()) {
-						responseText.append("\n" + cat.getTitle());
-					}
-				}
-
-				Toast.makeText(getApplicationContext(), responseText,
-						Toast.LENGTH_LONG).show();
-
-			}
-		});
 	}
 
 	public void getProducts() {
@@ -263,6 +235,7 @@ public class ProductsActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = new Intent(this, ProductInfoActivity.class);
+		((ontimedeliv) ProductsActivity.this.getApplication()).setProductId(0);
 		startActivity(intent);
 		return super.onOptionsItemSelected(item);
 	}
@@ -276,6 +249,7 @@ public class ProductsActivity extends Activity {
 
 	public void afterCreation(String s,String error) {
 		Intent i = new Intent(this, CategoriesActivity.class);
+		((ontimedeliv) ProductsActivity.this.getApplication()).setCategoryId(0);
 		startActivity(i);
 	}
 }

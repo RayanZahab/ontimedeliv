@@ -252,7 +252,7 @@ public class OrderInfoActivity extends Activity {
 				.getText().toString());
 		newOrder.setTotal(total);
 		new MyJs(Dialog, "updateStatus", this,
-				((ontimedeliv) this.getApplication()), "POST", newOrder)
+				((ontimedeliv) this.getApplication()), "PUT", newOrder)
 				.execute(serverURL);
 	}
 
@@ -263,7 +263,11 @@ public class OrderInfoActivity extends Activity {
 		// newOrder.setCustomer_id();
 		String serverURL = new myURL("change_status", "orders", orderId + "", 0)
 				.getURL();
-		// new MyJs(Dialog, "updateStatus", this,((ontimedeliv)
-		// this.getApplication()), "POST",newOrder).execute(serverURL);
+		new MyJs(Dialog, "done", this,((ontimedeliv)
+		 this.getApplication()), "PUT",newOrder).execute(serverURL);
+	}
+	public void done(String s, String error)
+	{
+		Log.d("rays","ray done: "+s);
 	}
 }

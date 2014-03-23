@@ -99,7 +99,6 @@ public final class R {
         public static final int forgotpass=0x7f090022;
         public static final int forgotpassword=0x7f090023;
         public static final int fromBtnn=0x7f090053;
-        public static final int imageView1=0x7f09005c;
         public static final int imgLogo=0x7f09003e;
         public static final int inputphone=0x7f090041;
         public static final int item_image=0x7f09004f;
@@ -115,6 +114,7 @@ public final class R {
         public static final int name=0x7f090049;
         public static final int nameLabel=0x7f090048;
         public static final int nameinput=0x7f090040;
+        public static final int newImg=0x7f09005c;
         public static final int noteinput=0x7f090032;
         public static final int notes=0x7f090031;
         public static final int numbofitems=0x7f09005b;

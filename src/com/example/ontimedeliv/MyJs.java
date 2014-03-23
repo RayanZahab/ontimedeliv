@@ -14,6 +14,9 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.ByteArrayBuffer;
@@ -26,6 +29,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
@@ -54,12 +59,15 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	private void MyJs() {
 		try {
 			token = global.getToken();
-		} catch (Exception exp) {
-			if (token == null) {
-				token = "274cb0a7508fb6dd90bb";
-			}
+		} catch (Exception exp) {			
 			Log.d("exep","excep"+exp.toString());
 		}
+	}
+	private boolean isNetworkAvailable() {
+	    ConnectivityManager connectivityManager 
+	          = (ConnectivityManager) mc.getApplicationContext().getSystemService(mc.getApplicationContext().CONNECTIVITY_SERVICE);
+	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+	    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 
 	public MyJs(ProgressDialog dialog2, String returnFunction, Activity m,
@@ -116,10 +124,17 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	}
 
 	protected void onPreExecute() {
-		Dialog.setMessage("Please wait..");
-		if (!this.returnFunction.equals("afterActivate")) {
-			Dialog.show();
-			timerDelayRemoveDialog(10000, Dialog);
+		if(!isNetworkAvailable())
+		{
+			cancel(true);
+			new GlobalM().bkToNav(mc);
+		}
+		else{
+			Dialog.setMessage("Please wait..");
+			if (!this.secondMethod) {
+				Dialog.show();
+				timerDelayRemoveDialog(10000, Dialog);
+			}
 		}
 	}
 
@@ -233,147 +248,9 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					Content = "done";
 					Error = null;
 				}
-			} else if (this.method.equals("Upload")) {
-				/*
-				 * Product p = (Product) this.objectToAdd; String path =
-				 * p.getPhoto().getUrl(); String lineEnd = "\r\n"; String
-				 * twoHyphens = "--"; String boundary = "*****"; FileInputStream
-				 * fileInputStream = new FileInputStream(path); // Open a HTTP
-				 * connection to the URL conn.setDoInput(true); // Allow Inputs
-				 * conn.setDoOutput(true); // Allow Outputs
-				 * conn.setUseCaches(false); // Don't use a Cached Copy
-				 * conn.setRequestMethod("POST");
-				 * conn.setRequestProperty("Connection", "Keep-Alive");
-				 * conn.setRequestProperty("ENCTYPE", "multipart/form-data");
-				 * conn.setRequestProperty("Content-Type",
-				 * "multipart/form-data; charset=UTF-8" );
-				 * conn.setRequestProperty("uploaded_file", "myFile");
-				 * 
-				 * DataOutputStream dos = new DataOutputStream(
-				 * conn.getOutputStream());
-				 * 
-				 * // dos.writeBytes(twoHyphens + boundary + lineEnd); String
-				 * formData = " --form name=\"" + p.getName() +
-				 * "\" --form shop_id=\"" + p.getShop_id() +
-				 * "\" --form category_id=\"" + p.getCategory().getId() +
-				 * "\" --form price=\"" + p.getPrice() + "\" --form unit_id=\""
-				 * + p.getUnit().getId() + "\" --form description=\"" +
-				 * p.getDescription() + "\" --form photo=\"@" + path + "\"";
-				 * Log.d("rays", "upload" + formData); dos.writeBytes(twoHyphens
-				 * + boundary + lineEnd);
-				 * dos.writeBytes("Content-Disposition: form-data; " +
-				 * formData); dos.writeBytes(lineEnd);
-				 * 
-				 * int bytesRead, bytesAvailable, bufferSize; byte[] buffer; int
-				 * maxBufferSize = 1 * 1024 * 1024; // create a buffer of
-				 * maximum size bytesAvailable = fileInputStream.available();
-				 * 
-				 * bufferSize = Math.min(bytesAvailable, maxBufferSize); buffer
-				 * = new byte[bufferSize];
-				 * 
-				 * // read file and write it into form... bytesRead =
-				 * fileInputStream.read(buffer, 0, bufferSize);
-				 * 
-				 * while (bytesRead > 0) {
-				 * 
-				 * dos.write(buffer, 0, bufferSize); bytesAvailable =
-				 * fileInputStream.available(); bufferSize =
-				 * Math.min(bytesAvailable, maxBufferSize); bytesRead =
-				 * fileInputStream.read(buffer, 0, bufferSize);
-				 * 
-				 * }
-				 * 
-				 * // send multipart form data necesssary after file data...
-				 * dos.writeBytes(lineEnd); dos.writeBytes(twoHyphens + boundary
-				 * + twoHyphens + lineEnd);
-				 * 
-				 * // Responses from the server (code and message) int
-				 * serverResponseCode = conn.getResponseCode(); String
-				 * serverResponseMessage = conn.getResponseMessage();
-				 * 
-				 * Log.i("uploadFile", "HTTP Response is : " +
-				 * serverResponseMessage + ": " + serverResponseCode);
-				 * fileInputStream.close(); dos.flush(); dos.close();
-				 */
+			} else if (this.method.equals("Upload")) {				
 				Product p = (Product) this.objectToAdd;
-				String path = p.getPhoto().getUrl();
-				String USER_AGENT = "Mozilla/5.0";
-				// URL obj = new URL(url);
-
-				// add reuqest header
-
-				// ===============================
-				// String myurl =
-				// "http://enigmatic-springs-5176.herokuapp.com/api/v1/items";
-				URL obj = url;// new URL(myurl);
-				HttpURLConnection con = (HttpURLConnection) obj
-						.openConnection();
-
-				// add reuqest header
-				con.setRequestMethod("POST");
-				con.setRequestProperty("User-Agent", USER_AGENT);
-				con.setRequestProperty("auth_token", token);
-				con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-
-				/*
-				 * Bitmap bm = BitmapFactory.decodeFile(p.getPhoto().getUrl());
-				 * ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				 * bm.compress(CompressFormat.JPEG, 75, bos); byte[] data =
-				 * bos.toByteArray();
-				 */
-
-				// String myurlParameters =
-				// "name=item-001&category_id=19&shop_id=37&price=12&unit_id=4&description=desc";
-				String urlParameters = "name=" + p.getName() + ""
-						+ "&category_id=" + p.getCategory().getId()
-						+ "&shop_id=" + p.getShop_id() + "&price="
-						+ p.getPrice() + "&unit_id=" + p.getUnit().getId()
-						+ "&description=" + p.getDescription() + "&photo=";
-				// Send post request
-				con.setDoOutput(true);
-				con.setUseCaches(false);
-				DataOutputStream wr = new DataOutputStream(
-						con.getOutputStream());
-				wr.writeBytes(urlParameters);
-
-				/*
-				 * FileInputStream fileInputStream = new FileInputStream(p
-				 * .getPhoto().getUrl()); int bytesAvailable =
-				 * fileInputStream.available();
-				 * 
-				 * int maxBufferSize = 1024 * 1024 * 1024; int bufferSize =
-				 * Math.min(bytesAvailable, maxBufferSize); byte[] buffer = new
-				 * byte[bufferSize];
-				 * 
-				 * // read file and write it into form... int bytesRead =
-				 * fileInputStream.read(buffer, 0, bufferSize);
-				 * 
-				 * while (bytesRead > 0) { wr.write(buffer, 0, bufferSize);
-				 * bytesAvailable = fileInputStream.available(); bufferSize =
-				 * Math.min(bytesAvailable, maxBufferSize); bytesRead =
-				 * fileInputStream.read(buffer, 0, bufferSize); }
-				 * fileInputStream.close();
-				 */
-
-				wr.flush();
-				wr.close();
-
-				int responseCode = con.getResponseCode();
-				System.out.println("\nSending 'POST' request to URL : "
-						+ url.toURI());
-				System.out.println("Post parameters : " + urlParameters);
-				System.out.println("Response Code : " + responseCode);
-
-				BufferedReader in = new BufferedReader(new InputStreamReader(
-						con.getInputStream()));
-				String inputLine;
-				StringBuffer response = new StringBuffer();
-
-				while ((inputLine = in.readLine()) != null) {
-					response.append(inputLine);
-				}
-				in.close();
-
+				Content = uploadProduct(p);
 			}
 		} catch (Exception ex) {
 			Error = ex.getLocalizedMessage();
@@ -424,5 +301,111 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	public void setGlobal(ontimedeliv global) {
 		this.global = global;
 	}
+	
+	private String uploadProduct(Product p) throws Exception {
+		
+		String USER_AGENT = "Mozilla/5.0";
+        String boundary = "*****";
+        String iFileName = "";
+        String fileUrl = "";
+        if(p.getPhoto()!=null)
+        {
+        	iFileName = p.getPhoto().getName();
+        	fileUrl = p.getPhoto().getUrl();
+        }
+        String lineEnd = "\r\n";
+         String twoHyphens = "--";
+        String url = "http://enigmatic-springs-5176.herokuapp.com/api/v1/items";
+        //String url = "http://localhost:3000/api/v1/items";
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+ 
+        //add reuqest header
+        con.setRequestMethod("POST");
+        con.setRequestProperty("User-Agent", USER_AGENT);
+        con.setRequestProperty("auth_token", token);
+        con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+        con.setRequestProperty("Connection", "Keep-Alive");
+        con.setRequestProperty("Content-Type", "multipart/form-data;boundary="+boundary);
+ 
+        
+        con.setDoInput(true);
+        con.setDoOutput(true);
+        con.setUseCaches(false);
+        DataOutputStream dos = new DataOutputStream(con.getOutputStream());
+       
+        Map<String,String> paramsVal = new HashMap<String,String>();
+        paramsVal.put("name", ""+p.getName());
+        paramsVal.put("category_id",""+p.getCategory().getId());
+        paramsVal.put("shop_id", ""+p.getShop_id());
+        paramsVal.put("price", ""+p.getPrice());
+        paramsVal.put("unit_id", ""+p.getUnit().getId());
+        paramsVal.put("photo_name", ""+iFileName);
+        paramsVal.put("description",""+ p.getDescription());
+        Iterator iterator = paramsVal.entrySet().iterator();
+        while (iterator.hasNext()) {
+        	Map.Entry mapEntry = (Map.Entry) iterator.next();
+
+    		dos.writeBytes(twoHyphens + boundary + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\""+mapEntry.getKey()+"\""+ lineEnd);
+            System.out.println("\n Content-Disposition: form-data; name=\""+mapEntry.getKey()+"\""+ lineEnd);
+            dos.writeBytes(lineEnd);
+            dos.writeBytes(mapEntry.getValue().toString());
+            System.out.println("\n :"+mapEntry.getValue().toString());
+            dos.writeBytes(lineEnd);
+    	}
+        
+        
+        if(p.getPhoto()!=null)
+        {
+        	dos.writeBytes(twoHyphens + boundary + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"photo\";filename=\"" + iFileName +"\"" + lineEnd);
+            dos.writeBytes(lineEnd);
+	        FileInputStream fileInputStream = new FileInputStream(fileUrl);
+	        int bytesAvailable = fileInputStream.available();
+	            
+	        int maxBufferSize = 1024;
+	        int bufferSize = Math.min(bytesAvailable, maxBufferSize);
+	        byte[ ] buffer = new byte[bufferSize];
+	
+	        // read file and write it into form...
+	        int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+	        System.out.println("\nRay:"+buffer);
+	
+	        while (bytesRead > 0)
+	        {
+	                dos.write(buffer, 0, bufferSize);
+	                bytesAvailable = fileInputStream.available();
+	                bufferSize = Math.min(bytesAvailable,maxBufferSize);
+	                bytesRead = fileInputStream.read(buffer, 0,bufferSize);
+	        }
+	        dos.writeBytes(lineEnd);
+	        dos.writeBytes( "\r\n--" + boundary + "--\r\n");
+	        // close streams
+	        fileInputStream.close();
+        }
+        dos.flush();
+
+        dos.close();
+ 
+        int responseCode = con.getResponseCode();
+        System.out.println("\nSending 'POST' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode+"->"+con.getResponseMessage());
+ 
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+ 
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+ 
+        //print result
+        System.out.println(response.toString());
+        return response.toString();
+ 
+    }
 
 }
