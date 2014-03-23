@@ -72,7 +72,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 							.findViewById(R.id.roworder);
 					main.setBackgroundColor(Color.parseColor("#FF9999"));
 				}
-	
+				holder.id = this.orderList.get(position).getId();
 				holder.quantity = (EditText) convertView
 						.findViewById(R.id.quantity);
 				holder.price = (TextView) convertView.findViewById(R.id.price);
@@ -134,6 +134,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 		this.totalTxt = total;
 	}
 	class ViewHolder {
+		int id;
 		CheckBox itemname;
 		TextView price;
 		EditText quantity;

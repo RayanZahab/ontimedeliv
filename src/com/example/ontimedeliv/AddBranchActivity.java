@@ -48,26 +48,19 @@ public class AddBranchActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_branch);
-		Bundle extras = getIntent().getExtras();
-		shopId = extras.getInt("shopId");
+		shopId =((ontimedeliv) this.getApplication()).getShopId();
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);
 		areasSp = (Spinner) findViewById(R.id.areasSP);
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
-
-		if (getIntent().hasExtra("id")) {
-			try {
-				branchId = Integer.parseInt((String) extras.getString("id"));
-				getCurrentBranch(branchId);
-
-				Button submit = (Button) findViewById(R.id.submit);
-				submit.setText("Update");
-			} catch (Exception e) {
-
-			}
+		branchId = ((ontimedeliv) this.getApplication()).getBranchId();
+		if(branchId != 0)
+		{
+			getCurrentBranch(branchId);
+			Button submit = (Button) findViewById(R.id.submit);
+			submit.setText("Update");
 		}
-
 		expListView = (ExpandableListView) findViewById(R.id.lvExp);
 		prepareListData();
 		listAdapter = new ExpandableListAdapter(this, listDataHeader,
@@ -78,9 +71,6 @@ public class AddBranchActivity extends Activity implements
 			@Override
 			public boolean onGroupClick(ExpandableListView parent, View v,
 					int groupPosition, long id) {
-				// Toast.makeText(getApplicationContext(),
-				// "Group Clicked " + listDataHeader.get(groupPosition),
-				// Toast.LENGTH_SHORT).show();
 				return false;
 			}
 		});
@@ -219,7 +209,6 @@ public class AddBranchActivity extends Activity implements
 
 	public void backToSelection(String s, String error) {
 		Intent intent = new Intent(this, BranchesActivity.class);
-		intent.putExtra("shopId", 37);
 		startActivity(intent);
 	}
 

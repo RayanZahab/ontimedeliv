@@ -789,7 +789,7 @@ public class APIManager {
 			if (!errorCheck(jsonResponse)) {
 				int id, count;
 				boolean is_fired, admin, preparer, delivery;
-				String name,  password, username, mobile, customer_str;
+				String name,  password, username, mobile, customer_str,status;
 				double total;
 				Customer customer;
 				if (jsonResponse.has("elements")) {
@@ -802,6 +802,8 @@ public class APIManager {
 
 						id = Integer.parseInt(jsonChildNode.optString("id")
 								.toString());
+						status = jsonChildNode.optString("status").toString();
+						
 						customer_str = jsonChildNode.optString("customer")
 								.toString();
 						if(customer_str!= null
@@ -826,6 +828,7 @@ public class APIManager {
 						count = Integer.parseInt(jsonChildNode.optString(
 								"count").toString());						
 						Order c = new Order(id, customer, total, count);
+						c.setStatus(status);
 						gridArray.add(c);
 
 					}
@@ -839,12 +842,13 @@ public class APIManager {
 							.optString("id").toString()), jsonResponse
 							.optString("name").toString(), jsonResponse
 							.optString("mobile").toString());
-
+					status = jsonResponse.optString("status").toString();
 					total = Double.parseDouble(jsonResponse.optString("total").toString());
 					count = Integer.parseInt(jsonResponse.optString("count")
 							.toString());
 
 					Order c = new Order(id, customer, total, count);
+					c.setStatus(status);
 					gridArray.add(c);
 				}
 
@@ -868,7 +872,7 @@ public class APIManager {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id, count,quantity;
-				String  customer_str,add_str,item_str;
+				String  customer_str,add_str,item_str,status;
 				double total;
 				Customer customer;
 				Address address;
@@ -884,8 +888,11 @@ public class APIManager {
 				count = Integer.parseInt(jsonResponse.optString("count")
 						.toString());
 				order.setCount(count);
-				add_str = jsonResponse.optString("address")
-						.toString();
+				Log.d("ray","status: "+jsonResponse.optString("status").toString());
+				status = jsonResponse.optString("status").toString();
+				order.setStatus(status);
+				Log.d("ray","status: "+order.getStatus());
+				add_str = jsonResponse.optString("address").toString();
 				if(add_str!= null
 					&& !add_str.isEmpty() && !jsonResponse.isNull("customer"))
 				{
@@ -901,6 +908,10 @@ public class APIManager {
 						.optString("floor").toString(), jsonAdd
 						.optString("details").toString());
 				order.setAddress(address);
+				}
+				else
+				{
+					order.setAddress(new Address(8));
 				}
 				customer_str = jsonResponse.optString("customer")
 						.toString();
@@ -927,7 +938,7 @@ public class APIManager {
 				JSONArray jsonItemsNode = jsonResponse
 						.optJSONArray("items");
 				int lengthJsonArr = jsonItemsNode.length();
-				Log.d("rays","ray api item count: "+lengthJsonArr);
+				
 				for (int i = 0; i < lengthJsonArr; i++) {
 					JSONObject jsonItemChildNode = jsonItemsNode
 							.getJSONObject(i);
@@ -945,7 +956,6 @@ public class APIManager {
 						Log.d("rays","ray api item: "+quantity+" - "+product.toString());
 						orderItems.add(orderItem);
 					}
-						
 				}
 				order.setOrderItems(orderItems);
 
@@ -1130,8 +1140,28 @@ public class APIManager {
 				}
 				else
 				{
-					jsonObjSend.put("roles", body);
+					//jsonObjSend.put("roles", body);
 				//	body.put("is_admin", c.getAdmin() ? 1 : 0);
+					JSONArray jsonArray = new JSONArray();
+					try {
+						
+						ArrayList<OrderItem> oItems = c.getOrderItems();
+						for (int i = 0; i < oItems.size(); i++) {
+							JSONObject itemObj = new JSONObject(); 
+							itemObj.put("id",oItems.get(i).getId());
+							itemObj.put("qty",oItems.get(i).getQuantity());
+							jsonArray.put(itemObj);
+						}
+						body.put("items", jsonArray);
+						body.put("count", jsonArray.length());
+						body.put("total", c.getTotal());
+						body.put("address_id", c.getAddress_id());
+						body.put("customer_id", c.getCustomer_id());
+						jsonObjSend.put("order", body);
+
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();

@@ -46,28 +46,22 @@ public class ProductsActivity extends Activity {
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
 		setContentView(R.layout.activity_product);
-		if (getIntent().hasExtra("categoryId")) {
-			Bundle extras = getIntent().getExtras();
-			try {
-				categoryId = Integer.parseInt((String) extras
-						.getString("categoryId"));
-				branchId = Integer.parseInt((String) extras
-						.getString("branchId"));
-				shopId = Integer.parseInt((String) extras.getString("shopId"));
-				Log.d("ray", "ray branch:" + categoryId);
+		categoryId = ((ontimedeliv) this.getApplication()).getCategoryId();
+		if (categoryId!=0) {
+			branchId = ((ontimedeliv) this.getApplication()).getBranchId();
+			shopId = ((ontimedeliv) this.getApplication()).getShopId();
 
-				url = new myURL("items",
-						"branches/" + branchId + "/categories", categoryId, 30)
-						.getURL();
-				Toast.makeText(getApplicationContext(),
-						"Selected: " + branchId, Toast.LENGTH_SHORT).show();
-			} catch (Exception e) {
-
-			}
+			url = new myURL("items",
+					"branches/" + branchId + "/categories", categoryId, 30)
+					.getURL();
+			Toast.makeText(getApplicationContext(),
+					"Selected: " + branchId, Toast.LENGTH_SHORT).show();
+			getProducts();
 		}
-		// Generate list View from ArrayList
-		getProducts();
-		//checkButtonClick();
+		else 
+		{
+			//go back to categories page!
+		}
 
 	}
 
@@ -82,9 +76,6 @@ public class ProductsActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		Intent i = new Intent(ProductsActivity.this, CategoriesActivity.class);
-		i.putExtra("shopId", "" + shopId);
-		i.putExtra("branchId", "" + branchId);
-		i.putExtra("categoryId", "" + categoryId);
 		startActivity(i);
 	}
 	public void submit(View v) {
@@ -250,11 +241,7 @@ public class ProductsActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(ProductsActivity.this,
 						ProductInfoActivity.class);
-				intent.putExtra("shopId", "" + shopId);
-				intent.putExtra("branchId", "" + branchId);
-				intent.putExtra("categoryId", "" + categoryId);
-				intent.putExtra("productId", ""
-						+ productItems.get(position).getId());
+				((ontimedeliv) ProductsActivity.this.getApplication()).setProductId(productItems.get(position).getId());
 				startActivity(intent);
 			}
 
@@ -276,9 +263,6 @@ public class ProductsActivity extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = new Intent(this, ProductInfoActivity.class);
-		intent.putExtra("shopId", "" + shopId);
-		intent.putExtra("branchId", "" + branchId);
-		intent.putExtra("categoryId", "" + categoryId);
 		startActivity(intent);
 		return super.onOptionsItemSelected(item);
 	}

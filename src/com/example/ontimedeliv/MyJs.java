@@ -67,6 +67,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		this.returnFunction = returnFunction;
 		this.Dialog = dialog2;
 		this.mc = m;
+		this.global = mg;
 		this.method = method;
 		MyJs();
 	}
@@ -84,6 +85,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		this.returnFunction = returnFunction;
 		this.Dialog = dialog2;
 		this.mc = m;
+		this.global = mg;
 		this.method = method;
 		this.secondMethod = sm;
 		MyJs();
@@ -94,6 +96,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		this.returnFunction = returnFunction;
 		this.Dialog = dialog2;
 		this.mc = m;
+		this.global = mg;
 		this.method = method;
 		this.objectToAdd = o;
 		this.setSecondMethod(secondMethod);

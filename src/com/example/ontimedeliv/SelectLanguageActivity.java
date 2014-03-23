@@ -1,6 +1,5 @@
 package com.example.ontimedeliv;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 import android.os.Bundle;
@@ -14,11 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Spinner;
-import android.widget.Switch;
 
 public class SelectLanguageActivity extends Activity {
 	MyCustomAdapter dataAdapter;
@@ -39,7 +34,6 @@ public class SelectLanguageActivity extends Activity {
 	public void select(View view){
 		Spinner language = (Spinner) findViewById(R.id.languageSP);
 		String lang = language.getSelectedItem().toString();
-		Log.d("rays","ray changed"+lang);
 		String lang_ab = "en";
 		if (!lang.equals("English")) {
 			lang_ab = "ar";
@@ -57,8 +51,6 @@ public class SelectLanguageActivity extends Activity {
 
 		SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
 		SharedPreferences.Editor editor = settings.edit();
-		//View.LAYOUT_DIRECTION_RTL
-		//view.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 		editor.putString("lang", lang_ab);
 		editor.commit();
 		Intent i = new Intent(SelectLanguageActivity.this, LoginActivity.class);

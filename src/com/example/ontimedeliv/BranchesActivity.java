@@ -37,8 +37,7 @@ public class BranchesActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_branches);
-		Bundle extras = getIntent().getExtras();
-		shopId = extras.getInt("shopId");
+		shopId = ((ontimedeliv) this.getApplication()).getShopId();
 		Dialog = new ProgressDialog(BranchesActivity.this);
 		Dialog.setCancelable(false);
 		getBranches();
@@ -82,10 +81,7 @@ public class BranchesActivity extends Activity {
 					i = new Intent(getBaseContext(), Class
 							.forName(getPackageName() + "."
 									+ "CategoriesActivity"));
-					i.putExtra("branchId", ""
-							+ branchesItem.get(position).getId());
-
-					i.putExtra("shopId", "" + shopId);
+					((ontimedeliv) BranchesActivity.this.getApplication()).setBranchId(branchesItem.get(position).getId());
 					startActivity(i);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -175,7 +171,6 @@ public class BranchesActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
 			Intent intent = new Intent(this, AddBranchActivity.class);
-			intent.putExtra("shopId", 37);
 			startActivity(intent);
 		}
 
@@ -184,7 +179,6 @@ public class BranchesActivity extends Activity {
 
 	public void backToActivity(Class activity) {
 		Intent i = new Intent(BranchesActivity.this, activity);
-		i.putExtra("shopId", shopId);
 		startActivity(i);
 	}
 

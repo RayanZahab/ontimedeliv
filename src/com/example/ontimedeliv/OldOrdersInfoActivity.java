@@ -28,7 +28,7 @@ public class OldOrdersInfoActivity extends Activity {
 	int orderId;
 	ProgressDialog Dialog;
 	AlertDialog alertDialog;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,50 +36,45 @@ public class OldOrdersInfoActivity extends Activity {
 
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
-		
 
-		Bundle extras = getIntent().getExtras();
-		if (getIntent().hasExtra("orderId")) {
-			try {
-				orderId = Integer
-						.parseInt((String) extras.getString("orderId"));
-				getCurrentOrder(orderId);
-				
-			} catch (Exception e) {
-
-			}
+		this.orderId = ((ontimedeliv) this.getApplication()).getOrderId();
+		if (orderId != 0) {
+			getCurrentOrder(orderId);
 		}
 
 	}
 
-	public void getPreparers(){
+	public void getPreparers() {
 		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
-		new MyJs(Dialog, "serPreparers", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
+		new MyJs(Dialog, "serPreparers", this,
+				((ontimedeliv) this.getApplication()), "GET")
+				.execute(serverURL);
 	}
 
-	public void serPreparers(String s,String error) {
+	public void serPreparers(String s, String error) {
 		ArrayList<User> userItems = new APIManager().getUsers(s);
-		
-		
+
 		prep = (Spinner) findViewById(R.id.preparer_spinner);
-		
+
 		ArrayAdapter<User> dataAdapter = new ArrayAdapter<User>(this,
 				android.R.layout.simple_spinner_item, userItems);
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		prep.setAdapter(dataAdapter);
 	}
-	public void getDelivery(){
+
+	public void getDelivery() {
 		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
-		new MyJs(Dialog, "setDeivery", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
+		new MyJs(Dialog, "setDeivery", this,
+				((ontimedeliv) this.getApplication()), "GET")
+				.execute(serverURL);
 	}
 
-	public void setDeivery(String s,String error) {
+	public void setDeivery(String s, String error) {
 		ArrayList<User> userItems = new APIManager().getUsers(s);
-		
-		
+
 		deliv = (Spinner) findViewById(R.id.delivery_Spinner);
-		
+
 		ArrayAdapter<User> dataAdapter = new ArrayAdapter<User>(this,
 				android.R.layout.simple_spinner_item, userItems);
 		dataAdapter
@@ -89,7 +84,9 @@ public class OldOrdersInfoActivity extends Activity {
 
 	public void getCurrentOrder(int orderId) {
 		String serverURL = new myURL(null, "orders", orderId, 30).getURL();
-		new MyJs(Dialog, "setOrderInfo", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
+		new MyJs(Dialog, "setOrderInfo", this,
+				((ontimedeliv) this.getApplication()), "GET")
+				.execute(serverURL);
 	}
 
 	public void setOrderInfo(String s, String error) {
@@ -101,18 +98,17 @@ public class OldOrdersInfoActivity extends Activity {
 		TextView totalTxt = (TextView) findViewById(R.id.total);
 		ListView listView = (ListView) findViewById(R.id.listView);
 		for (int i = 0; i < orderitem.size(); i++) {
-			_Item = new Item(orderitem.get(i).getId(),
-					orderitem.get(i).toString(),
-					orderitem.get(i).getQuantity(),
-					orderitem.get(i).getUnitPrice());
-			items.add(_Item);		
+			_Item = new Item(orderitem.get(i).getId(), orderitem.get(i)
+					.toString(), orderitem.get(i).getQuantity(), orderitem.get(
+					i).getUnitPrice());
+			items.add(_Item);
 			total = total + orderitem.get(i).getTotalPrice();
 		}
-		Log.d("ray","ray items"+orderitem.size());
+		Log.d("ray", "ray items" + orderitem.size());
 		dataAdapter = new OrderInfoAdapter(OldOrdersInfoActivity.this,
-				R.layout.row_old_order_info, items,true);
+				R.layout.row_old_order_info, items, true);
 		dataAdapter.setTotal(totalTxt);
-		
+
 		listView.setAdapter(dataAdapter);
 		Helper.getListViewSize(listView);
 
@@ -120,10 +116,12 @@ public class OldOrdersInfoActivity extends Activity {
 		TextView customerName = (TextView) findViewById(R.id.customerName);
 		customerName.append(" " + currentOrder.getCustomer().toString());
 		TextView customerAdd = (TextView) findViewById(R.id.customerAdd);
-		customerAdd.append(" This is add"/* currentOrder.getAddress().toString() */);
+		customerAdd
+				.append(" This is add"/* currentOrder.getAddress().toString() */);
 		getDelivery();
 		getPreparers();
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

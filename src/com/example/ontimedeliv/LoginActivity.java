@@ -1,6 +1,5 @@
 package com.example.ontimedeliv;
 
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,7 +17,6 @@ public class LoginActivity extends Activity {
 
 	private EditText username;
 	private EditText password;
-	int counter = 3;
 	boolean isChecked = false;
 	ProgressDialog Dialog;
 
@@ -26,28 +24,30 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
+
 		username = (EditText) findViewById(R.id.username);
 		password = (EditText) findViewById(R.id.password);
 
 		Dialog = new ProgressDialog(LoginActivity.this);
 		Dialog.setCancelable(false);
 		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
-		isChecked = settings1.getBoolean("isChecked", false);			
+		isChecked = settings1.getBoolean("isChecked", false);
 
 		if (isChecked) {
 			((ontimedeliv) this.getApplication()).setGlobals();
 			Intent i = new Intent(LoginActivity.this, NavigationActivity.class);
+			
 			startActivity(i);
 		}
-	}	
+	}
 
 	public void login(View view) {
 
 		String serverURL = new myURL(null, "users", "login", 0).getURL();
 		User user = new User(username.getText().toString(), password.getText()
 				.toString());
-		new MyJs(Dialog, "getLoggedIn", this,((ontimedeliv) this.getApplication()), "POST", (Object) user)
+		new MyJs(Dialog, "getLoggedIn", this,
+				((ontimedeliv) this.getApplication()), "POST", (Object) user)
 				.execute(serverURL);
 
 	}
@@ -64,15 +64,14 @@ public class LoginActivity extends Activity {
 			editor.putBoolean("admin", user.isIs_admin());
 			editor.putBoolean("preparer", user.isIs_preparer());
 			editor.putBoolean("delivery", user.isIs_delivery());
-			editor.putInt("shopId",37);
+			editor.putInt("shopId", 37);
 			editor.putInt("id", user.getId());
 
 			editor.commit();
-			
+
 			((ontimedeliv) this.getApplication()).setGlobals();
-			
+
 			Intent i = new Intent(this, NavigationActivity.class);
-			i.putExtra("shopId", 37);
 			startActivity(i);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.wrongcredentials,
@@ -102,6 +101,5 @@ public class LoginActivity extends Activity {
 							}
 						}).setNegativeButton("No", null).show();
 	}
-
 
 }
