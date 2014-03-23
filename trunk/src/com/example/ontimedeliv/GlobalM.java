@@ -17,7 +17,6 @@ public class GlobalM {
 	public void setSelected(Spinner sp, ArrayAdapter<?> list, Object o) {
 		
 		for (int position = 0; position < list.getCount(); position++) {
-			Log.d("glob","glob: "+ list.getItem(position).equals(o));
 			if (list.getItem(position).equals(o)) {
 				sp.setSelection(position);
 				return;
@@ -27,11 +26,13 @@ public class GlobalM {
 	}
 	public void bkToNav(Activity a)
 	{
+		
 		Intent i = new Intent(a, NavigationActivity.class);
 		Toast t=Toast.makeText(a.getApplicationContext(),R.string.no_net,
 				Toast.LENGTH_SHORT);
 		t.setGravity(Gravity.TOP, 0, 0);
 		t.show();
-		a.startActivity(i);
+		if(((ontimedeliv) a.getApplication()).getToken()!=null)
+			a.startActivity(i);
 	}
 }
