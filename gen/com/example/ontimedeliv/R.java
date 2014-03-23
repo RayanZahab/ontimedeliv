@@ -230,7 +230,7 @@ public final class R {
         public static final int deactivate=0x7f05003f;
         public static final int deletethiscat=0x7f050041;
         public static final int deletethisprod=0x7f050042;
-        public static final int delivery=0x7f050067;
+        public static final int delivery=0x7f050069;
         public static final int deliveryguy=0x7f050018;
         public static final int description=0x7f050022;
         public static final int details=0x7f05001a;
@@ -242,7 +242,7 @@ public final class R {
         public static final int forgotpass=0x7f050048;
         public static final int friday=0x7f050036;
         public static final int from=0x7f050006;
-        public static final int hello_world=0x7f050066;
+        public static final int hello_world=0x7f050068;
         public static final int invalednameentered=0x7f050039;
         public static final int item=0x7f050028;
         public static final int keeploggedin=0x7f050031;
@@ -250,9 +250,11 @@ public final class R {
         public static final int lblCountry=0x7f050050;
         public static final int lblDisp=0x7f050054;
         public static final int lblSubAcc=0x7f050055;
+        public static final int loding=0x7f050067;
         public static final int monday=0x7f050032;
         public static final int name=0x7f05001b;
         public static final int navigation=0x7f05002d;
+        public static final int no_net=0x7f050066;
         public static final int notes=0x7f050016;
         public static final int opening_hours=0x7f050011;
         public static final int ordercanceled=0x7f050047;

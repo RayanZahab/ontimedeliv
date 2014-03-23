@@ -126,5 +126,6 @@
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="title_activity_search_results">SearchResultsActivity</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
-
+    <string name="no_net">No net Connection</string>
+    <string name="loding">Loading please wait</string>
 </resources>
