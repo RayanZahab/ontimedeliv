@@ -27,7 +27,6 @@ public class OrderInfoActivity extends Activity {
 	Button cancel;
 	OrderInfoAdapter dataAdapter;
 	int orderId;
-	ProgressDialog Dialog;
 	AlertDialog alertDialog;
 	Order currentOrder;
 	GlobalM glob = new GlobalM();
@@ -38,11 +37,9 @@ public class OrderInfoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_info);
-		ActionBar actionBar = getActionBar();		 
-        actionBar.setDisplayHomeAsUpEnabled(true);
-		
-		Dialog = new ProgressDialog(this);
-		Dialog.setCancelable(false);
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+
 		((ontimedeliv) this.getApplication()).clear("order");
 		this.orderId = ((ontimedeliv) this.getApplication()).getOrderId();
 		if (orderId != 0) {
@@ -83,7 +80,7 @@ public class OrderInfoActivity extends Activity {
 							order.setCancel(true);
 							String serverURL = new myURL("cancel", "orders", 6,
 									0).getURL();
-							new MyJs(Dialog, "cancelOrder",
+							new MyJs("cancelOrder",
 									OrderInfoActivity.this,
 									((ontimedeliv) OrderInfoActivity.this
 											.getApplication()), "PUT",
@@ -116,7 +113,7 @@ public class OrderInfoActivity extends Activity {
 
 	public void getPreparers() {
 		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
-		new MyJs(Dialog, "serPreparers", this,
+		new MyJs("serPreparers", this,
 				((ontimedeliv) this.getApplication()), "GET")
 				.execute(serverURL);
 	}
@@ -137,7 +134,7 @@ public class OrderInfoActivity extends Activity {
 
 	public void getDelivery() {
 		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
-		new MyJs(Dialog, "setDeivery", this,
+		new MyJs("setDeivery", this,
 				((ontimedeliv) this.getApplication()), "GET")
 				.execute(serverURL);
 	}
@@ -173,7 +170,7 @@ public class OrderInfoActivity extends Activity {
 
 	public void getCurrentOrder(int orderId) {
 		String serverURL = new myURL(null, "orders", orderId, 30).getURL();
-		new MyJs(Dialog, "setOrderInfo", this,
+		new MyJs("setOrderInfo", this,
 				((ontimedeliv) this.getApplication()), "GET", true)
 				.execute(serverURL);
 	}
@@ -239,22 +236,21 @@ public class OrderInfoActivity extends Activity {
 					.findViewById(R.id.quantity)).getText().toString());
 			item = new OrderItem();
 			item.setQuantity(quantity);
-			Log.d("rays","rays item"+
-			 orderitem.get(i).getProduct().getId());
+			Log.d("rays", "rays item" + orderitem.get(i).getProduct().getId());
 			item.setId(orderitem.get(i).getProduct().getId());
 			newItems.add(item);
 		}
 		String serverURL = new myURL(null, "orders", orderId, 0).getURL();
 
 		Order newOrder = new Order();
-		newOrder.setId(currentOrder.getId()); 
+		newOrder.setId(currentOrder.getId());
 		newOrder.setOrderItems(newItems);
 		newOrder.setAddress_id(currentOrder.getAddress().getId());
 		newOrder.setCustomer_id(currentOrder.getCustomer().getId());
 		double total = Double.parseDouble(((TextView) findViewById(R.id.total))
 				.getText().toString());
 		newOrder.setTotal(total);
-		new MyJs(Dialog, "updateStatus", this,
+		new MyJs("updateStatus", this,
 				((ontimedeliv) this.getApplication()), "PUT", newOrder)
 				.execute(serverURL);
 	}
@@ -266,11 +262,11 @@ public class OrderInfoActivity extends Activity {
 		// newOrder.setCustomer_id();
 		String serverURL = new myURL("change_status", "orders", orderId + "", 0)
 				.getURL();
-		new MyJs(Dialog, "done", this,((ontimedeliv)
-		 this.getApplication()), "PUT",newOrder).execute(serverURL);
+		new MyJs("done", this, ((ontimedeliv) this.getApplication()),
+				"PUT", newOrder).execute(serverURL);
 	}
-	public void done(String s, String error)
-	{
-		Log.d("rays","ray done: "+s);
+
+	public void done(String s, String error) {
+		Log.d("rays", "ray done: " + s);
 	}
 }

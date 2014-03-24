@@ -1,49 +1,102 @@
 <resources>
+    <string name="app_name">Delivery</string>
+    <string name="action_settings">إعدادات</string>
+    <string name="username">اسم المستخدم:</string>
+    <string name="password">كلمة السر:</string>
+    <string name="submit">إرسال</string>
+    <string name="categories">الأصناف</string>
+    <string name="from">من:</string>
+    <string name="to">إلى:</string>
+    <string name="title_activity_navigation">القائمة الرئيسية</string>
+    <string name="title_activity_categories">الأصناف</string>
+    <string name="title_activity_branches">الفروع</string>
+    <string name="title_activity_add_branch">إضافة فرع</string>
+    <string name="title_activity_users">المستخدمين</string>
+    <string name="title_activity_order_info">معلومات الطلب</string>
+    <string name="add">إضافة</string>
+    <string name="personalinfo">المعلومات الشخصية:</string>
+    <string name="preparer">مسؤول التحضير</string>
+    <string name="opening_hours">ساعات الدوام</string>
+    <string name="clientinfo">معلومات المستخدم</string>
+    <string name="address">العنوان</string>
+    <string name="total">إجمالي</string>
+    <string name="status">حالة</string>
+    <string name="notes">ملاحظات:</string>
+    <string name="cancel">إلغاء</string>
+    <string name="deliveryguy">مسؤول التوصيل:</string>
+    <string name="preparerguy">مسؤول التحضير:</string>
+    <string name="details">تفاصيل</string>
+    <string name="name">الاسم:</string>
+    <string name="textButton">زر</string>
+    <string name="selectphoto">اختر الصورة</string>
+    <string name="slash">/</string>
+    <string name="priceunit">السعر / الوحدة</string>
+    <string name="producticon">صورة المنتج:</string>
+    <string name="estimatedtime">الوقت المتوقع:</string>
+    <string name="description">شرح بسيط:</string>
+    <string name="productname">اسم المنتج:</string>
+    <string name="selectlanguage">اختر اللغة</string>
+    <string name="buttonlogin">تسجيل الدخول</string>
+    <string name="products">المنتجات</string>
+    <string name="reason">السبب:</string>
+    <string name="item">المادة</string>
+    <string name="textview">TextView</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="estimation">الوقت المتبقي</string>
+    <string name="About">من نحن</string>
+    <string name="navigation">القائمة الرئيسية</string>
+    <string name="Logout">تسجيل خروج</string>
+    <string name="search_hint">ابحث هنا</string>
+    <string name="settings">اعدادات</string>
+    <string name="keeploggedin">تسجيل دخول تلقائي</string>
 
+    <string-array name="acc_type">
+        <item>Income</item>
+        <item>Expense</item>
+    </string-array>
+    <string-array name="languages">
+        <item>English</item>
+        <item>عربي</item>
+    </string-array>
+    <string-array name="country_arr">
+        <item>Afghanistan</item>
+        <item>Bangladesh</item>
+        <item>Bhutan</item>
+        <item>India</item>
+        <item>Maldives</item>
+        <item>Sri Lanka</item>
+        <item>Nepal</item>
+        <item>Pakistan</item>
+    </string-array>
 
-    <string name="app_name">OnTimeDeliv_ar</string>
-    <string name="action_settings">Settings_ar</string>
-    <string name="hello_world">Hello world!_ar</string>
-    <string name="username">User Name_ar</string>
-    <string name="password">Password_ar</string>
-    <string name="submit">Submit_ar</string>
-    <string name="categories">Categories_ar</string>
-    <string name="from">From:_ar</string>
-    <string name="to">To:_ar</string>
-    <string name="title_activity_navigation">NavigationActivity_ar</string>
-    <string name="title_activity_categories">CategoriesActivity_ar</string>
-    <string name="title_activity_branches">BranchesActivity_ar</string>
-    <string name="title_activity_add_branch">AddBranchActivity_ar</string>
-    <string name="title_activity_users">UsersActivity_ar</string>
-    <string name="title_activity_order_info">OrderInfoActivity_ar</string>
-    <string name="add">Add_ar</string>
-    <string name="personalinfo">Personal Information:_ar</string>
-    <string name="delivery">Delivery Guy_ar</string>
-    <string name="preparer">This is preparer_ar</string>
-    <string name="opening_hours">Opening Hours_ar</string>
-
-    <string name="select_location">Select Your location And Business Category_ar</string>
-    <string name="select_business">Select A Business Category_ar</string>
-    <string name="select_country">Select Country_ar</string>
-    <string name="select_city">Select City_ar</string>
-    <string name="select_area">Select Area_ar</string>
-    <string name="select">Confirm Selection_ar</string>
-    <string name="lblCountry">Select Country_ar</string>
-    <string name="lblAdd">Add New Mobile Name_ar</string>
-    <string name="btnAdd">Add Name_ar</string>
-    <string name="txtHint">HTC_ar</string>
-    <string name="lblDisp">Select Name_ar</string>
-    <string name="lblSubAcc">Select Account Head_ar</string>
-    <string name="title_activity_user_info">UserInfoActivity_ar</string>
-    <string name="title_activity_selection">Select Activity_ar</string>
-    <string name="country_name">Country Name_ar</string>
-    <string name="add_country">Add Country_ar</string>
-    <string name="add_city">Add City_ar</string>
-    <string name="add_area">Add Area_ar</string>
-    <string name="add_business">Add Business_ar</string>
-    <string name="title_activity_add_category">AddCategoryActivity_ar</string>
-    <string name="title_activity_orders">OrdersActivity_ar</string>
-    <string name="title_activity_product">ProductActivity_ar</string>
-    <string name="title_activity_add_product">AddProductActivity_ar</string>
+    <string name="select_location">اختر موقعك وصنف عملك</string>
+    <string name="select_business">اختر صنف العمل</string>
+    <string name="select_country">البلد</string>
+    <string name="select_city">المدينة</string>
+    <string name="select_area">المنطقة</string>
+    <string name="select">تأكيد اختيارك</string>
+    <string name="pick">اختر</string>
+    <string name="lblCountry">اختر البلد</string>
+    <string name="lblAdd">أضف اسم جوال جديد</string>
+    <string name="btnAdd">أضف اسم</string>
+    <string name="txtHint">HTC</string>
+    <string name="lblDisp">اختر اسم</string>
+    <string name="lblSubAcc">Select Account Head</string>
+    <string name="title_activity_user_info">معومات المستخدم</string>
+    <string name="title_activity_selection">Select Activity</string>
+    <string name="country_name">اسم البلد</string>
+    <string name="add_country">أضف بلد</string>
+    <string name="add_city">أضف مدينة</string>
+    <string name="add_area">أضف منطقة</string>
+    <string name="add_business">أضف صنف عمل</string>
+    <string name="title_activity_add_category">إضافة صنف</string>
+    <string name="title_activity_orders">الطلبات</string>
+    <string name="title_activity_product">المنتج</string>
+    <string name="title_activity_add_product">إضافة منتج جديد</string>
+    <string name="title_activity_old_orders">الطلبات السابقة</string>
+    <string name="title_activity_old_orders_info">معلومات الطلبات السابقة</string>
+    <string name="title_activity_splash_screen">القائمة الرئيسية</string>
+    <string name="title_activity_search_results">نتائج البحث</string>
+    <string name="title_activity_user_profile">معلومات المستخدم</string>
 
 </resources>

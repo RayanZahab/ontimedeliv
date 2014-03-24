@@ -27,8 +27,6 @@ public class OldOrdersInfoActivity extends Activity {
 	Button cancel;
 	OrderInfoAdapter dataAdapter;
 	int orderId;
-	ProgressDialog Dialog;
-	AlertDialog alertDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +35,6 @@ public class OldOrdersInfoActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		Dialog = new ProgressDialog(this);
-		Dialog.setCancelable(false);
 		((ontimedeliv) this.getApplication()).clear("order");
 		this.orderId = ((ontimedeliv) this.getApplication()).getOrderId();
 		if (orderId != 0) {
@@ -49,7 +45,7 @@ public class OldOrdersInfoActivity extends Activity {
 
 	public void getPreparers() {
 		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
-		new MyJs(Dialog, "serPreparers", this,
+		new MyJs("serPreparers", this,
 				((ontimedeliv) this.getApplication()), "GET")
 				.execute(serverURL);
 	}
@@ -68,7 +64,7 @@ public class OldOrdersInfoActivity extends Activity {
 
 	public void getDelivery() {
 		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
-		new MyJs(Dialog, "setDeivery", this,
+		new MyJs("setDeivery", this,
 				((ontimedeliv) this.getApplication()), "GET")
 				.execute(serverURL);
 	}
@@ -87,7 +83,7 @@ public class OldOrdersInfoActivity extends Activity {
 
 	public void getCurrentOrder(int orderId) {
 		String serverURL = new myURL(null, "orders", orderId, 30).getURL();
-		new MyJs(Dialog, "setOrderInfo", this,
+		new MyJs("setOrderInfo", this,
 				((ontimedeliv) this.getApplication()), "GET")
 				.execute(serverURL);
 	}

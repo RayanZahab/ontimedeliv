@@ -17,7 +17,6 @@ import android.widget.ListView;
 
 public class OrdersActivity extends Activity {
 	OrdersAdapter dataAdapter;
-	ProgressDialog Dialog;
 	ArrayList<Order> morders;
 	ArrayList<Item> orderItems = new ArrayList<Item>();
 	boolean old = false;
@@ -37,14 +36,13 @@ public class OrdersActivity extends Activity {
 		status = ((ontimedeliv) OrdersActivity.this.getApplication())
 				.getOrderStatus();
 
-		this.Dialog = new ProgressDialog(OrdersActivity.this);
 		getOrders();
 	}
 
 	public void getOrders() {
 		String serverURL;
 		serverURL = new myURL(null, "orders", status, 30).getURL();
-		new MyJs(Dialog, "setOrders", this,
+		new MyJs("setOrders", this,
 				((ontimedeliv) this.getApplication()), "GET")
 				.execute(serverURL);
 	}

@@ -36,7 +36,6 @@ public class ProductsActivity extends Activity {
 	ArrayList<Item> productItems;
 	String url;
 	DialogInterface dialog;
-	ProgressDialog Dialog;
 	ArrayList<Integer> selectedIds = new ArrayList<Integer>();
 	ArrayList<Integer> unselectedIds = new ArrayList<Integer>();
 	Activate myProd;
@@ -44,8 +43,6 @@ public class ProductsActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
 		super.onCreate(savedInstancecat);
-		Dialog = new ProgressDialog(this);
-		Dialog.setCancelable(false);
 		setContentView(R.layout.activity_product);
 		ActionBar actionBar = getActionBar();		 
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -105,7 +102,7 @@ public class ProductsActivity extends Activity {
 
 		String serverURL = new myURL("deactivate_items", "branches",
 				branchId, 0).getURL();
-		new MyJs(Dialog, "afterDeactivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myProd, true)
+		new MyJs("afterDeactivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myProd, true)
 				.execute(serverURL);
 	}
 	public void afterDeactivate(String s,String error) {
@@ -115,7 +112,7 @@ public class ProductsActivity extends Activity {
 		String serverURL = new myURL("activate_items", "branches",
 				branchId, 0).getURL();
 
-		new MyJs(Dialog, "afterActivate", this ,((ontimedeliv) this.getApplication()), "PUT", (Object) myProd)
+		new MyJs("afterActivate", this ,((ontimedeliv) this.getApplication()), "PUT", (Object) myProd)
 				.execute(serverURL);
 	}
 	
@@ -155,7 +152,7 @@ public class ProductsActivity extends Activity {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								String serverURL = new myURL(null, "branches",branchId, 0).getURL();
-								new MyJs(Dialog, "afterDelete",
+								new MyJs("afterDelete",
 								ProductsActivity.this,((ontimedeliv) ProductsActivity.this.getApplication()), "DELETE")
 								.execute(serverURL);
 							}
@@ -184,8 +181,7 @@ public class ProductsActivity extends Activity {
 
 	public void getProducts() {
 		String serverURL = this.url;
-		Log.d("rays", "ray url" + this.url);
-		new MyJs(Dialog, "setProducts", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
+		new MyJs("setProducts", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
 	}
 
 	public void setProducts(String s,String error) {
@@ -247,7 +243,7 @@ public class ProductsActivity extends Activity {
 	public void addCategory(String categoryName) {
 		String serverURL = new myURL("categories", null, 0, 0).getURL();
 		Category newCategory = new Category(0, categoryName, true, 0);
-		new MyJs(Dialog, "afterCreation", this,((ontimedeliv) this.getApplication()), "POST", (Object) newCategory)
+		new MyJs("afterCreation", this,((ontimedeliv) this.getApplication()), "POST", (Object) newCategory)
 				.execute(serverURL);
 	}
 

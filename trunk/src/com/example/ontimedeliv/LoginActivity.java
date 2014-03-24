@@ -3,7 +3,6 @@ package com.example.ontimedeliv;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.view.Menu;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +17,6 @@ public class LoginActivity extends Activity {
 	private EditText username;
 	private EditText password;
 	boolean isChecked = false;
-	ProgressDialog Dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +26,12 @@ public class LoginActivity extends Activity {
 		username = (EditText) findViewById(R.id.username);
 		password = (EditText) findViewById(R.id.password);
 
-		Dialog = new ProgressDialog(LoginActivity.this);
-		Dialog.setCancelable(false);
 		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
 		isChecked = settings1.getBoolean("isChecked", false);
 
 		if (isChecked) {
 			((ontimedeliv) this.getApplication()).setGlobals();
 			Intent i = new Intent(LoginActivity.this, NavigationActivity.class);
-			
 			startActivity(i);
 		}
 	}
@@ -46,7 +41,7 @@ public class LoginActivity extends Activity {
 		String serverURL = new myURL(null, "users", "login", 0).getURL();
 		User user = new User(username.getText().toString(), password.getText()
 				.toString());
-		new MyJs(Dialog, "getLoggedIn", this,
+		new MyJs("getLoggedIn", this,
 				((ontimedeliv) this.getApplication()), "POST", (Object) user)
 				.execute(serverURL);
 
@@ -79,6 +74,11 @@ public class LoginActivity extends Activity {
 		}
 	}
 
+	public void forgotpassword(View view)
+	{
+		Intent i = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+		startActivity(i);
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.login, menu);

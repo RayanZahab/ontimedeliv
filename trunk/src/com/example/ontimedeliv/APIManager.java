@@ -796,7 +796,7 @@ public class APIManager {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id, count;
-				boolean is_fired, admin, preparer, delivery,is_new;
+				boolean is_fired, admin, preparer, delivery, is_new;
 				String name, password, username, mobile, customer_str, status;
 				double total;
 				Customer customer;
@@ -811,7 +811,8 @@ public class APIManager {
 						id = Integer.parseInt(jsonChildNode.optString("id")
 								.toString());
 						status = jsonChildNode.optString("status").toString();
-						is_new = Boolean.parseBoolean(jsonChildNode.optString("is_new").toString());
+						is_new = Boolean.parseBoolean(jsonChildNode.optString(
+								"is_new").toString());
 
 						customer_str = jsonChildNode.optString("customer")
 								.toString();
@@ -850,7 +851,8 @@ public class APIManager {
 							.optString("name").toString(), jsonResponse
 							.optString("mobile").toString());
 					status = jsonResponse.optString("status").toString();
-					is_new = Boolean.parseBoolean(jsonResponse.optString("is_new").toString());
+					is_new = Boolean.parseBoolean(jsonResponse.optString(
+							"is_new").toString());
 					total = Double.parseDouble(jsonResponse.optString("total")
 							.toString());
 					count = Integer.parseInt(jsonResponse.optString("count")
