@@ -76,7 +76,6 @@
             
             <RelativeLayout 
                 android:id="@+id/forgotpass"
-                android:background="@drawable/topbottomborders"
                 android:layout_width="fill_parent"
                 android:layout_height="35dp"
                 android:clickable="true"
