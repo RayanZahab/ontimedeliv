@@ -22,17 +22,21 @@ public class NavigationActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_navigation);
+		((ontimedeliv) NavigationActivity.this.getApplication())
+				.clear("listing");
 		displayListView();
 	}
 
 	private void displayListView() {
 		ArrayList<Item> categories = new ArrayList<Item>();
-		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
-		boolean isAdmin = settings1.getBoolean("admin", false);
-		boolean isPreparer = settings1.getBoolean("preparer", false);
-		boolean isDelivery = settings1.getBoolean("delivery", false);
+		boolean isAdmin = ((ontimedeliv) NavigationActivity.this
+				.getApplication()).isAdmin();
+		boolean isPreparer = ((ontimedeliv) NavigationActivity.this
+				.getApplication()).isPrep();
+		boolean isDelivery = ((ontimedeliv) NavigationActivity.this
+				.getApplication()).isDelivery();
 		Item _Item;
-		
+
 		if (isPreparer || isDelivery || isAdmin) {
 
 			_Item = new Item(0, R.drawable.ic_launcher, "New Orders");
@@ -48,10 +52,10 @@ public class NavigationActivity extends Activity {
 			_Item = new Item(2, R.drawable.users, "Users");
 			_Item.setMethod("Users");
 			categories.add(_Item);
-			/*_Item = new Item(2, R.drawable.ic_launcher, "Selection");*/			
+			/* _Item = new Item(2, R.drawable.ic_launcher, "Selection"); */
 			_Item = new Item(3, R.drawable.ic_launcher, "Assigned Orders");
 			_Item.setMethod("Orders");
-			_Item.setOrderStatus("assigned");			
+			_Item.setOrderStatus("assigned");
 			categories.add(_Item);
 			_Item = new Item(4, R.drawable.ic_launcher, "Prepared Orders");
 			_Item.setMethod("Orders");
@@ -80,13 +84,14 @@ public class NavigationActivity extends Activity {
 				Intent i;
 				try {
 					i = new Intent(getBaseContext(), Class
-							.forName(getPackageName() + "."+ navitem.getMethod() + "Activity"));
+							.forName(getPackageName() + "."
+									+ navitem.getMethod() + "Activity"));
 					if (navitem.getId() == 5 || navitem.getId() == 6) {
 						i.putExtra("old", true);
 					}
-					if(navitem.getId()!=1 && navitem.getId()!=2)
-					{
-						((ontimedeliv) NavigationActivity.this.getApplication()).setOrderStatus(navitem.getOrderStatus());
+					if (navitem.getId() != 1 && navitem.getId() != 2) {
+						((ontimedeliv) NavigationActivity.this.getApplication())
+								.setOrderStatus(navitem.getOrderStatus());
 					}
 					startActivity(i);
 				} catch (ClassNotFoundException e) {
@@ -98,17 +103,20 @@ public class NavigationActivity extends Activity {
 	}
 
 	@Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.exit)
-                .setMessage(R.string.exitquest)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    	NavigationActivity.this.finishAffinity();
-                    }
-                }).setNegativeButton("No", null).show();
-    }
-	
+	public void onBackPressed() {
+		new AlertDialog.Builder(this)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setTitle(R.string.exit)
+				.setMessage(R.string.exitquest)
+				.setPositiveButton(android.R.string.yes,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								NavigationActivity.this.finishAffinity();
+							}
+						}).setNegativeButton(android.R.string.no, null).show();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

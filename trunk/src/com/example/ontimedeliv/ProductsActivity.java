@@ -49,7 +49,7 @@ public class ProductsActivity extends Activity {
 		setContentView(R.layout.activity_product);
 		ActionBar actionBar = getActionBar();		 
         actionBar.setDisplayHomeAsUpEnabled(true);
-		
+        ((ontimedeliv) this.getApplication()).clear("products");
 		categoryId = ((ontimedeliv) this.getApplication()).getCategoryId();
 		if (categoryId!=0) {
 			branchId = ((ontimedeliv) this.getApplication()).getBranchId();

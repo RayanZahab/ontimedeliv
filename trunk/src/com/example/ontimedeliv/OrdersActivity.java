@@ -29,7 +29,7 @@ public class OrdersActivity extends Activity {
 		setContentView(R.layout.activity_orders);
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-
+		((ontimedeliv) this.getApplication()).clear("orders");
 		if (getIntent().hasExtra("old")
 				&& getIntent().getBooleanExtra("old", false)) {
 			old = getIntent().getBooleanExtra("old", false);

@@ -38,7 +38,7 @@ public class UserInfoActivity extends Activity implements
 		setContentView(R.layout.activity_user_info);
 		ActionBar actionBar = getActionBar();		 
         actionBar.setDisplayHomeAsUpEnabled(true);
-		
+        ((ontimedeliv) this.getApplication()).clear("user");
 		Dialog = new ProgressDialog(UserInfoActivity.this);
 		Dialog.setCancelable(false);
 		if (getIntent().hasExtra("id")) {

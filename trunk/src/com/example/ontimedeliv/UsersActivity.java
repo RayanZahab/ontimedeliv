@@ -32,7 +32,7 @@ public class UsersActivity extends Activity {
 		setContentView(R.layout.activity_users);
 		ActionBar actionBar = getActionBar();		 
         actionBar.setDisplayHomeAsUpEnabled(true);
-		
+        ((ontimedeliv) this.getApplication()).clear("listing");
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
 		getUsers();

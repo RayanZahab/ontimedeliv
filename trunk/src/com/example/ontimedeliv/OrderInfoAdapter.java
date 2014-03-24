@@ -204,7 +204,6 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 			{
 				this.oldValue =Double.parseDouble(holder.price.getText().toString());
 				total=total-this.oldValue;
-				
 			}
 			else
 			{
@@ -216,8 +215,6 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before, int count) {
 			// What you want to do
-			
-			
 		}
 
 

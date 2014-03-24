@@ -128,4 +128,6 @@
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="no_net">No net Connection</string>
     <string name="loding">Loading please wait</string>
+    <string name="restore_pass">Restore</string>
+    
 </resources>

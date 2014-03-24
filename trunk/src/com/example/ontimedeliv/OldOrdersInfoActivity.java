@@ -39,7 +39,7 @@ public class OldOrdersInfoActivity extends Activity {
 
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
-
+		((ontimedeliv) this.getApplication()).clear("order");
 		this.orderId = ((ontimedeliv) this.getApplication()).getOrderId();
 		if (orderId != 0) {
 			getCurrentOrder(orderId);
