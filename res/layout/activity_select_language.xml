@@ -44,6 +44,6 @@
             android:layout_marginTop="15dp"
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/arabic"
-            android:src="@drawable/sublogo" />
+            android:src="@drawable/moto" />
     
 </RelativeLayout>

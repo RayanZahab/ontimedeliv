@@ -40,7 +40,6 @@ public class CategoriesActivity extends Activity {
 	ArrayList<Integer> selectedIds = new ArrayList<Integer>();
 	ArrayList<Integer> unselectedIds = new ArrayList<Integer>();
 	Activate myCat;
-	ProgressDialog Dialog;
 
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
@@ -49,8 +48,6 @@ public class CategoriesActivity extends Activity {
 		ActionBar actionBar = getActionBar();		 
         actionBar.setDisplayHomeAsUpEnabled(true);
 		
-		this.Dialog = new ProgressDialog(CategoriesActivity.this);
-		Dialog.setCancelable(false);
 		((ontimedeliv) this.getApplication()).clear("categories");
 		this.branchId = ((ontimedeliv) this.getApplication()).getBranchId();
 		this.shopId = ((ontimedeliv) this.getApplication()).getShopId();
@@ -90,7 +87,7 @@ public class CategoriesActivity extends Activity {
 
 		String serverURL = new myURL("deactivate_categories", "branches",
 				branchId, 0).getURL();
-		new MyJs(Dialog, "afterDeactivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myCat, true)
+		new MyJs("afterDeactivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myCat, true)
 				.execute(serverURL);
 	}
 
@@ -101,7 +98,7 @@ public class CategoriesActivity extends Activity {
 		String serverURL = new myURL("activate_categories", "branches",
 				branchId, 0).getURL();
 
-		new MyJs(Dialog, "afterActivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myCat)
+		new MyJs( "afterActivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myCat)
 				.execute(serverURL);
 	}
 
@@ -113,7 +110,7 @@ public class CategoriesActivity extends Activity {
 	public void getCategories() {
 		String serverURL = this.url;
 
-		new MyJs(Dialog, "setCategories", this,((ontimedeliv) CategoriesActivity.this.getApplication()), "GET").execute(serverURL);
+		new MyJs("setCategories", this,((ontimedeliv) CategoriesActivity.this.getApplication()), "GET").execute(serverURL);
 	}
 
 	public void setCategories(String s, String error) {
@@ -290,7 +287,7 @@ public class CategoriesActivity extends Activity {
 	public void addCategory(String categoryName, int shopId) {
 		String serverURL = new myURL("categories", null, 0, 0).getURL();
 		Category newCategory = new Category(0, categoryName, true, shopId);
-		new MyJs(Dialog, "afterCreation", this,((ontimedeliv) this.getApplication()), "POST", (Object) newCategory)
+		new MyJs("afterCreation", this,((ontimedeliv) this.getApplication()), "POST", (Object) newCategory)
 				.execute(serverURL);
 	}
 
@@ -299,7 +296,7 @@ public class CategoriesActivity extends Activity {
 				.getURL();
 		Category newCategory = new Category(categoryId, categoryName, true,
 				shopId);
-		new MyJs(Dialog, "afterCreation", this,((ontimedeliv) this.getApplication()), "PUT", (Object) newCategory)
+		new MyJs("afterCreation", this,((ontimedeliv) this.getApplication()), "PUT", (Object) newCategory)
 				.execute(serverURL);
 	}
 
@@ -320,7 +317,7 @@ public class CategoriesActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "categories",
 										catId, 0).getURL();
-								new MyJs(Dialog, "afterDelete",
+								new MyJs("afterDelete",
 										CategoriesActivity.this,((ontimedeliv) CategoriesActivity.this.getApplication()), "DELETE")
 										.execute(serverURL);
 							}

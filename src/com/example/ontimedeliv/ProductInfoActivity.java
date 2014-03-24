@@ -26,7 +26,6 @@ public class ProductInfoActivity extends Activity {
 	Button upload;
 	int RESULT_LOAD_IMAGE = 1;
 	String picturePath,picName;
-	ProgressDialog Dialog;
 	Product currentProduct = null;
 	Photo uploaded;
 	
@@ -34,8 +33,6 @@ public class ProductInfoActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Dialog = new ProgressDialog(this);
-		Dialog.setCancelable(false);
 		setContentView(R.layout.activity_add_product);
 		ActionBar actionBar = getActionBar();		 
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -65,7 +62,7 @@ public class ProductInfoActivity extends Activity {
 
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
-		new MyJs(Dialog, "setProduct", this,
+		new MyJs("setProduct", this,
 				((ontimedeliv) this.getApplication()), "GET", true)
 				.execute(serverURL);
 	}
@@ -103,7 +100,7 @@ public class ProductInfoActivity extends Activity {
 			serverURL = new myURL(null, "items", currentProduct.getId(), 0)
 					.getURL();
 		}
-		new MyJs(Dialog, "afterCreation", this,
+		new MyJs("afterCreation", this,
 				((ontimedeliv) this.getApplication()), "Upload", (Object) p)
 				.execute(serverURL);
 	}
@@ -167,7 +164,7 @@ public class ProductInfoActivity extends Activity {
 	public void getUnits() {
 		// getUnits
 		String serverURL = new myURL("units", null, 0, 30).getURL();
-		new MyJs(Dialog, "setUnits", this,
+		new MyJs("setUnits", this,
 				((ontimedeliv) this.getApplication()), "GET")
 				.execute(serverURL);
 

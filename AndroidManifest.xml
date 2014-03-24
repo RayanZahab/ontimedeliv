@@ -8,7 +8,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.SEND_SMS" />
+	
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="19" />
@@ -117,7 +119,7 @@
             android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
-            android:name="OldOrdersActivity"
+            android:name="ForgotPasswordActivity"
             android:label="@string/title_activity_old_orders"
             android:windowSoftInputMode="adjustNothing" >
         </activity>

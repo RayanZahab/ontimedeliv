@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -18,7 +17,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 public class UserInfoActivity extends Activity implements
 		OnItemSelectedListener {
@@ -30,7 +28,6 @@ public class UserInfoActivity extends Activity implements
 	User currentUser;
 	int branchId, userId = 0;
 	ArrayList<Branch> branches;
-	ProgressDialog Dialog;
 	GlobalM glob= new GlobalM();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +36,6 @@ public class UserInfoActivity extends Activity implements
 		ActionBar actionBar = getActionBar();		 
         actionBar.setDisplayHomeAsUpEnabled(true);
         ((ontimedeliv) this.getApplication()).clear("user");
-		Dialog = new ProgressDialog(UserInfoActivity.this);
-		Dialog.setCancelable(false);
 		if (getIntent().hasExtra("id")) {
 			Bundle extras = getIntent().getExtras();
 			try {
@@ -83,7 +78,7 @@ public class UserInfoActivity extends Activity implements
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
 		Log.d("rays", "ray url" + url);
-		new MyJs(Dialog, "setUserInfo", this,((ontimedeliv) this.getApplication()), "GET", true).execute(serverURL);
+		new MyJs("setUserInfo", this,((ontimedeliv) this.getApplication()), "GET", true).execute(serverURL);
 	}
 
 	public void setUserInfo(String s, String error) {
@@ -108,7 +103,7 @@ public class UserInfoActivity extends Activity implements
 
 	public void getBranches() {
 		String serverURL = new myURL("branches", "shops", 37, 30).getURL();
-		new MyJs(Dialog, "setBranches", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
+		new MyJs("setBranches", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
 	}
 
 	public void setBranches(String s, String error) {
@@ -155,7 +150,7 @@ public class UserInfoActivity extends Activity implements
 					delivery.isChecked());
 
 		}
-		new MyJs(Dialog, "setRoles", this,((ontimedeliv) this.getApplication()), method, (Object) user, true)
+		new MyJs("setRoles", this,((ontimedeliv) this.getApplication()), method, (Object) user, true)
 				.execute(serverURL);
 
 	}
@@ -175,7 +170,7 @@ public class UserInfoActivity extends Activity implements
 			role.setPreparer(preparer.isChecked());
 			role.setAdmin(admin.isChecked());
 			role.setDelivery(delivery.isChecked());
-			new MyJs(Dialog, "afterRoles", this,((ontimedeliv) this.getApplication()), "POST", (Object) role)
+			new MyJs("afterRoles", this,((ontimedeliv) this.getApplication()), "POST", (Object) role)
 					.execute(makePreparerURL);
 		}
 	}

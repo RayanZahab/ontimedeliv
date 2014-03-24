@@ -32,7 +32,6 @@ public class BranchesActivity extends Activity {
 	MyCustomAdapter dataAdapter = null;
 	ArrayList<Branch> branches;
 	ArrayList<Item> branchesItem;
-	ProgressDialog Dialog;
 	int shopId;
 
 	@Override
@@ -44,15 +43,13 @@ public class BranchesActivity extends Activity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         ((ontimedeliv) this.getApplication()).clear("listing");
 		shopId = ((ontimedeliv) this.getApplication()).getShopId();
-		Dialog = new ProgressDialog(BranchesActivity.this);
-		Dialog.setCancelable(false);
 		getBranches();
 
 	}
 
 	public void getBranches() {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		new MyJs(Dialog, "setBranches", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
+		new MyJs("setBranches", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
 	}
 
 	public void setBranches(String s, String error) {
@@ -131,7 +128,7 @@ public class BranchesActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "branches",
 										branchId, 0).getURL();
-								new MyJs(Dialog, "afterDelete",
+								new MyJs("afterDelete",
 								BranchesActivity.this,((ontimedeliv) BranchesActivity.this.getApplication()), "DELETE")
 								.execute(serverURL);
 							}
