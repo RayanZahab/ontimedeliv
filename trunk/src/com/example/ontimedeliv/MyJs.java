@@ -130,7 +130,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			new GlobalM().bkToNav(mc);
 		}
 		else{
-			Dialog.setMessage(String.valueOf(R.string.loding));
+			Dialog.setMessage(mc.getApplicationContext().getString(R.string.loding));
 			if (!this.secondMethod) {
 				Dialog.show();
 				timerDelayRemoveDialog(10000, Dialog);

@@ -32,15 +32,16 @@ public class SelectLanguageActivity extends Activity {
 		}
 	}
 	public void select(View view){
-		Spinner language = (Spinner) findViewById(R.id.languageSP);
-		String lang = language.getSelectedItem().toString();
 		String lang_ab = "en";
-		if (!lang.equals("English")) {
-			lang_ab = "ar";
-			
-		} else {
-			lang_ab = "en";
-		}
+		 switch(view.getId()) {
+         case R.id.english:
+        	 lang_ab = "en";
+        	 break;
+         case R.id.arabic:
+        	 lang_ab = "ar";
+        	 break;        		 
+		 }
+		
 		Locale locale = new Locale(lang_ab);
 		Locale.setDefault(locale);
 		Configuration config = new Configuration();
