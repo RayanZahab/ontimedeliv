@@ -51,7 +51,7 @@ public class CategoriesActivity extends Activity {
 		
 		this.Dialog = new ProgressDialog(CategoriesActivity.this);
 		Dialog.setCancelable(false);
-		
+		((ontimedeliv) this.getApplication()).clear("categories");
 		this.branchId = ((ontimedeliv) this.getApplication()).getBranchId();
 		this.shopId = ((ontimedeliv) this.getApplication()).getShopId();
 		url = new myURL("categories", "branches", branchId, 30).getURL();

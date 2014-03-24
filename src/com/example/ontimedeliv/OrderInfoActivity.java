@@ -43,7 +43,7 @@ public class OrderInfoActivity extends Activity {
 		
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
-
+		((ontimedeliv) this.getApplication()).clear("order");
 		this.orderId = ((ontimedeliv) this.getApplication()).getOrderId();
 		if (orderId != 0) {
 			getCurrentOrder(orderId);
@@ -197,7 +197,7 @@ public class OrderInfoActivity extends Activity {
 			total = total + orderitem.get(i).getTotalPrice();
 		}
 		dataAdapter = new OrderInfoAdapter(OrderInfoActivity.this,
-				R.layout.row_order_info, SPitems, true);
+				R.layout.row_order_info, SPitems, false);
 		dataAdapter.setTotal(totalTxt);
 
 		ListView listView = (ListView) findViewById(R.id.listView);

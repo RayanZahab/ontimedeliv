@@ -58,6 +58,7 @@ public class AddBranchActivity extends Activity implements
 		areasSp = (Spinner) findViewById(R.id.areasSP);
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
+		((ontimedeliv) this.getApplication()).clear("branch");
 		branchId = ((ontimedeliv) this.getApplication()).getBranchId();
 		if(branchId != 0)
 		{

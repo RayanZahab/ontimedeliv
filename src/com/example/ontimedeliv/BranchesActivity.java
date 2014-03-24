@@ -42,6 +42,7 @@ public class BranchesActivity extends Activity {
 		 
 		ActionBar actionBar = getActionBar();		 
         actionBar.setDisplayHomeAsUpEnabled(true);
+        ((ontimedeliv) this.getApplication()).clear("listing");
 		shopId = ((ontimedeliv) this.getApplication()).getShopId();
 		Dialog = new ProgressDialog(BranchesActivity.this);
 		Dialog.setCancelable(false);
