@@ -1,110 +1,109 @@
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    	xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/myred"
+    android:fillViewport="true"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_horizontal_margin" >
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:background="@drawable/myred"
-	    android:paddingBottom="@dimen/activity_vertical_margin"
-	    android:paddingLeft="@dimen/activity_horizontal_margin"
-	    android:paddingRight="@dimen/activity_horizontal_margin"
-	    android:paddingTop="@dimen/activity_horizontal_margin"  >
+        android:layout_height="wrap_content"
+        android:background="@drawable/myborder"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin" >
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/myedittext"
+            android:ellipsize="start"
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="text"
+            android:paddingLeft="5dp"
+            android:textColor="#bdbdbd"
+            android:textColorHint="#bdbdbd" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignLeft="@+id/username"
+            android:layout_alignRight="@+id/username"
+            android:layout_below="@+id/username"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/myedittext"
+            android:ellipsize="start"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingLeft="5dp"
+            android:textColor="#bdbdbd"
+            android:textColorHint="#bdbdbd" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/password"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/mybutton"
+            android:onClick="login"
+            android:text="@string/buttonlogin"
+            android:textColor="#a2a2a2" />
+
+        <CheckBox
+            android:id="@+id/keeploggedin"
+            style="@style/mytextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="@string/keeploggedin"
+            android:textColor="#818281"
+            android:textSize="18sp" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/myborder"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:id="@+id/forgotpass"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/keeploggedin"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:onClick="forgotpassword" >
 
-            <EditText
-                android:id="@+id/username"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/myedittext"
-                android:ellipsize="start"
-                android:hint="@string/username"
-                android:ems="10"
-                android:textColorHint="#bdbdbd"
-                android:textColor="#bdbdbd"
-                android:paddingLeft="5dp"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_alignLeft="@+id/username"
-                android:layout_alignRight="@+id/username"
-                android:layout_below="@+id/username"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/myedittext"
-                android:ellipsize="start"
-                android:hint="@string/password"
-                android:textColorHint="#bdbdbd"
-                android:textColor="#bdbdbd"
-                android:paddingLeft="5dp"
-                android:ems="10"
-                android:inputType="textPassword" />
-                
-
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/password"
-                android:textColor="#a2a2a2"
-                android:layout_marginTop="22dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/mybutton"
-                android:onClick="login"
-                android:text="@string/buttonlogin"/>
-            
-            <CheckBox
-                android:id="@+id/keeploggedin"
+            <TextView
+                android:id="@+id/forgotpassword"
                 style="@style/mytextview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/button1"
-                android:layout_centerHorizontal="true"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="30dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/forgotpass"
                 android:textColor="#818281"
-                android:textSize="18sp"
-                android:layout_marginTop="15dp"
-                android:text="@string/keeploggedin" />
-            
-            <RelativeLayout 
-                android:id="@+id/forgotpass"
-                android:layout_width="fill_parent"
-                android:layout_height="35dp"
-                android:clickable="true"
-                android:onClick="forgotpassword"
-                android:layout_below="@+id/keeploggedin"
-		        android:layout_marginTop="20dp">
-                
-                <TextView
-		            android:id="@+id/forgotpassword"
-		            style="@style/mytextview"
-		            android:layout_width="wrap_content"
-		            android:layout_height="match_parent"
-		            android:layout_alignParentLeft="true"
-		            android:layout_marginLeft="30dp"
-		            android:paddingTop="5dp"
-		            android:paddingBottom="5dp"
-		            android:text="@string/forgotpass"
-		            android:textColor="#818281"
-                	android:textSize="18sp"/>
-                
-                <ImageView 
-                    android:id="@+id/rightarrow"
-                    android:src="@drawable/rightarrow"
-                    android:layout_width="wrap_content"
-		            android:layout_height="match_parent"
-		            android:layout_alignParentRight="true"
-		            android:layout_marginRight="30dp"
-		            android:layout_gravity="center_vertical"/>
-            </RelativeLayout>
+                android:textSize="18sp" />
 
+            <ImageView
+                android:id="@+id/rightarrow"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="30dp"
+                android:src="@drawable/rightarrow" />
         </RelativeLayout>
-    </ScrollView>
+    </RelativeLayout>
+
+</ScrollView>
