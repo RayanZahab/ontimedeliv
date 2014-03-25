@@ -66,6 +66,10 @@ public class AddBranchActivity extends Activity implements
 			Button submit = (Button) findViewById(R.id.submit);
 			submit.setText("Update");
 		}
+		else
+		{
+			getCountries();
+		}
 		expListView = (ExpandableListView) findViewById(R.id.lvExp);
 		prepareListData();
 		listAdapter = new ExpandableListAdapter(this, listDataHeader,

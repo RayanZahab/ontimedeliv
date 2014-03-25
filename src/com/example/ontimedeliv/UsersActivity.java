@@ -24,7 +24,6 @@ public class UsersActivity extends Activity {
 	MyCustomAdapter dataAdapter;
 	ArrayList<Item> usersItem = new ArrayList<Item>();
 	ArrayList<User> users = new ArrayList<User>();
-	ProgressDialog Dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +32,6 @@ public class UsersActivity extends Activity {
 		ActionBar actionBar = getActionBar();		 
         actionBar.setDisplayHomeAsUpEnabled(true);
         ((ontimedeliv) this.getApplication()).clear("listing");
-		Dialog = new ProgressDialog(this);
-		Dialog.setCancelable(false);
 		getUsers();
 
 	}

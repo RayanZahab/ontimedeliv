@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,33 +38,33 @@ public class NavigationActivity extends Activity {
 
 		if (isPreparer || isDelivery || isAdmin) {
 
-			_Item = new Item(0, R.drawable.ic_launcher, "New Orders");
+			_Item = new Item(0, R.drawable.ic_launcher, getString(R.string.new_orders));
 			_Item.setMethod("Orders");
 			_Item.setOrderStatus("opened");
 			categories.add(_Item);
 		}
 		if (isAdmin) {
 
-			_Item = new Item(1, R.drawable.branches, "Branches");
+			_Item = new Item(1, R.drawable.branches, getString(R.string.branches));
 			_Item.setMethod("Branches");
 			categories.add(_Item);
-			_Item = new Item(2, R.drawable.users, "Users");
+			_Item = new Item(2, R.drawable.users, getString(R.string.users));
 			_Item.setMethod("Users");
 			categories.add(_Item);
-			/* _Item = new Item(2, R.drawable.ic_launcher, "Selection"); */
-			_Item = new Item(3, R.drawable.ic_launcher, "Assigned Orders");
+			// _Item = new Item(2, R.drawable.ic_launcher, "Selection"); 
+			_Item = new Item(3, R.drawable.ic_launcher, getString(R.string.assigned_orders));
 			_Item.setMethod("Orders");
 			_Item.setOrderStatus("assigned");
 			categories.add(_Item);
-			_Item = new Item(4, R.drawable.ic_launcher, "Prepared Orders");
+			_Item = new Item(4, R.drawable.ic_launcher, getString(R.string.prepared_orders));
 			_Item.setMethod("Orders");
 			_Item.setOrderStatus("prepared");
 			categories.add(_Item);
-			_Item = new Item(5, R.drawable.ic_launcher, "Canceled Orders");
+			_Item = new Item(5, R.drawable.ic_launcher, getString(R.string.canceled_orders));
 			_Item.setMethod("Orders");
 			_Item.setOrderStatus("cancelled");
 			categories.add(_Item);
-			_Item = new Item(6, R.drawable.ic_launcher, "Closed Orders");
+			_Item = new Item(6, R.drawable.ic_launcher, getString(R.string.closed_orders));
 			_Item.setMethod("Orders");
 			_Item.setOrderStatus("closed");
 			categories.add(_Item);
