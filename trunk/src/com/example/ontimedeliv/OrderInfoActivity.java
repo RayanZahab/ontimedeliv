@@ -236,7 +236,6 @@ public class OrderInfoActivity extends Activity {
 					.findViewById(R.id.quantity)).getText().toString());
 			item = new OrderItem();
 			item.setQuantity(quantity);
-			Log.d("rays", "rays item" + orderitem.get(i).getProduct().getId());
 			item.setId(orderitem.get(i).getProduct().getId());
 			newItems.add(item);
 		}
@@ -251,7 +250,7 @@ public class OrderInfoActivity extends Activity {
 				.getText().toString());
 		newOrder.setTotal(total);
 		new MyJs("updateStatus", this,
-				((ontimedeliv) this.getApplication()), "PUT", newOrder)
+				((ontimedeliv) this.getApplication()), "PUT", newOrder,true)
 				.execute(serverURL);
 	}
 
@@ -259,7 +258,6 @@ public class OrderInfoActivity extends Activity {
 		Order newOrder = new Order();
 		status = (Spinner) findViewById(R.id.order_status);
 		newOrder.setStatus(status.getSelectedItem().toString());
-		// newOrder.setCustomer_id();
 		String serverURL = new myURL("change_status", "orders", orderId + "", 0)
 				.getURL();
 		new MyJs("done", this, ((ontimedeliv) this.getApplication()),

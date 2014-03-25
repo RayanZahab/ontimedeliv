@@ -47,6 +47,10 @@ public class UserInfoActivity extends Activity implements
 
 			}
 		}
+		else
+		{
+			getBranches();
+		}
 		
 	}
 

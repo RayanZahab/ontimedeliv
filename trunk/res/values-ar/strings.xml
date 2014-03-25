@@ -98,5 +98,14 @@
     <string name="title_activity_splash_screen">القائمة الرئيسية</string>
     <string name="title_activity_search_results">نتائج البحث</string>
     <string name="title_activity_user_profile">معلومات المستخدم</string>
-
+    <string name="no_net">تعذر الإتصال بالشبكة</string>
+    <string name="loding">جاري التحميل...</string>
+    <string name="restore_pass">استعادة كلمة المرور</string>
+    <string name="new_orders">طلبات جديدة</string>
+    <string name="assigned_orders">طلبات موزعة</string>
+    <string name="prepared_orders">طلبات محضرة</string>
+    <string name="canceled_orders">طلبات ملغاة</string>
+    <string name="closed_orders">طلبات قديمة</string>
+    <string name="branches">الفروع</string>
+    <string name="users">الموظفين</string>
 </resources>
