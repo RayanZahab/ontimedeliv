@@ -1,19 +1,17 @@
 package com.example.ontimedeliv;
 
 import java.util.Locale;
-
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Spinner;
 
 public class SelectLanguageActivity extends Activity {
 	MyCustomAdapter dataAdapter;
@@ -21,6 +19,8 @@ public class SelectLanguageActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ActionBar actionBar = getActionBar();
+        actionBar.hide();
 		setContentView(R.layout.activity_select_language);
 		
 		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
