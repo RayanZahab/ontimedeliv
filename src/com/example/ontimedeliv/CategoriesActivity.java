@@ -87,7 +87,7 @@ public class CategoriesActivity extends Activity {
 
 		String serverURL = new myURL("deactivate_categories", "branches",
 				branchId, 0).getURL();
-		new MyJs("afterDeactivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myCat, true)
+		new MyJs("afterDeactivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myCat,true,false)
 				.execute(serverURL);
 	}
 
@@ -98,8 +98,8 @@ public class CategoriesActivity extends Activity {
 		String serverURL = new myURL("activate_categories", "branches",
 				branchId, 0).getURL();
 
-		new MyJs( "afterActivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myCat)
-				.execute(serverURL);
+		MyJs mjs = new MyJs( "afterActivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myCat,false,true);
+		mjs.execute(serverURL);
 	}
 
 	public void afterActivate(String s, String error) {
@@ -109,8 +109,8 @@ public class CategoriesActivity extends Activity {
 
 	public void getCategories() {
 		String serverURL = this.url;
-
-		new MyJs("setCategories", this,((ontimedeliv) CategoriesActivity.this.getApplication()), "GET").execute(serverURL);
+		MyJs mjs = new MyJs("setCategories", this,((ontimedeliv) CategoriesActivity.this.getApplication()), "GET");
+		mjs.execute(serverURL);
 	}
 
 	public void setCategories(String s, String error) {
@@ -171,9 +171,6 @@ public class CategoriesActivity extends Activity {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();
-
-		Toast.makeText(this, "edit: " + item.getItemId(), Toast.LENGTH_SHORT)
-				.show();
 
 		switch (item.getItemId()) {
 		case R.id.edit:
@@ -244,7 +241,6 @@ public class CategoriesActivity extends Activity {
 			final EditText userInput = (EditText) promptsView
 					.findViewById(R.id.editTextDialogUserInput);
 
-			// set dialog message
 			alertDialogBuilder
 					.setCancelable(false)
 					.setPositiveButton("OK",
@@ -267,10 +263,7 @@ public class CategoriesActivity extends Activity {
 								}
 							});
 
-			// create alert dialog
 			AlertDialog alertDialog = alertDialogBuilder.create();
-
-			// show it
 			alertDialog.show();
 		}
 
@@ -317,9 +310,9 @@ public class CategoriesActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "categories",
 										catId, 0).getURL();
-								new MyJs("afterDelete",
-										CategoriesActivity.this,((ontimedeliv) CategoriesActivity.this.getApplication()), "DELETE")
-										.execute(serverURL);
+								MyJs mjs = new MyJs("afterDelete",
+										CategoriesActivity.this,((ontimedeliv) CategoriesActivity.this.getApplication()), "DELETE");
+								mjs.execute(serverURL);
 							}
 						}).setNegativeButton(android.R.string.no, null).show();
 	}

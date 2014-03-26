@@ -49,7 +49,7 @@ public class UserInfoActivity extends Activity implements
 		}
 		else
 		{
-			getBranches();
+			getBranches(true);
 		}
 		
 	}
@@ -81,8 +81,7 @@ public class UserInfoActivity extends Activity implements
 	public void getCurrentUser(int userId) {
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
-		Log.d("rays", "ray url" + url);
-		new MyJs("setUserInfo", this,((ontimedeliv) this.getApplication()), "GET", true).execute(serverURL);
+		new MyJs("setUserInfo", this,((ontimedeliv) this.getApplication()), "GET",true,false).execute(serverURL);
 	}
 
 	public void setUserInfo(String s, String error) {
@@ -102,12 +101,12 @@ public class UserInfoActivity extends Activity implements
 		admin.setChecked(currentUser.isIs_admin());
 		preparer.setChecked(currentUser.isIs_preparer());
 		delivery.setChecked(currentUser.isIs_delivery());
-		getBranches();
+		getBranches(false);
 	}
 
-	public void getBranches() {
+	public void getBranches(boolean first) {
 		String serverURL = new myURL("branches", "shops", 37, 30).getURL();
-		new MyJs("setBranches", this,((ontimedeliv) this.getApplication()), "GET").execute(serverURL);
+		new MyJs("setBranches", this,((ontimedeliv) this.getApplication()), "GET",first,true).execute(serverURL);
 	}
 
 	public void setBranches(String s, String error) {
@@ -154,7 +153,7 @@ public class UserInfoActivity extends Activity implements
 					delivery.isChecked());
 
 		}
-		new MyJs("setRoles", this,((ontimedeliv) this.getApplication()), method, (Object) user, true)
+		new MyJs("setRoles", this,((ontimedeliv) this.getApplication()), method, (Object) user,true,false)
 				.execute(serverURL);
 
 	}
@@ -174,7 +173,7 @@ public class UserInfoActivity extends Activity implements
 			role.setPreparer(preparer.isChecked());
 			role.setAdmin(admin.isChecked());
 			role.setDelivery(delivery.isChecked());
-			new MyJs("afterRoles", this,((ontimedeliv) this.getApplication()), "POST", (Object) role)
+			new MyJs("afterRoles", this,((ontimedeliv) this.getApplication()), "POST", (Object) role,false,true)
 					.execute(makePreparerURL);
 		}
 	}

@@ -43,16 +43,16 @@ public class AddBranchActivity extends Activity implements
 	ExpandableListView expListView;
 	List<String> listDataHeader;
 	HashMap<String, List<String>> listDataChild;
-	GlobalM glob= new GlobalM();
-	
+	GlobalM glob = new GlobalM();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_branch);
-		ActionBar actionBar = getActionBar();		 
-        actionBar.setDisplayHomeAsUpEnabled(true);
-		
-		shopId =((ontimedeliv) this.getApplication()).getShopId();
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+
+		shopId = ((ontimedeliv) this.getApplication()).getShopId();
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);
 		areasSp = (Spinner) findViewById(R.id.areasSP);
@@ -60,15 +60,12 @@ public class AddBranchActivity extends Activity implements
 		Dialog.setCancelable(false);
 		((ontimedeliv) this.getApplication()).clear("branch");
 		branchId = ((ontimedeliv) this.getApplication()).getBranchId();
-		if(branchId != 0)
-		{
+		if (branchId != 0) {
 			getCurrentBranch(branchId);
 			Button submit = (Button) findViewById(R.id.submit);
 			submit.setText("Update");
-		}
-		else
-		{
-			getCountries();
+		} else {
+			getCountries(true);
 		}
 		expListView = (ExpandableListView) findViewById(R.id.lvExp);
 		prepareListData();
@@ -132,17 +129,15 @@ public class AddBranchActivity extends Activity implements
 	public void getCurrentBranch(int branchId) {
 		String url = new myURL(null, "branches", branchId, 1).getURL();
 		String serverURL = url;
-		Log.d("rays", "ray url" + url);
-		new MyJs("setBranchInfo", this,((ontimedeliv) this.getApplication()), "GET", true).execute(serverURL);
+		new MyJs("setBranchInfo", this, ((ontimedeliv) this.getApplication()),
+				"GET",true,false).execute(serverURL);
 
 	}
 
 	private void prepareListData() {
 		listDataHeader = new ArrayList<String>();
 		listDataChild = new HashMap<String, List<String>>();
-
 		listDataHeader.add("Opening Hours");
-
 		List<String> openhour = new ArrayList<String>();
 		openhour.add(getString(R.string.monday));
 		openhour.add(getString(R.string.tuseday));
@@ -170,7 +165,7 @@ public class AddBranchActivity extends Activity implements
 		desc.setText(currentBranch.getDescription());
 		address.setText(currentBranch.getAddress());
 		estimation.setText(currentBranch.getEstimation_time());
-		getCountries();
+		getCountries(false);
 	}
 
 	public void from(View view) {
@@ -212,8 +207,9 @@ public class AddBranchActivity extends Activity implements
 
 		Branch newBranch = new Branch(0, name, desc, new Area(selectedArea),
 				address, 1, new Shop(shopId), "0", "0", 0, 0, estimation);
-		new MyJs("backToSelection", this,((ontimedeliv) this.getApplication()), "POST", (Object) newBranch)
-				.execute(serverURL);
+		new MyJs("backToSelection", this,
+				((ontimedeliv) this.getApplication()), "POST",
+				(Object) newBranch).execute(serverURL);
 	}
 
 	public void backToSelection(String s, String error) {
@@ -236,10 +232,11 @@ public class AddBranchActivity extends Activity implements
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void getCountries() {
+	public void getCountries(boolean first) {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
-		new MyJs("setCountries", AddBranchActivity.this,((ontimedeliv) this.getApplication()), "GET", true)
-				.execute(serverURL);
+		MyJs mjs = new MyJs("setCountries", AddBranchActivity.this,
+				((ontimedeliv) this.getApplication()), "GET", first,false);	
+		mjs.execute(serverURL);
 	}
 
 	public void setCountries(String s, String error) {
@@ -253,13 +250,15 @@ public class AddBranchActivity extends Activity implements
 		areasSp.setAdapter(null);
 		countrySp.setAdapter(counrytAdapter);
 		countrySp.setOnItemSelectedListener(this);
-		glob.setSelected(countrySp, counrytAdapter, new Country(currentBranch.getArea().getCountry_id()));
+		glob.setSelected(countrySp, counrytAdapter, new Country(currentBranch
+				.getArea().getCountry_id()));
 	}
 
 	public void getCities(int CountryId) {
 		String serverURL = new myURL("cities", "countries", CountryId, 30)
 				.getURL();
-		new MyJs("setCities", AddBranchActivity.this,((ontimedeliv) this.getApplication()), "GET", true)
+		new MyJs("setCities", AddBranchActivity.this,
+				((ontimedeliv) this.getApplication()), "GET", false,false)
 				.execute(serverURL);
 	}
 
@@ -273,13 +272,15 @@ public class AddBranchActivity extends Activity implements
 		areasSp.setAdapter(null);
 		citySp.setAdapter(cityAdapter);
 		citySp.setOnItemSelectedListener(this);
-		glob.setSelected(citySp, cityAdapter, new City(currentBranch.getArea().getCity_id()));
+		glob.setSelected(citySp, cityAdapter, new City(currentBranch.getArea()
+				.getCity_id()));
 	}
 
 	public void getAreas(int CityId) {
 		String serverURL = new myURL("areas", "cities", CityId, 30).getURL();
-		new MyJs("setAreas", AddBranchActivity.this, ((ontimedeliv) this.getApplication()),"GET")
-				.execute(serverURL);
+		MyJs mjs = new MyJs("setAreas", AddBranchActivity.this,
+				((ontimedeliv) this.getApplication()), "GET", false,true);
+		mjs.execute(serverURL);
 	}
 
 	public void setAreas(String s, String error) {
@@ -291,10 +292,11 @@ public class AddBranchActivity extends Activity implements
 		areaAdapter.notifyDataSetChanged();
 		areasSp.setAdapter(areaAdapter);
 		areasSp.setOnItemSelectedListener(this);
-		glob.setSelected(areasSp, areaAdapter, new Area(currentBranch.getArea().getId()));
+		glob.setSelected(areasSp, areaAdapter, new Area(currentBranch.getArea()
+				.getId()));
 
 	}
-	
+
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {

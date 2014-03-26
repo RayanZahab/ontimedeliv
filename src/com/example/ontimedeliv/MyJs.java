@@ -43,7 +43,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	int sizeData = 0;
 	private Activity mc;
 	private String method;
-	boolean secondMethod = false;
+	boolean first = false;
+	private boolean last =true;
 	private Object objectToAdd;
 	String token;
 	private ontimedeliv global;
@@ -72,27 +73,31 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		this.mc = m;
 		this.global = mg;
 		this.method = method;
+		this.last=true;
+		this.first=true;
 		MyJs();
 	}
 
 	public MyJs(String returnFunction, Activity m,
-			ontimedeliv mg, String method, boolean sm) {
+			ontimedeliv mg, String method, boolean sm,boolean last) {
 		this.returnFunction = returnFunction;
 		this.mc = m;
 		this.global = mg;
 		this.method = method;
-		this.secondMethod = sm;
+		this.first = sm;
+		this.setLast(last);
 		MyJs();
 	}
 
 	public MyJs(String returnFunction, Activity m,
-			ontimedeliv mg, String method, Object o, boolean secondMethod) {
+			ontimedeliv mg, String method, Object o, boolean first,boolean last) {
 		this.returnFunction = returnFunction;
 		this.mc = m;
 		this.global = mg;
 		this.method = method;
 		this.objectToAdd = o;
-		this.setSecondMethod(secondMethod);
+		this.setfirst(first);
+		this.setLast(last);
 		MyJs();
 	}
 
@@ -103,7 +108,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		this.global = mg;
 		this.method = method;
 		this.objectToAdd = o;
-		Log.d("shi", "shi: " + mg.toString());
+		this.last=true;
+		this.first=true;
 		MyJs();
 	}
 
@@ -112,7 +118,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			cancel(true);
 			new GlobalM().bkToNav(mc);
 		} else {
-			if (!this.secondMethod) {
+			if (this.first) {
 				showProg();
 			}
 		}
@@ -242,14 +248,16 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			} catch (Exception ex) {
 			}
 		}
-		Log.d("ray", "ray url: " + urls[0]);
 		/*****************************************************/
 		return null;
 	}
 
 	protected void onPostExecute(Void unused) {
-		if (!this.secondMethod)
+		if (pd!= null && last)
+		{
 			pd.dismiss();
+			Log.d("ray", "removed" + this.returnFunction);
+		}
 		try {
 			if (Content == null)
 				Content = "";
@@ -260,18 +268,16 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			Log.d("ray", "Ray excep: " + e.getMessage());
-
 		}
 
 	}
 
-	public boolean getSecondMethod() {
-		return secondMethod;
+	public boolean getfirst() {
+		return first;
 	}
 
-	public void setSecondMethod(boolean secondMethod) {
-		this.secondMethod = secondMethod;
+	public void setfirst(boolean first) {
+		this.first = first;
 	}
 
 	public ontimedeliv getGlobal() {
@@ -401,7 +407,15 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			}
 		};
 		pd.show();
-		h.postDelayed(r, 7000);
+		h.postDelayed(r, 10000);
+	}
+
+	public boolean isLast() {
+		return last;
+	}
+
+	public void setLast(boolean last) {
+		this.last = last;
 	}
 
 	private class TransparentProgressDialog extends Dialog {

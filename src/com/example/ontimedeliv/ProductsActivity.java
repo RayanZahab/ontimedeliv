@@ -55,8 +55,7 @@ public class ProductsActivity extends Activity {
 			url = new myURL("items",
 					"branches/" + branchId + "/categories", categoryId, 30)
 					.getURL();
-			Toast.makeText(getApplicationContext(),
-					"Selected: " + branchId, Toast.LENGTH_SHORT).show();
+			
 			getProducts();
 		}
 		else 
@@ -102,7 +101,7 @@ public class ProductsActivity extends Activity {
 
 		String serverURL = new myURL("deactivate_items", "branches",
 				branchId, 0).getURL();
-		new MyJs("afterDeactivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myProd, true)
+		new MyJs("afterDeactivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myProd, true,false)
 				.execute(serverURL);
 	}
 	public void afterDeactivate(String s,String error) {
@@ -112,7 +111,7 @@ public class ProductsActivity extends Activity {
 		String serverURL = new myURL("activate_items", "branches",
 				branchId, 0).getURL();
 
-		new MyJs("afterActivate", this ,((ontimedeliv) this.getApplication()), "PUT", (Object) myProd)
+		new MyJs("afterActivate", this ,((ontimedeliv) this.getApplication()), "PUT", (Object) myProd,false,true)
 				.execute(serverURL);
 	}
 	
@@ -153,7 +152,7 @@ public class ProductsActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "branches",branchId, 0).getURL();
 								new MyJs("afterDelete",
-								ProductsActivity.this,((ontimedeliv) ProductsActivity.this.getApplication()), "DELETE")
+								ProductsActivity.this,((ontimedeliv) ProductsActivity.this.getApplication()), "DELETE",true,true)
 								.execute(serverURL);
 							}
 						}).setNegativeButton(android.R.string.no, null).show();
@@ -238,18 +237,5 @@ public class ProductsActivity extends Activity {
 		((ontimedeliv) ProductsActivity.this.getApplication()).setProductId(0);
 		startActivity(intent);
 		return super.onOptionsItemSelected(item);
-	}
-
-	public void addCategory(String categoryName) {
-		String serverURL = new myURL("categories", null, 0, 0).getURL();
-		Category newCategory = new Category(0, categoryName, true, 0);
-		new MyJs("afterCreation", this,((ontimedeliv) this.getApplication()), "POST", (Object) newCategory)
-				.execute(serverURL);
-	}
-
-	public void afterCreation(String s,String error) {
-		Intent i = new Intent(this, CategoriesActivity.class);
-		((ontimedeliv) ProductsActivity.this.getApplication()).setCategoryId(0);
-		startActivity(i);
 	}
 }

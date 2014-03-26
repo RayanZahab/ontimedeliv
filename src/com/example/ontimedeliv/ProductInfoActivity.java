@@ -44,7 +44,7 @@ public class ProductInfoActivity extends Activity {
 		if (productId != 0) {
 			getProduct(productId);
 		} else {
-			getUnits();
+			getUnits(true);
 		}
 
 		upload = (Button) findViewById(R.id.uploadimage);
@@ -63,7 +63,7 @@ public class ProductInfoActivity extends Activity {
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
 		new MyJs("setProduct", this,
-				((ontimedeliv) this.getApplication()), "GET", true)
+				((ontimedeliv) this.getApplication()), "GET", true,false)
 				.execute(serverURL);
 	}
 
@@ -75,7 +75,7 @@ public class ProductInfoActivity extends Activity {
 		name.setText(currentProduct.getName());
 		desc.setText(currentProduct.getDescription());
 		price.setText("" + currentProduct.getPrice());
-		getUnits();
+		getUnits(false);
 	}
 
 	public void addProduct(View view) {
@@ -161,11 +161,11 @@ public class ProductInfoActivity extends Activity {
 		}
 	}
 
-	public void getUnits() {
+	public void getUnits(boolean first) {
 		// getUnits
 		String serverURL = new myURL("units", null, 0, 30).getURL();
 		new MyJs("setUnits", this,
-				((ontimedeliv) this.getApplication()), "GET")
+				((ontimedeliv) this.getApplication()), "GET",first,true)
 				.execute(serverURL);
 
 	}
