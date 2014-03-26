@@ -402,13 +402,13 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			}
 		};
 		pd.show();
-		h.postDelayed(r, 5000);
+		h.postDelayed(r, 7000);
 	}
 
 	private class TransparentProgressDialog extends Dialog {
 
 		private ImageView iv;
-
+ 
 		public TransparentProgressDialog(Context context, int resourceIdOfImage) {
 			super(context, R.style.TransparentProgressDialog);
 			WindowManager.LayoutParams wlmp = getWindow().getAttributes();
@@ -435,7 +435,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					Animation.RELATIVE_TO_SELF, .5f);
 			anim.setInterpolator(new LinearInterpolator());
 			anim.setRepeatCount(Animation.INFINITE);
-			anim.setDuration(1000);
+			anim.setDuration(2000);
 			iv.setAnimation(anim);
 			iv.startAnimation(anim);
 		}
