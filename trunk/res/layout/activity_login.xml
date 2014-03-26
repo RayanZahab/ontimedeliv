@@ -32,7 +32,7 @@
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="45dp"
             android:layout_alignLeft="@+id/username"
             android:layout_alignRight="@+id/username"

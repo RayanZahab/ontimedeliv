@@ -27,6 +27,7 @@ public class OldOrdersInfoActivity extends Activity {
 	Button cancel;
 	OrderInfoAdapter dataAdapter;
 	int orderId;
+	MyJs mjs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +46,9 @@ public class OldOrdersInfoActivity extends Activity {
 
 	public void getPreparers() {
 		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
-		new MyJs("serPreparers", this,
-				((ontimedeliv) this.getApplication()), "GET")
-				.execute(serverURL);
+		mjs = new MyJs("serPreparers", this,
+				((ontimedeliv) this.getApplication()), "GET",false,true);
+		mjs.execute(serverURL);
 	}
 
 	public void serPreparers(String s, String error) {
@@ -64,9 +65,8 @@ public class OldOrdersInfoActivity extends Activity {
 
 	public void getDelivery() {
 		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
-		new MyJs("setDeivery", this,
-				((ontimedeliv) this.getApplication()), "GET")
-				.execute(serverURL);
+		new MyJs("setDeivery", this, ((ontimedeliv) this.getApplication()),
+				"GET",false,false).execute(serverURL);
 	}
 
 	public void setDeivery(String s, String error) {
@@ -79,13 +79,13 @@ public class OldOrdersInfoActivity extends Activity {
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		deliv.setAdapter(dataAdapter);
+		getPreparers();
 	}
 
 	public void getCurrentOrder(int orderId) {
 		String serverURL = new myURL(null, "orders", orderId, 30).getURL();
-		new MyJs("setOrderInfo", this,
-				((ontimedeliv) this.getApplication()), "GET")
-				.execute(serverURL);
+		new MyJs("setOrderInfo", this, ((ontimedeliv) this.getApplication()),
+				"GET",true,false).execute(serverURL);
 	}
 
 	public void setOrderInfo(String s, String error) {
@@ -103,7 +103,7 @@ public class OldOrdersInfoActivity extends Activity {
 			items.add(_Item);
 			total = total + orderitem.get(i).getTotalPrice();
 		}
-		Log.d("ray", "ray items" + orderitem.size());
+
 		dataAdapter = new OrderInfoAdapter(OldOrdersInfoActivity.this,
 				R.layout.row_old_order_info, items, true);
 		dataAdapter.setTotal(totalTxt);
@@ -118,7 +118,6 @@ public class OldOrdersInfoActivity extends Activity {
 		customerAdd
 				.append(" This is add"/* currentOrder.getAddress().toString() */);
 		getDelivery();
-		getPreparers();
 	}
 
 	@Override

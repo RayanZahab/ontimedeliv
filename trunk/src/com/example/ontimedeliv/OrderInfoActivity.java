@@ -42,6 +42,7 @@ public class OrderInfoActivity extends Activity {
 
 		((ontimedeliv) this.getApplication()).clear("order");
 		this.orderId = ((ontimedeliv) this.getApplication()).getOrderId();
+		
 		if (orderId != 0) {
 			getCurrentOrder(orderId);
 			Button submit = (Button) findViewById(R.id.submit);
@@ -113,12 +114,12 @@ public class OrderInfoActivity extends Activity {
 
 	public void getPreparers() {
 		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
-		new MyJs("serPreparers", this,
-				((ontimedeliv) this.getApplication()), "GET")
+		new MyJs("setPreparers", this,
+				((ontimedeliv) this.getApplication()), "GET",false,true)
 				.execute(serverURL);
 	}
 
-	public void serPreparers(String s, String error) {
+	public void setPreparers(String s, String error) {
 		ArrayList<User> userItems = new APIManager().getUsers(s);
 
 		prep = (Spinner) findViewById(R.id.preparer_spinner);
@@ -127,7 +128,7 @@ public class OrderInfoActivity extends Activity {
 				android.R.layout.simple_spinner_item, userItems);
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		prep.setAdapter(dataAdapter);
+		prep.setAdapter(dataAdapter);		
 		// glob.setSelected(deliv, dataAdapter, new
 		// User(currentOrder.getPreparer().getId()));
 	}
@@ -135,7 +136,7 @@ public class OrderInfoActivity extends Activity {
 	public void getDelivery() {
 		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
 		new MyJs("setDeivery", this,
-				((ontimedeliv) this.getApplication()), "GET")
+				((ontimedeliv) this.getApplication()), "GET",false,false)
 				.execute(serverURL);
 	}
 
@@ -148,6 +149,8 @@ public class OrderInfoActivity extends Activity {
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		deliv.setAdapter(dataAdapter);
+		getPreparers();
+		
 		// glob.setSelected(deliv, dataAdapter, new
 		// User(currentOrder.getDelivery().getId()));
 	}
@@ -163,22 +166,22 @@ public class OrderInfoActivity extends Activity {
 				android.R.layout.simple_spinner_item, list);
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		status.setAdapter(dataAdapter);
+		status
+		.setAdapter(dataAdapter);
 		if (list.indexOf(currentOrder.getStatus()) > -1)
 			status.setSelection(list.indexOf(currentOrder.getStatus()));
 	}
 
 	public void getCurrentOrder(int orderId) {
 		String serverURL = new myURL(null, "orders", orderId, 30).getURL();
-		new MyJs("setOrderInfo", this,
-				((ontimedeliv) this.getApplication()), "GET", true)
-				.execute(serverURL);
+		MyJs mjs = new MyJs("setOrderInfo", this,
+				((ontimedeliv) this.getApplication()), "GET",true,false);
+				mjs.execute(serverURL);
 	}
 
 	public void setOrderInfo(String s, String error) {
 		currentOrder = new APIManager().getOrder(s);
 		getDelivery();
-		getPreparers();
 		addItemsOnStatus();
 		orderitem = currentOrder.getOrderItems();
 		SPitems = new ArrayList<Item>();
@@ -250,7 +253,7 @@ public class OrderInfoActivity extends Activity {
 				.getText().toString());
 		newOrder.setTotal(total);
 		new MyJs("updateStatus", this,
-				((ontimedeliv) this.getApplication()), "PUT", newOrder,true)
+				((ontimedeliv) this.getApplication()), "PUT", newOrder,true,false)
 				.execute(serverURL);
 	}
 
@@ -261,7 +264,7 @@ public class OrderInfoActivity extends Activity {
 		String serverURL = new myURL("change_status", "orders", orderId + "", 0)
 				.getURL();
 		new MyJs("done", this, ((ontimedeliv) this.getApplication()),
-				"PUT", newOrder).execute(serverURL);
+				"PUT", newOrder,false,true).execute(serverURL);
 	}
 
 	public void done(String s, String error) {

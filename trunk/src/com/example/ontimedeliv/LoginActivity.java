@@ -41,9 +41,9 @@ public class LoginActivity extends Activity {
 		String serverURL = new myURL(null, "users", "login", 0).getURL();
 		User user = new User(username.getText().toString(), password.getText()
 				.toString());
-		new MyJs("getLoggedIn", this,
-				((ontimedeliv) this.getApplication()), "POST", (Object) user)
-				.execute(serverURL);
+		MyJs mjs = new MyJs("getLoggedIn", this,
+				((ontimedeliv) this.getApplication()), "POST", (Object) user);
+		mjs.execute(serverURL);
 
 	}
 
