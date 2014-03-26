@@ -9,20 +9,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_horizontal_margin" >
 
-    <LinearLayout
-        android:layout_width="0dip"
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:background="@drawable/myborder"
+        android:gravity="center"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingTop="@dimen/activity_vertical_margin" >
-
-        <ListView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ListView>
-    </LinearLayout>
+        android:textColor="#cdcccb" >
+    </ListView>
+       
 
 </LinearLayout>
