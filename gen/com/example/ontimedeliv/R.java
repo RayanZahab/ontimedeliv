@@ -90,7 +90,7 @@ public final class R {
         public static final int button1=0x7f090020;
         public static final int button_add=0x7f090010;
         public static final int cancel=0x7f090035;
-        public static final int categorylist=0x7f09001d;
+        public static final int categorylist=0x7f09001e;
         public static final int checkBox1=0x7f090054;
         public static final int citiesLabel=0x7f09000a;
         public static final int citiesSP=0x7f09000d;
@@ -152,7 +152,7 @@ public final class R {
         public static final int roworder=0x7f09005f;
         public static final int select=0x7f090042;
         public static final int settings=0x7f09003a;
-        public static final int submit=0x7f09001e;
+        public static final int submit=0x7f09001d;
         public static final int textView1=0x7f090019;
         public static final int textView2=0x7f090012;
         public static final int textView3=0x7f090011;

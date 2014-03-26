@@ -324,7 +324,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		Iterator iterator = paramsVal.entrySet().iterator();
 		while (iterator.hasNext()) {
 			Map.Entry mapEntry = (Map.Entry) iterator.next();
-
 			dos.writeBytes(twoHyphens + boundary + lineEnd);
 			dos.writeBytes("Content-Disposition: form-data; name=\""
 					+ mapEntry.getKey() + "\"" + lineEnd);
@@ -420,7 +419,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			LinearLayout layout = new LinearLayout(context);
 			layout.setOrientation(LinearLayout.VERTICAL);
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-					200, 200);
+					250, 250);
 			iv = new ImageView(context);
 			iv.setImageResource(resourceIdOfImage);
 			layout.addView(iv, params);
