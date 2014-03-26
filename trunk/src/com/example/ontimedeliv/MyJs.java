@@ -420,7 +420,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			LinearLayout layout = new LinearLayout(context);
 			layout.setOrientation(LinearLayout.VERTICAL);
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-					150, 150);
+					200, 200);
 			iv = new ImageView(context);
 			iv.setImageResource(resourceIdOfImage);
 			layout.addView(iv, params);
