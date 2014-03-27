@@ -23,6 +23,7 @@ public final class R {
     
          */
         public static final int activity_horizontal_margin=0x7f040000;
+        public static final int activity_left_margin=0x7f040002;
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
@@ -37,35 +38,40 @@ public final class R {
         public static final int categories=0x7f020008;
         public static final int checkbox=0x7f020009;
         public static final int checkedgrey=0x7f02000a;
-        public static final int delivery=0x7f02000b;
-        public static final int divider=0x7f02000c;
-        public static final int english=0x7f02000d;
-        public static final int ic_action_search=0x7f02000e;
-        public static final int ic_launcher=0x7f02000f;
-        public static final int moto=0x7f020010;
-        public static final int myborder=0x7f020011;
-        public static final int mybutton=0x7f020012;
-        public static final int mycheckbox=0x7f020013;
-        public static final int myedittext=0x7f020014;
-        public static final int mylistview=0x7f020015;
-        public static final int mypromptedittext=0x7f020016;
-        public static final int myred=0x7f020017;
-        public static final int myshadow=0x7f020018;
-        public static final int myspinner=0x7f020019;
-        public static final int mystyle=0x7f02001a;
-        public static final int neworder=0x7f02001b;
-        public static final int reject=0x7f02001c;
-        public static final int rightarrow=0x7f02001d;
-        public static final int settings=0x7f02001e;
-        public static final int shadow=0x7f02001f;
-        public static final int spinner=0x7f020020;
-        public static final int spinner_arrow=0x7f020021;
-        public static final int spinnerba=0x7f020022;
-        public static final int splash=0x7f020023;
-        public static final int sublogo=0x7f020024;
-        public static final int topbottomborders=0x7f020025;
-        public static final int user=0x7f020026;
-        public static final int users=0x7f020027;
+        public static final int checkedlogincheckbox=0x7f02000b;
+        public static final int delivery=0x7f02000c;
+        public static final int divider=0x7f02000d;
+        public static final int edittext=0x7f02000e;
+        public static final int english=0x7f02000f;
+        public static final int flech=0x7f020010;
+        public static final int ic_action_search=0x7f020011;
+        public static final int ic_launcher=0x7f020012;
+        public static final int logincheckbox=0x7f020013;
+        public static final int moto=0x7f020014;
+        public static final int myborder=0x7f020015;
+        public static final int mybutton=0x7f020016;
+        public static final int mycheckbox=0x7f020017;
+        public static final int myedittext=0x7f020018;
+        public static final int mylistview=0x7f020019;
+        public static final int mylogincheckbox=0x7f02001a;
+        public static final int mypromptedittext=0x7f02001b;
+        public static final int myred=0x7f02001c;
+        public static final int myshadow=0x7f02001d;
+        public static final int myspinner=0x7f02001e;
+        public static final int mystyle=0x7f02001f;
+        public static final int neworder=0x7f020020;
+        public static final int reject=0x7f020021;
+        public static final int rightarrow=0x7f020022;
+        public static final int settings=0x7f020023;
+        public static final int shadow=0x7f020024;
+        public static final int spinner=0x7f020025;
+        public static final int spinner_arrow=0x7f020026;
+        public static final int spinnerba=0x7f020027;
+        public static final int splash=0x7f020028;
+        public static final int sublogo=0x7f020029;
+        public static final int topbottomborders=0x7f02002a;
+        public static final int user=0x7f02002b;
+        public static final int users=0x7f02002c;
     }
     public static final class id {
         public static final int Userslist=0x7f09004b;
