@@ -13,7 +13,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        
         android:layout_weight="1"
         android:layoutDirection="locale" >
 
@@ -109,7 +108,6 @@
                 android:layout_below="@+id/estimation"
                 android:background="@drawable/divider" />
 
-
             <TextView
                 android:id="@+id/countryLabel"
                 style="@style/mytextview"
@@ -178,12 +176,12 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="7dp"
                 android:background="@drawable/myspinner" />
-            
+
             <ExpandableListView
                 android:id="@+id/lvExp"
-                android:layout_below="@+id/areasSP"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@+id/areasSP"
                 android:cacheColorHint="#00000000" >
             </ExpandableListView>
         </RelativeLayout>

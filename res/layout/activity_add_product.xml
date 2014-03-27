@@ -150,6 +150,14 @@
             android:layout_alignLeft="@+id/textView3"
             android:text="@string/priceunit" />
 
+        <ImageView
+            android:id="@+id/preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/addProduct"
+            android:src="@drawable/sublogo" />
+
 </RelativeLayout>
 </ScrollView>
 </RelativeLayout>

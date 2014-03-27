@@ -1,7 +1,5 @@
 package com.example.ontimedeliv;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,9 +8,6 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class NavigationActivity extends Activity {
 	MyCustomAdapter dataAdapter;
@@ -23,84 +18,9 @@ public class NavigationActivity extends Activity {
 		setContentView(R.layout.activity_navigation);
 		((ontimedeliv) NavigationActivity.this.getApplication())
 				.clear("listing");
-		displayListView();
 	}
 
-	private void displayListView() {
-		ArrayList<Item> categories = new ArrayList<Item>();
-		boolean isAdmin = ((ontimedeliv) NavigationActivity.this
-				.getApplication()).isAdmin();
-		boolean isPreparer = ((ontimedeliv) NavigationActivity.this
-				.getApplication()).isPrep();
-		boolean isDelivery = ((ontimedeliv) NavigationActivity.this
-				.getApplication()).isDelivery();
-		Item _Item;
-
-		if (isPreparer || isDelivery || isAdmin) {
-
-			_Item = new Item(0, R.drawable.ic_launcher, getString(R.string.new_orders));
-			_Item.setMethod("Orders");
-			_Item.setOrderStatus("opened");
-			categories.add(_Item);
-		}
-		if (isAdmin) {
-
-			_Item = new Item(1, R.drawable.branches, getString(R.string.branches));
-			_Item.setMethod("Branches");
-			categories.add(_Item);
-			_Item = new Item(2, R.drawable.users, getString(R.string.users));
-			_Item.setMethod("Users");
-			categories.add(_Item);
-			// _Item = new Item(2, R.drawable.ic_launcher, "Selection"); 
-			_Item = new Item(3, R.drawable.ic_launcher, getString(R.string.assigned_orders));
-			_Item.setMethod("Orders");
-			_Item.setOrderStatus("assigned");
-			categories.add(_Item);
-			_Item = new Item(4, R.drawable.ic_launcher, getString(R.string.prepared_orders));
-			_Item.setMethod("Orders");
-			_Item.setOrderStatus("prepared");
-			categories.add(_Item);
-			_Item = new Item(5, R.drawable.ic_launcher, getString(R.string.canceled_orders));
-			_Item.setMethod("Orders");
-			_Item.setOrderStatus("cancelled");
-			categories.add(_Item);
-			_Item = new Item(6, R.drawable.ic_launcher, getString(R.string.closed_orders));
-			_Item.setMethod("Orders");
-			_Item.setOrderStatus("closed");
-			categories.add(_Item);
-		}
-
-		dataAdapter = new MyCustomAdapter(this, R.layout.categories_list,
-				categories);
-		ListView listView = (ListView) findViewById(R.id.list);
-		listView.setAdapter(dataAdapter);
-
-		listView.setOnItemClickListener(new OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Item navitem = (Item) parent.getItemAtPosition(position);
-				Intent i;
-				try {
-					i = new Intent(getBaseContext(), Class
-							.forName(getPackageName() + "."
-									+ navitem.getMethod() + "Activity"));
-					if (navitem.getId() == 5 || navitem.getId() == 6) {
-						i.putExtra("old", true);
-					}
-					if (navitem.getId() != 1 && navitem.getId() != 2) {
-						((ontimedeliv) NavigationActivity.this.getApplication())
-								.setOrderStatus(navitem.getOrderStatus());
-					}
-					startActivity(i);
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-
-	}
-
+	
 	@Override
 	public void onBackPressed() {
 		new AlertDialog.Builder(this)
@@ -129,5 +49,57 @@ public class NavigationActivity extends Activity {
 			// handle local menu items here or leave blank
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void select(View v) {
+
+		Intent i;
+		String method = "", status = null;
+		switch (v.getId()) {
+		case R.id.orders:
+			method = "Orders";
+			status = "opened";
+			break;
+
+		case R.id.closed:
+			method = "Orders";
+			status = "closed";
+			break;
+
+		case R.id.users:
+			method = "Users";
+			break;
+
+		case R.id.branches:
+			method = "Branches";
+			break;
+
+		case R.id.canceled:
+			method = "Orders";
+			status = "cancelled";
+			break;
+
+		case R.id.assigned:
+			method = "Orders";
+			status = "assigned";
+			break;
+		}
+
+		try {
+			i = new Intent(getBaseContext(), Class.forName(getPackageName()
+					+ "." + method + "Activity"));
+			if(status!=null)
+			{
+				((ontimedeliv) NavigationActivity.this.getApplication()).setOrderStatus(status);
+				if(!status.equals("new")&& !status.equals("assigned"))
+				{
+					i.putExtra("old", true);
+				}
+			}
+			startActivity(i);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
 	}
 }
