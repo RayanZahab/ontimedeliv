@@ -72,6 +72,7 @@
             android:layout_width="100dp"
             android:layout_height="35dp"
             android:layout_alignBottom="@+id/price"
+            android:layout_alignRight="@+id/description"
             android:layout_toRightOf="@+id/textView5"
             android:background="@drawable/myspinner" />
 
@@ -96,7 +97,7 @@
         </EditText>
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/preview"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_alignTop="@+id/uploadimage"
@@ -108,22 +109,13 @@
             android:layout_width="70dp"
             android:layout_height="35dp"
             android:layout_above="@+id/addProduct"
-            android:layout_toRightOf="@+id/textView4"
+            android:layout_alignLeft="@+id/uploadimage"
+            android:layout_toLeftOf="@+id/addProduct"
             android:background="@drawable/edittext"
             android:ems="10"
             android:gravity="center"
+            android:hint="@string/priceunit"
             android:inputType="number" />
-
-        <TextView
-            android:id="@+id/textView4"
-            style="@style/mytextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/price"
-            android:layout_alignBottom="@+id/price"
-            android:layout_alignLeft="@+id/uploadimage"
-            android:text="@string/priceunit" />
-
 
         <Button
             android:id="@+id/addProduct"
