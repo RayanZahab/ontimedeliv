@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.StrictMode;
 import android.util.Log;
 
 public class APIManager {
@@ -463,15 +464,9 @@ public class APIManager {
 
 						is_available = Boolean.valueOf(jsonChildNode.optString(
 								"is_available").toString());
-						URL imgurl = new URL(p.getUrl());
-						Bitmap bmp = BitmapFactory.decodeStream(imgurl.openConnection().getInputStream());
 						Product pro = new Product(id, price, name, description,
-								p, new Category(0), unit, is_available, 0);
-						pro.setBmpPhoto(bmp);
-						
-						gridArray.add(new Product(id, price, name, description,
-								p, new Category(0), unit,
-								is_available, 0));
+								p, new Category(0), unit, is_available, 0);						
+						gridArray.add(pro);
 					}
 				} else {
 					id = Integer.parseInt(jsonResponse.optString("id")
@@ -490,12 +485,9 @@ public class APIManager {
 					unit = new Unit(Integer.parseInt(jsonUnit.optString("id")
 							.toString()), jsonUnit.optString("name").toString());
 					
-					URL imgurl = new URL(p.getUrl());
-					Bitmap bmp = BitmapFactory.decodeStream(imgurl.openConnection().getInputStream());
 					Product pro = new Product(id, price, name, description,
 							p, new Category(0), unit,
 							is_available, 0);
-					pro.setBmpPhoto(bmp);
 					gridArray.add(pro);
 				}
 			} else {

@@ -20,7 +20,6 @@ public class NavigationActivity extends Activity {
 				.clear("listing");
 	}
 
-	
 	@Override
 	public void onBackPressed() {
 		new AlertDialog.Builder(this)
@@ -88,11 +87,10 @@ public class NavigationActivity extends Activity {
 		try {
 			i = new Intent(getBaseContext(), Class.forName(getPackageName()
 					+ "." + method + "Activity"));
-			if(status!=null)
-			{
-				((ontimedeliv) NavigationActivity.this.getApplication()).setOrderStatus(status);
-				if(!status.equals("new")&& !status.equals("assigned"))
-				{
+			if (status != null) {
+				((ontimedeliv) NavigationActivity.this.getApplication())
+						.setOrderStatus(status);
+				if (!status.equals("new") && !status.equals("assigned")) {
 					i.putExtra("old", true);
 				}
 			}

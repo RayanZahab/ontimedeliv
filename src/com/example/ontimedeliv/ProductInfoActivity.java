@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -39,6 +40,8 @@ public class ProductInfoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_product);
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+	    StrictMode.setThreadPolicy(policy);
 		ActionBar actionBar = getActionBar();		 
         actionBar.setDisplayHomeAsUpEnabled(true);
         ((ontimedeliv) this.getApplication()).clear("product");
@@ -80,10 +83,10 @@ public class ProductInfoActivity extends Activity {
 		name.setText(currentProduct.getName());
 		desc.setText(currentProduct.getDescription());
 		price.setText("" + currentProduct.getPrice());
-		
-		Bitmap bmp = currentProduct.getBmpPhoto();
-		ImageView imageView =(ImageView) findViewById(R.id.preview);
-		imageView.setImageBitmap(bmp);
+
+
+		new ImageTask((ImageView) findViewById(R.id.preview)).execute(
+				currentProduct.getPhoto().getUrl());
 		
 		getUnits(false);
 	}
