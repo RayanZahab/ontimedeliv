@@ -300,7 +300,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		}
 		String lineEnd = "\r\n";
 		String twoHyphens = "--";
-		String url = "http://enigmatic-springs-5176.herokuapp.com/api/v1/items";
+		String url = "http://107.170.86.46/api/v1/items";//http://enigmatic-springs-5176.herokuapp.com/api/v1/items";
 		// String url = "http://localhost:3000/api/v1/items";
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -308,7 +308,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		// add reuqest header
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", USER_AGENT);
-		con.setRequestProperty("auth_token", token);
+		con.setRequestProperty("auth_token", "28da4a199f0d2123faa9");
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 		con.setRequestProperty("Connection", "Keep-Alive");
 		con.setRequestProperty("Content-Type", "multipart/form-data;boundary="

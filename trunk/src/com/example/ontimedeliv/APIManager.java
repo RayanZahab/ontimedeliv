@@ -1,11 +1,15 @@
 package com.example.ontimedeliv;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 public class APIManager {
@@ -450,6 +454,7 @@ public class APIManager {
 						description = jsonChildNode.optString("description")
 								.toString();
 						photo_str = jsonChildNode.optString("photo").toString();
+						Photo p =getPhoto(photo_str);
 						unit_str = jsonChildNode.optString("unit").toString();
 						jsonUnit = new JSONObject(unit_str);
 						unit = new Unit(Integer.parseInt(jsonUnit.optString(
@@ -458,8 +463,14 @@ public class APIManager {
 
 						is_available = Boolean.valueOf(jsonChildNode.optString(
 								"is_available").toString());
+						URL imgurl = new URL(p.getUrl());
+						Bitmap bmp = BitmapFactory.decodeStream(imgurl.openConnection().getInputStream());
+						Product pro = new Product(id, price, name, description,
+								p, new Category(0), unit, is_available, 0);
+						pro.setBmpPhoto(bmp);
+						
 						gridArray.add(new Product(id, price, name, description,
-								getPhoto(photo_str), new Category(0), unit,
+								p, new Category(0), unit,
 								is_available, 0));
 					}
 				} else {
@@ -471,25 +482,29 @@ public class APIManager {
 					description = jsonResponse.optString("description")
 							.toString();
 					photo_str = jsonResponse.optString("photo").toString();
+					Photo p =getPhoto(photo_str);
 					is_available = Boolean.valueOf(jsonResponse.optString(
 							"is_available").toString());
 					unit_str = jsonResponse.optString("unit").toString();
 					jsonUnit = new JSONObject(unit_str);
 					unit = new Unit(Integer.parseInt(jsonUnit.optString("id")
 							.toString()), jsonUnit.optString("name").toString());
-
-					gridArray.add(new Product(id, price, name, description,
-							getPhoto(photo_str), new Category(0), unit,
-							is_available, 0));
+					
+					URL imgurl = new URL(p.getUrl());
+					Bitmap bmp = BitmapFactory.decodeStream(imgurl.openConnection().getInputStream());
+					Product pro = new Product(id, price, name, description,
+							p, new Category(0), unit,
+							is_available, 0);
+					pro.setBmpPhoto(bmp);
+					gridArray.add(pro);
 				}
 			} else {
 				return gridArray;
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 
 			e.printStackTrace();
-		}
-
+		} 
 		return gridArray;
 	}
 

@@ -5,95 +5,126 @@
     android:background="@drawable/myred"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_horizontal_margin" >
-    
-   
+    android:paddingRight="@dimen/activity_horizontal_margin" >
 
-        <Button
-                android:id="@+id/orders"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/ordersbutton"
-                android:text="Orders"
-	            android:gravity="bottom"
-	            android:textColor="#6f6f71"
-	            android:paddingBottom="5dp"
-	            android:textAlignment="center"
-                android:minWidth="80dp"
-                android:onClick="select" />
-        
-        <Button
-                android:id="@+id/categories"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/categoriesbutton"
-                android:text="Categories"
-	            android:gravity="bottom"
-	            android:textColor="#6f6f71"
-	            android:paddingBottom="5dp"
-	            android:textAlignment="center"
-                android:minWidth="80dp"
-                android:onClick="select" />
+    <Button
+        android:id="@+id/orders"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/ordersbutton"
+        android:gravity="bottom"
+        android:minWidth="80dp"
+        android:onClick="select"
+        android:paddingBottom="5dp"
+        android:text="New Orders"
+        android:textAlignment="center"
+        android:textColor="#6f6f71" />
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_marginTop="3dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/categories"
-            android:src="@drawable/sublogo" />
+    <ImageView
+        android:id="@+id/settings"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/closed"
+        android:layout_marginBottom="14dp"
+        android:layout_marginRight="14dp"
+        android:onClick="select"
+        android:src="@drawable/settings" />
 
-        <ImageView
-            android:id="@+id/settings"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/categories"
-            android:layout_marginBottom="14dp"
-            android:layout_marginRight="14dp"
-            android:src="@drawable/settings" />
+    <ImageView
+        android:id="@+id/about"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignTop="@+id/settings"
+        android:layout_marginRight="15dp"
+        android:onClick="select"
+        android:layout_toLeftOf="@+id/settings"
+        android:src="@drawable/about" />
 
-        <ImageView
-            android:id="@+id/about"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignTop="@+id/settings"
-            android:layout_toLeftOf="@+id/settings"
-            android:layout_marginRight="15dp"
-            android:src="@drawable/about" />
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentTop="true"
+        android:onClick="select"
+        android:layout_alignRight="@+id/closed"
+        android:src="@drawable/sublogo" />
 
-        <Button
-            android:id="@+id/imageView2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_above="@+id/orders"
-            android:layout_alignLeft="@+id/orders"
-            android:layout_marginBottom="20dp"
-            android:text="Branches"
-            android:gravity="bottom"
-            android:textColor="#6f6f71"
-            android:paddingBottom="5dp"
-            android:textAlignment="center"
-            android:background="@drawable/branhesbutton" />
+    <Button
+        android:id="@+id/users"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignRight="@+id/imageView1"
+        android:layout_below="@+id/imageView1"
+        android:background="@drawable/usersbutton"
+        android:gravity="bottom"
+        android:onClick="select"
+        android:paddingBottom="5dp"
+        android:text="Users"
+        android:textAlignment="center"
+        android:textColor="#6f6f71" />
 
-        <Button
-            android:id="@+id/imageView3"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignBottom="@+id/imageView2"
-            android:layout_alignRight="@+id/categories"
-            android:text="Users"
-            android:gravity="bottom"
-            android:textColor="#6f6f71"
-            android:paddingBottom="5dp"
-            android:textAlignment="center"
-            android:background="@drawable/usersbutton" />
-    
+    <Button
+        android:id="@+id/closed"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@+id/orders"
+        android:background="@drawable/ordersbutton"
+        android:gravity="bottom"
+        android:minWidth="80dp"
+        android:onClick="select"
+        android:paddingBottom="5dp"
+        android:text="closed"
+        android:textAlignment="center"
+        android:textColor="#6f6f71" />
+
+    <Button
+        android:id="@+id/branches"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignBaseline="@+id/users"
+        android:layout_alignBottom="@+id/users"
+        android:layout_alignLeft="@+id/orders"
+        android:background="@drawable/branhesbutton"
+        android:gravity="bottom"
+        android:onClick="select"
+        android:paddingBottom="5dp"
+        android:text="Branches"
+        android:textAlignment="center"
+        android:textColor="#6f6f71" />
+
+    <Button
+        android:id="@+id/assigned"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/about"
+        android:layout_alignLeft="@+id/orders"
+        android:background="@drawable/ordersbutton"
+        android:gravity="bottom"
+        android:minWidth="80dp"
+        android:onClick="select"
+        android:paddingBottom="5dp"
+        android:text="Assigned Orders"
+        android:textAlignment="center"
+        android:textColor="#6f6f71" />
+
+    <Button
+        android:id="@+id/canceled"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/settings"
+        android:layout_alignLeft="@+id/closed"
+        android:background="@drawable/ordersbutton"
+        android:gravity="bottom"
+        android:minWidth="80dp"
+        android:onClick="select"
+        android:paddingBottom="5dp"
+        android:text="Canceled Orders"
+        android:textAlignment="center"
+        android:textColor="#6f6f71" />
+
 </RelativeLayout>

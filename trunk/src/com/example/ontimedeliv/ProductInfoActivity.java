@@ -1,5 +1,7 @@
 package com.example.ontimedeliv;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import android.net.Uri;
@@ -10,11 +12,14 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,6 +80,11 @@ public class ProductInfoActivity extends Activity {
 		name.setText(currentProduct.getName());
 		desc.setText(currentProduct.getDescription());
 		price.setText("" + currentProduct.getPrice());
+		
+		Bitmap bmp = currentProduct.getBmpPhoto();
+		ImageView imageView =(ImageView) findViewById(R.id.preview);
+		imageView.setImageBitmap(bmp);
+		
 		getUnits(false);
 	}
 

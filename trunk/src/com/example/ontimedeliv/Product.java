@@ -1,5 +1,7 @@
 package com.example.ontimedeliv;
 
+import android.graphics.Bitmap;
+
 public class Product {
 	private int id, price,shop_id;
 	private String description,  name;
@@ -7,6 +9,8 @@ public class Product {
 	private Category category;
 	private Unit unit;
 	private boolean available;
+	private Bitmap bmpPhoto;
+	
 
 	public Product(int id, int price, String name, String description,
 			Photo photo, Category category, Unit unit, boolean is_available,
@@ -22,6 +26,7 @@ public class Product {
 		this.setShop_id(shop_id);
 
 	}
+	
 
 	public String getDescription() {
 		return description;
@@ -97,6 +102,16 @@ public class Product {
 
 	public void setShop_id(int shop_id) {
 		this.shop_id = shop_id;
+	}
+
+
+	public Bitmap getBmpPhoto() {
+		return bmpPhoto;
+	}
+
+
+	public void setBmpPhoto(Bitmap bmpPhoto) {
+		this.bmpPhoto = bmpPhoto;
 	}
 
 }
