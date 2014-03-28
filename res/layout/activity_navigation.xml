@@ -13,14 +13,14 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="30dp"
         android:background="@drawable/ordersbutton"
-        android:gravity="bottom"
+        android:gravity="bottom|center"
         android:minWidth="80dp"
         android:onClick="select"
         android:paddingBottom="5dp"
+        android:textSize="12sp"
         android:text="New Orders"
-        android:textAlignment="center"
         android:textColor="#6f6f71" />
 
     <ImageView
@@ -54,78 +54,80 @@
         android:src="@drawable/sublogo" />
 
     <Button
-        android:id="@+id/users"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignRight="@+id/imageView1"
-        android:layout_below="@+id/imageView1"
-        android:background="@drawable/usersbutton"
-        android:gravity="bottom"
-        android:onClick="select"
-        android:paddingBottom="5dp"
-        android:text="Users"
-        android:textAlignment="center"
-        android:textColor="#6f6f71" />
-
-    <Button
         android:id="@+id/closed"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@+id/orders"
+        android:layout_marginRight="30dp"
         android:background="@drawable/ordersbutton"
-        android:gravity="bottom"
+        android:gravity="bottom|center"
         android:minWidth="80dp"
         android:onClick="select"
         android:paddingBottom="5dp"
-        android:text="closed"
-        android:textAlignment="center"
+        android:text="Closed"
+        android:textSize="12sp"
         android:textColor="#6f6f71" />
 
     <Button
         android:id="@+id/branches"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_alignBaseline="@+id/users"
-        android:layout_alignBottom="@+id/users"
+        android:layout_above="@+id/orders"
         android:layout_alignLeft="@+id/orders"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/branhesbutton"
-        android:gravity="bottom"
+        android:gravity="bottom|center"
         android:onClick="select"
         android:paddingBottom="5dp"
+        android:textSize="12sp"
         android:text="Branches"
-        android:textAlignment="center"
+        android:textColor="#6f6f71" />
+
+    <Button
+        android:id="@+id/users"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/closed"
+        android:layout_marginBottom="20dp"
+        android:layout_alignRight="@+id/imageView1"
+        android:background="@drawable/usersbutton"
+        android:gravity="bottom|center"
+        android:onClick="select"
+        android:paddingBottom="5dp"
+        android:textSize="12sp"
+        android:text="Users"
         android:textColor="#6f6f71" />
 
     <Button
         android:id="@+id/assigned"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_above="@+id/about"
         android:layout_alignLeft="@+id/orders"
+        android:layout_below="@+id/orders"
         android:background="@drawable/ordersbutton"
-        android:gravity="bottom"
+        android:layout_marginTop="20dp"
+        android:gravity="bottom|center"
         android:minWidth="80dp"
         android:onClick="select"
         android:paddingBottom="5dp"
+        android:textSize="12sp"
         android:text="Assigned Orders"
-        android:textAlignment="center"
         android:textColor="#6f6f71" />
 
     <Button
         android:id="@+id/canceled"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_above="@+id/settings"
         android:layout_alignLeft="@+id/closed"
+        android:layout_below="@+id/closed"
         android:background="@drawable/ordersbutton"
-        android:gravity="bottom"
-        android:minWidth="80dp"
+        android:gravity="bottom|center"
+        android:layout_marginTop="20dp"
+        android:textSize="12sp"
         android:onClick="select"
         android:paddingBottom="5dp"
         android:text="Canceled Orders"
-        android:textAlignment="center"
         android:textColor="#6f6f71" />
 
 </RelativeLayout>
