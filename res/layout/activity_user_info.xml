@@ -1,114 +1,61 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"    
-    	xmlns:tools="http://schemas.android.com/tools"
-		android:layout_width="match_parent"
-		android:layout_height="fill_parent"
-		android:background="@drawable/myred" 
-		android:fillViewport="true"    
-		android:paddingBottom="@dimen/activity_vertical_margin"    
-		android:paddingLeft="@dimen/activity_horizontal_margin"    
-		android:paddingRight="@dimen/activity_horizontal_margin"    
-		android:paddingTop="@dimen/activity_horizontal_margin"
-		    >
-<RelativeLayout 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/myred"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_horizontal_margin" >
+	
+	<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scroll">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/myborder"
-    tools:context=".UserInfoActivity"
-    android:paddingTop="@dimen/activity_vertical_margin">
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/personalinfo"
-        style="@style/mytextview"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="22dp"
-        style="@style/mytextview"
-        android:text="Name" />
-
-    <TextView
-        android:id="@+id/phonenumb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/username"
-        android:layout_below="@+id/username"
-        android:layout_marginTop="22dp"
-        style="@style/mytextview"
-        android:text="Phone number" />
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".UserInfoActivity" >
 
     <EditText
         android:id="@+id/nameinput"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_alignBaseline="@+id/username"
-        android:layout_alignBottom="@+id/username"
-        android:layout_toRightOf="@+id/phonenumb"
-        android:background="@drawable/myedittext"
+        android:layout_height="45dp"
+        android:background="@drawable/edittext"
         android:ems="10"
-        android:gravity="center" />
-
-    <EditText
-        android:id="@+id/inputphone"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_alignBaseline="@+id/phonenumb"
-        android:layout_alignBottom="@+id/phonenumb"
-        android:layout_alignLeft="@+id/nameinput"
-        android:layout_alignRight="@+id/nameinput"
-        android:background="@drawable/myedittext"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="phone" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/phonenumb"
-        android:layout_below="@+id/inputphone"
-        android:layout_marginTop="39dp"
-        style="@style/mytextview"
-        android:text="Branch" />
-
-    <Spinner
-        android:id="@+id/branchesSP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView1"
-        android:layout_toRightOf="@+id/textView1"
-        android:background="@drawable/myspinner" />
-
-    <CheckBox
-        android:id="@+id/preparer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/mytextview"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/delivery"
-        android:text="Preparer" />
+        android:hint="Name"
+        android:paddingLeft="8dp"
+        android:textSize="12sp" />
 
     <CheckBox
         android:id="@+id/admin"
+        style="@style/mytextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/preparer"
         android:layout_below="@+id/preparer"
-        style="@style/mytextview"
+        android:layout_marginTop="8dp"
+        android:button="@drawable/mycheckbox"
+        android:paddingLeft="8dp"
         android:text="Admin" />
+
+    <CheckBox
+        android:id="@+id/preparer"
+        style="@style/mytextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/delivery"
+        android:layout_marginTop="8dp"
+        android:button="@drawable/mycheckbox"
+        android:paddingLeft="8dp"
+        android:text="Preparer" />
 
     <CheckBox
         android:id="@+id/delivery"
@@ -117,20 +64,58 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/preparer"
         android:layout_below="@+id/branchesSP"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="22dp"
+        android:button="@drawable/mycheckbox"
+        android:paddingLeft="8dp"
         android:text="Delivery" />
 
-    <Button
-        android:id="@+id/submit"
+    <TextView
+        android:id="@+id/textView1"
+        style="@style/mytextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/admin"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/mybutton"
-        android:onClick="addUser"
-        android:text="Add"
-        android:minWidth="80dp"
-        android:textColor="#ffffff" />
+        android:layout_below="@+id/inputphone"
+        android:layout_marginTop="16dp"
+        android:text="Branch" />
 
+    <Spinner
+        android:id="@+id/branchesSP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:background="@drawable/myspinner" />
+
+    <EditText
+        android:id="@+id/inputphone"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/nameinput"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint="Phone #"
+        android:inputType="phone"
+        android:paddingLeft="8dp"
+        android:textSize="12sp" >
+
+        <requestFocus />
+    </EditText>
 </RelativeLayout>
+
 </ScrollView>
+	<Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+			android:layout_marginTop="10dp"
+            android:background="@drawable/mybutton"
+            android:layout_below="@+id/scroll"
+            android:onClick="addUser"
+            android:text="@string/submit"
+            android:textColor="#6f6f71"
+            android:textSize="18sp" />
+</RelativeLayout>
