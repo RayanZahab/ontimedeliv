@@ -50,32 +50,40 @@ public class OrdersActivity extends Activity {
 	public void setOrders(String s, String error) {
 
 		morders = new APIManager().getOrders(s);
-		for (int i = 0; i < morders.size(); i++) {
-			orderItems.add(new Item(morders.get(i).getId(), morders.get(i)
-					.toString(), morders.get(i).getCount(), morders.get(i)
-					.getTotal(), morders.get(i).isNewCustomer()));
+		ListView listView = (ListView) findViewById(R.id.list);
+		if (morders.size() == 0) {
+			orderItems.add(new Item(0, getString(R.string.empty_list),0,0,false
+					));
+		}
+		else
+		{
+			for (int i = 0; i < morders.size(); i++) {
+				orderItems.add(new Item(morders.get(i).getId(), 
+						morders.get(i).toString(), morders.get(i).getCount(), morders.get(i)
+						.getTotal(), morders.get(i).isNewCustomer()));
+			}
 		}
 
 		dataAdapter = new OrdersAdapter(OrdersActivity.this,
 				R.layout.row_order, orderItems);
-
-		ListView listView = (ListView) findViewById(R.id.list);
-
 		listView.setAdapter(dataAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent i;
-				if (old) {
-					i = new Intent(getBaseContext(),
-							OldOrdersInfoActivity.class);
-				} else {
-					i = new Intent(getBaseContext(), OrderInfoActivity.class);
+				if (morders.size()>0)
+				{
+					Intent i;
+					if (old) {
+						i = new Intent(getBaseContext(),
+								OldOrdersInfoActivity.class);
+					} else {
+						i = new Intent(getBaseContext(), OrderInfoActivity.class);
+					}
+					((ontimedeliv) OrdersActivity.this.getApplication())
+							.setOrderId(orderItems.get(position).getId());
+					startActivity(i);
 				}
-				((ontimedeliv) OrdersActivity.this.getApplication())
-						.setOrderId(orderItems.get(position).getId());
-				startActivity(i);
 			}
 		});
 	}

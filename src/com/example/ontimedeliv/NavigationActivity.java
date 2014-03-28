@@ -90,7 +90,7 @@ public class NavigationActivity extends Activity {
 			if (status != null) {
 				((ontimedeliv) NavigationActivity.this.getApplication())
 						.setOrderStatus(status);
-				if (!status.equals("new") && !status.equals("assigned")) {
+				if (!status.equals("opened") && !status.equals("assigned")) {
 					i.putExtra("old", true);
 				}
 			}

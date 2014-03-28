@@ -12,7 +12,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -44,7 +46,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	private Activity mc;
 	private String method;
 	boolean first = false;
-	private boolean last =true;
+	private boolean last = true;
 	private Object objectToAdd;
 	String token;
 	private ontimedeliv global;
@@ -67,19 +69,18 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 
-	public MyJs(String returnFunction, Activity m,
-			ontimedeliv mg, String method) {
+	public MyJs(String returnFunction, Activity m, ontimedeliv mg, String method) {
 		this.returnFunction = returnFunction;
 		this.mc = m;
 		this.global = mg;
 		this.method = method;
-		this.last=true;
-		this.first=true;
+		this.last = true;
+		this.first = true;
 		MyJs();
 	}
 
-	public MyJs(String returnFunction, Activity m,
-			ontimedeliv mg, String method, boolean sm,boolean last) {
+	public MyJs(String returnFunction, Activity m, ontimedeliv mg,
+			String method, boolean sm, boolean last) {
 		this.returnFunction = returnFunction;
 		this.mc = m;
 		this.global = mg;
@@ -89,8 +90,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		MyJs();
 	}
 
-	public MyJs(String returnFunction, Activity m,
-			ontimedeliv mg, String method, Object o, boolean first,boolean last) {
+	public MyJs(String returnFunction, Activity m, ontimedeliv mg,
+			String method, Object o, boolean first, boolean last) {
 		this.returnFunction = returnFunction;
 		this.mc = m;
 		this.global = mg;
@@ -101,22 +102,22 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		MyJs();
 	}
 
-	public MyJs(String returnFunction, Activity m,
-			ontimedeliv mg, String method, Object o) {
+	public MyJs(String returnFunction, Activity m, ontimedeliv mg,
+			String method, Object o) {
 		this.returnFunction = returnFunction;
 		this.mc = m;
 		this.global = mg;
 		this.method = method;
 		this.objectToAdd = o;
-		this.last=true;
-		this.first=true;
+		this.last = true;
+		this.first = true;
 		MyJs();
 	}
 
 	protected void onPreExecute() {
 		if (!isNetworkAvailable()) {
 			cancel(true);
-			new GlobalM().bkToNav(mc);
+			new GlobalM().bkToNav(mc, mc.getString(R.string.no_net));
 		} else {
 			if (this.first) {
 				showProg();
@@ -156,7 +157,14 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					sb.append(line + "\n");
 				}
 				Content = sb.toString();
-				Error = null;
+				if (conn.getResponseCode() != 200) {
+					Error = conn.getResponseMessage();
+					JSONObject jsonResponse = new JSONObject(Content);
+					Error = jsonResponse.optString("error").toString();
+				} else {
+					Error = null;
+				}
+				Log.d("ry","ray log: "+Content);
 			} else if (this.method.equals("POST")) {
 				conn.addRequestProperty("Accept", "application/json");
 				conn.addRequestProperty("Accept-Encoding", "gzip");
@@ -253,14 +261,17 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	}
 
 	protected void onPostExecute(Void unused) {
-		if (pd!= null && last)
-		{
+		if (pd != null && last) {
 			pd.dismiss();
-			Log.d("ray", "removed" + this.returnFunction);
 		}
 		try {
 			if (Content == null)
 				Content = "";
+			Log.d("post ray", "error: " + Error);
+			if (Error != null) {
+
+				new GlobalM().bkToNav(mc, getError(Content));
+			}
 			Method returnFunction = this.mc.getClass()
 					.getMethod(this.returnFunction, Content.getClass(),
 							Content.getClass());
@@ -300,7 +311,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		}
 		String lineEnd = "\r\n";
 		String twoHyphens = "--";
-		String url = "http://107.170.86.46/api/v1/items";//http://enigmatic-springs-5176.herokuapp.com/api/v1/items";
+		String url = "http://107.170.86.46/api/v1/items";// http://enigmatic-springs-5176.herokuapp.com/api/v1/items";
 		// String url = "http://localhost:3000/api/v1/items";
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -421,7 +432,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	private class TransparentProgressDialog extends Dialog {
 
 		private ImageView iv;
- 
+
 		public TransparentProgressDialog(Context context, int resourceIdOfImage) {
 			super(context, R.style.TransparentProgressDialog);
 			WindowManager.LayoutParams wlmp = getWindow().getAttributes();
@@ -452,6 +463,19 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			iv.setAnimation(anim);
 			iv.startAnimation(anim);
 		}
+	}
+
+	public String getError(String cont) {
+		JSONObject jsonResponse;
+		try {
+			jsonResponse = new JSONObject(cont);
+			return jsonResponse.optString("error").toString();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "Sorry, something went wrong";
+
 	}
 
 }

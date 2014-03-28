@@ -1,6 +1,5 @@
 package com.example.ontimedeliv;
 
-
 import java.util.ArrayList;
 
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -38,10 +38,10 @@ public class BranchesActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_branches);
-		 
-		ActionBar actionBar = getActionBar();		 
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        ((ontimedeliv) this.getApplication()).clear("listing");
+
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		((ontimedeliv) this.getApplication()).clear("listing");
 		shopId = ((ontimedeliv) this.getApplication()).getShopId();
 		getBranches();
 
@@ -49,7 +49,8 @@ public class BranchesActivity extends Activity {
 
 	public void getBranches() {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		MyJs mjs=new MyJs("setBranches", this,((ontimedeliv) this.getApplication()), "GET");
+		MyJs mjs = new MyJs("setBranches", this,
+				((ontimedeliv) this.getApplication()), "GET");
 		mjs.execute(serverURL);
 	}
 
@@ -58,36 +59,49 @@ public class BranchesActivity extends Activity {
 				R.drawable.user);
 		branches = new APIManager().getBranchesByShop(s);
 		branchesItem = new ArrayList<Item>();
-
-		for (int i = 0; i < branches.size(); i++) {
-			branchesItem.add(new Item(branches.get(i).getId(), picture,
-					branches.get(i).toString()));
+		ListView listView = (ListView) findViewById(R.id.list);
+		
+		if (branches.size() == 0) {
+			branchesItem.add(new Item(0, picture,
+					getString(R.string.empty_list)));
+		} else if (branches.size() == 1) {
+			((ontimedeliv) BranchesActivity.this.getApplication())
+					.setBranchId(branchesItem.get(0).getId());
+			Intent i = new Intent(getBaseContext(), CategoriesActivity.class);
+			startActivity(i);
+			return;
+		}else
+		{
+			for (int i = 0; i < branches.size(); i++) {
+				branchesItem.add(new Item(branches.get(i).getId(), picture,
+						branches.get(i).toString()));
+			}
+			registerForContextMenu(listView);
 		}
 		dataAdapter = new MyCustomAdapter(this, R.layout.branches_list,
 				branchesItem);
-		ListView listView = (ListView) findViewById(R.id.list);
 
-		registerForContextMenu(listView);
 		listView.setAdapter(dataAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				
-				Intent i;
-				try {
-					i = new Intent(getBaseContext(), Class
-							.forName(getPackageName() + "."
-									+ "CategoriesActivity"));
-					((ontimedeliv) BranchesActivity.this.getApplication()).setBranchId(branchesItem.get(position).getId());
-					startActivity(i);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if (branches.size() > 0) {
+					Intent i;
+					try {
+						i = new Intent(getBaseContext(), Class
+								.forName(getPackageName() + "."
+										+ "CategoriesActivity"));
+						((ontimedeliv) BranchesActivity.this.getApplication())
+								.setBranchId(branchesItem.get(position).getId());
+						startActivity(i);
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
-
 		});
 
 	}
@@ -130,7 +144,9 @@ public class BranchesActivity extends Activity {
 								String serverURL = new myURL(null, "branches",
 										branchId, 0).getURL();
 								MyJs mjs = new MyJs("afterDelete",
-								BranchesActivity.this,((ontimedeliv) BranchesActivity.this.getApplication()), "DELETE");
+										BranchesActivity.this,
+										((ontimedeliv) BranchesActivity.this
+												.getApplication()), "DELETE");
 								mjs.execute(serverURL);
 							}
 						}).setNegativeButton(android.R.string.no, null).show();
@@ -141,8 +157,9 @@ public class BranchesActivity extends Activity {
 	}
 
 	public void Edit(Item item) {
-		Intent i = new Intent(BranchesActivity.this, AddBranchActivity.class);	
-		((ontimedeliv) BranchesActivity.this.getApplication()).setBranchId(item.getId());
+		Intent i = new Intent(BranchesActivity.this, AddBranchActivity.class);
+		((ontimedeliv) BranchesActivity.this.getApplication()).setBranchId(item
+				.getId());
 		startActivity(i);
 	}
 
@@ -159,7 +176,6 @@ public class BranchesActivity extends Activity {
 		return true;
 	}
 
-	
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_search:
