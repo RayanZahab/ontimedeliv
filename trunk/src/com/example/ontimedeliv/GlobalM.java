@@ -24,10 +24,10 @@ public class GlobalM {
 
 	}
 
-	public void bkToNav(Activity a) {
+	public void bkToNav(Activity a,String msg) {
 
 		Intent i = new Intent(a, NavigationActivity.class);
-		Toast t = Toast.makeText(a.getApplicationContext(), R.string.no_net,
+		Toast t = Toast.makeText(a.getApplicationContext(), msg,
 				Toast.LENGTH_SHORT);
 		t.setGravity(Gravity.TOP, 0, 0);
 		t.show();

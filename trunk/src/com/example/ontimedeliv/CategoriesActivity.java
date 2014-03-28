@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -45,9 +44,9 @@ public class CategoriesActivity extends Activity {
 	public void onCreate(Bundle savedInstancecat) {
 		super.onCreate(savedInstancecat);
 		setContentView(R.layout.activity_categories);
-		ActionBar actionBar = getActionBar();		 
-        actionBar.setDisplayHomeAsUpEnabled(true);
-		
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+
 		((ontimedeliv) this.getApplication()).clear("categories");
 		this.branchId = ((ontimedeliv) this.getApplication()).getBranchId();
 		this.shopId = ((ontimedeliv) this.getApplication()).getShopId();
@@ -82,23 +81,22 @@ public class CategoriesActivity extends Activity {
 		}
 		myCat = new Activate("categories", unselectedIds);
 
-		Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG)
-				.show();
-
 		String serverURL = new myURL("deactivate_categories", "branches",
 				branchId, 0).getURL();
-		new MyJs("afterDeactivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myCat,true,false)
-				.execute(serverURL);
+		new MyJs("afterDeactivate", this,
+				((ontimedeliv) this.getApplication()), "PUT", (Object) myCat,
+				true, false).execute(serverURL);
 	}
 
 	public void afterDeactivate(String s, String error) {
-		Toast.makeText(getApplicationContext(), R.string.deactivate + s,
-				Toast.LENGTH_SHORT).show();
+
 		myCat = new Activate("categories", selectedIds);
 		String serverURL = new myURL("activate_categories", "branches",
 				branchId, 0).getURL();
 
-		MyJs mjs = new MyJs( "afterActivate", this,((ontimedeliv) this.getApplication()), "PUT", (Object) myCat,false,true);
+		MyJs mjs = new MyJs("afterActivate", this,
+				((ontimedeliv) this.getApplication()), "PUT", (Object) myCat,
+				false, true);
 		mjs.execute(serverURL);
 	}
 
@@ -109,40 +107,48 @@ public class CategoriesActivity extends Activity {
 
 	public void getCategories() {
 		String serverURL = this.url;
-		MyJs mjs = new MyJs("setCategories", this,((ontimedeliv) CategoriesActivity.this.getApplication()), "GET");
+		MyJs mjs = new MyJs("setCategories", this,
+				((ontimedeliv) CategoriesActivity.this.getApplication()), "GET");
 		mjs.execute(serverURL);
 	}
 
 	public void setCategories(String s, String error) {
+		ListView listView = (ListView) findViewById(R.id.categorylist);
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
 		categories = new APIManager().getCategoriesByBranch(s);
 		categoryItems = new ArrayList<Item>();
-
-		for (int i = 0; i < categories.size(); i++) {
-			categoryItems
-					.add(new Item(categories.get(i).getId(), picture,
-							categories.get(i).toString(), categories.get(i)
-									.isActive()));
+		if (categories.size() == 0) {
+			categoryItems.add(new Item(0, picture,
+					getString(R.string.empty_list)));
+		}
+		else
+		{
+			for (int i = 0; i < categories.size(); i++) {
+				categoryItems
+						.add(new Item(categories.get(i).getId(), picture,
+								categories.get(i).toString(), categories.get(i)
+										.isActive()));
+			}
+			registerForContextMenu(listView);
 		}
 		// create an ArrayAdaptar from the String Array
 		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
 				categoryItems);
-		ListView listView = (ListView) findViewById(R.id.categorylist);
-		registerForContextMenu(listView);
-		// Assign adapter to ListView
+		
 		listView.setAdapter(dataAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// When clicked, Navigate to the selected item
-				Toast.makeText(getApplicationContext(),
-						"Selected: " + branchId, Toast.LENGTH_SHORT).show();
-				Intent i = new Intent(getBaseContext(), ProductsActivity.class);
-				((ontimedeliv) CategoriesActivity.this.getApplication()).setCategoryId(categoryItems.get(position).getId());
-				startActivity(i);
+				if (categories.size() > 0)
+				{
+					Intent i = new Intent(getBaseContext(), ProductsActivity.class);
+					((ontimedeliv) CategoriesActivity.this.getApplication())
+							.setCategoryId(categoryItems.get(position).getId());
+					startActivity(i);
+				}
 			}
 
 		});
@@ -154,10 +160,10 @@ public class CategoriesActivity extends Activity {
 		getMenuInflater().inflate(R.menu.categories, menu);
 		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
-                .getActionView();
-        searchView.setSearchableInfo(searchManager
-                .getSearchableInfo(getComponentName()));
+		SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
+				.getActionView();
+		searchView.setSearchableInfo(searchManager
+				.getSearchableInfo(getComponentName()));
 		return true;
 	}
 
@@ -185,8 +191,6 @@ public class CategoriesActivity extends Activity {
 		}
 		return true;
 	}
-
-	
 
 	public void Edit(Item item) {
 		LayoutInflater li = LayoutInflater.from(getApplicationContext());
@@ -280,8 +284,8 @@ public class CategoriesActivity extends Activity {
 	public void addCategory(String categoryName, int shopId) {
 		String serverURL = new myURL("categories", null, 0, 0).getURL();
 		Category newCategory = new Category(0, categoryName, true, shopId);
-		new MyJs("afterCreation", this,((ontimedeliv) this.getApplication()), "POST", (Object) newCategory)
-				.execute(serverURL);
+		new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
+				"POST", (Object) newCategory).execute(serverURL);
 	}
 
 	public void editCategory(int categoryId, String categoryName) {
@@ -289,15 +293,15 @@ public class CategoriesActivity extends Activity {
 				.getURL();
 		Category newCategory = new Category(categoryId, categoryName, true,
 				shopId);
-		new MyJs("afterCreation", this,((ontimedeliv) this.getApplication()), "PUT", (Object) newCategory)
-				.execute(serverURL);
+		new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
+				"PUT", (Object) newCategory).execute(serverURL);
 	}
 
 	public void afterCreation(String s, String error) {
 		Intent i = new Intent(this, CategoriesActivity.class);
 		startActivity(i);
 	}
-	
+
 	public void Delete(final int catId) {
 
 		new AlertDialog.Builder(this)
@@ -308,10 +312,12 @@ public class CategoriesActivity extends Activity {
 
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
-								String serverURL = new myURL(null, "categories",
-										catId, 0).getURL();
+								String serverURL = new myURL(null,
+										"categories", catId, 0).getURL();
 								MyJs mjs = new MyJs("afterDelete",
-										CategoriesActivity.this,((ontimedeliv) CategoriesActivity.this.getApplication()), "DELETE");
+										CategoriesActivity.this,
+										((ontimedeliv) CategoriesActivity.this
+												.getApplication()), "DELETE");
 								mjs.execute(serverURL);
 							}
 						}).setNegativeButton(android.R.string.no, null).show();
@@ -320,6 +326,7 @@ public class CategoriesActivity extends Activity {
 	public void afterDelete(String s, String error) {
 		backToActivity(CategoriesActivity.class);
 	}
+
 	public void backToActivity(Class activity) {
 		Intent i = new Intent(CategoriesActivity.this, activity);
 		startActivity(i);

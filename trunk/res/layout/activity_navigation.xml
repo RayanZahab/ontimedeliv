@@ -44,15 +44,6 @@
         android:layout_toLeftOf="@+id/settings"
         android:src="@drawable/about" />
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_alignParentTop="true"
-        android:onClick="select"
-        android:layout_alignRight="@+id/closed"
-        android:src="@drawable/sublogo" />
-
     <Button
         android:id="@+id/closed"
         android:layout_width="100dp"
@@ -89,15 +80,15 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_above="@+id/closed"
+        android:layout_alignRight="@+id/closed"
         android:layout_marginBottom="20dp"
-        android:layout_alignRight="@+id/imageView1"
         android:background="@drawable/usersbutton"
         android:gravity="bottom|center"
         android:onClick="select"
         android:paddingBottom="5dp"
-        android:textSize="12sp"
         android:text="Users"
-        android:textColor="#6f6f71" />
+        android:textColor="#6f6f71"
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/assigned"

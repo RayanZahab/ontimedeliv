@@ -71,7 +71,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 		}
 
 		Item cat = currentList.get(position);
-
+		if(cat.getImg()!=0)
 		holder.name.setText(cat.getTitle());
 		holder.name.setChecked(cat.isSelected());
 

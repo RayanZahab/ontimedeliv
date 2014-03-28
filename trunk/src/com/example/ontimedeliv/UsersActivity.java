@@ -45,31 +45,38 @@ public class UsersActivity extends Activity {
 		
 		users = new APIManager().getUsers(s);
 		int icon = 0;
-		for (int i = 0; i < users.size(); i++) {
-			if(users.get(i).isIs_admin())
-			{
-				icon = R.drawable.admin;
+		ListView listView = (ListView) findViewById(R.id.Userslist);
+		if(users.size()==0)
+		{
+			usersItem.add(new Item(0, R.drawable.user, getString(R.string.empty_list)));
+		}
+		else
+		{
+			for (int i = 0; i < users.size(); i++) {
+				if(users.get(i).isIs_admin())
+				{
+					icon = R.drawable.admin;
+				}
+				else if(users.get(i).isIs_preparer())
+				{
+					icon = R.drawable.user;
+				}
+				else if(users.get(i).isIs_delivery())
+				{
+					icon = R.drawable.delivery;
+				}
+				else if((users.get(i).isIs_delivery())&&(users.get(i).isIs_preparer()))
+				{
+					icon = R.drawable.delivery;
+				}
+				else icon = R.drawable.user;
+				usersItem.add(new Item(users.get(i).getId(), icon, users.get(i)
+						.toString()));
 			}
-			else if(users.get(i).isIs_preparer())
-			{
-				icon = R.drawable.user;
-			}
-			else if(users.get(i).isIs_delivery())
-			{
-				icon = R.drawable.delivery;
-			}
-			else if((users.get(i).isIs_delivery())&&(users.get(i).isIs_preparer()))
-			{
-				icon = R.drawable.delivery;
-			}
-			else icon = R.drawable.user;
-			usersItem.add(new Item(users.get(i).getId(), icon, users.get(i)
-					.toString()));
+			registerForContextMenu(listView);
 		}
 		// create an ArrayAdaptar from the String Array
 		dataAdapter = new MyCustomAdapter(this, R.layout.row_users, usersItem);
-		ListView listView = (ListView) findViewById(R.id.Userslist);
-		registerForContextMenu(listView);
 		// Assign adapter to ListView
 		listView.setAdapter(dataAdapter);
 
@@ -77,20 +84,19 @@ public class UsersActivity extends Activity {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// When clicked, Navigate to the selected item
-				Toast.makeText(getApplicationContext(),
-						"Selected" + usersItem.get(position).getId(),
-						Toast.LENGTH_SHORT).show();
-				Intent i;
-				try {
-					i = new Intent(getBaseContext(), Class
-							.forName(getPackageName() + "."
-									+ "UserInfoActivity"));
-					i.putExtra("id", "" + usersItem.get(position).getId());
-					startActivity(i);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if(users.size()>0)
+				{
+					Intent i;
+					try {
+						i = new Intent(getBaseContext(), Class
+								.forName(getPackageName() + "."
+										+ "UserInfoActivity"));
+						i.putExtra("id", "" + usersItem.get(position).getId());
+						startActivity(i);
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 

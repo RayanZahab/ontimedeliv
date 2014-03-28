@@ -158,9 +158,9 @@ public class OrderInfoActivity extends Activity {
 	public void addItemsOnStatus() {
 		status = (Spinner) findViewById(R.id.order_status);
 		List<String> list = new ArrayList<String>();
-		list.add("Open");
-		list.add("Prepared");
-		list.add("Delivered");
+		list.add(getString(R.string.open_status));
+		list.add(getString(R.string.prepared_status));
+		list.add(getString(R.string.delivered_status));
 
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, list);
