@@ -187,15 +187,6 @@
         </RelativeLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/myborder"
-        android:gravity="center"
-        android:orientation="vertical" >
 
         <Button            
             android:id="@+id/submit"
@@ -207,8 +198,7 @@
             android:background="@drawable/mybutton"
             android:onClick="addBranch"
             android:text="@string/submit"
-            android:textColor="#cdcccb"
+            android:textColor="#6f6f71"
             android:textSize="18sp" />
-    </LinearLayout>
 
 </LinearLayout>
