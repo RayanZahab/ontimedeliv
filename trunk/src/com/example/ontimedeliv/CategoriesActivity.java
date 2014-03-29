@@ -66,9 +66,6 @@ public class CategoriesActivity extends Activity {
 
 	public void submit(View v) {
 
-		StringBuffer responseText = new StringBuffer();
-		responseText.append("Selected Categories are...\n");
-
 		ArrayList<Item> stateList = dataAdapter.getCurrentList();
 
 		for (int i = 0; i < stateList.size(); i++) {
@@ -121,30 +118,26 @@ public class CategoriesActivity extends Activity {
 		if (categories.size() == 0) {
 			categoryItems.add(new Item(0, picture,
 					getString(R.string.empty_list)));
-		}
-		else
-		{
+		} else {
 			for (int i = 0; i < categories.size(); i++) {
-				categoryItems
-						.add(new Item(categories.get(i).getId(), picture,
-								categories.get(i).toString(), categories.get(i)
-										.isActive()));
+				categoryItems.add(new Item(categories.get(i).getId(), picture,
+						categories.get(i).toString(), categories.get(i)
+								.isActive()));
 			}
 			registerForContextMenu(listView);
 		}
-		// create an ArrayAdaptar from the String Array
 		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
 				categoryItems);
-		
+
 		listView.setAdapter(dataAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (categories.size() > 0)
-				{
-					Intent i = new Intent(getBaseContext(), ProductsActivity.class);
+				if (categories.size() > 0) {
+					Intent i = new Intent(getBaseContext(),
+							ProductsActivity.class);
 					((ontimedeliv) CategoriesActivity.this.getApplication())
 							.setCategoryId(categoryItems.get(position).getId());
 					startActivity(i);
@@ -156,7 +149,6 @@ public class CategoriesActivity extends Activity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.categories, menu);
 		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -198,7 +190,6 @@ public class CategoriesActivity extends Activity {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				CategoriesActivity.this);
 
-		// set prompts.xml to alertdialog builder
 		alertDialogBuilder.setView(promptsView);
 		final TextView title = (TextView) promptsView
 				.findViewById(R.id.textView1);
@@ -222,10 +213,7 @@ public class CategoriesActivity extends Activity {
 							}
 						});
 
-		// create alert dialog
 		AlertDialog alertDialog = alertDialogBuilder.create();
-
-		// show it
 		alertDialog.show();
 	}
 
