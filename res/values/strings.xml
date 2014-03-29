@@ -26,14 +26,14 @@
     <string name="status">Status</string>
     <string name="notes">Notes:</string>
     <string name="cancel">Cancel</string>
-    <string name="deliveryguy">Delivery Guy:</string>
-    <string name="preparerguy">Preparer:</string>
+    <string name="deliveryguy">Delivery Guy</string>
+    <string name="preparerguy">Preparer</string>
     <string name="details">Details</string>
-    <string name="name">Name:</string>
+    <string name="name">Name</string>
     <string name="textButton">TextButton</string>
     <string name="selectphoto">Select Photo</string>
     <string name="slash">/</string>
-    <string name="priceunit">Price/Unit:</string>
+    <string name="priceunit">Price/Unit</string>
     <string name="producticon">Product Icon:</string>
     <string name="estimatedtime">Estimated Time:</string>
     <string name="description">Description:</string>
@@ -138,5 +138,9 @@
     <string name="open_status">Open</string>
     <string name="prepared_status">Prepared</string>
     <string name="delivered_status">Closed</string>
+    <string name="branch">Branch</string>
+    <string name="phonenum">Phone number</string>
+    <string name="admin">Admin</string>
+    
 
 </resources>

@@ -29,7 +29,7 @@
         android:layout_height="45dp"
         android:background="@drawable/edittext"
         android:ems="10"
-        android:hint="Name"
+        android:hint="@string/name"
         android:paddingLeft="8dp"
         android:textSize="12sp" />
     
@@ -52,7 +52,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="15dp"
         android:button="@drawable/mycheckbox"
-        android:text="Admin" />
+        android:text="@string/admin" />
 
     <CheckBox
         android:id="@+id/preparer"
@@ -63,7 +63,7 @@
         android:layout_below="@+id/delivery"
         android:layout_marginTop="8dp"
         android:button="@drawable/mycheckbox"
-        android:text="Preparer" />
+        android:text="@string/preparerguy" />
 
     <CheckBox
         android:id="@+id/delivery"
@@ -73,7 +73,7 @@
         android:layout_alignLeft="@+id/preparer"
         android:layout_marginTop="15dp"
         android:button="@drawable/mycheckbox"
-        android:text="Delivery" />
+        android:text="@string/app_name" />
     </RelativeLayout>
 
     <TextView
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/inputphone"
         android:layout_marginTop="16dp"
-        android:text="Branch" />
+        android:text="@string/branch" />
 
     <Spinner
         android:id="@+id/branchesSP"
@@ -102,7 +102,7 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/edittext"
         android:ems="10"
-        android:hint="Phone #"
+        android:hint="@string/phonenum"
         android:inputType="phone"
         android:paddingLeft="8dp"
         android:textSize="12sp" >

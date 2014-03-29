@@ -59,7 +59,7 @@ public class UsersActivity extends Activity {
 				}
 				else if(users.get(i).isIs_preparer())
 				{
-					icon = R.drawable.user;
+					icon = R.drawable.preparer;
 				}
 				else if(users.get(i).isIs_delivery())
 				{
