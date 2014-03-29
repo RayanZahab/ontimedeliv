@@ -15,7 +15,7 @@
         android:button="@drawable/mycheckbox"
         android:focusableInTouchMode="false"
         android:text="checkbox"
-        android:textColor="#B40404" />
+        android:textColor="#6f6f71" />
 
     <ImageView
         android:id="@+id/item_image"
