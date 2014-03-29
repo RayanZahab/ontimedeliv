@@ -135,7 +135,7 @@ public class Branch {
 	}
 
 	public String toString() {
-		return this.id + "-" + this.name + "\n" + this.area.toString() + ","
+		return this.name + "\n" + this.area.toString() + ","
 				+ this.address;
 	}
 	@Override

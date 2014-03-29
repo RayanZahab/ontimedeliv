@@ -30,7 +30,7 @@ public class ForgotPasswordActivity extends Activity {
 	}
 
 	public void reset(View view) {
-		username = (EditText) findViewById(R.id.username);
+		username = (EditText) findViewById(R.id.user_name);
 		sendSMS(username.getText().toString(), "Your password is now 123");
 
 	}

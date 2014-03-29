@@ -1,5 +1,7 @@
 package com.example.ontimedeliv;
 
+import android.util.Log;
+
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 
@@ -9,14 +11,13 @@ public class User {
 	private String username;
 	private String password;
 	private String phone,token;
-	private String mobile;
 	private int is_fired;
 	private Address address;
 	private int branch_id;
 	private boolean is_admin, is_preparer, is_delivery;
 
 	public User(int id, String name, String password,
-			String phone, String mobile, int is_fired, Address address,
+			String phone, int is_fired, Address address,
 			int branch_id, boolean is_admin, boolean is_preparer,
 			boolean is_delivery) {
 
@@ -25,7 +26,6 @@ public class User {
 		this.setUsername(username);
 		this.setPassword(password);
 		this.setPhone(phone);
-		this.setMobile(mobile);
 		this.setIs_fired(is_fired);
 		this.setAddress(address);
 		this.setBranch_id(branch_id);
@@ -33,9 +33,18 @@ public class User {
 		this.setIs_preparer(is_preparer);
 		this.setIs_delivery(is_delivery);
 	}
-	public User(int id,String token,int branch_id,boolean is_admin, boolean is_preparer,
+	public User(String name, String phone, String pass, int branch_id, int is_fired)
+	{
+		this.setName(name);
+		this.setPassword(pass);
+		this.setPhone(phone);
+		this.setIs_fired(is_fired);
+		this.setBranch_id(branch_id);		
+	}
+	public User(int id,String name,String token,int branch_id,boolean is_admin, boolean is_preparer,
 			boolean is_delivery )
 	{
+		this.setName(name);
 		this.setId(id);
 		this.setBranch_id(branch_id);
 		this.setIs_admin(is_admin);
@@ -53,14 +62,6 @@ public class User {
 		this.setId(id);
 	}
 
-	public String getMobile() {
-		return mobile;
-	}
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
 	public String getPhone() {
 		return phone;
 	}
@@ -74,8 +75,11 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = Hashing.sha256().hashString(
-				password
+		Log.d("ray","ray pass:"+password);
+		this.password = 
+				Hashing.
+				sha256().
+				hashString(password
 				, Charsets.UTF_8).toString();
 	}
 
@@ -120,8 +124,7 @@ public class User {
 	}
 
 	public String toString() {
-		return this.id + "-" + this.name + "\n" + this.is_admin + ","
-				+ this.is_delivery + "," + this.is_preparer;
+		return this.name;
 	}
 
 	public int getBranch_id() {

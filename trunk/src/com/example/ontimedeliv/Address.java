@@ -154,7 +154,7 @@ public class Address {
 	}
 
 	public String toString() {
-		return this.country + "," + this.city + "," + this.area;
+		return this.building+" , "+this.floor+" , "+this.details;
 	}
 
 }

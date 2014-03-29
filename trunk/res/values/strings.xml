@@ -138,9 +138,11 @@
     <string name="open_status">Open</string>
     <string name="prepared_status">Prepared</string>
     <string name="delivered_status">Closed</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic</string>
+    <string name="pass_dnt_match">Passwords do not match </string>
     <string name="branch">Branch</string>
     <string name="phonenum">Phone number</string>
     <string name="admin">Admin</string>
-    
 
 </resources>

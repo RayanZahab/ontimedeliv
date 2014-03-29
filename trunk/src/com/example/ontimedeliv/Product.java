@@ -93,7 +93,7 @@ public class Product {
 	}
 
 	public String toString() {
-		return this.name + " - " + this.price + "\n" + this.description;
+		return this.name + " - " + this.price + "L.L \n" + this.description;
 	}
 
 	public int getShop_id() {

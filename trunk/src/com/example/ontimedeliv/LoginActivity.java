@@ -3,6 +3,7 @@ package com.example.ontimedeliv;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.util.Log;
 import android.view.Menu;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,7 +24,7 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
-		username = (EditText) findViewById(R.id.username);
+		username = (EditText) findViewById(R.id.user_name);
 		password = (EditText) findViewById(R.id.password);
 
 		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
@@ -56,11 +57,15 @@ public class LoginActivity extends Activity {
 
 			editor.putBoolean("isChecked", keeplog.isChecked());
 			editor.putString("token", user.getToken());
+			editor.putString("name", user.getName());
+			Log.d("ray","name: "+user.getName());
 			editor.putBoolean("admin", user.isIs_admin());
 			editor.putBoolean("preparer", user.isIs_preparer());
 			editor.putBoolean("delivery", user.isIs_delivery());
 			editor.putInt("shopId", 37);
+			editor.putInt("branchId", user.getBranch_id());
 			editor.putInt("id", user.getId());
+			editor.putString("phone", user.getPhone());
 
 			editor.commit();
 
