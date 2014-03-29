@@ -23,7 +23,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.view.ViewGroup.LayoutParams;
@@ -443,8 +445,12 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			setOnCancelListener(null);
 			LinearLayout layout = new LinearLayout(context);
 			layout.setOrientation(LinearLayout.VERTICAL);
+			DisplayMetrics dm = new DisplayMetrics();
+			mc.getWindowManager().getDefaultDisplay().getMetrics(dm);
+			int w = dm.widthPixels;
+			
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-					250, 250);
+					w/2, w/2);
 			iv = new ImageView(context);
 			iv.setImageResource(resourceIdOfImage);
 			layout.addView(iv, params);
@@ -454,6 +460,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		@Override
 		public void show() {
 			super.show();
+			
 			RotateAnimation anim = new RotateAnimation(360.0f, 0.0f,
 					Animation.RELATIVE_TO_SELF, .5f,
 					Animation.RELATIVE_TO_SELF, .5f);
