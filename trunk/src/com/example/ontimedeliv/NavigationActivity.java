@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class NavigationActivity extends Activity {
 	MyCustomAdapter dataAdapter;
@@ -82,19 +83,33 @@ public class NavigationActivity extends Activity {
 			method = "Orders";
 			status = "assigned";
 			break;
+		case R.id.about:
+			status = null;
+			method = null;
+			Toast.makeText(getApplicationContext(),
+					"Developed By Array Fusion", Toast.LENGTH_SHORT)
+					.show();
+			break;
+		case R.id.settings:
+			method = "UserProfile";
+			status = null;
+			break;
 		}
 
 		try {
-			i = new Intent(getBaseContext(), Class.forName(getPackageName()
-					+ "." + method + "Activity"));
-			if (status != null) {
-				((ontimedeliv) NavigationActivity.this.getApplication())
-						.setOrderStatus(status);
-				if (!status.equals("opened") && !status.equals("assigned")) {
-					i.putExtra("old", true);
+			if(method!=null)
+			{
+				i = new Intent(getBaseContext(), Class.forName(getPackageName()
+						+ "." + method + "Activity"));
+				if (status != null) {
+					((ontimedeliv) NavigationActivity.this.getApplication())
+							.setOrderStatus(status);
+					if (status!=null && !status.equals("opened") && !status.equals("assigned")) {
+						i.putExtra("old", true);
+					}
 				}
+				startActivity(i);
 			}
-			startActivity(i);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

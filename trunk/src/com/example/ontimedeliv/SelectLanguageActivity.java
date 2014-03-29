@@ -1,6 +1,7 @@
 package com.example.ontimedeliv;
 
 import java.util.Locale;
+
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -12,6 +13,7 @@ import android.content.res.Configuration;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class SelectLanguageActivity extends Activity {
 	MyCustomAdapter dataAdapter;
@@ -20,28 +22,29 @@ public class SelectLanguageActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ActionBar actionBar = getActionBar();
-        actionBar.hide();
+		actionBar.hide();
 		setContentView(R.layout.activity_select_language);
-		
+
 		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
 		String lang = settings1.getString("lang", null);
-		if(lang!=null)
-		{
-			Intent i = new Intent(SelectLanguageActivity.this, LoginActivity.class);
+		if (lang != null) {
+			Intent i = new Intent(SelectLanguageActivity.this,
+					LoginActivity.class);
 			startActivity(i);
 		}
 	}
-	public void select(View view){
+
+	public void select(View view) {
 		String lang_ab = "en";
-		 switch(view.getId()) {
-         case R.id.english:
-        	 lang_ab = "en";
-        	 break;
-         case R.id.arabic:
-        	 lang_ab = "ar";
-        	 break;        		 
-		 }
-		
+		switch (view.getId()) {
+		case R.id.english:
+			lang_ab = "en";
+			break;
+		case R.id.arabic:
+			lang_ab = "ar";
+			break;
+		}
+
 		Locale locale = new Locale(lang_ab);
 		Locale.setDefault(locale);
 		Configuration config = new Configuration();
@@ -58,18 +61,49 @@ public class SelectLanguageActivity extends Activity {
 		startActivity(i);
 	}
 
+	public void gotobutton(View view) {
+		String method = null;
+		switch (view.getId()) {
+		case R.id.settings:
+			method = "UserProfile";
+			break;
+		case R.id.about:
+			method = null;
+			Toast.makeText(getApplicationContext(),
+					"Developed By Array Fusion", Toast.LENGTH_SHORT)
+					.show();
+			break;
+		}
+
+		try {
+			if (method != null) {
+				Intent i = new Intent(SelectLanguageActivity.this,
+						Class.forName(getPackageName()
+								+ "." +method + "Activity"));
+				startActivity(i);
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 	@Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.exit)
-                .setMessage(R.string.exitquest)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    	SelectLanguageActivity.this.finishAffinity();
-                    }
-                }).setNegativeButton("No", null).show();
-    }
-	
+	public void onBackPressed() {
+		new AlertDialog.Builder(this)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setTitle(R.string.exit)
+				.setMessage(R.string.exitquest)
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								SelectLanguageActivity.this.finishAffinity();
+							}
+						}).setNegativeButton("No", null).show();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
