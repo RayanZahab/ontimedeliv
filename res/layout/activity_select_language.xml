@@ -39,23 +39,12 @@
         android:src="@drawable/sublogo" />
 
     <ImageView
-        android:id="@+id/settings"
+        android:id="@+id/about"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/arabic"
-        android:layout_marginBottom="14dp"
-        android:layout_marginRight="14dp"
-        android:onClick="gotobutton"
-        android:src="@drawable/settings" />
-
-    <ImageView
-        android:id="@+id/about"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignTop="@+id/settings"
-        android:layout_marginRight="15dp"
-        android:layout_toLeftOf="@+id/settings"
+        android:layout_marginBottom="23dp"
         android:onClick="gotobutton"
         android:src="@drawable/about" />
 
