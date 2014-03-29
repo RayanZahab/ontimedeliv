@@ -28,14 +28,15 @@ public class UserInfoActivity extends Activity implements
 	User currentUser;
 	int branchId, userId = 0;
 	ArrayList<Branch> branches;
-	GlobalM glob= new GlobalM();
+	GlobalM glob = new GlobalM();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_info);
-		ActionBar actionBar = getActionBar();		 
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        ((ontimedeliv) this.getApplication()).clear("user");
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		((ontimedeliv) this.getApplication()).clear("user");
 		if (getIntent().hasExtra("id")) {
 			Bundle extras = getIntent().getExtras();
 			try {
@@ -46,12 +47,10 @@ public class UserInfoActivity extends Activity implements
 			} catch (Exception e) {
 
 			}
-		}
-		else
-		{
+		} else {
 			getBranches(true);
 		}
-		
+
 	}
 
 	@Override
@@ -81,7 +80,8 @@ public class UserInfoActivity extends Activity implements
 	public void getCurrentUser(int userId) {
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
-		new MyJs("setUserInfo", this,((ontimedeliv) this.getApplication()), "GET",true,false).execute(serverURL);
+		new MyJs("setUserInfo", this, ((ontimedeliv) this.getApplication()),
+				"GET", true, false).execute(serverURL);
 	}
 
 	public void setUserInfo(String s, String error) {
@@ -106,7 +106,8 @@ public class UserInfoActivity extends Activity implements
 
 	public void getBranches(boolean first) {
 		String serverURL = new myURL("branches", "shops", 37, 30).getURL();
-		new MyJs("setBranches", this,((ontimedeliv) this.getApplication()), "GET",first,true).execute(serverURL);
+		new MyJs("setBranches", this, ((ontimedeliv) this.getApplication()),
+				"GET", first, true).execute(serverURL);
 	}
 
 	public void setBranches(String s, String error) {
@@ -119,7 +120,8 @@ public class UserInfoActivity extends Activity implements
 		branchAdapter.notifyDataSetChanged();
 		branchesSP.setAdapter(branchAdapter);
 		branchesSP.setOnItemSelectedListener(this);
-		glob.setSelected(branchesSP, branchAdapter, new Branch(currentUser.getBranch_id()));
+		glob.setSelected(branchesSP, branchAdapter,
+				new Branch(currentUser.getBranch_id()));
 
 	}
 
@@ -138,7 +140,6 @@ public class UserInfoActivity extends Activity implements
 			user = new User(0, username.getText().toString(),// name
 					inputphone.getText().toString(),// password
 					inputphone.getText().toString(),// phone
-					inputphone.getText().toString(),// mobile
 					0,// is fired
 					null,// address
 					branchId,// branch
@@ -147,14 +148,14 @@ public class UserInfoActivity extends Activity implements
 			method = "PUT";
 		} else {
 			serverURL = new myURL("users", null, 0, 0).getURL();
-			user = new User(0, username.getText().toString(),  "", inputphone.getText().toString(),
-					inputphone.getText().toString(), 0, null, branchId,
-					admin.isChecked(), preparer.isChecked(),
+			user = new User(0, username.getText().toString(), "", inputphone
+					.getText().toString().toString(), 0,
+					null, branchId, admin.isChecked(), preparer.isChecked(),
 					delivery.isChecked());
 
 		}
-		new MyJs("setRoles", this,((ontimedeliv) this.getApplication()), method, (Object) user,true,false)
-				.execute(serverURL);
+		new MyJs("setRoles", this, ((ontimedeliv) this.getApplication()),
+				method, (Object) user, true, false).execute(serverURL);
 
 	}
 
@@ -173,7 +174,8 @@ public class UserInfoActivity extends Activity implements
 			role.setPreparer(preparer.isChecked());
 			role.setAdmin(admin.isChecked());
 			role.setDelivery(delivery.isChecked());
-			new MyJs("afterRoles", this,((ontimedeliv) this.getApplication()), "POST", (Object) role,false,true)
+			new MyJs("afterRoles", this, ((ontimedeliv) this.getApplication()),
+					"POST", (Object) role, false, true)
 					.execute(makePreparerURL);
 		}
 	}

@@ -39,7 +39,7 @@ public class City {
 	}
 
 	public String toString() {
-		return id + " - " + country_id + " - " + name;
+		return name;
 	}
 	@Override
 	public boolean equals(Object obj) {

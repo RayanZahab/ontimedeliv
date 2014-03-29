@@ -213,7 +213,7 @@ public class ProductsActivity extends Activity {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (products.size() == 0) {
+				if (products.size() > 0) {
 					Toast.makeText(
 							getApplicationContext(),
 							R.string.selected

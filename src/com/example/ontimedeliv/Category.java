@@ -31,7 +31,7 @@ public class Category {
 	}
 
 	public String toString() {
-		return this.id + " - " + this.name;
+		return this.name;
 	}
 
 	public boolean isActive() {

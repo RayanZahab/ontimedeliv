@@ -30,6 +30,7 @@ public class APIManager {
 				int branch_id = Integer.parseInt(jsonResponse.optString(
 						"branch_id").toString());
 				String token = jsonResponse.optString("auth_token").toString();
+				String name = jsonResponse.optString("name").toString();
 				String role_str = jsonResponse.optString("roles").toString();
 				jsonRole = new JSONObject(role_str);
 				boolean admin = Boolean.parseBoolean(jsonRole
@@ -39,7 +40,7 @@ public class APIManager {
 				boolean delivery = Boolean.parseBoolean(jsonRole.optString(
 						"deliverer").toString());
 
-				return new User(id, token, branch_id, admin, preparer, delivery);
+				return new User(id, name, token, branch_id, admin, preparer, delivery);
 
 			}
 		} catch (JSONException e) {
@@ -671,7 +672,7 @@ public class APIManager {
 						is_fired = Boolean.parseBoolean(jsonChildNode
 								.optString("is_fired").toString());
 
-						User u = new User(id, name, password, phone, mobile,
+						User u = new User(id, name, password, phone,
 								(is_fired) ? 1 : 0, null, branch_id, admin,
 								preparer, delivery);
 						gridArray.add(u);
@@ -685,7 +686,6 @@ public class APIManager {
 							"branch_id").toString());
 					password = "";// jsonResponse.optString("password").toString();
 					phone = jsonResponse.optString("phone").toString();
-					mobile = "";// jsonResponse.optString("mobile").toString();
 					is_fired = Boolean.parseBoolean(jsonResponse.optString(
 							"is_fired").toString());
 					roles_str = jsonResponse.optString("roles").toString();
@@ -697,7 +697,7 @@ public class APIManager {
 					delivery = Boolean.parseBoolean(jsonRole.optString(
 							"deliverer").toString());
 
-					gridArray.add(new User(id, name, password, phone, mobile,
+					gridArray.add(new User(id, name, password, phone,
 							(is_fired) ? 1 : 0, null, branch_id, admin,
 							preparer, delivery));
 

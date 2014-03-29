@@ -33,7 +33,7 @@ public class Country {
 	}
 
 	public String toString() {
-		return id + " - " + name;
+		return name;
 	}
 
 	public ArrayList<City> getCities(ArrayList<City> cities) {
