@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/myred"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_left_margin"
+    android:paddingRight="@dimen/activity_left_margin"
     android:paddingTop="@dimen/activity_horizontal_margin" >
 	
 	<ScrollView
@@ -32,6 +32,15 @@
         android:hint="Name"
         android:paddingLeft="8dp"
         android:textSize="12sp" />
+    
+    <RelativeLayout 
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/branchesSP"
+        android:layout_marginTop="10dp"
+        android:id="@+id/checkboxes"
+        android:background="@drawable/myedittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <CheckBox
         android:id="@+id/admin"
@@ -41,20 +50,19 @@
         android:layout_alignLeft="@+id/preparer"
         android:layout_below="@+id/preparer"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="15dp"
         android:button="@drawable/mycheckbox"
-        android:paddingLeft="8dp"
         android:text="Admin" />
 
     <CheckBox
         android:id="@+id/preparer"
         style="@style/mytextview"
+        android:layout_marginLeft="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/delivery"
         android:layout_marginTop="8dp"
         android:button="@drawable/mycheckbox"
-        android:paddingLeft="8dp"
         android:text="Preparer" />
 
     <CheckBox
@@ -63,11 +71,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/preparer"
-        android:layout_below="@+id/branchesSP"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="15dp"
         android:button="@drawable/mycheckbox"
-        android:paddingLeft="8dp"
         android:text="Delivery" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/textView1"
