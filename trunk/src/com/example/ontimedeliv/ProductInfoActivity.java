@@ -17,6 +17,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -185,9 +186,16 @@ public class ProductInfoActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.add_product, menu);
+		getMenuInflater().inflate(R.menu.navigation, menu);
+		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+			// handle local menu items here or leave blank
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	@Override
 	public void onBackPressed() {

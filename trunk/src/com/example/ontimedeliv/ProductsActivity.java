@@ -244,9 +244,13 @@ public class ProductsActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent = new Intent(this, ProductInfoActivity.class);
-		((ontimedeliv) ProductsActivity.this.getApplication()).setProductId(0);
-		startActivity(intent);
+		
+		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+			// handle local menu items here or leave blank
+			Intent intent = new Intent(this, ProductInfoActivity.class);
+			((ontimedeliv) ProductsActivity.this.getApplication()).setProductId(0);
+			startActivity(intent);
+		}
 		return super.onOptionsItemSelected(item);
 	}
 }

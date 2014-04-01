@@ -1,6 +1,7 @@
 package com.example.ontimedeliv;
 
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.util.Log;
@@ -87,7 +88,6 @@ public class LoginActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.login, menu);
-		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
 		return true;
 	}
 
@@ -99,6 +99,7 @@ public class LoginActivity extends Activity {
 				.setMessage(R.string.exitquest)
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
+							@SuppressLint("NewApi")
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
