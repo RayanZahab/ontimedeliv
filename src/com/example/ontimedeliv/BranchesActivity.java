@@ -177,13 +177,17 @@ public class BranchesActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.action_search:
-			break;
-		case R.id.add:
-			Intent intent = new Intent(this, AddBranchActivity.class);
-			startActivity(intent);
-			break;
+		
+		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+			// handle local menu items here or leave blank
+			switch (item.getItemId()) {
+			case R.id.action_search:
+				break;
+			case R.id.add:
+				Intent intent = new Intent(this, AddBranchActivity.class);
+				startActivity(intent);
+				break;
+			}
 		}
 		return super.onOptionsItemSelected(item);
 	}
