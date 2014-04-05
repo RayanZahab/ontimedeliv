@@ -264,7 +264,7 @@ public class CategoriesActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		Intent i = new Intent(CategoriesActivity.this, NavigationActivity.class);
+		Intent i = new Intent(CategoriesActivity.this, BranchesActivity.class);
 		((ontimedeliv) CategoriesActivity.this.getApplication()).setBranchId(0);
 		startActivity(i);
 	}

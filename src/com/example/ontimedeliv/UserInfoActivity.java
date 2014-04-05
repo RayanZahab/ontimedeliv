@@ -1,12 +1,10 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -188,6 +186,11 @@ public class UserInfoActivity extends Activity implements
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
 
+	}
+	@Override
+	public void onBackPressed() {
+		Intent i = new Intent(UserInfoActivity.this, UsersActivity.class);
+		startActivity(i);
 	}
 
 }
