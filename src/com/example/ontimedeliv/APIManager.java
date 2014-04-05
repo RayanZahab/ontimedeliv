@@ -1,16 +1,11 @@
 package com.example.ontimedeliv;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.StrictMode;
 import android.util.Log;
 
 public class APIManager {
@@ -56,7 +51,7 @@ public class APIManager {
 
 		JSONObject jsonResponse;
 		ArrayList<Country> gridArray = new ArrayList<Country>();
-
+		gridArray.add(new Country(0, "Select"));
 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {

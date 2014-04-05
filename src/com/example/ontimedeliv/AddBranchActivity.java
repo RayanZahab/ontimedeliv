@@ -11,8 +11,11 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,7 +47,8 @@ public class AddBranchActivity extends Activity implements
 	List<String> listDataHeader;
 	HashMap<String, List<String>> listDataChild;
 	GlobalM glob = new GlobalM();
-
+	boolean click = false;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,6 +60,14 @@ public class AddBranchActivity extends Activity implements
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);
 		areasSp = (Spinner) findViewById(R.id.areasSP);
+		countrySp.setOnTouchListener(new View.OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				click=true;
+				return false;
+			}
+        });
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
 		((ontimedeliv) this.getApplication()).clear("branch");
@@ -92,7 +104,6 @@ public class AddBranchActivity extends Activity implements
 			}
 		});
 
-		// Listview Group collasped listener
 		expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
 
 			@Override
@@ -105,13 +116,11 @@ public class AddBranchActivity extends Activity implements
 			}
 		});
 
-		// Listview on child click listener
 		expListView.setOnChildClickListener(new OnChildClickListener() {
 
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
 					int groupPosition, int childPosition, long id) {
-				// TODO Auto-generated method stub
 				Toast.makeText(
 						getApplicationContext(),
 						listDataHeader.get(groupPosition)
@@ -193,6 +202,7 @@ public class AddBranchActivity extends Activity implements
 	}
 
 	public void addBranch(View v) {
+		
 		areasSp = (Spinner) findViewById(R.id.areasSP);
 		int selectedArea = ((Area) areasSp.getSelectedItem()).getId();
 		String name = ((EditText) findViewById(R.id.editTextAddName)).getText()
@@ -207,9 +217,20 @@ public class AddBranchActivity extends Activity implements
 
 		Branch newBranch = new Branch(0, name, desc, new Area(selectedArea),
 				address, 1, new Shop(shopId), "0", "0", 0, 0, estimation);
-		new MyJs("backToSelection", this,
-				((ontimedeliv) this.getApplication()), "POST",
-				(Object) newBranch).execute(serverURL);
+		ValidationError valid = newBranch.validate();
+		if(valid.isValid())
+		{
+			new MyJs("backToSelection", this,
+					((ontimedeliv) this.getApplication()), "POST",
+					(Object) newBranch).execute(serverURL);
+		}
+		else
+		{
+			Toast ts = Toast.makeText(this, valid.getErrorMsg(),
+					Toast.LENGTH_SHORT);
+			ts.setGravity(Gravity.TOP, 0, 0);
+			ts.show();
+		}
 	}
 
 	public void backToSelection(String s, String error) {
@@ -246,11 +267,13 @@ public class AddBranchActivity extends Activity implements
 				android.R.layout.simple_spinner_item, countries);
 		counrytAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		
 		counrytAdapter.notifyDataSetChanged();
 		areasSp.setAdapter(null);
 		countrySp.setAdapter(counrytAdapter);
 		countrySp.setOnItemSelectedListener(this);
-		glob.setSelected(countrySp, counrytAdapter, new Country(currentBranch
+		if(currentBranch!= null && currentBranch.getArea().getCountry_id()!=0)
+			glob.setSelected(countrySp, counrytAdapter, new Country(currentBranch
 				.getArea().getCountry_id()));
 	}
 
@@ -258,8 +281,9 @@ public class AddBranchActivity extends Activity implements
 		String serverURL = new myURL("cities", "countries", CountryId, 30)
 				.getURL();
 		new MyJs("setCities", AddBranchActivity.this,
-				((ontimedeliv) this.getApplication()), "GET", false,false)
+				((ontimedeliv) this.getApplication()), "GET", click,false)
 				.execute(serverURL);
+		click = false;
 	}
 
 	public void setCities(String s, String error) {
@@ -272,6 +296,7 @@ public class AddBranchActivity extends Activity implements
 		areasSp.setAdapter(null);
 		citySp.setAdapter(cityAdapter);
 		citySp.setOnItemSelectedListener(this);
+		if(currentBranch!= null && currentBranch.getArea().getCity_id()!=0)
 		glob.setSelected(citySp, cityAdapter, new City(currentBranch.getArea()
 				.getCity_id()));
 	}
@@ -279,7 +304,8 @@ public class AddBranchActivity extends Activity implements
 	public void getAreas(int CityId) {
 		String serverURL = new myURL("areas", "cities", CityId, 30).getURL();
 		MyJs mjs = new MyJs("setAreas", AddBranchActivity.this,
-				((ontimedeliv) this.getApplication()), "GET", false,true);
+				((ontimedeliv) this.getApplication()), "GET", click,true);
+		click = false;
 		mjs.execute(serverURL);
 	}
 
@@ -292,9 +318,10 @@ public class AddBranchActivity extends Activity implements
 		areaAdapter.notifyDataSetChanged();
 		areasSp.setAdapter(areaAdapter);
 		areasSp.setOnItemSelectedListener(this);
-		glob.setSelected(areasSp, areaAdapter, new Area(currentBranch.getArea()
+		if(currentBranch!= null && currentBranch.getArea()!=null)
+			glob.setSelected(areasSp, areaAdapter, new Area(currentBranch.getArea()
 				.getId()));
-
+		
 	}
 
 	@Override
@@ -302,9 +329,11 @@ public class AddBranchActivity extends Activity implements
 			long arg3) {
 		Object sp1 = arg0.getSelectedItem();
 		if (sp1 instanceof Country) {
-			getCities(((Country) sp1).getId());
+			if(((Country) sp1).getId()!=0)
+				getCities(((Country) sp1).getId());
 		} else if (sp1 instanceof City) {
-			getAreas(((City) sp1).getId());
+			if(((City) sp1).getId()!=0)
+				getAreas(((City) sp1).getId());
 		}
 	}
 

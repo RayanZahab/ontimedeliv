@@ -269,7 +269,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		try {
 			if (Content == null)
 				Content = "";
-			Log.d("post ray", "error: " + Error);
 			if (Error != null) {
 
 				new GlobalM().bkToNav(mc, getError(Content));
@@ -481,7 +480,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "Sorry, something went wrong";
+		return "";
 
 	}
 
