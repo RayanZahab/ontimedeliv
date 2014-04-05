@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
@@ -99,6 +100,11 @@ public class UserProfileActivity extends Activity {
 		getMenuInflater().inflate(R.menu.user_profile, menu);
 		
 		return true;
+	}
+	@Override
+	public void onBackPressed() {
+		Intent i = new Intent(UserProfileActivity.this, NavigationActivity.class);
+		startActivity(i);
 	}
 	
 

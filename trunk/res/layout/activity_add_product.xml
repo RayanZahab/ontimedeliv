@@ -36,7 +36,7 @@
 
             <Button
                 android:id="@+id/uploadimage"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/textView3"
                 android:layout_below="@+id/textView3"
@@ -48,7 +48,7 @@
             <EditText
                 android:id="@+id/description"
                 android:layout_width="fill_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_alignLeft="@+id/productName"
                 android:layout_below="@+id/productName"
                 android:layout_marginTop="14dp"
@@ -64,14 +64,6 @@
 
                 <requestFocus />
             </EditText>
-
-            <ImageView
-                android:id="@+id/preview"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_alignTop="@+id/uploadimage"
-                android:layout_toRightOf="@+id/uploadimage"
-                android:src="@drawable/moto" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -104,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/description"
                 android:layout_below="@+id/description"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="14dp"
                 android:text="@string/producticon" />
 
             <Spinner
@@ -113,9 +105,18 @@
                 android:layout_height="35dp"
                 android:layout_alignRight="@+id/description"
                 android:layout_below="@+id/preview"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="14dp"
                 android:layout_toRightOf="@+id/textView5"
                 android:background="@drawable/myspinner" />
+
+            <ImageView
+                android:id="@+id/preview"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_below="@+id/uploadimage"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/moto" />
+
         </RelativeLayout>
     </ScrollView>
 
