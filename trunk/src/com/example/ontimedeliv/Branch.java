@@ -33,6 +33,32 @@ public class Branch {
 		this.close_hour = close_hour;
 		this.estimation_time = estimation_time;
 	}
+	public ValidationError validate()
+	{
+		boolean valid = false;
+		String msg="";
+		if(this.name.isEmpty() || this.name.length()<4)
+		{
+			msg="Invalid name";
+		}
+		else if(this.address.isEmpty() || this.address.length()<4)
+		{
+			msg="Invalid address";
+		}
+		else if(this.area.getId()==0)
+		{
+			msg="Invalid area";
+		}
+		else if(this.estimation_time.isEmpty() || this.estimation_time.length()<2)
+		{
+			msg="Invalid estimation time";
+		}
+		else
+		{
+			valid =  true;
+		}
+		return new ValidationError(valid,msg);
+	}
 	public Branch(int id)
 	{
 		this.id = id;
