@@ -226,10 +226,7 @@ public class AddBranchActivity extends Activity implements
 		}
 		else
 		{
-			Toast ts = Toast.makeText(this, valid.getErrorMsg(),
-					Toast.LENGTH_SHORT);
-			ts.setGravity(Gravity.TOP, 0, 0);
-			ts.show();
+			valid.showError(this);
 		}
 	}
 

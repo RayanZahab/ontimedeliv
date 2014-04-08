@@ -47,7 +47,7 @@ public class Area {
 	}
 
 	public String toString() {
-		return id + " - " + city_id + " - " + name;
+		return name;
 	}
 
 	public int getCountry_id() {

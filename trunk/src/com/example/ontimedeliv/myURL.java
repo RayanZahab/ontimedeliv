@@ -1,7 +1,7 @@
 package com.example.ontimedeliv;
 
 public class myURL {
-	private String urlPrefix = "http://enigmatic-springs-5176.herokuapp.com/api/v1/";
+	private String urlPrefix = "http://107.170.86.46/api/v1/";
 	private String url = "", by, api;
 	private int limit, value;
 	private String svalue;

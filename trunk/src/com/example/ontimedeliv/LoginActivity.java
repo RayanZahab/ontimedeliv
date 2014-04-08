@@ -63,7 +63,7 @@ public class LoginActivity extends Activity {
 			editor.putBoolean("admin", user.isIs_admin());
 			editor.putBoolean("preparer", user.isIs_preparer());
 			editor.putBoolean("delivery", user.isIs_delivery());
-			editor.putInt("shopId", 37);
+			editor.putInt("shopId", 6);
 			editor.putInt("branchId", user.getBranch_id());
 			editor.putInt("id", user.getId());
 			editor.putString("phone", user.getPhone());
@@ -75,7 +75,7 @@ public class LoginActivity extends Activity {
 			Intent i = new Intent(this, NavigationActivity.class);
 			startActivity(i);
 		} else {
-			Toast.makeText(getApplicationContext(), R.string.wrongcredentials,
+			Toast.makeText(getApplicationContext(), R.string.wrongcredentials + "1",
 					Toast.LENGTH_SHORT).show();
 		}
 	}
