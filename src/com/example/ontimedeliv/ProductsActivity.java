@@ -6,14 +6,12 @@ import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -213,12 +210,7 @@ public class ProductsActivity extends Activity {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (products.size() > 0) {
-					Toast.makeText(
-							getApplicationContext(),
-							R.string.selected
-									+ productItems.get(position).getId(),
-							Toast.LENGTH_SHORT).show();
+				if (products.size() > 0) {					
 					Intent intent = new Intent(ProductsActivity.this,
 							ProductInfoActivity.class);
 					((ontimedeliv) ProductsActivity.this.getApplication())
@@ -228,7 +220,6 @@ public class ProductsActivity extends Activity {
 			}
 
 		});
-
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {

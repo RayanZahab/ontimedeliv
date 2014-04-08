@@ -10,16 +10,15 @@ public class User {
 	private String name;
 	private String username;
 	private String password;
-	private String phone,token;
+	private String phone, token;
 	private int is_fired;
 	private Address address;
 	private int branch_id;
 	private boolean is_admin, is_preparer, is_delivery;
 
-	public User(int id, String name, String password,
-			String phone, int is_fired, Address address,
-			int branch_id, boolean is_admin, boolean is_preparer,
-			boolean is_delivery) {
+	public User(int id, String name, String password, String phone,
+			int is_fired, Address address, int branch_id, boolean is_admin,
+			boolean is_preparer, boolean is_delivery) {
 
 		this.setId(id);
 		this.setName(name);
@@ -33,17 +32,18 @@ public class User {
 		this.setIs_preparer(is_preparer);
 		this.setIs_delivery(is_delivery);
 	}
-	public User(String name, String phone, String pass, int branch_id, int is_fired)
-	{
+
+	public User(String name, String phone, String pass, int branch_id,
+			int is_fired) {
 		this.setName(name);
 		this.setPassword(pass);
 		this.setPhone(phone);
 		this.setIs_fired(is_fired);
-		this.setBranch_id(branch_id);		
+		this.setBranch_id(branch_id);
 	}
-	public User(int id,String name,String token,int branch_id,boolean is_admin, boolean is_preparer,
-			boolean is_delivery )
-	{
+
+	public User(int id, String name, String token, int branch_id,
+			boolean is_admin, boolean is_preparer, boolean is_delivery) {
 		this.setName(name);
 		this.setId(id);
 		this.setBranch_id(branch_id);
@@ -57,8 +57,8 @@ public class User {
 		this.setPassword(password);
 		this.setPhone(phone);
 	}
-	public User(int id)
-	{
+
+	public User(int id) {
 		this.setId(id);
 	}
 
@@ -75,12 +75,8 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		Log.d("ray","ray pass:"+password);
-		this.password = 
-				Hashing.
-				sha256().
-				hashString(password
-				, Charsets.UTF_8).toString();
+		Log.d("ray", "ray pass:" + password);
+		this.password = password;//Hashing.sha256().hashString(password, Charsets.UTF_8).toString();
 	}
 
 	public String getUsername() {
@@ -158,16 +154,19 @@ public class User {
 	public void setIs_preparer(boolean is_preparer) {
 		this.is_preparer = is_preparer;
 	}
+
 	public String getToken() {
 		return token;
 	}
+
 	public void setToken(String token) {
 		this.token = token;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		User u = (User) obj;
-		if(this.id == u.getId())
+		if (this.id == u.getId())
 			return true;
 		return false;
 	}

@@ -203,7 +203,11 @@ public class CategoriesActivity extends Activity {
 				.setCancelable(false)
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						editCategory(itemId, userInput.getText().toString());
+						if(userInput.getText().toString() != null && userInput.getText().toString().length()>3)
+							editCategory(itemId, userInput.getText().toString());
+						else
+							(new ValidationError(true, "Invalid name") ).showError(CategoriesActivity.this);
+						
 					}
 				})
 				.setNegativeButton("Cancel",
@@ -240,11 +244,10 @@ public class CategoriesActivity extends Activity {
 								public void onClick(DialogInterface dialog,
 										int id) {
 									setDialog(dialog);
-									Toast.makeText(getApplicationContext(),
-											userInput.getText(),
-											Toast.LENGTH_LONG).show();
-									addCategory(userInput.getText().toString(),
-											shopId);
+									if(userInput.getText().toString() != null && userInput.getText().toString().length()>3)
+										addCategory(userInput.getText().toString(),shopId);
+									else
+										(new ValidationError(true, "Invalid name") ).showError(CategoriesActivity.this);
 								}
 							})
 					.setNegativeButton("Cancel",

@@ -26,7 +26,24 @@ public class Product {
 		this.setShop_id(shop_id);
 
 	}
-	
+	public ValidationError validate()
+	{
+		boolean valid = false;
+		String msg="";
+		if(this.price==0 || this.price<500)
+		{
+			msg="Invalid price";
+		}
+		else if(this.name.isEmpty() || this.name.length()<3)
+		{
+			msg="Invalid name";
+		}
+		else
+		{
+			valid =  true;
+		}
+		return new ValidationError(valid,msg);
+	}
 
 	public String getDescription() {
 		return description;

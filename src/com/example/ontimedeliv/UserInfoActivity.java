@@ -1,6 +1,7 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -27,6 +28,7 @@ public class UserInfoActivity extends Activity implements
 	int branchId, userId = 0;
 	ArrayList<Branch> branches;
 	GlobalM glob = new GlobalM();
+	int shopId = ((ontimedeliv) this.getApplication()).getShopId();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +105,7 @@ public class UserInfoActivity extends Activity implements
 	}
 
 	public void getBranches(boolean first) {
-		String serverURL = new myURL("branches", "shops", 37, 30).getURL();
+		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
 		new MyJs("setBranches", this, ((ontimedeliv) this.getApplication()),
 				"GET", first, true).execute(serverURL);
 	}

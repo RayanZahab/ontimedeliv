@@ -246,7 +246,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				}
 			} else if (this.method.equals("Upload")) {
 				Product p = (Product) this.objectToAdd;
-				Content = uploadProduct(p);
+				Content = uploadProduct(p,url,token);
 			}
 		} catch (Exception ex) {
 			Error = ex.getLocalizedMessage();
@@ -300,7 +300,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		this.global = global;
 	}
 
-	private String uploadProduct(Product p) throws Exception {
+	private String uploadProduct(Product p,URL url,String token) throws Exception {
 
 		String USER_AGENT = "Mozilla/5.0";
 		String boundary = "*****";
@@ -312,15 +312,13 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		}
 		String lineEnd = "\r\n";
 		String twoHyphens = "--";
-		String url = "http://107.170.86.46/api/v1/items";// http://enigmatic-springs-5176.herokuapp.com/api/v1/items";
-		// String url = "http://localhost:3000/api/v1/items";
-		URL obj = new URL(url);
+		URL obj = url;
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		// add reuqest header
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", USER_AGENT);
-		con.setRequestProperty("auth_token", "28da4a199f0d2123faa9");
+		con.setRequestProperty("auth_token", token);
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 		con.setRequestProperty("Connection", "Keep-Alive");
 		con.setRequestProperty("Content-Type", "multipart/form-data;boundary="
@@ -380,6 +378,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			// close streams
 			fileInputStream.close();
 		}
+		else
+			dos.writeBytes("\r\n--" + boundary + "--\r\n");
 		dos.flush();
 
 		dos.close();
@@ -419,8 +419,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			}
 		};
 		pd.show();
-		h.postDelayed(r, 10000);
-	}
+		//h.postDelayed(r, 10000);
+	}	
 
 	public boolean isLast() {
 		return last;
@@ -475,7 +475,10 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		JSONObject jsonResponse;
 		try {
 			jsonResponse = new JSONObject(cont);
-			return jsonResponse.optString("error").toString();
+			if(jsonResponse.has("error"))
+				return jsonResponse.optString("error").toString();
+			else
+				return "Unknown Error";
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

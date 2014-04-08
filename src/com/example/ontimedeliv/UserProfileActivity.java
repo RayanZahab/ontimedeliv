@@ -23,10 +23,10 @@ public class UserProfileActivity extends Activity {
 	Spinner langSp ;
 	CheckBox keep ;
 	
-	String name ,phone;// = settings1.getString("name", "");
-	String lang ;//= settings1.getString("lang", null);
-	int id ;//= settings1.getInt("id", 0);
-	int branchId ;//= settings1.getInt("id", 0);
+	String name ,phone;
+	String lang ;
+	int id ;
+	int branchId ;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,13 +69,11 @@ public class UserProfileActivity extends Activity {
 	{
 		if(!pass.getText().toString().equals(pass2.getText().toString()))
 		{
-
-			Toast.makeText(getApplicationContext(), R.string.wrongcredentials,
+			Toast.makeText(getApplicationContext(), R.string.wrongcredentials ,
 					Toast.LENGTH_SHORT).show();
 		}
 		else
 		{
-			Log.d("ray","ray pass: "+pass.getText().toString());
 			String serverURL = new myURL(null, "users", id, 0).getURL();
 			User user = new User( 
 					nameTxt.getText().toString(),

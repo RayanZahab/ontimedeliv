@@ -23,9 +23,9 @@
         style="@style/mytextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
         android:text="text"
         android:textSize="16sp" />
     

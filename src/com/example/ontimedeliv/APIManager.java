@@ -35,7 +35,8 @@ public class APIManager {
 				boolean delivery = Boolean.parseBoolean(jsonRole.optString(
 						"deliverer").toString());
 
-				return new User(id, name, token, branch_id, admin, preparer, delivery);
+				return new User(id, name, token, branch_id, admin, preparer,
+						delivery);
 
 			}
 		} catch (JSONException e) {
@@ -445,13 +446,18 @@ public class APIManager {
 
 						id = Integer.parseInt(jsonChildNode.optString("id")
 								.toString());
-						price = Integer.parseInt(jsonChildNode.optString(
-								"price").toString());
+						try {
+							price = Integer.parseInt(jsonChildNode.optString(
+									"price").toString());
+						} catch (Exception e) {
+							price = 0;
+						}
+
 						name = jsonChildNode.optString("name").toString();
 						description = jsonChildNode.optString("description")
 								.toString();
 						photo_str = jsonChildNode.optString("photo").toString();
-						Photo p =getPhoto(photo_str);
+						Photo p = getPhoto(photo_str);
 						unit_str = jsonChildNode.optString("unit").toString();
 						jsonUnit = new JSONObject(unit_str);
 						unit = new Unit(Integer.parseInt(jsonUnit.optString(
@@ -461,29 +467,33 @@ public class APIManager {
 						is_available = Boolean.valueOf(jsonChildNode.optString(
 								"is_available").toString());
 						Product pro = new Product(id, price, name, description,
-								p, new Category(0), unit, is_available, 0);						
+								p, new Category(0), unit, is_available, 0);
 						gridArray.add(pro);
 					}
 				} else {
 					id = Integer.parseInt(jsonResponse.optString("id")
 							.toString());
-					price = Integer.parseInt(jsonResponse.optString("price")
-							.toString());
+					try {
+						price = Integer.parseInt(jsonResponse
+								.optString("price").toString());
+					} catch (Exception e) {
+						price = 0;
+					}
+
 					name = jsonResponse.optString("name").toString();
 					description = jsonResponse.optString("description")
 							.toString();
 					photo_str = jsonResponse.optString("photo").toString();
-					Photo p =getPhoto(photo_str);
+					Photo p = getPhoto(photo_str);
 					is_available = Boolean.valueOf(jsonResponse.optString(
 							"is_available").toString());
 					unit_str = jsonResponse.optString("unit").toString();
 					jsonUnit = new JSONObject(unit_str);
 					unit = new Unit(Integer.parseInt(jsonUnit.optString("id")
 							.toString()), jsonUnit.optString("name").toString());
-					
-					Product pro = new Product(id, price, name, description,
-							p, new Category(0), unit,
-							is_available, 0);
+
+					Product pro = new Product(id, price, name, description, p,
+							new Category(0), unit, is_available, 0);
 					gridArray.add(pro);
 				}
 			} else {
@@ -492,7 +502,7 @@ public class APIManager {
 		} catch (Exception e) {
 
 			e.printStackTrace();
-		} 
+		}
 		return gridArray;
 	}
 
