@@ -175,6 +175,12 @@ public class BranchesActivity extends Activity {
 				.getSearchableInfo(getComponentName()));
 		return true;
 	}
+	
+	@Override
+	public void onBackPressed() {
+		Intent i = new Intent(BranchesActivity.this, NavigationActivity.class);
+		startActivity(i);
+	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		
