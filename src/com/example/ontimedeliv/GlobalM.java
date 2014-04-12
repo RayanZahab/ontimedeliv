@@ -16,7 +16,7 @@ public class GlobalM {
 	public void setSelected(Spinner sp, ArrayAdapter<?> list, Object o) {
 
 		for (int position = 0; position < list.getCount(); position++) {
-			if (list.getItem(position).equals(o)) {
+			if (list.getItem(position).equals(o)) {				
 				sp.setSelection(position);
 				return;
 			}

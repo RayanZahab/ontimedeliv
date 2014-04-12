@@ -45,7 +45,7 @@ public class LoginActivity extends Activity {
 				.toString());
 		MyJs mjs = new MyJs("getLoggedIn", this,
 				((ontimedeliv) this.getApplication()), "POST", (Object) user);
-		mjs.execute(serverURL);
+		mjs.execute(serverURL) ;
 
 	}
 
@@ -59,14 +59,14 @@ public class LoginActivity extends Activity {
 			editor.putBoolean("isChecked", keeplog.isChecked());
 			editor.putString("token", user.getToken());
 			editor.putString("name", user.getName());
-			Log.d("ray","name: "+user.getName());
+			editor.putString("pass", password.getText().toString());
+			editor.putString("phone", username.getText().toString());
 			editor.putBoolean("admin", user.isIs_admin());
 			editor.putBoolean("preparer", user.isIs_preparer());
 			editor.putBoolean("delivery", user.isIs_delivery());
 			editor.putInt("shopId", 6);
 			editor.putInt("branchId", user.getBranch_id());
 			editor.putInt("id", user.getId());
-			editor.putString("phone", user.getPhone());
 
 			editor.commit();
 
@@ -74,17 +74,17 @@ public class LoginActivity extends Activity {
 
 			Intent i = new Intent(this, NavigationActivity.class);
 			startActivity(i);
-		} else {
-			Toast.makeText(getApplicationContext(), R.string.wrongcredentials + "1",
+		} else {			
+			Toast.makeText(getApplicationContext(), R.string.wrongcredentials,
 					Toast.LENGTH_SHORT).show();
 		}
 	}
 
-	public void forgotpassword(View view)
-	{
+	public void forgotpassword(View view) {
 		Intent i = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
 		startActivity(i);
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.login, menu);

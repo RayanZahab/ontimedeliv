@@ -22,6 +22,7 @@ public class APIManager {
 			if (!errorCheck(jsonResponse)) {
 				int id = Integer.parseInt(jsonResponse.optString("id")
 						.toString());
+				Log.d("rays",cont);
 				int branch_id = Integer.parseInt(jsonResponse.optString(
 						"branch_id").toString());
 				String token = jsonResponse.optString("auth_token").toString();
@@ -418,7 +419,6 @@ public class APIManager {
 			photo.setUrl(url);
 			photo.setThumb(thumb);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return photo;
@@ -433,7 +433,7 @@ public class APIManager {
 			if (!errorCheck(jsonResponse)) {
 				int id;
 				boolean is_available;
-				String name, description, photo_str, category_str, unit_str;
+				String name, description, photo_str,  unit_str;
 				int price;
 				Unit unit;
 				if (jsonResponse.has("elements")) {
@@ -648,7 +648,7 @@ public class APIManager {
 			if (!errorCheck(jsonResponse)) {
 				int id, branch_id;
 				boolean is_fired, admin, preparer, delivery;
-				String name, phone, password, username, mobile, roles_str;
+				String name, phone, roles_str;
 				if (jsonResponse.has("elements")) {
 					JSONArray jsonMainNode = jsonResponse
 							.optJSONArray("elements");
@@ -671,13 +671,11 @@ public class APIManager {
 
 						branch_id = Integer.parseInt(jsonChildNode.optString(
 								"branch_id").toString());
-						password = "";// jsonChildNode.optString("password").toString();
 						phone = jsonChildNode.optString("phone").toString();
-						mobile = "";// jsonChildNode.optString("mobile").toString();
 						is_fired = Boolean.parseBoolean(jsonChildNode
 								.optString("is_fired").toString());
 
-						User u = new User(id, name, password, phone,
+						User u = new User(id, name, "", phone,
 								(is_fired) ? 1 : 0, null, branch_id, admin,
 								preparer, delivery);
 						gridArray.add(u);
@@ -689,7 +687,6 @@ public class APIManager {
 					name = jsonResponse.optString("name").toString();
 					branch_id = Integer.parseInt(jsonResponse.optString(
 							"branch_id").toString());
-					password = "";// jsonResponse.optString("password").toString();
 					phone = jsonResponse.optString("phone").toString();
 					is_fired = Boolean.parseBoolean(jsonResponse.optString(
 							"is_fired").toString());
@@ -702,7 +699,7 @@ public class APIManager {
 					delivery = Boolean.parseBoolean(jsonRole.optString(
 							"deliverer").toString());
 
-					gridArray.add(new User(id, name, password, phone,
+					gridArray.add(new User(id, name, "", phone,
 							(is_fired) ? 1 : 0, null, branch_id, admin,
 							preparer, delivery));
 
@@ -911,11 +908,9 @@ public class APIManager {
 				count = Integer.parseInt(jsonResponse.optString("count")
 						.toString());
 				order.setCount(count);
-				Log.d("ray", "status: "
-						+ jsonResponse.optString("status").toString());
+				
 				status = jsonResponse.optString("status").toString();
 				order.setStatus(status);
-				Log.d("ray", "status: " + order.getStatus());
 				add_str = jsonResponse.optString("address").toString();
 				if (add_str != null && !add_str.isEmpty()
 						&& !jsonResponse.isNull("customer")) {
@@ -964,8 +959,7 @@ public class APIManager {
 						jsonItem = new JSONObject(item_str);
 						product = getItemsByCategoryAndBranch(item_str).get(0);
 						orderItem = new OrderItem(product, quantity);
-						Log.d("rays", "ray api item: " + quantity + " - "
-								+ product.toString());
+						
 						orderItems.add(orderItem);
 					}
 				}
