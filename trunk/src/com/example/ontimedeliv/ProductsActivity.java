@@ -203,7 +203,7 @@ public class ProductsActivity extends Activity {
 		}
 
 		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
-				productItems);
+				productItems,false);
 		listView.setAdapter(dataAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {

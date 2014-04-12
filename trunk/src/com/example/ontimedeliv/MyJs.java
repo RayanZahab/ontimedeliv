@@ -138,7 +138,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			URL url = new URL(urls[0]);
 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
+			Log.d("rays","Token: "+token);
 			conn.addRequestProperty("auth_token", token);
 
 			if (this.method.equals("Upload")) {
@@ -315,7 +315,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		URL obj = url;
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-		// add reuqest header
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", USER_AGENT);
 		con.setRequestProperty("auth_token", token);
@@ -419,7 +418,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			}
 		};
 		pd.show();
-		//h.postDelayed(r, 10000);
+		h.postDelayed(r, 10000);
 	}	
 
 	public boolean isLast() {

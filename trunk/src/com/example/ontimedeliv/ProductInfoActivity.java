@@ -87,7 +87,7 @@ public class ProductInfoActivity extends Activity {
 		desc.setText(currentProduct.getDescription());
 		price.setText("" + currentProduct.getPrice());
 
-		new ImageTask((ImageView) findViewById(R.id.preview))
+		new ImageTask((ImageView) findViewById(R.id.preview),ProductInfoActivity.this)
 				.execute(currentProduct.getPhoto().getUrl());
 
 		getUnits(false);
@@ -147,9 +147,10 @@ public class ProductInfoActivity extends Activity {
 			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 			picturePath = cursor.getString(columnIndex);
 			picName = cursor.getString(columnIndex);
+			Log.d("rays","path"+picturePath+ "->"+picName);
 			uploaded = new Photo(picturePath, picName);
 			cursor.close();
-			new ImageTask((ImageView) findViewById(R.id.preview))
+			new ImageTask((ImageView) findViewById(R.id.preview),ProductInfoActivity.this)
 			.execute(picturePath);
 		}
 	}
@@ -163,8 +164,8 @@ public class ProductInfoActivity extends Activity {
 		unitsSP.setAdapter(dataAdapter);
 
 		if (currentProduct != null) {
-			glob.setSelected(unitsSP, dataAdapter, new Country(currentProduct
-					.getUnit().getId()));
+			Log.d("ray","selecting"+currentProduct.getUnit().getId());
+			glob.setSelected(unitsSP, dataAdapter, currentProduct.getUnit());
 		}
 	}
 

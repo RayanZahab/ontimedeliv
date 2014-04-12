@@ -75,8 +75,7 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		Log.d("ray", "ray pass:" + password);
-		this.password = password;//Hashing.sha256().hashString(password, Charsets.UTF_8).toString();
+		this.password = Hashing.sha256().hashString(password, Charsets.UTF_8).toString();
 	}
 
 	public String getUsername() {

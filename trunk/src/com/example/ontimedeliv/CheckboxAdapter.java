@@ -16,6 +16,17 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 	private ArrayList<Item> selectedList;
 	private ArrayList<Item> unselectedList;
 	private Context context;
+	boolean icon;
+
+	public CheckboxAdapter(Context context, int textViewResourceId,
+
+	ArrayList<Item> currentList, boolean icon) {
+		super(context, textViewResourceId, currentList);
+		this.context = context;
+		this.currentList = new ArrayList<Item>();
+		this.currentList.addAll(currentList);
+		this.icon = icon;
+	}
 
 	public CheckboxAdapter(Context context, int textViewResourceId,
 
@@ -24,6 +35,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 		this.context = context;
 		this.currentList = new ArrayList<Item>();
 		this.currentList.addAll(currentList);
+		this.icon = true;
 	}
 
 	public ArrayList<Item> getCurrentList() {
@@ -43,28 +55,21 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 
 			LayoutInflater vi = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-			convertView = vi.inflate(R.layout.category_info, null);
-
 			holder = new ViewHolder();
-			View v = convertView.findViewById(R.id.item_image);
-			v.setDrawingCacheEnabled(true);
-
-			v.buildDrawingCache();
-
-			Bitmap picture = v.getDrawingCache();
+			if(this.icon)
+			{
+				convertView = vi.inflate(R.layout.category_info, null);
+				View v = convertView.findViewById(R.id.item_image);
+				v.setDrawingCacheEnabled(true);
+				v.buildDrawingCache();
+				Bitmap picture = v.getDrawingCache();
+				holder.picture = picture;
+			}
+			else
+				convertView = vi.inflate(R.layout.product_info, null);
+				
 			holder.name = (CheckBox) convertView.findViewById(R.id.checkBox1);
-			holder.picture = picture;
-
 			convertView.setTag(holder);
-
-			holder.name.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					CheckBox cb = (CheckBox) v;
-					Item _cat = (Item) cb.getTag();
-					_cat.setSelected(cb.isChecked());
-				}
-			});
 
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -73,7 +78,6 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 		Item cat = currentList.get(position);
 		holder.name.setText(cat.getTitle());
 		holder.name.setChecked(cat.isSelected());
-
 		holder.name.setTag(cat);
 
 		return convertView;

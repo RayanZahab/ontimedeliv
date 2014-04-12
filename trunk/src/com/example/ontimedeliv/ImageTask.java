@@ -1,7 +1,9 @@
 package com.example.ontimedeliv;
 
+import java.io.File;
 import java.io.InputStream;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -10,9 +12,11 @@ import android.widget.ImageView;
 
 public class ImageTask extends AsyncTask<String, Void, Bitmap>{
 	ImageView bmImage;
+	Activity current;
 
-	  public ImageTask(ImageView bmImage) {
+	  public ImageTask(ImageView bmImage, Activity current) {
 	      this.bmImage = bmImage;
+	      this.current=current;
 	  }	  
 
 	  protected void onPostExecute(Bitmap result) {
@@ -28,10 +32,16 @@ public class ImageTask extends AsyncTask<String, Void, Bitmap>{
 	        mIcon11 = BitmapFactory.decodeStream(in);
 	      } catch (Exception e) {
 	    	  try{
-	    	  InputStream in = new java.net.URL("http://107.170.86.46/uploads/item/photo/10/images.jpg").openStream();
-		      mIcon11 = BitmapFactory.decodeStream(in);
+	    		  File imgFile = new File(urldisplay);
+	    		  mIcon11 = BitmapFactory.decodeFile(imgFile.getAbsolutePath());	    			    	    	  
 	    	  }catch (Exception e2) {
-	          Log.e("Error", e2.getMessage());
+	    		  try {
+	    		      mIcon11 = BitmapFactory.decodeResource(current.getResources(), 
+	    		    		  R.drawable.moto);
+	    		  }
+	    		  catch (Exception e3) {
+	    			  Log.d("Error", e3.getMessage());
+	    		  }
 	          e.printStackTrace();
 	    	  }
 	      }
