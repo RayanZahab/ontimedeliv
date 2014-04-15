@@ -1,16 +1,27 @@
 package com.example.ontimedeliv;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.example.ontimedeliv.OrderInfoAdapter.ViewHolder;
+import com.example.ontimedeliv.OrderInfoAdapter.addCheckListener;
+
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -18,12 +29,39 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	private List<String> _listDataHeader; // header titles
 	// child data in format of header title, child title
 	private HashMap<String, List<String>> _listDataChild;
+	public HashMap<Integer, String> froms, tos;
+	public HashMap<Integer, Boolean> openDays;
+	private boolean populate = false;
 
 	public ExpandableListAdapter(Context context, List<String> listDataHeader,
 			HashMap<String, List<String>> listChildData) {
 		this._context = context;
 		this._listDataHeader = listDataHeader;
 		this._listDataChild = listChildData;
+		froms = new HashMap<Integer, String>();
+		tos = new HashMap<Integer, String>();
+		openDays = new HashMap<Integer, Boolean>();
+		for(int i=0;i<7;i++)
+		{
+			openDays.put(i, false);
+		}
+	}
+	public ExpandableListAdapter(Context context, List<String> listDataHeader,
+			HashMap<String, List<String>> listChildData,OpenHours oh) {
+		this._context = context;
+		this._listDataHeader = listDataHeader;
+		this._listDataChild = listChildData;
+		if(oh!=null)
+		{
+			froms = oh.froms;
+			Log.d("rays","ray"+froms.size());
+			tos = oh.tos;
+			openDays = oh.openDays;		
+			populate = true;
+		}else
+		{
+			Log.d("rays","oh null");
+		}
 	}
 
 	@Override
@@ -37,12 +75,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		return childPosition;
 	}
 
+	public View getChildAt(int position) {
+		return getChildView(0, position, false, null, null);
+	}
+
 	@Override
 	public View getChildView(int groupPosition, final int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
 
 		final String childText = (String) getChild(groupPosition, childPosition);
-
 		if (convertView == null) {
 			LayoutInflater infalInflater = (LayoutInflater) this._context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -51,8 +92,50 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 		CheckBox txtListChild = (CheckBox) convertView
 				.findViewById(R.id.weekCheck);
+		txtListChild.setOnCheckedChangeListener(new addCheckListener(
+				childPosition));
 
-		
+		final Button from = (Button) convertView.findViewById(R.id.fromBtnn);
+		from.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				TimePickerDialog tpd = new TimePickerDialog(_context,
+						new TimePickerDialog.OnTimeSetListener() {
+							@Override
+							public void onTimeSet(TimePicker view,
+									int hourOfDay, int minute) {
+								from.setText(hourOfDay + ":" + minute);
+								froms.put(childPosition, hourOfDay + "."
+										+ minute);
+							}
+						}, 0, 0, false);
+				tpd.show();
+			}
+		});
+
+		final Button to = (Button) convertView.findViewById(R.id.toBtn);
+		to.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				TimePickerDialog tpd = new TimePickerDialog(_context,
+						new TimePickerDialog.OnTimeSetListener() {
+							@Override
+							public void onTimeSet(TimePicker view,
+									int hourOfDay, int minute) {
+								to.setText(hourOfDay + ":" + minute);
+								tos.put(childPosition, hourOfDay + "." + minute);
+							}
+						}, 0, 0, false);
+				tpd.show();
+			}
+		});
+		if(populate)
+		{
+			if(froms.get(childPosition)!=null)
+				from.setText(froms.get(childPosition).replace(".",":"));
+			if(tos.get(childPosition)!=null)
+				to.setText(tos.get(childPosition).replace(".",":"));
+			txtListChild.setChecked(openDays.get(childPosition));
+		}
 		txtListChild.setText(childText);
 		return convertView;
 	}
@@ -106,4 +189,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		return true;
 	}
 
+	class addCheckListener implements OnCheckedChangeListener {
+		int position;
+
+		public addCheckListener(int position) {
+			super();
+			this.position = position;
+		}
+
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+				openDays.put(position, isChecked);
+		}
+
+	}
 }

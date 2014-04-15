@@ -43,6 +43,7 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:background="@drawable/edittext"
                 android:ellipsize="start"
                 android:ems="10"
@@ -53,11 +54,12 @@
                 android:textColor="#bdbdbd"
                 android:textColorHint="#bdbdbd"
                 android:textSize="16sp" />
-            <EditText
+
+            <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:background="@drawable/edittext"
                 android:ellipsize="start"
                 android:ems="10"
@@ -73,7 +75,7 @@
                 android:id="@+id/password2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:background="@drawable/edittext"
                 android:ellipsize="start"
                 android:ems="10"
@@ -90,7 +92,7 @@
                 style="@style/mytextview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:button="@drawable/mylogincheckbox"
                 android:text="@string/keeploggedin"
                 android:textColor="#818281"
@@ -100,7 +102,7 @@
                 android:id="@+id/languageSP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:layout_weight="0.70"
                 android:background="@drawable/myspinner"
                 android:entries="@array/languages" />
@@ -113,7 +115,7 @@
             android:layout_below="@+id/main"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/vertical_margin"
             android:background="@drawable/mybutton"
             android:onClick="updateInfo"
             android:text="@string/submit"

@@ -1,5 +1,7 @@
 package com.example.ontimedeliv;
 
+import java.util.HashMap;
+
 import android.util.Log;
 
 public class Branch {
@@ -15,7 +17,10 @@ public class Branch {
 	private String latitude;
 	private int open_hour;
 	private int close_hour;
-
+	private HashMap<Integer, String> froms, tos;
+	private HashMap<Integer, Boolean> openDays;
+	private OpenHours openHours;
+	
 	public Branch(int id, String name, String description, Area area,
 			String address, int is_available, Shop shop, String longitude,
 			String latitude, int open_hour, int close_hour,
@@ -33,34 +38,41 @@ public class Branch {
 		this.close_hour = close_hour;
 		this.estimation_time = estimation_time;
 	}
-	public ValidationError validate()
-	{
+
+	public ValidationError validate() {
 		boolean valid = false;
-		String msg="";
-		if(this.name.isEmpty() || this.name.length()<4)
-		{
-			msg="Invalid name";
+		String msg = "";
+		if (this.name.isEmpty() || this.name.length() < 4) {
+			msg = "Invalid name";
+		} else if (this.address.isEmpty() || this.address.length() < 4) {
+			msg = "Invalid address";
+		} else if (this.area.getId() == 0) {
+			msg = "Invalid area";
+		} else if (this.estimation_time.isEmpty()
+				|| this.estimation_time.length() < 2) {
+			msg = "Invalid estimation time";
+		} else {
+			Double from, to;
+			boolean error = true;
+			for (int i = 0; i < 7; i++) {
+				if (openDays.get(i) 
+						&& froms.get(i) != null
+						&& tos.get(i) != null) {
+					from = Double.parseDouble(froms.get(i));
+					to = Double.parseDouble(tos.get(i));
+					if (from >= to) {
+						msg = "Make sure all: from < to";
+						error = false;
+						break;
+					}
+				}
+			}
+			valid = error;
 		}
-		else if(this.address.isEmpty() || this.address.length()<4)
-		{
-			msg="Invalid address";
-		}
-		else if(this.area.getId()==0)
-		{
-			msg="Invalid area";
-		}
-		else if(this.estimation_time.isEmpty() || this.estimation_time.length()<2)
-		{
-			msg="Invalid estimation time";
-		}
-		else
-		{
-			valid =  true;
-		}
-		return new ValidationError(valid,msg);
+		return new ValidationError(valid, msg);
 	}
-	public Branch(int id)
-	{
+
+	public Branch(int id) {
 		this.id = id;
 	}
 
@@ -161,15 +173,49 @@ public class Branch {
 	}
 
 	public String toString() {
-		return this.name + "\n" + this.area.toString() + ","
-				+ this.address;
+		return this.name + "\n" + this.area.toString() + "," + this.address;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		Branch c = (Branch) obj;
-		Log.d("br","br : "+ this.id +"=="+ c.getId());
-		if(this.id == c.getId())
+		if (this.id == c.getId())
 			return true;
 		return false;
+	}
+
+	public HashMap<Integer, String> getFroms() {
+		return froms;
+	}
+
+	public void setFroms(HashMap<Integer, String> froms) {
+		this.froms = froms;
+	}
+
+	public HashMap<Integer, String> getTos() {
+		return tos;
+	}
+
+	public HashMap<Integer, Boolean> getOpenDays() {
+		return openDays;
+	}
+
+	public void setTos(HashMap<Integer, String> tos) {
+		this.tos = tos;
+	}
+
+	public void setTosFroms(HashMap<Integer, String> froms,
+			HashMap<Integer, String> tos, HashMap<Integer, Boolean> openDays) {
+		this.froms = froms;
+		this.tos = tos;
+		this.openDays = openDays;
+	}
+
+	public OpenHours getOpenHours() {
+		return openHours;
+	}
+
+	public void setOpenHours(OpenHours openHours) {
+		this.openHours = openHours;
 	}
 }
