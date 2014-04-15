@@ -25,7 +25,7 @@ public class UserProfileActivity extends Activity {
 	CheckBox keep;
 
 	String name, phone, pass;
-	String lang,lang_abv;
+	String lang, lang_abv;
 	int id;
 	int branchId;
 	User user;
@@ -56,10 +56,10 @@ public class UserProfileActivity extends Activity {
 		list.add(getString(R.string.english));
 		if (lang.equals("en")) {
 			lang = getString(R.string.english);
-			lang_abv="en";
+			lang_abv = "en";
 		} else {
 			lang = getString(R.string.arabic);
-			lang_abv="ar";
+			lang_abv = "ar";
 		}
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, list);
@@ -96,8 +96,9 @@ public class UserProfileActivity extends Activity {
 		User user = new User(phone, pass);
 		MyJs mjs = new MyJs("getLoggedIn", this,
 				((ontimedeliv) this.getApplication()), "POST", (Object) user);
-		mjs.execute(serverURL) ;			
+		mjs.execute(serverURL);
 	}
+
 	public void getLoggedIn(String s, String error) {
 		if (error == null) {
 			User user = new APIManager().getLogedInUser(s);
@@ -109,9 +110,9 @@ public class UserProfileActivity extends Activity {
 			editor.putString("token", user.getToken());
 			editor.putString("name", user.getName());
 			if (langSp.getSelectedItem().equals(R.string.english)) {
-				lang_abv="en";
+				lang_abv = "en";
 			} else {
-				lang_abv="ar";
+				lang_abv = "ar";
 			}
 			editor.putString("lang", lang_abv);
 			editor.putString("pass", pass);
@@ -128,12 +129,11 @@ public class UserProfileActivity extends Activity {
 					getBaseContext().getResources().getDisplayMetrics());
 			Intent i = new Intent(this, NavigationActivity.class);
 			startActivity(i);
-		} else {			
+		} else {
 			Toast.makeText(getApplicationContext(), R.string.wrongcredentials,
 					Toast.LENGTH_SHORT).show();
 		}
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

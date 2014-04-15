@@ -1,5 +1,7 @@
 package com.example.ontimedeliv;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +50,8 @@ public class AddBranchActivity extends Activity implements
 	HashMap<String, List<String>> listDataChild;
 	GlobalM glob = new GlobalM();
 	boolean click = false;
+	String method="PUT";
+	String openMethod = "update_opening_hours";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +82,30 @@ public class AddBranchActivity extends Activity implements
 			submit.setText("Update");
 		} else {
 			getCountries(true);
+			populateExp(null);
+			method="POST";
+			openMethod="opening_hours";
 		}
+		
+
+	}
+	public void populateExp(Branch b)
+	{				
 		expListView = (ExpandableListView) findViewById(R.id.lvExp);
 		prepareListData();
-		listAdapter = new ExpandableListAdapter(this, listDataHeader,
-				listDataChild);
+		if(b!=null)
+		{
+			Log.d("rays","setting datat");
+			OpenHours oh=b.getOpenHours();
+			listAdapter = new ExpandableListAdapter(this, listDataHeader,
+					listDataChild,
+					oh);			
+		}
+		else
+		{
+			listAdapter = new ExpandableListAdapter(this, listDataHeader,
+					listDataChild);
+		}
 		expListView.setAdapter(listAdapter);
 		expListView.setOnGroupClickListener(new OnGroupClickListener() {
 
@@ -132,7 +155,6 @@ public class AddBranchActivity extends Activity implements
 				return false;
 			}
 		});
-
 	}
 
 	public void getCurrentBranch(int branchId) {
@@ -146,7 +168,7 @@ public class AddBranchActivity extends Activity implements
 	private void prepareListData() {
 		listDataHeader = new ArrayList<String>();
 		listDataChild = new HashMap<String, List<String>>();
-		listDataHeader.add("Opening Hours");
+		listDataHeader.add(getString(R.string.opening_hours));
 		List<String> openhour = new ArrayList<String>();
 		openhour.add(getString(R.string.monday));
 		openhour.add(getString(R.string.tuseday));
@@ -161,7 +183,7 @@ public class AddBranchActivity extends Activity implements
 
 	public void setBranchInfo(String s, String error) {
 		currentBranch = (new APIManager().getBranchesByShop(s)).get(0);
-
+		populateExp(currentBranch);
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);
 		areasSp = (Spinner) findViewById(R.id.areasSP);
@@ -177,30 +199,6 @@ public class AddBranchActivity extends Activity implements
 		getCountries(false);
 	}
 
-	public void from(View view) {
-		TimePickerDialog tpd = new TimePickerDialog(AddBranchActivity.this,
-				new TimePickerDialog.OnTimeSetListener() {
-					@Override
-					public void onTimeSet(TimePicker view, int hourOfDay,
-							int minute) {
-						from.setText(hourOfDay + ":" + minute);
-					}
-				}, fmHour, fmMinute, false);
-		tpd.show();
-	}
-
-	public void to(View view) {
-		TimePickerDialog tpd = new TimePickerDialog(AddBranchActivity.this,
-				new TimePickerDialog.OnTimeSetListener() {
-					@Override
-					public void onTimeSet(TimePicker view, int hourOfDay,
-							int minute) {
-						to.setText(hourOfDay + ":" + minute);
-					}
-				}, tHour, tMinute, false);
-		tpd.show();
-	}
-
 	public void addBranch(View v) {
 		
 		areasSp = (Spinner) findViewById(R.id.areasSP);
@@ -213,20 +211,34 @@ public class AddBranchActivity extends Activity implements
 				.getText().toString();
 		String estimation = ((EditText) findViewById(R.id.estimation))
 				.getText().toString();
-		String serverURL = new myURL("branches", null, 0, 30).getURL();
+		
+		String serverURL = new myURL(null, "branches", branchId, 0).getURL();
 
-		Branch newBranch = new Branch(0, name, desc, new Area(selectedArea),
+		currentBranch = new Branch(branchId, name, desc, new Area(selectedArea),
 				address, 1, new Shop(shopId), "0", "0", 0, 0, estimation);
-		ValidationError valid = newBranch.validate();
+		currentBranch.setTosFroms(listAdapter.froms,listAdapter.tos,listAdapter.openDays);
+		ValidationError valid = currentBranch.validate();
+		
 		if(valid.isValid())
 		{
-			new MyJs("backToSelection", this,
-					((ontimedeliv) this.getApplication()), "POST",
-					(Object) newBranch).execute(serverURL);
+			new MyJs("openHours", this,
+					((ontimedeliv) this.getApplication()), method,
+					(Object) currentBranch).execute(serverURL);
 		}
 		else
 		{
 			valid.showError(this);
+		}
+		
+	}
+	public void openHours(String s, String error)
+	{
+		if(error==null)
+		{
+			String ourl= new myURL(openMethod, "branches", branchId, 0).getURL();
+			new MyJs("backToSelection", this,
+					((ontimedeliv) this.getApplication()), method,
+					(Object) new OpenHours(currentBranch)).execute(ourl);
 		}
 	}
 

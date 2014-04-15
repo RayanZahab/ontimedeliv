@@ -51,7 +51,7 @@
                 android:layout_height="80dp"
                 android:layout_alignLeft="@+id/productName"
                 android:layout_below="@+id/productName"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:background="@drawable/edittext"
                 android:ems="10"
                 android:gravity="top"
@@ -91,11 +91,11 @@
             <TextView
                 android:id="@+id/textView3"
                 style="@style/mytextview"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/description"
                 android:layout_below="@+id/description"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:text="@string/producticon" />
 
             <Spinner
@@ -104,7 +104,7 @@
                 android:layout_height="35dp"
                 android:layout_alignRight="@+id/description"
                 android:layout_below="@+id/preview"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:layout_toRightOf="@+id/textView5"
                 android:background="@drawable/myspinner" />
 
@@ -112,7 +112,7 @@
                 android:id="@+id/preview"
                 android:layout_width="wrap_content"
                 android:layout_height="150dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:layout_below="@+id/uploadimage"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/moto" />
@@ -126,7 +126,7 @@
         android:layout_below="@+id/scroll"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/vertical_margin"
         android:background="@drawable/mybutton"
         android:onClick="addProduct"
         android:text="@string/submit"

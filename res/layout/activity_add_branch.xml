@@ -40,7 +40,7 @@
             <View
                 android:id="@+id/divider"
                 android:layout_width="fill_parent"
-                android:layout_height="3dp"
+                android:layout_height="1dp"
                 android:layout_below="@+id/editTextAddName"
                 android:background="@drawable/divider" />
 
@@ -61,7 +61,7 @@
             <View
                 android:id="@+id/divider2"
                 android:layout_width="fill_parent"
-                android:layout_height="3dp"
+                android:layout_height="1dp"
                 android:layout_below="@+id/editTextAddress"
                 android:background="@drawable/divider" />
 
@@ -83,7 +83,7 @@
             <View
                 android:id="@+id/divider3"
                 android:layout_width="fill_parent"
-                android:layout_height="3dp"
+                android:layout_height="1dp"
                 android:layout_below="@+id/addDesc"
                 android:background="@drawable/divider" />
 
@@ -104,7 +104,7 @@
             <View
                 android:id="@+id/divider4"
                 android:layout_width="fill_parent"
-                android:layout_height="3dp"
+                android:layout_height="1dp"
                 android:layout_below="@+id/estimation"
                 android:background="@drawable/divider" />
 
@@ -116,7 +116,7 @@
                 android:layout_below="@+id/divider4"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:text="@string/select_country"
                 android:textColor="#818281"
                 android:textSize="16sp" />
@@ -129,7 +129,7 @@
                 android:layout_below="@+id/countriesSP"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:text="@string/select_city"
                 android:textColor="#818281"
                 android:textSize="16sp" />
@@ -142,7 +142,7 @@
                 android:layout_below="@+id/citiesSP"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:text="@string/select_area"
                 android:textColor="#818281"
                 android:textSize="16sp" />
@@ -154,7 +154,7 @@
                 android:layout_below="@+id/countryLabel"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:background="@drawable/myspinner" />
 
             <Spinner
@@ -164,7 +164,7 @@
                 android:layout_below="@+id/citiesLabel"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:background="@drawable/myspinner" />
 
             <Spinner
@@ -174,7 +174,7 @@
                 android:layout_below="@+id/areaLabel"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:background="@drawable/myspinner" />
 
             <ExpandableListView
@@ -194,7 +194,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/vertical_margin"
             android:background="@drawable/mybutton"
             android:onClick="addBranch"
             android:text="@string/submit"

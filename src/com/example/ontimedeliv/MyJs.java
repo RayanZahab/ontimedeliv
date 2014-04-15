@@ -271,7 +271,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				Content = "";
 			if (Error != null) {
 
-				new GlobalM().bkToNav(mc, getError(Content));
+				new GlobalM().bkToNav(mc, getError(Content,Error));
 			}
 			Method returnFunction = this.mc.getClass()
 					.getMethod(this.returnFunction, Content.getClass(),
@@ -470,20 +470,18 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		}
 	}
 
-	public String getError(String cont) {
+	public String getError(String cont,String Error) {
+		Log.d("rays","error: "+cont+","+Error+"->"+returnFunction);
 		JSONObject jsonResponse;
 		try {
 			jsonResponse = new JSONObject(cont);
 			if(jsonResponse.has("error"))
 				return jsonResponse.optString("error").toString();
 			else
-				return "Unknown Error";
+				return cont;
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return cont;
 		}
-		return "";
-
 	}
 
 }

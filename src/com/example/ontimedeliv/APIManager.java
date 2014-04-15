@@ -1,6 +1,7 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +23,7 @@ public class APIManager {
 			if (!errorCheck(jsonResponse)) {
 				int id = Integer.parseInt(jsonResponse.optString("id")
 						.toString());
-				Log.d("rays",cont);
+				Log.d("rays", cont);
 				int branch_id = Integer.parseInt(jsonResponse.optString(
 						"branch_id").toString());
 				String token = jsonResponse.optString("auth_token").toString();
@@ -291,6 +292,7 @@ public class APIManager {
 			if (!errorCheck(jsonResponse)) {
 				int id;
 				String name, address, estimation_time, description, area_str, shop_str, longitude, latitude;
+				JSONObject open_hours;
 				Area area;
 				ArrayList<Area> areas;
 				Shop shop;
@@ -313,6 +315,7 @@ public class APIManager {
 								"estimation_time").toString();
 						area_str = jsonChildNode.optString("area").toString();
 						areas = getAreasByCity(area_str);
+
 						area = areas.get(0);
 						shop_str = "";// jsonChildNode.optString("shop").toString();
 						// shops= getShopsByArea(shop_str);
@@ -344,14 +347,17 @@ public class APIManager {
 					area = areas.get(0);
 					longitude = jsonResponse.optString("longitude").toString();
 					latitude = jsonResponse.optString("latitude").toString();
+					open_hours = new JSONObject(jsonResponse.optString("opening_hours").toString());
 					int close_hour, open_hour, is_available;
 					shop_str = "";// jsonResponse.optString("shop").toString();
 					// shops= getShopsByArea(shop_str);
 					shop = null;// shops.get(0);
 					open_hour = close_hour = is_available = 1;
-					gridArray.add(new Branch(id, name, description, area,
+					Branch b=new Branch(id, name, description, area,
 							address, is_available, shop, longitude, latitude,
-							open_hour, close_hour, estimation_time));
+							open_hour, close_hour, estimation_time);
+					b.setOpenHours(getOpenHours(open_hours));
+					gridArray.add(b);
 				}
 			} else {
 				return gridArray;
@@ -361,6 +367,59 @@ public class APIManager {
 			e.printStackTrace();
 		}
 		return gridArray;
+	}
+
+	private OpenHours getOpenHours(JSONObject jsonMainNode) {
+		String from="", to="";
+		HashMap<Integer, String> days = new HashMap<Integer, String>();
+		HashMap<Integer, String> froms = new HashMap<Integer, String>();
+		HashMap<Integer, String> tos = new HashMap<Integer, String>();
+		HashMap<Integer, Boolean> openDays = new HashMap<Integer, Boolean>();
+
+		days.put(0, "mon");
+		days.put(1, "tue");
+		days.put(2, "wed");
+		days.put(3, "thu");
+		days.put(4, "fri");
+		days.put(5, "sat");
+		days.put(6, "sun");
+
+		try {
+			for (int i = 0; i < days.size(); i++) {
+				String day = jsonMainNode.optString(days.get(i)).toString();
+				if(day!=null)
+				{
+					JSONObject dayResponse = new JSONObject(day);
+					from = dayResponse.optString("from_hour").toString();
+					to = dayResponse.optString("to_hour").toString();
+					if (from.equals("0") && to.equals("0")) {
+						
+						openDays.put(i, false);
+						froms.put(i, null);
+						tos.put(i, null);
+					}
+					else
+					{
+						froms.put(i, from);
+						tos.put(i, to);
+						openDays.put(i, true);
+					}
+				}
+				else
+				{
+					openDays.put(i, false);
+					froms.put(i, null);
+					tos.put(i, null);
+				}
+				Log.d("froms",openDays.get(i)+"->"+froms.get(i)+"->"+tos.get(i));
+			}
+			return new OpenHours(froms,tos,openDays);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	public ArrayList<Category> getCategoriesByBranch(String cont) {
@@ -433,7 +492,7 @@ public class APIManager {
 			if (!errorCheck(jsonResponse)) {
 				int id;
 				boolean is_available;
-				String name, description, photo_str,  unit_str;
+				String name, description, photo_str, unit_str;
 				int price;
 				Unit unit;
 				if (jsonResponse.has("elements")) {
@@ -675,9 +734,8 @@ public class APIManager {
 						is_fired = Boolean.parseBoolean(jsonChildNode
 								.optString("is_fired").toString());
 
-						User u = new User(id, name, "", phone,
-								(is_fired) ? 1 : 0, null, branch_id, admin,
-								preparer, delivery);
+						User u = new User(id, name, "", phone, (is_fired) ? 1
+								: 0, null, branch_id, admin, preparer, delivery);
 						gridArray.add(u);
 
 					}
@@ -699,9 +757,8 @@ public class APIManager {
 					delivery = Boolean.parseBoolean(jsonRole.optString(
 							"deliverer").toString());
 
-					gridArray.add(new User(id, name, "", phone,
-							(is_fired) ? 1 : 0, null, branch_id, admin,
-							preparer, delivery));
+					gridArray.add(new User(id, name, "", phone, (is_fired) ? 1
+							: 0, null, branch_id, admin, preparer, delivery));
 
 				}
 
@@ -908,7 +965,7 @@ public class APIManager {
 				count = Integer.parseInt(jsonResponse.optString("count")
 						.toString());
 				order.setCount(count);
-				
+
 				status = jsonResponse.optString("status").toString();
 				order.setStatus(status);
 				add_str = jsonResponse.optString("address").toString();
@@ -959,7 +1016,7 @@ public class APIManager {
 						jsonItem = new JSONObject(item_str);
 						product = getItemsByCategoryAndBranch(item_str).get(0);
 						orderItem = new OrderItem(product, quantity);
-						
+
 						orderItems.add(orderItem);
 					}
 				}
@@ -1120,6 +1177,14 @@ public class APIManager {
 					jsonArray.put(c.getToUpdate().get(i));
 				}
 				jsonObjSend.put(c.getType(), jsonArray);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+		} else if (o instanceof OpenHours) {
+			OpenHours oh = (OpenHours) o;
+			try {
+				jsonObjSend.put("opening_hours", oh.getOpenHours());
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
