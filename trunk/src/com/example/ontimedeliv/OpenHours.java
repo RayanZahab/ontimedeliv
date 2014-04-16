@@ -41,12 +41,12 @@ public class OpenHours {
 
 			for (int i = 0; i < 7; i++) {
 				JSONObject day = new JSONObject();
-				if (openDays.get(i)) {					
+				if (openDays.get(i) && froms.get(i)!=null && tos.get(i)!=null) {					
 					day.put("from", froms.get(i));
 					day.put("to", tos.get(i));
 				} else {
-					day.put("from", "");
-					day.put("to", "");
+					day.put("from", "null");
+					day.put("to", "null");
 				}
 				day.put("day", days.get(i));
 				jsonArray.put(day);

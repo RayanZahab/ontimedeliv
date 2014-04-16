@@ -41,31 +41,43 @@ public class Branch {
 
 	public ValidationError validate() {
 		boolean valid = false;
-		String msg = "";
-		if (this.name.isEmpty() || this.name.length() < 4) {
-			msg = "Invalid name";
-		} else if (this.address.isEmpty() || this.address.length() < 4) {
-			msg = "Invalid address";
+		int msg = 0;
+		if (this.name.isEmpty() || this.name.length() < 3) {
+			msg = R.string.invalid_name;
+		} else if (this.address.isEmpty() || this.address.length() < 3) {
+			msg = R.string.invalid_add;
 		} else if (this.area.getId() == 0) {
-			msg = "Invalid area";
+			msg = R.string.invalid_area;
 		} else if (this.estimation_time.isEmpty()
 				|| this.estimation_time.length() < 2) {
-			msg = "Invalid estimation time";
+			msg = R.string.invalid_time;
 		} else {
 			Double from, to;
 			boolean error = true;
 			for (int i = 0; i < 7; i++) {
-				if (openDays.get(i) 
-						&& froms.get(i) != null
-						&& tos.get(i) != null) {
-					from = Double.parseDouble(froms.get(i));
-					to = Double.parseDouble(tos.get(i));
-					if (from >= to) {
-						msg = "Make sure all: from < to";
+				if (openDays.get(i) )
+				{
+					
+					if(froms==null || tos==null || froms.get(i)==null || tos.get(i)==null)
+					{
+						msg = R.string.open_missing;
 						error = false;
 						break;
 					}
+					
+					if (froms.get(i) != null
+							&& tos.get(i) != null) {
+						from = Double.parseDouble(froms.get(i));
+						to = Double.parseDouble(tos.get(i));
+						if (from >= to || from<0 || to <0) {
+							msg = R.string.from_bigger;
+							error = false;
+							break;
+						}
+					}
+			
 				}
+				
 			}
 			valid = error;
 		}

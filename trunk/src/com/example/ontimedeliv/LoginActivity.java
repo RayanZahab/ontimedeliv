@@ -1,9 +1,14 @@
 package com.example.ontimedeliv;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.content.DialogInterface;
@@ -36,6 +41,23 @@ public class LoginActivity extends Activity {
 			Intent i = new Intent(LoginActivity.this, NavigationActivity.class);
 			startActivity(i);
 		}
+		relativeTimeSpanStringDemo("2014-04-15 23:20:15");
+	}
+
+	private String relativeTimeSpanStringDemo(String date) {
+		try {
+			long now = System.currentTimeMillis();
+			long time = System.currentTimeMillis();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			time = sdf.parse(date).getTime();
+			
+			return ""+DateUtils.getRelativeTimeSpanString(time, now,
+							DateUtils.SECOND_IN_MILLIS,
+							DateUtils.FORMAT_ABBREV_ALL);
+		} catch (Exception e) {
+			return date;
+		}
 	}
 
 	public void login(View view) {
@@ -45,7 +67,7 @@ public class LoginActivity extends Activity {
 				.toString());
 		MyJs mjs = new MyJs("getLoggedIn", this,
 				((ontimedeliv) this.getApplication()), "POST", (Object) user);
-		mjs.execute(serverURL) ;
+		mjs.execute(serverURL);
 
 	}
 
@@ -74,7 +96,7 @@ public class LoginActivity extends Activity {
 
 			Intent i = new Intent(this, NavigationActivity.class);
 			startActivity(i);
-		} else {			
+		} else {
 			Toast.makeText(getApplicationContext(), R.string.wrongcredentials,
 					Toast.LENGTH_SHORT).show();
 		}

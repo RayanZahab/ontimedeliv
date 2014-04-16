@@ -283,6 +283,21 @@ public class APIManager {
 
 		return gridArray;
 	}
+	public int getBranchId(String cont){
+		JSONObject jsonResponse;
+		int id=0;
+		try {
+			jsonResponse = new JSONObject(cont);
+			if (!errorCheck(jsonResponse)) {
+				id = Integer.parseInt(jsonResponse.optString("id")
+						.toString());
+			}
+		}catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+		return id;
+	}
 
 	public ArrayList<Branch> getBranchesByShop(String cont) {
 		JSONObject jsonResponse;
