@@ -138,7 +138,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			URL url = new URL(urls[0]);
 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			Log.d("rays","Token: "+token);
 			conn.addRequestProperty("auth_token", token);
 
 			if (this.method.equals("Upload")) {

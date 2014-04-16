@@ -8,6 +8,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,6 +48,7 @@ public class OrderInfoActivity extends Activity {
 			Button submit = (Button) findViewById(R.id.submit);
 			submit.setText("Update");
 		}
+		
 	}
 
 	public void cancel(View v) {

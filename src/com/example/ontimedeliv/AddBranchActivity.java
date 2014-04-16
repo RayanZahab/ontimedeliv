@@ -52,6 +52,8 @@ public class AddBranchActivity extends Activity implements
 	boolean click = false;
 	String method="PUT";
 	String openMethod = "update_opening_hours";
+	String serverURL="";
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +81,12 @@ public class AddBranchActivity extends Activity implements
 		if (branchId != 0) {
 			getCurrentBranch(branchId);
 			Button submit = (Button) findViewById(R.id.submit);
+			serverURL = new myURL(null, "branches", branchId, 0).getURL();
 			submit.setText("Update");
 		} else {
 			getCountries(true);
 			populateExp(null);
+			serverURL = new myURL("branches",null, 0, 0).getURL();
 			method="POST";
 			openMethod="opening_hours";
 		}
@@ -212,8 +216,6 @@ public class AddBranchActivity extends Activity implements
 		String estimation = ((EditText) findViewById(R.id.estimation))
 				.getText().toString();
 		
-		String serverURL = new myURL(null, "branches", branchId, 0).getURL();
-
 		currentBranch = new Branch(branchId, name, desc, new Area(selectedArea),
 				address, 1, new Shop(shopId), "0", "0", 0, 0, estimation);
 		currentBranch.setTosFroms(listAdapter.froms,listAdapter.tos,listAdapter.openDays);
@@ -233,9 +235,12 @@ public class AddBranchActivity extends Activity implements
 	}
 	public void openHours(String s, String error)
 	{
+		if(branchId==0)
+			branchId = new APIManager().getBranchId(s);
 		if(error==null)
 		{
 			String ourl= new myURL(openMethod, "branches", branchId, 0).getURL();
+			Log.d("rats","open url: "+ourl);
 			new MyJs("backToSelection", this,
 					((ontimedeliv) this.getApplication()), method,
 					(Object) new OpenHours(currentBranch)).execute(ourl);

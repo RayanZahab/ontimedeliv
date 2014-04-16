@@ -54,13 +54,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		if(oh!=null)
 		{
 			froms = oh.froms;
-			Log.d("rays","ray"+froms.size());
 			tos = oh.tos;
 			openDays = oh.openDays;		
 			populate = true;
 		}else
 		{
-			Log.d("rays","oh null");
+			openDays = new HashMap<Integer, Boolean>();
+			for(int i=0;i<7;i++)
+			{
+				openDays.put(i, false);
+			}
 		}
 	}
 
