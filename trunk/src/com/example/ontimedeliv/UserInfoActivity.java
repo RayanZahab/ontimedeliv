@@ -28,13 +28,14 @@ public class UserInfoActivity extends Activity implements
 	int branchId, userId = 0;
 	ArrayList<Branch> branches;
 	GlobalM glob = new GlobalM();
-	int shopId = ((ontimedeliv) this.getApplication()).getShopId();
+	int shopId ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_info);
 		ActionBar actionBar = getActionBar();
+		shopId = ((ontimedeliv) this.getApplication()).getShopId();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		((ontimedeliv) this.getApplication()).clear("user");
 		if (getIntent().hasExtra("id")) {
