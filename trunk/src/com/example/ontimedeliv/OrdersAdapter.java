@@ -67,7 +67,7 @@ public class OrdersAdapter extends ArrayAdapter<Item> {
 		holder.address.setText(orderitem.getTitle());
 		holder.address.setTag(orderitem);
 
-		holder.numbofitems.setText(new GlobalM().getago("2014-04-15 23:20:15"));
+		holder.numbofitems.setText(new GlobalM().getago(orderitem.getDate()));
 		holder.numbofitems.setTag(orderitem);
 
 		holder.totalamount.setText(orderitem.getPrice() + " L.L");

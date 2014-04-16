@@ -1,7 +1,5 @@
 package com.example.ontimedeliv;
 
-import android.util.Log;
-
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 
@@ -23,7 +21,8 @@ public class User {
 		this.setId(id);
 		this.setName(name);
 		this.setUsername(username);
-		this.setPassword(password);
+		if(password!=null)
+			this.setPassword(password);
 		this.setPhone(phone);
 		this.setIs_fired(is_fired);
 		this.setAddress(address);
@@ -75,7 +74,11 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = Hashing.sha256().hashString(password, Charsets.UTF_8).toString();
+		if(this.id!=0 || this.name==null)
+			this.password = Hashing.sha256().hashString(password, Charsets.UTF_8)
+					.toString();
+		else
+			this.password=password;
 	}
 
 	public String getUsername() {
@@ -160,6 +163,22 @@ public class User {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public ValidationError validate() {
+		boolean valid = false;
+		int msg = 0;
+		if (this.name.isEmpty() || this.name.length() < 3) {
+			msg = R.string.invalid_name;
+		} else if (this.phone==null || this.phone.isEmpty() || this.phone.length() < 7) {
+			msg = R.string.invalid_phone;
+		} else if (!this.is_admin && !this.is_delivery && !this.is_preparer) {
+			msg = R.string.select_role;
+		} else if (this.branch_id == 0) {
+			msg = R.string.invalid_branch;
+		} else
+			valid = true;
+		return new ValidationError(valid, msg);
 	}
 
 	@Override

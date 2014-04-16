@@ -17,8 +17,8 @@ public class SharedMenu extends Activity {
 	public static Menu menu;
 
 	public SharedMenu(Menu menu, Context ctx) {
-		this.menu = menu;
-		this.context = ctx;
+		SharedMenu.menu = menu;
+		SharedMenu.context = ctx;
 	}
 
 	public static void onCreateOptionsMenu(Menu menu, Context ctx) {

@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,9 +56,11 @@ public class OrdersActivity extends Activity {
 		else
 		{
 			for (int i = 0; i < morders.size(); i++) {
-				orderItems.add(new Item(morders.get(i).getId(), 
+				Item itm= new Item(morders.get(i).getId(), 
 						morders.get(i).toString(), morders.get(i).getCount(), morders.get(i)
-						.getTotal(), morders.get(i).isNewCustomer()));
+						.getTotal(), morders.get(i).isNewCustomer());
+				itm.setDate(morders.get(i).getDate());
+				orderItems.add(itm);
 			}
 		}
 

@@ -9,6 +9,10 @@ public class Area {
 	public Area(int id) {
 		this.id = id;
 	}
+	public Area(int id,String name) {
+		this.id = id;
+		this.name = name;
+	}
 
 	public Area(int id, int city_id, String name) {
 		this.id = id;

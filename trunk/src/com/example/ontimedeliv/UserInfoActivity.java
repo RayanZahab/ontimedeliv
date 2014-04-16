@@ -28,7 +28,7 @@ public class UserInfoActivity extends Activity implements
 	int branchId, userId = 0;
 	ArrayList<Branch> branches;
 	GlobalM glob = new GlobalM();
-	int shopId ;
+	int shopId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class UserInfoActivity extends Activity implements
 		setContentView(R.layout.activity_user_info);
 		ActionBar actionBar = getActionBar();
 		shopId = ((ontimedeliv) this.getApplication()).getShopId();
+		
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		((ontimedeliv) this.getApplication()).clear("user");
 		if (getIntent().hasExtra("id")) {
@@ -121,8 +122,9 @@ public class UserInfoActivity extends Activity implements
 		branchAdapter.notifyDataSetChanged();
 		branchesSP.setAdapter(branchAdapter);
 		branchesSP.setOnItemSelectedListener(this);
-		glob.setSelected(branchesSP, branchAdapter,
-				new Branch(currentUser.getBranch_id()));
+		if (currentUser != null)
+			glob.setSelected(branchesSP, branchAdapter,
+					new Branch(currentUser.getBranch_id()));
 
 	}
 
@@ -136,49 +138,55 @@ public class UserInfoActivity extends Activity implements
 		User user = null;
 		String serverURL = "";
 		String method = "POST";
+		branchId = ((Branch)branchesSP.getSelectedItem()).getId();
 		if (userId > 0) {
 			serverURL = new myURL(null, "users", userId, 0).getURL();
-			user = new User(0, username.getText().toString(),// name
-					inputphone.getText().toString(),// password
-					inputphone.getText().toString(),// phone
+			user = new User(userId, username.getText().toString(),// name
+					null,// password
+					currentUser.getPhone(),// phone
 					0,// is fired
-					null,// address
+					currentUser.getAddress(),// address
 					branchId,// branch
 					admin.isChecked(), preparer.isChecked(),
 					delivery.isChecked()); // roles
 			method = "PUT";
 		} else {
 			serverURL = new myURL("users", null, 0, 0).getURL();
-			user = new User(0, username.getText().toString(), "", inputphone
-					.getText().toString().toString(), 0,
-					null, branchId, admin.isChecked(), preparer.isChecked(),
+			user = new User(0, username.getText().toString(), null,inputphone
+					.getText().toString(), 0, null, branchId,
+					admin.isChecked(), preparer.isChecked(),
 					delivery.isChecked());
+			
 
 		}
-		new MyJs("setRoles", this, ((ontimedeliv) this.getApplication()),
+		ValidationError valid = user.validate();
+		if(valid.isValid(this))
+		{
+			new MyJs("setRoles", this, ((ontimedeliv) this.getApplication()),
 				method, (Object) user, true, false).execute(serverURL);
+		}
 
 	}
 
 	public void setRoles(String s, String error) {
-		int id = userId;
+		int id = currentUser.getId();
 
 		if (id < 1) {
 			id = new APIManager().getUserId(s);
-		} else {
-			String makePreparerURL = new myURL("set_roles", "users", id, 0)
-					.getURL();
-			admin = (CheckBox) findViewById(R.id.admin);
-			preparer = (CheckBox) findViewById(R.id.preparer);
-			delivery = (CheckBox) findViewById(R.id.delivery);
-			Role role = new Role();
-			role.setPreparer(preparer.isChecked());
-			role.setAdmin(admin.isChecked());
-			role.setDelivery(delivery.isChecked());
-			new MyJs("afterRoles", this, ((ontimedeliv) this.getApplication()),
-					"POST", (Object) role, false, true)
-					.execute(makePreparerURL);
-		}
+		} 
+		String makePreparerURL = new myURL("set_roles", "users", id, 0)
+				.getURL();
+		admin = (CheckBox) findViewById(R.id.admin);
+		preparer = (CheckBox) findViewById(R.id.preparer);
+		delivery = (CheckBox) findViewById(R.id.delivery);
+		Role role = new Role();
+		role.setPreparer(preparer.isChecked());
+		role.setAdmin(admin.isChecked());
+		role.setDelivery(delivery.isChecked());
+		new MyJs("afterRoles", this, ((ontimedeliv) this.getApplication()),
+				"POST", (Object) role, false, true)
+				.execute(makePreparerURL);
+		
 	}
 
 	public void afterRoles(String s, String error) {
@@ -190,6 +198,7 @@ public class UserInfoActivity extends Activity implements
 	public void onNothingSelected(AdapterView<?> arg0) {
 
 	}
+
 	@Override
 	public void onBackPressed() {
 		Intent i = new Intent(UserInfoActivity.this, UsersActivity.class);

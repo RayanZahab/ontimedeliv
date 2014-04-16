@@ -15,6 +15,7 @@ public class Order {
 	private boolean cancel = false,newCustomer;
 	private String cancelReason;
 	private User Preparer,Delivery;
+	private String date;
 	
 	public Order(){}
 	public Order(int id, int customer_id, String status, double total,
@@ -140,5 +141,11 @@ public class Order {
 	}
 	public void setNewCustomer(boolean newCustomer) {
 		this.newCustomer = newCustomer;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
 	}
 }

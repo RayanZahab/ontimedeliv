@@ -1,7 +1,5 @@
 package com.example.ontimedeliv;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,11 +8,8 @@ import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -25,7 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Spinner;
-import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -50,11 +44,10 @@ public class AddBranchActivity extends Activity implements
 	HashMap<String, List<String>> listDataChild;
 	GlobalM glob = new GlobalM();
 	boolean click = false;
-	String method="PUT";
+	String method = "PUT";
 	String openMethod = "update_opening_hours";
-	String serverURL="";
-	
-	
+	String serverURL = "";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,10 +63,10 @@ public class AddBranchActivity extends Activity implements
 
 			@Override
 			public boolean onTouch(View arg0, MotionEvent arg1) {
-				click=true;
+				click = true;
 				return false;
 			}
-        });
+		});
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
 		((ontimedeliv) this.getApplication()).clear("branch");
@@ -86,27 +79,21 @@ public class AddBranchActivity extends Activity implements
 		} else {
 			getCountries(true);
 			populateExp(null);
-			serverURL = new myURL("branches",null, 0, 0).getURL();
-			method="POST";
-			openMethod="opening_hours";
+			serverURL = new myURL("branches", null, 0, 0).getURL();
+			method = "POST";
+			openMethod = "opening_hours";
 		}
-		
 
 	}
-	public void populateExp(Branch b)
-	{				
+
+	public void populateExp(Branch b) {
 		expListView = (ExpandableListView) findViewById(R.id.lvExp);
 		prepareListData();
-		if(b!=null)
-		{
-			Log.d("rays","setting datat");
-			OpenHours oh=b.getOpenHours();
+		if (b != null) {
+			OpenHours oh = b.getOpenHours();
 			listAdapter = new ExpandableListAdapter(this, listDataHeader,
-					listDataChild,
-					oh);			
-		}
-		else
-		{
+					listDataChild, oh);
+		} else {
 			listAdapter = new ExpandableListAdapter(this, listDataHeader,
 					listDataChild);
 		}
@@ -127,7 +114,7 @@ public class AddBranchActivity extends Activity implements
 				Toast.makeText(getApplicationContext(),
 						listDataHeader.get(groupPosition) + " Expanded",
 						Toast.LENGTH_SHORT).show();
-				Helper.getListViewSize(expListView);
+				new Helper(900).getListViewSize(expListView);
 			}
 		});
 
@@ -138,7 +125,7 @@ public class AddBranchActivity extends Activity implements
 				Toast.makeText(getApplicationContext(),
 						listDataHeader.get(groupPosition) + " Collapsed",
 						Toast.LENGTH_SHORT).show();
-				Helper.getListViewSize(expListView);
+				new Helper(60).getListViewSize(expListView);
 
 			}
 		});
@@ -165,7 +152,7 @@ public class AddBranchActivity extends Activity implements
 		String url = new myURL(null, "branches", branchId, 1).getURL();
 		String serverURL = url;
 		new MyJs("setBranchInfo", this, ((ontimedeliv) this.getApplication()),
-				"GET",true,false).execute(serverURL);
+				"GET", true, false).execute(serverURL);
 
 	}
 
@@ -186,7 +173,7 @@ public class AddBranchActivity extends Activity implements
 	}
 
 	public void setBranchInfo(String s, String error) {
-		currentBranch = (new APIManager().getBranchesByShop(s)).get(0);
+		currentBranch = new APIManager().getBranch(s);
 		populateExp(currentBranch);
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);
@@ -204,7 +191,7 @@ public class AddBranchActivity extends Activity implements
 	}
 
 	public void addBranch(View v) {
-		
+
 		areasSp = (Spinner) findViewById(R.id.areasSP);
 		int selectedArea = ((Area) areasSp.getSelectedItem()).getId();
 		String name = ((EditText) findViewById(R.id.editTextAddName)).getText()
@@ -215,32 +202,26 @@ public class AddBranchActivity extends Activity implements
 				.getText().toString();
 		String estimation = ((EditText) findViewById(R.id.estimation))
 				.getText().toString();
-		
-		currentBranch = new Branch(branchId, name, desc, new Area(selectedArea),
-				address, 1, new Shop(shopId), "0", "0", 0, 0, estimation);
-		currentBranch.setTosFroms(listAdapter.froms,listAdapter.tos,listAdapter.openDays);
+
+		currentBranch = new Branch(branchId, name, desc,
+				new Area(selectedArea), address, new Shop(shopId), estimation);
+		currentBranch.setTosFroms(listAdapter.froms, listAdapter.tos,
+				listAdapter.openDays);
 		ValidationError valid = currentBranch.validate();
-		
-		if(valid.isValid())
-		{
-			new MyJs("openHours", this,
-					((ontimedeliv) this.getApplication()), method,
-					(Object) currentBranch).execute(serverURL);
+
+		if (valid.isValid(this)) {
+			new MyJs("openHours", this, ((ontimedeliv) this.getApplication()),
+					method, (Object) currentBranch).execute(serverURL);
 		}
-		else
-		{
-			valid.showError(this);
-		}
-		
+
 	}
-	public void openHours(String s, String error)
-	{
-		if(branchId==0)
+
+	public void openHours(String s, String error) {
+		if (branchId == 0)
 			branchId = new APIManager().getBranchId(s);
-		if(error==null)
-		{
-			String ourl= new myURL(openMethod, "branches", branchId, 0).getURL();
-			Log.d("rats","open url: "+ourl);
+		if (error == null) {
+			String ourl = new myURL(openMethod, "branches", branchId, 0)
+					.getURL();
 			new MyJs("backToSelection", this,
 					((ontimedeliv) this.getApplication()), method,
 					(Object) new OpenHours(currentBranch)).execute(ourl);
@@ -270,32 +251,36 @@ public class AddBranchActivity extends Activity implements
 	public void getCountries(boolean first) {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
 		MyJs mjs = new MyJs("setCountries", AddBranchActivity.this,
-				((ontimedeliv) this.getApplication()), "GET", first,false);	
+				((ontimedeliv) this.getApplication()), "GET", first, true);
 		mjs.execute(serverURL);
 	}
 
 	public void setCountries(String s, String error) {
-
+		click = false;
 		countries = new APIManager().getCountries(s);
 		ArrayAdapter<Country> counrytAdapter = new ArrayAdapter<Country>(this,
 				android.R.layout.simple_spinner_item, countries);
 		counrytAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		
+
 		counrytAdapter.notifyDataSetChanged();
 		areasSp.setAdapter(null);
 		countrySp.setAdapter(counrytAdapter);
 		countrySp.setOnItemSelectedListener(this);
-		if(currentBranch!= null && currentBranch.getArea().getCountry_id()!=0)
-			glob.setSelected(countrySp, counrytAdapter, new Country(currentBranch
-				.getArea().getCountry_id()));
+		if (currentBranch != null
+				&& currentBranch.getArea().getCountry_id() != 0)
+		{
+			glob.setSelected(countrySp, counrytAdapter, new Country(
+					currentBranch.getArea().getCountry_id()));
+		}
+		
 	}
 
 	public void getCities(int CountryId) {
 		String serverURL = new myURL("cities", "countries", CountryId, 30)
 				.getURL();
 		new MyJs("setCities", AddBranchActivity.this,
-				((ontimedeliv) this.getApplication()), "GET", click,false)
+				((ontimedeliv) this.getApplication()), "GET", click, true)
 				.execute(serverURL);
 		click = false;
 	}
@@ -310,15 +295,15 @@ public class AddBranchActivity extends Activity implements
 		areasSp.setAdapter(null);
 		citySp.setAdapter(cityAdapter);
 		citySp.setOnItemSelectedListener(this);
-		if(currentBranch!= null && currentBranch.getArea().getCity_id()!=0)
-		glob.setSelected(citySp, cityAdapter, new City(currentBranch.getArea()
-				.getCity_id()));
+		if (currentBranch != null && currentBranch.getArea().getCity_id() != 0)
+			glob.setSelected(citySp, cityAdapter, new City(currentBranch
+					.getArea().getCity_id()));
 	}
 
 	public void getAreas(int CityId) {
 		String serverURL = new myURL("areas", "cities", CityId, 30).getURL();
 		MyJs mjs = new MyJs("setAreas", AddBranchActivity.this,
-				((ontimedeliv) this.getApplication()), "GET", click,true);
+				((ontimedeliv) this.getApplication()), "GET", click, true);
 		click = false;
 		mjs.execute(serverURL);
 	}
@@ -332,10 +317,10 @@ public class AddBranchActivity extends Activity implements
 		areaAdapter.notifyDataSetChanged();
 		areasSp.setAdapter(areaAdapter);
 		areasSp.setOnItemSelectedListener(this);
-		if(currentBranch!= null && currentBranch.getArea()!=null)
-			glob.setSelected(areasSp, areaAdapter, new Area(currentBranch.getArea()
-				.getId()));
-		
+		if (currentBranch != null && currentBranch.getArea() != null)
+			glob.setSelected(areasSp, areaAdapter, new Area(currentBranch
+					.getArea().getId()));
+		click=true;
 	}
 
 	@Override
@@ -343,10 +328,10 @@ public class AddBranchActivity extends Activity implements
 			long arg3) {
 		Object sp1 = arg0.getSelectedItem();
 		if (sp1 instanceof Country) {
-			if(((Country) sp1).getId()!=0)
+			if (((Country) sp1).getId() != 0)
 				getCities(((Country) sp1).getId());
 		} else if (sp1 instanceof City) {
-			if(((City) sp1).getId()!=0)
+			if (((City) sp1).getId() != 0)
 				getAreas(((City) sp1).getId());
 		}
 	}

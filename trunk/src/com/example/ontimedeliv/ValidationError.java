@@ -19,7 +19,9 @@ public class ValidationError {
 		setErrorMsgId(msgId);
 	}
 
-	public boolean isValid() {
+	public boolean isValid(Activity mc) {
+		if(!valid)
+			showError(mc);
 		return valid;
 	}
 
@@ -31,7 +33,7 @@ public class ValidationError {
 		return errorMsg;
 	}
 
-	public void showError(Activity mc) {
+	private void showError(Activity mc) {
 		if(errorMsgId!=0)
 		{
 			errorMsg = mc.getString(errorMsgId);

@@ -5,7 +5,11 @@ public class City {
 	private int country_id;
 	private String name;
 
-	public City(int id, int country_id, String name) {
+	public City(int id,String name) {
+		this.setId(id);
+		this.setName(name);
+	}
+	public City(int id,int country,String name) {
 		this.setId(id);
 		this.setCountry_id(country_id);
 		this.setName(name);

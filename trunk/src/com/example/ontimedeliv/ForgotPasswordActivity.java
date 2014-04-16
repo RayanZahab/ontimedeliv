@@ -2,16 +2,11 @@ package com.example.ontimedeliv;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
-import android.view.Menu;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -42,5 +37,15 @@ public class ForgotPasswordActivity extends Activity {
 				Toast.LENGTH_SHORT).show();
 		SmsManager sms = SmsManager.getDefault();
 		sms.sendTextMessage("+96170908498", null, message, null, null);
+	}
+	private void sendEmail()
+	{
+		username = (EditText) findViewById(R.id.user_name);
+		Intent email = new Intent(Intent.ACTION_SEND);
+		email.putExtra(Intent.EXTRA_EMAIL, new String[]{username.getText().toString()});		  
+		email.putExtra(Intent.EXTRA_SUBJECT, "Reset Passwod");
+		email.putExtra(Intent.EXTRA_TEXT, "message");
+		email.setType("message/rfc822");
+		startActivity(Intent.createChooser(email, "Choose an Email client :"));
 	}
 }
