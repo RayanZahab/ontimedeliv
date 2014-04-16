@@ -65,41 +65,38 @@ public class CategoriesActivity extends Activity {
 	}
 
 	public void submit(View v) {
+		unselectedIds = dataAdapter.getUnselectedList();
+		if (unselectedIds.size() > 0) {
+			myCat = new Activate("categories", unselectedIds);
 
-		ArrayList<Item> stateList = dataAdapter.getCurrentList();
-
-		for (int i = 0; i < stateList.size(); i++) {
-			Item cat = stateList.get(i);
-			if (cat.isSelected()) {
-				selectedIds.add(cat.getId());
-			} else {
-				unselectedIds.add(cat.getId());
-			}
+			String serverURL = new myURL("deactivate_categories", "branches",
+					branchId, 0).getURL();
+			new MyJs("afterDeactivate", this,
+					((ontimedeliv) this.getApplication()), "PUT",
+					(Object) myCat, true, false).execute(serverURL);
+		} else {
+			afterDeactivate("", null);
 		}
-		myCat = new Activate("categories", unselectedIds);
-
-		String serverURL = new myURL("deactivate_categories", "branches",
-				branchId, 0).getURL();
-		new MyJs("afterDeactivate", this,
-				((ontimedeliv) this.getApplication()), "PUT", (Object) myCat,
-				true, false).execute(serverURL);
 	}
 
 	public void afterDeactivate(String s, String error) {
+		selectedIds = dataAdapter.getSelectedList();
+		if (selectedIds.size() > 0) {
+			myCat = new Activate("categories", selectedIds);
+			String serverURL = new myURL("activate_categories", "branches",
+					branchId, 0).getURL();
 
-		myCat = new Activate("categories", selectedIds);
-		String serverURL = new myURL("activate_categories", "branches",
-				branchId, 0).getURL();
-
-		MyJs mjs = new MyJs("afterActivate", this,
-				((ontimedeliv) this.getApplication()), "PUT", (Object) myCat,
-				false, true);
-		mjs.execute(serverURL);
+			MyJs mjs = new MyJs("afterActivate", this,
+					((ontimedeliv) this.getApplication()), "PUT",
+					(Object) myCat, false, true);
+			mjs.execute(serverURL);
+		} else {
+			afterActivate("DONE", null);
+		}
 	}
 
 	public void afterActivate(String s, String error) {
-		Toast.makeText(getApplicationContext(), R.string.activate + s,
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
 	}
 
 	public void getCategories() {
@@ -143,7 +140,6 @@ public class CategoriesActivity extends Activity {
 					startActivity(i);
 				}
 			}
-
 		});
 
 	}
@@ -203,11 +199,15 @@ public class CategoriesActivity extends Activity {
 				.setCancelable(false)
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						if(userInput.getText().toString() != null && userInput.getText().toString().length()>3)
+						if (userInput.getText().toString() != null
+								&& userInput.getText().toString().length() > 3)
 							editCategory(itemId, userInput.getText().toString());
 						else
-							(new ValidationError(true, "Invalid name") ).showError(CategoriesActivity.this);
-						
+						{
+							(new ValidationError(true, getString(R.string.invalid_name)))
+									.isValid(CategoriesActivity.this);
+						}
+
 					}
 				})
 				.setNegativeButton("Cancel",
@@ -244,10 +244,15 @@ public class CategoriesActivity extends Activity {
 								public void onClick(DialogInterface dialog,
 										int id) {
 									setDialog(dialog);
-									if(userInput.getText().toString() != null && userInput.getText().toString().length()>3)
-										addCategory(userInput.getText().toString(),shopId);
+									if (userInput.getText().toString() != null
+											&& userInput.getText().toString()
+													.length() > 3)
+										addCategory(userInput.getText()
+												.toString(), shopId);
 									else
-										(new ValidationError(true, "Invalid name") ).showError(CategoriesActivity.this);
+										(new ValidationError(true,
+												getString(R.string.invalid_name)))
+												.isValid(CategoriesActivity.this);
 								}
 							})
 					.setNegativeButton("Cancel",

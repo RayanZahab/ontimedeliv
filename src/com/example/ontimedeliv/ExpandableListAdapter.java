@@ -1,16 +1,12 @@
 package com.example.ontimedeliv;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.example.ontimedeliv.OrderInfoAdapter.ViewHolder;
-import com.example.ontimedeliv.OrderInfoAdapter.addCheckListener;
-
+import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +29,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	public HashMap<Integer, Boolean> openDays;
 	private boolean populate = false;
 
+	@SuppressLint("UseSparseArrays")
 	public ExpandableListAdapter(Context context, List<String> listDataHeader,
 			HashMap<String, List<String>> listChildData) {
 		this._context = context;
@@ -41,27 +38,25 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		froms = new HashMap<Integer, String>();
 		tos = new HashMap<Integer, String>();
 		openDays = new HashMap<Integer, Boolean>();
-		for(int i=0;i<7;i++)
-		{
+		for (int i = 0; i < 7; i++) {
 			openDays.put(i, false);
 		}
 	}
+
+	@SuppressLint("UseSparseArrays")
 	public ExpandableListAdapter(Context context, List<String> listDataHeader,
-			HashMap<String, List<String>> listChildData,OpenHours oh) {
+			HashMap<String, List<String>> listChildData, OpenHours oh) {
 		this._context = context;
 		this._listDataHeader = listDataHeader;
 		this._listDataChild = listChildData;
-		if(oh!=null)
-		{
+		if (oh != null) {
 			froms = oh.froms;
 			tos = oh.tos;
-			openDays = oh.openDays;		
+			openDays = oh.openDays;
 			populate = true;
-		}else
-		{
+		} else {
 			openDays = new HashMap<Integer, Boolean>();
-			for(int i=0;i<7;i++)
-			{
+			for (int i = 0; i < 7; i++) {
 				openDays.put(i, false);
 			}
 		}
@@ -131,12 +126,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 				tpd.show();
 			}
 		});
-		if(populate)
-		{
-			if(froms.get(childPosition)!=null)
-				from.setText(froms.get(childPosition).replace(".",":"));
-			if(tos.get(childPosition)!=null)
-				to.setText(tos.get(childPosition).replace(".",":"));
+		if (populate) {
+			if (froms.get(childPosition) != null)
+				from.setText(froms.get(childPosition).replace(".", ":"));
+			if (tos.get(childPosition) != null)
+				to.setText(tos.get(childPosition).replace(".", ":"));
 			txtListChild.setChecked(openDays.get(childPosition));
 		}
 		txtListChild.setText(childText);
@@ -203,7 +197,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
-				openDays.put(position, isChecked);
+			openDays.put(position, isChecked);
 		}
 
 	}

@@ -1,15 +1,12 @@
 package com.example.ontimedeliv;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.content.DialogInterface;
 import android.content.Intent;

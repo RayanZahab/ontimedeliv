@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -109,11 +108,13 @@ public class UserProfileActivity extends Activity {
 			editor.putBoolean("isChecked", keeplog.isChecked());
 			editor.putString("token", user.getToken());
 			editor.putString("name", user.getName());
-			if (langSp.getSelectedItem().equals(R.string.english)) {
+			
+			if (langSp.getSelectedItem().equals(getString(R.string.english))) {
 				lang_abv = "en";
 			} else {
 				lang_abv = "ar";
 			}
+
 			editor.putString("lang", lang_abv);
 			editor.putString("pass", pass);
 

@@ -1,26 +1,17 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class OldOrdersInfoActivity extends Activity {
 	Spinner prep, deliv, status;
@@ -109,7 +100,7 @@ public class OldOrdersInfoActivity extends Activity {
 		dataAdapter.setTotal(totalTxt);
 
 		listView.setAdapter(dataAdapter);
-		Helper.getListViewSize(listView);
+		new Helper().getListViewSize(listView);
 
 		totalTxt.setText(total + "");
 		TextView customerName = (TextView) findViewById(R.id.customerName);

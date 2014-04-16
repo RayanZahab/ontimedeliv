@@ -2,8 +2,6 @@ package com.example.ontimedeliv;
 
 import java.util.HashMap;
 
-import android.util.Log;
-
 public class Branch {
 	private Integer id;
 	private String name;
@@ -21,21 +19,22 @@ public class Branch {
 	private HashMap<Integer, Boolean> openDays;
 	private OpenHours openHours;
 	
+	public Branch(int id,String name, Area area, String address)
+	{
+		this.id = id;
+		this.name = name;
+		this.setArea(area);
+		this.address = address;
+	}
 	public Branch(int id, String name, String description, Area area,
-			String address, int is_available, Shop shop, String longitude,
-			String latitude, int open_hour, int close_hour,
+			String address,  Shop shop, 
 			String estimation_time) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.setArea(area);
 		this.address = address;
-		this.is_available = is_available;
 		this.setShop(shop);
-		this.longitude = longitude;
-		this.latitude = latitude;
-		this.open_hour = open_hour;
-		this.close_hour = close_hour;
 		this.estimation_time = estimation_time;
 	}
 
@@ -185,7 +184,10 @@ public class Branch {
 	}
 
 	public String toString() {
+		if(this.area!=null)
 		return this.name + "\n" + this.area.toString() + "," + this.address;
+		else
+			return this.name;
 	}
 
 	@Override

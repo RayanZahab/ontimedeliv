@@ -143,6 +143,7 @@
     <string name="pass_dnt_match">Passwords do not match </string>
     <string name="branch">Branch</string>
     <string name="phonenum">Phone number</string>
+    <string name="invalid_phone">Invalid Phone number</string>
     <string name="admin">Admin</string>
     <string name="from_bigger">Make sure all from is less than to</string>
     <string name="open_missing">Please select FROM And TO</string>
@@ -150,5 +151,8 @@
     <string name="invalid_add">Invalid Address</string>
     <string name="invalid_area">Invalid Area</string>
     <string name="invalid_time">Invalid Estimation time</string>
+    <string name="select_role">Please select a role</string>
+	<string name="invalid_branch">Please select a branch</string>
+    
 
 </resources>

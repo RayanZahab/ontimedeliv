@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ProductInfoActivity extends Activity {
 	ArrayList<Unit> units;
@@ -104,10 +103,8 @@ public class ProductInfoActivity extends Activity {
 				new Category(categoryId), (Unit) unitsSP.getSelectedItem(),
 				true, shopId);
 		ValidationError v = p.validate();
-		if (v.isValid()) {
+		if (v.isValid(this)) {
 			addProduct(p);
-		} else {
-			v.showError(ProductInfoActivity.this);
 		}
 	}
 

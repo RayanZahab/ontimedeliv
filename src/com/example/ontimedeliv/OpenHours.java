@@ -1,18 +1,17 @@
 package com.example.ontimedeliv;
 
+import android.annotation.SuppressLint;
 import java.util.HashMap;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.util.Log;
 
 public class OpenHours {
 	public HashMap<Integer, String> froms, tos;
 	public HashMap<Integer, Boolean> openDays;
 	public HashMap<Integer, String> days;
 
+	@SuppressLint("UseSparseArrays")
 	public OpenHours(Branch b) {
 		
 		this.froms = b.getFroms();

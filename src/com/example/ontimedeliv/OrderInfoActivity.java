@@ -8,7 +8,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -204,7 +203,7 @@ public class OrderInfoActivity extends Activity {
 		ListView listView = (ListView) findViewById(R.id.listView);
 
 		listView.setAdapter(dataAdapter);
-		Helper.getListViewSize(listView);
+		new Helper().getListViewSize(listView);
 		totalTxt.setText(total + "");
 		TextView customerName = (TextView) findViewById(R.id.customerName);
 		customerName.append(" " + currentOrder.getCustomer().toString());

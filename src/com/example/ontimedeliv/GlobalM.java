@@ -1,8 +1,6 @@
 package com.example.ontimedeliv;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -46,7 +44,7 @@ public class GlobalM {
 		try {
 			long now = System.currentTimeMillis();
 			long time = System.currentTimeMillis();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
 			time = sdf.parse(date).getTime();
 

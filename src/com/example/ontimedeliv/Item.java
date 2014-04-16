@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 public class Item {
 	private Bitmap image;
-	private String title;
+	private String title,date;
 	boolean selected = false;
 	String code = null;
 	String address;
@@ -143,6 +143,14 @@ public class Item {
 	}
 	public void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 }

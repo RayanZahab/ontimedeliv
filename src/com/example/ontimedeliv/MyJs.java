@@ -17,7 +17,6 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -25,10 +24,8 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.WindowManager;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -122,6 +119,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			new GlobalM().bkToNav(mc, mc.getString(R.string.no_net));
 		} else {
 			if (this.first) {
+				Log.d("rays","method: "+returnFunction+"->"+last);
 				showProg();
 			}
 		}
@@ -165,7 +163,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				} else {
 					Error = null;
 				}
-				Log.d("ry","ray log: "+Content);
 			} else if (this.method.equals("POST")) {
 				conn.addRequestProperty("Accept", "application/json");
 				conn.addRequestProperty("Accept-Encoding", "gzip");
@@ -178,7 +175,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 						.objToCreate(this.objectToAdd);
 				OutputStreamWriter wr = new OutputStreamWriter(
 						conn.getOutputStream());
-				Log.d("ray", "ray writing: " + jsonObjSend.toString());
+				Log.d("ray", "ray writing: "+urls[0]+"->" + jsonObjSend.toString());
 				wr.write(jsonObjSend.toString());
 				wr.flush();
 				wr.close();
@@ -214,7 +211,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 						.objToCreate(this.objectToAdd);
 				OutputStreamWriter wr = new OutputStreamWriter(
 						conn.getOutputStream());
-				Log.d("ray", "ray writing: " + jsonObjSend.toString());
+				Log.d("ray", "ray writing: " +urls[0]+"->" +  jsonObjSend.toString());
 				wr.write(jsonObjSend.toString());
 				wr.flush();
 				wr.close();
@@ -269,8 +266,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			if (Content == null)
 				Content = "";
 			if (Error != null) {
-
-				new GlobalM().bkToNav(mc, getError(Content,Error));
+				//new GlobalM().bkToNav(mc, getError(Content,Error));
 			}
 			Method returnFunction = this.mc.getClass()
 					.getMethod(this.returnFunction, Content.getClass(),
@@ -298,7 +294,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	public void setGlobal(ontimedeliv global) {
 		this.global = global;
 	}
-
+	@SuppressWarnings("rawtypes")
 	private String uploadProduct(Product p,URL url,String token) throws Exception {
 
 		String USER_AGENT = "Mozilla/5.0";
