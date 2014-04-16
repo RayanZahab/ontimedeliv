@@ -25,9 +25,9 @@
 
     <EditText
         android:id="@+id/nameinput"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="@drawable/edittext"
+        android:background="@drawable/myedittext"
         android:ems="10"
         android:hint="@string/name"
         android:paddingLeft="8dp"
@@ -87,7 +87,7 @@
 
     <Spinner
         android:id="@+id/branchesSP"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
@@ -95,12 +95,12 @@
 
     <EditText
         android:id="@+id/inputphone"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/nameinput"
         android:layout_marginTop="15dp"
-        android:background="@drawable/edittext"
+        android:background="@drawable/myedittext"
         android:ems="10"
         android:hint="@string/phonenum"
         android:inputType="phone"
