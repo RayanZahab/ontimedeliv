@@ -80,11 +80,17 @@ public class UserProfileActivity extends Activity {
 					Toast.LENGTH_SHORT).show();
 		} else {
 			String serverURL = new myURL(null, "users", id, 0).getURL();
-			User user = new User(nameTxt.getText().toString(), phone, passTxt
-					.getText().toString(), branchId, 0);
+			User user = new User(nameTxt.getText().toString(), phone, null, branchId, 0);
+			user.setEncPassword(passTxt
+					.getText().toString());
 			String method = "PUT";
-			new MyJs("done", this, ((ontimedeliv) this.getApplication()),
-					method, (Object) user, true, true).execute(serverURL);
+			ValidationError valid = user.validate(true);
+			if(valid.isValid(this))
+			{
+				new MyJs("done", this, ((ontimedeliv) this.getApplication()),
+						method, (Object) user, true, true).execute(serverURL);
+			}
+			
 		}
 	}
 
@@ -93,6 +99,7 @@ public class UserProfileActivity extends Activity {
 				.show();
 		String serverURL = new myURL(null, "users", "login", 0).getURL();
 		User user = new User(phone, pass);
+		user.setEncPassword(pass);
 		MyJs mjs = new MyJs("getLoggedIn", this,
 				((ontimedeliv) this.getApplication()), "POST", (Object) user);
 		mjs.execute(serverURL);

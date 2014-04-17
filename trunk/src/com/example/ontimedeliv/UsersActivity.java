@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -17,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class UsersActivity extends Activity {
@@ -130,18 +133,45 @@ public class UsersActivity extends Activity {
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
 		if (item.getTitle() == "Delete") {
-			Delete(item.getItemId());
+			Delete((usersItem.get((int) info.id)).getId());
 		} else {
 			return false;
 		}
 		return true;
 	}
 
-	public void Delete(int id) {
-		Toast.makeText(this, "Delete called", Toast.LENGTH_SHORT).show();
+	public void Delete(final int catId) {
+
+		new AlertDialog.Builder(this)
+				.setTitle(R.string.deletethisuser)
+				.setIcon(R.drawable.users)
+				.setPositiveButton(android.R.string.yes,
+						new DialogInterface.OnClickListener() {
+
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								String serverURL = new myURL(null,
+										"users", catId, 0).getURL();
+								MyJs mjs = new MyJs("afterDelete",
+										UsersActivity.this,
+										((ontimedeliv) UsersActivity.this
+												.getApplication()), "DELETE");
+								mjs.execute(serverURL);
+							}
+						}).setNegativeButton(android.R.string.no, null).show();
 	}
 
+	public void afterDelete(String s, String error) {
+		backToActivity(UsersActivity.class);
+	}
+
+	public void backToActivity(Class activity) {
+		Intent i = new Intent(UsersActivity.this, activity);
+		startActivity(i);
+	}
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
 			Intent intent = new Intent(this, UserInfoActivity.class);

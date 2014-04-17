@@ -1,5 +1,7 @@
 package com.example.ontimedeliv;
 
+import android.util.Log;
+
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 
@@ -21,8 +23,7 @@ public class User {
 		this.setId(id);
 		this.setName(name);
 		this.setUsername(username);
-		if(password!=null)
-			this.setPassword(password);
+		
 		this.setPhone(phone);
 		this.setIs_fired(is_fired);
 		this.setAddress(address);
@@ -35,7 +36,6 @@ public class User {
 	public User(String name, String phone, String pass, int branch_id,
 			int is_fired) {
 		this.setName(name);
-		this.setPassword(pass);
 		this.setPhone(phone);
 		this.setIs_fired(is_fired);
 		this.setBranch_id(branch_id);
@@ -74,11 +74,12 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		if(this.id!=0 || this.name==null)
-			this.password = Hashing.sha256().hashString(password, Charsets.UTF_8)
-					.toString();
-		else
 			this.password=password;
+	}
+	public void setEncPassword(String password)
+	{
+		this.password = Hashing.sha256().hashString(password, Charsets.UTF_8)
+				.toString();
 	}
 
 	public String getUsername() {
@@ -165,14 +166,14 @@ public class User {
 		this.token = token;
 	}
 
-	public ValidationError validate() {
+	public ValidationError validate(boolean mine) {
 		boolean valid = false;
 		int msg = 0;
 		if (this.name.isEmpty() || this.name.length() < 3) {
 			msg = R.string.invalid_name;
-		} else if (this.phone==null || this.phone.isEmpty() || this.phone.length() < 7) {
+		} else if (this.phone==null || this.phone.isEmpty() || this.phone.length() < 6) {
 			msg = R.string.invalid_phone;
-		} else if (!this.is_admin && !this.is_delivery && !this.is_preparer) {
+		} else if (!mine && !this.is_admin && !this.is_delivery && !this.is_preparer) {
 			msg = R.string.select_role;
 		} else if (this.branch_id == 0) {
 			msg = R.string.invalid_branch;
