@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -18,7 +19,7 @@ public class GlobalM {
 
 	public void setSelected(Spinner sp, ArrayAdapter<?> list, Object o) {
 
-		for (int position = 0; position < list.getCount(); position++) {
+		for (int position = list.getCount()-1; position >=0; position--) {
 			if (list.getItem(position).equals(o)) {
 				sp.setSelection(position);
 				return;

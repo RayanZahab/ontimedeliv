@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -141,9 +142,10 @@ public class UserInfoActivity extends Activity implements
 		branchId = ((Branch)branchesSP.getSelectedItem()).getId();
 		if (userId > 0) {
 			serverURL = new myURL(null, "users", userId, 0).getURL();
-			user = new User(userId, username.getText().toString(),// name
+			user = new User(userId, 
+					username.getText().toString(),// name
 					null,// password
-					currentUser.getPhone(),// phone
+					inputphone.getText().toString(),// phone
 					0,// is fired
 					currentUser.getAddress(),// address
 					branchId,// branch
@@ -152,14 +154,16 @@ public class UserInfoActivity extends Activity implements
 			method = "PUT";
 		} else {
 			serverURL = new myURL("users", null, 0, 0).getURL();
-			user = new User(0, username.getText().toString(), null,inputphone
-					.getText().toString(), 0, null, branchId,
+			user = new User(0,
+					username.getText().toString(), 
+					null,
+					inputphone.getText().toString(), 0, null, branchId,
 					admin.isChecked(), preparer.isChecked(),
 					delivery.isChecked());
 			
-
+			user.setEncPassword(inputphone.getText().toString());
 		}
-		ValidationError valid = user.validate();
+		ValidationError valid = user.validate(false);
 		if(valid.isValid(this))
 		{
 			new MyJs("setRoles", this, ((ontimedeliv) this.getApplication()),
@@ -169,7 +173,9 @@ public class UserInfoActivity extends Activity implements
 	}
 
 	public void setRoles(String s, String error) {
-		int id = currentUser.getId();
+		int id = 0 ;
+		if(currentUser!=null)
+		 id = currentUser.getId();
 
 		if (id < 1) {
 			id = new APIManager().getUserId(s);

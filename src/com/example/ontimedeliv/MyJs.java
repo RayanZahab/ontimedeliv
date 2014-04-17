@@ -422,6 +422,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
 	public void setLast(boolean last) {
 		this.last = last;
+		if(last && pd!=null)
+			pd.dismiss();
 	}
 
 	private class TransparentProgressDialog extends Dialog {

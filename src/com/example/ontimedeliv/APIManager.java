@@ -1097,13 +1097,13 @@ public class APIManager {
 			try {
 				body.put("phone", c.getPhone());
 				if (c.getPassword() != null) {
-					body.put("pass", c.getPassword());
-				} else {
-					body.put("name", c.getName());
 					if(c.getId()==0)
-						c.setPassword(c.getPhone());
+						c.setEncPassword(c.getPhone());
+					body.put("pass", c.getPassword());	
+					if(c.getName()!=null)
+					body.put("name", c.getName());					
 					body.put("password", c.getPassword());
-					body.put("pass", c.getPassword());
+					if(c.getBranch_id()!=0)
 					body.put("branch_id", c.getBranch_id());
 					body.put("is_fired", 0);
 				}

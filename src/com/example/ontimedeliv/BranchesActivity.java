@@ -68,7 +68,7 @@ public class BranchesActivity extends Activity {
 			return;
 		}else
 		{
-			for (int i = 0; i < branches.size(); i++) {
+			for (int i = 1; i < branches.size(); i++) {
 				branchesItem.add(new Item(branches.get(i).getId(), picture,
 						branches.get(i).toString()));
 			}
