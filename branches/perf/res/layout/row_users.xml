@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/user" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="23dp"
+        style="@style/mytextview"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/picture"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/mytextview"
+        android:layout_alignBottom="@+id/picture"
+        android:layout_alignLeft="@+id/name"
+        android:text="@string/delivery" />
+
+</RelativeLayout>

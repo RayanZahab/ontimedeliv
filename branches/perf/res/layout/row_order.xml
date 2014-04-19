@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/roworder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/numbofitems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/useraddress"
+        android:layout_below="@+id/useraddress"
+        style="@style/mytextview"
+        android:layout_marginTop="14dp"
+        android:text="@string/item" />
+
+    <ImageView
+        android:id="@+id/newImg"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/neworder" />
+
+    <TextView
+        android:id="@+id/useraddress"
+        style="@style/mytextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_toRightOf="@+id/newImg"
+        android:textColor="#ed1c24"
+        android:text="@string/address"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/totalamount"
+        style="@style/mytextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/useraddress"
+        android:layout_alignBottom="@+id/useraddress"
+        android:layout_alignParentRight="true"
+        android:paddingLeft="5dp"
+        android:gravity="center"
+        android:background="@drawable/bar"
+        android:text="@string/total" />
+
+</RelativeLayout>

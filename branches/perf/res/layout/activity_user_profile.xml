@@ -1,0 +1,126 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/myred"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_left_margin"
+    android:paddingRight="@dimen/activity_left_margin"
+    android:paddingTop="@dimen/activity_horizontal_margin" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/myborder"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_left_margin"
+            android:paddingRight="@dimen/activity_right_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <EditText
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext"
+                android:ellipsize="start"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="@string/username"
+                android:inputType="text"
+                android:paddingLeft="@dimen/txt_inner_padding"
+                android:paddingRight="@dimen/txt_inner_padding"
+                android:textColor="#bdbdbd"
+                android:textColorHint="#bdbdbd"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:background="@drawable/edittext"
+                android:ellipsize="start"
+                android:ems="10"
+                android:hint="@string/name"
+                android:inputType="text"
+                android:paddingLeft="@dimen/txt_inner_padding"
+                android:paddingRight="@dimen/txt_inner_padding"
+                android:textColor="#bdbdbd"
+                android:textColorHint="#bdbdbd"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:background="@drawable/edittext"
+                android:ellipsize="start"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/txt_inner_padding"
+                android:paddingRight="@dimen/txt_inner_padding"
+                android:textColor="#bdbdbd"
+                android:textColorHint="#bdbdbd"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/password2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:background="@drawable/edittext"
+                android:ellipsize="start"
+                android:ems="10"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/txt_inner_padding"
+                android:paddingRight="@dimen/txt_inner_padding"
+                android:textColor="#bdbdbd"
+                android:textColorHint="#bdbdbd"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/keeploggedin"
+                style="@style/mytextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:button="@drawable/mylogincheckbox"
+                android:text="@string/keeploggedin"
+                android:textColor="#818281"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/languageSP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:layout_weight="0.70"
+                android:background="@drawable/myspinner"
+                android:entries="@array/languages" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/main"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:background="@drawable/mybutton"
+            android:onClick="updateInfo"
+            android:text="@string/submit"
+            android:textColor="#cdcccb"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+</ScrollView>
