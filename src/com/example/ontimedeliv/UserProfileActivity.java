@@ -135,8 +135,7 @@ public class UserProfileActivity extends Activity {
 
 			getBaseContext().getResources().updateConfiguration(config,
 					getBaseContext().getResources().getDisplayMetrics());
-			Intent i = new Intent(this, NavigationActivity.class);
-			startActivity(i);
+			new GlobalM().bkToNav(UserProfileActivity.this, null);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.wrongcredentials,
 					Toast.LENGTH_SHORT).show();
@@ -153,9 +152,7 @@ public class UserProfileActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		Intent i = new Intent(UserProfileActivity.this,
-				NavigationActivity.class);
-		startActivity(i);
+		new GlobalM().bkToNav(UserProfileActivity.this, null);
 	}
 
 }

@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -19,18 +18,24 @@ public class GlobalM {
 
 	public void setSelected(Spinner sp, ArrayAdapter<?> list, Object o) {
 
-		for (int position = list.getCount()-1; position >=0; position--) {
+		for (int position = list.getCount() - 1; position >= 0; position--) {
 			if (list.getItem(position).equals(o)) {
 				sp.setSelection(position);
-				return;
+				break;
 			}
 		}
-
+		return;
 	}
 
 	public void bkToNav(Activity a, String msg) {
 
-		Intent i = new Intent(a, NavigationActivity.class);
+		boolean admin = ((ontimedeliv) a.getApplication()).isAdmin();
+		Intent i;
+		if (admin)
+			i = new Intent(a, NavigationActivity.class);
+		else
+			i = new Intent(a, OrdersActivity.class);
+
 		if (msg != null && !msg.isEmpty()) {
 			Toast t = Toast.makeText(a.getApplicationContext(), msg,
 					Toast.LENGTH_SHORT);
@@ -45,7 +50,8 @@ public class GlobalM {
 		try {
 			long now = System.currentTimeMillis();
 			long time = System.currentTimeMillis();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+			SimpleDateFormat sdf = new SimpleDateFormat(
+					"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
 			time = sdf.parse(date).getTime();
 

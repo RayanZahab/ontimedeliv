@@ -1,12 +1,9 @@
 package com.example.ontimedeliv;
 
-import java.text.SimpleDateFormat;
-
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.text.format.DateUtils;
 import android.view.Menu;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -74,8 +71,11 @@ public class LoginActivity extends Activity {
 			editor.commit();
 
 			((ontimedeliv) this.getApplication()).setGlobals();
-
-			Intent i = new Intent(this, NavigationActivity.class);
+			Intent i;
+			if(user.isIs_admin())
+					i = new Intent(this, NavigationActivity.class);
+			else
+				i = new Intent(this, OrdersActivity.class);
 			startActivity(i);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.wrongcredentials,
