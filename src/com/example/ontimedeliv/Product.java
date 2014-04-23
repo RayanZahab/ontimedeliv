@@ -26,6 +26,10 @@ public class Product {
 		this.setShop_id(shop_id);
 
 	}
+	public Product(int id)
+	{
+		this.id=id;
+	}
 	public ValidationError validate()
 	{
 		boolean valid = false;

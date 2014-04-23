@@ -14,7 +14,7 @@ public class User {
 	private int is_fired;
 	private Address address;
 	private int branch_id;
-	private boolean is_admin, is_preparer, is_delivery;
+	private boolean is_admin, is_preparer, is_delivery, login;
 
 	public User(int id, String name, String password, String phone,
 			int is_fired, Address address, int branch_id, boolean is_admin,
@@ -55,6 +55,7 @@ public class User {
 	public User(String phone, String password) {
 		this.setPassword(password);
 		this.setPhone(phone);
+		this.setLogin(true);
 	}
 
 	public User(int id) {
@@ -188,5 +189,13 @@ public class User {
 		if (this.id == u.getId())
 			return true;
 		return false;
+	}
+
+	public boolean isLogin() {
+		return login;
+	}
+
+	public void setLogin(boolean login) {
+		this.login = login;
 	}
 }
