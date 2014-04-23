@@ -2,6 +2,9 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
+import android.util.Log;
+import android.widget.TextView;
+
 public class Order {
 	private int id;
 	private int customer_id;
@@ -15,7 +18,7 @@ public class Order {
 	private boolean cancel = false,newCustomer;
 	private String cancelReason;
 	private User Preparer,Delivery;
-	private String date;
+	private String date, note;
 	
 	public Order(){}
 	public Order(int id, int customer_id, String status, double total,
@@ -147,5 +150,23 @@ public class Order {
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+	public boolean equals(Order newOrder)
+	{
+		for(int i =0;i<newOrder.getOrderItems().size();i++)
+		{
+			if(!this.orderItems.get(i).equals(newOrder.getOrderItems().get(i)))
+				return false;
+		}
+		if( this.total == newOrder.getTotal() )
+			return true;
+		
+		return false;
 	}
 }

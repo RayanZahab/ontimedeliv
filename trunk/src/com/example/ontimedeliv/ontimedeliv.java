@@ -8,7 +8,8 @@ public class ontimedeliv extends Application {
 	private int shopId = 0, branchId = 0, categoryId = 0, productId = 0,
 			orderId = 0, userId = 0;
 	private boolean admin, prep, delivery, keepme;
-
+	public MyJs.TransparentProgressDialog loader;
+	
 	public ontimedeliv() {
 	}
 
@@ -165,5 +166,13 @@ public class ontimedeliv extends Application {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public MyJs.TransparentProgressDialog getLoader() {
+		return loader;
+	}
+
+	public void setLoader(MyJs.TransparentProgressDialog loader) {
+		this.loader = loader;
 	}
 }

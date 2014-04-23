@@ -259,8 +259,10 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	}
 
 	protected void onPostExecute(Void unused) {
-		if (pd != null && last) {
-			pd.dismiss();
+		Log.d("raya","post: "+returnFunction+": "+last+ ": "+global.loader.isShowing());
+		if (global.loader != null && last) {
+			global.loader.dismiss();
+			Log.d("raya","dismissing: ");
 		}
 		try {
 			if (Content == null)
@@ -403,16 +405,16 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		Handler h;
 		Runnable r;
 		h = new Handler();
-		pd = new TransparentProgressDialog(mc, R.drawable.spinner);
+		global.loader = new TransparentProgressDialog(mc, R.drawable.spinner);
 		r = new Runnable() {
 			@Override
 			public void run() {
-				if (pd.isShowing()) {
-					pd.dismiss();
+				if (global.loader.isShowing()) {
+					global.loader.dismiss();
 				}
 			}
 		};
-		pd.show();
+		global.loader.show();
 		h.postDelayed(r, 10000);
 	}	
 
@@ -422,11 +424,11 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
 	public void setLast(boolean last) {
 		this.last = last;
-		if(last && pd!=null)
-			pd.dismiss();
+		if(last && global.loader!=null)
+			global.loader.dismiss();
 	}
 
-	private class TransparentProgressDialog extends Dialog {
+	public class TransparentProgressDialog extends Dialog {
 
 		private ImageView iv;
 

@@ -251,7 +251,7 @@ public class AddBranchActivity extends Activity implements
 	public void getCountries(boolean first) {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
 		MyJs mjs = new MyJs("setCountries", AddBranchActivity.this,
-				((ontimedeliv) this.getApplication()), "GET", first, true);
+				((ontimedeliv) this.getApplication()), "GET", first, false);
 		mjs.execute(serverURL);
 	}
 
@@ -280,7 +280,7 @@ public class AddBranchActivity extends Activity implements
 		String serverURL = new myURL("cities", "countries", CountryId, 30)
 				.getURL();
 		new MyJs("setCities", AddBranchActivity.this,
-				((ontimedeliv) this.getApplication()), "GET", click, true)
+				((ontimedeliv) this.getApplication()), "GET", click, false)
 				.execute(serverURL);
 		click = false;
 	}

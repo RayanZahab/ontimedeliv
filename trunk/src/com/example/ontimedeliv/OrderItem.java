@@ -44,5 +44,15 @@ public class OrderItem {
 	{
 		return product.getPrice() ;
 	}
+	public boolean equals(OrderItem o)
+	{
+		if(
+				o.getProduct().getId()
+				==this.getProduct().getId() && 
+				this.getQuantity() == 
+				o.getQuantity())
+			return true;
+		return false;
+	}
 
 }

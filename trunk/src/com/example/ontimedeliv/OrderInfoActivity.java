@@ -41,13 +41,13 @@ public class OrderInfoActivity extends Activity {
 
 		((ontimedeliv) this.getApplication()).clear("order");
 		this.orderId = ((ontimedeliv) this.getApplication()).getOrderId();
-		
+
 		if (orderId != 0) {
 			getCurrentOrder(orderId);
 			Button submit = (Button) findViewById(R.id.submit);
 			submit.setText("Update");
 		}
-		
+
 	}
 
 	public void cancel(View v) {
@@ -79,10 +79,9 @@ public class OrderInfoActivity extends Activity {
 							Order order = new Order();
 							order.setId(orderId);
 							order.setCancel(true);
-							String serverURL = new myURL("cancel", "orders", 6,
-									0).getURL();
-							new MyJs("cancelOrder",
-									OrderInfoActivity.this,
+							String serverURL = new myURL("cancel", "orders",
+									orderId, 0).getURL();
+							new MyJs("cancelOrder", OrderInfoActivity.this,
 									((ontimedeliv) OrderInfoActivity.this
 											.getApplication()), "PUT",
 									(Object) order).execute(serverURL);
@@ -102,21 +101,17 @@ public class OrderInfoActivity extends Activity {
 	}
 
 	public void cancelOrder(String s, String Error) {
-
+		alertDialog.dismiss();
 		if (Error == null) {
-			Toast.makeText(getApplicationContext(), R.string.ordercanceled,
-					Toast.LENGTH_SHORT).show();
-			alertDialog.dismiss();
-		} else {
-			alertDialog.dismiss();
+			new GlobalM().bkToNav(OrderInfoActivity.this,
+					getString(R.string.ordercanceled));
 		}
 	}
 
 	public void getPreparers() {
 		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
-		new MyJs("setPreparers", this,
-				((ontimedeliv) this.getApplication()), "GET",false,true)
-				.execute(serverURL);
+		new MyJs("setPreparers", this, ((ontimedeliv) this.getApplication()),
+				"GET", false, true).execute(serverURL);
 	}
 
 	public void setPreparers(String s, String error) {
@@ -128,16 +123,15 @@ public class OrderInfoActivity extends Activity {
 				android.R.layout.simple_spinner_item, userItems);
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		prep.setAdapter(dataAdapter);		
+		prep.setAdapter(dataAdapter);
 		// glob.setSelected(deliv, dataAdapter, new
 		// User(currentOrder.getPreparer().getId()));
 	}
 
 	public void getDelivery() {
 		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
-		new MyJs("setDeivery", this,
-				((ontimedeliv) this.getApplication()), "GET",false,false)
-				.execute(serverURL);
+		new MyJs("setDeivery", this, ((ontimedeliv) this.getApplication()),
+				"GET", false, false).execute(serverURL);
 	}
 
 	public void setDeivery(String s, String error) {
@@ -150,7 +144,7 @@ public class OrderInfoActivity extends Activity {
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		deliv.setAdapter(dataAdapter);
 		getPreparers();
-		
+
 		// glob.setSelected(deliv, dataAdapter, new
 		// User(currentOrder.getDelivery().getId()));
 	}
@@ -166,17 +160,16 @@ public class OrderInfoActivity extends Activity {
 				android.R.layout.simple_spinner_item, list);
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		status
-		.setAdapter(dataAdapter);
+		status.setAdapter(dataAdapter);
 		if (list.indexOf(currentOrder.getStatus()) > -1)
 			status.setSelection(list.indexOf(currentOrder.getStatus()));
 	}
 
 	public void getCurrentOrder(int orderId) {
-		String serverURL = new myURL(null, "orders", orderId, 30).getURL();
+		String serverURL = new myURL(null, "orders", orderId, 0).getURL();
 		MyJs mjs = new MyJs("setOrderInfo", this,
-				((ontimedeliv) this.getApplication()), "GET",true,false);
-				mjs.execute(serverURL);
+				((ontimedeliv) this.getApplication()), "GET", true, false);
+		mjs.execute(serverURL);
 	}
 
 	public void setOrderInfo(String s, String error) {
@@ -239,7 +232,9 @@ public class OrderInfoActivity extends Activity {
 					.findViewById(R.id.quantity)).getText().toString());
 			item = new OrderItem();
 			item.setQuantity(quantity);
+			Log.d("rays","get: "+orderitem.get(i).getProduct().getId());
 			item.setId(orderitem.get(i).getProduct().getId());
+			item.setProduct(new Product(orderitem.get(i).getProduct().getId()));
 			newItems.add(item);
 		}
 		String serverURL = new myURL(null, "orders", orderId, 0).getURL();
@@ -252,19 +247,34 @@ public class OrderInfoActivity extends Activity {
 		double total = Double.parseDouble(((TextView) findViewById(R.id.total))
 				.getText().toString());
 		newOrder.setTotal(total);
-		new MyJs("updateStatus", this,
-				((ontimedeliv) this.getApplication()), "PUT", newOrder,true,false)
-				.execute(serverURL);
+		if(!newOrder.equals(currentOrder))
+			new MyJs("updateStatus", this, ((ontimedeliv) this.getApplication()),
+					"PUT", newOrder, true, false).execute(serverURL);
+		else
+			updateStatus(null,null);			
 	}
 
 	public void updateStatus(String s, String error) {
 		Order newOrder = new Order();
 		status = (Spinner) findViewById(R.id.order_status);
-		newOrder.setStatus(status.getSelectedItem().toString());
-		String serverURL = new myURL("change_status", "orders", orderId + "", 0)
+		Spinner prep = (Spinner) findViewById(R.id.preparer_spinner);
+		Spinner delivery = (Spinner) findViewById(R.id.delivery_Spinner);
+		User preparer = ((User) prep.getSelectedItem());
+		User deliv = ((User) delivery.getSelectedItem());
+		newOrder.setPreparer(preparer);
+		newOrder.setDelivery(deliv);
+		EditText notes = (EditText) findViewById(R.id.noteinput);
+		newOrder.setNote(notes.getText().toString());
+		ArrayList<String> stat = new ArrayList<String>();
+		stat.add(0, "Opened");
+		stat.add(1, "Prepared");
+		stat.add(2, "Closed");
+		newOrder.setStatus(stat.get(status.getSelectedItemPosition()));
+		String serverURL = new myURL("assign", "orders", orderId + "", 0)
 				.getURL();
-		new MyJs("done", this, ((ontimedeliv) this.getApplication()),
-				"PUT", newOrder,false,true).execute(serverURL);
+
+		 new MyJs("done", this, ((ontimedeliv) this.getApplication()),
+		 "PUT", newOrder,false,true).execute(serverURL);
 	}
 
 	public void done(String s, String error) {
