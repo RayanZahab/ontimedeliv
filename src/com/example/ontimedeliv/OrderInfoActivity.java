@@ -124,8 +124,8 @@ public class OrderInfoActivity extends Activity {
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		prep.setAdapter(dataAdapter);
-		// glob.setSelected(deliv, dataAdapter, new
-		// User(currentOrder.getPreparer().getId()));
+		if(currentOrder.getPreparer()!=null)
+			glob.setSelected(prep, dataAdapter, currentOrder.getPreparer());
 	}
 
 	public void getDelivery() {
@@ -145,8 +145,8 @@ public class OrderInfoActivity extends Activity {
 		deliv.setAdapter(dataAdapter);
 		getPreparers();
 
-		// glob.setSelected(deliv, dataAdapter, new
-		// User(currentOrder.getDelivery().getId()));
+		if(currentOrder.getDelivery() !=null)
+			glob.setSelected(deliv, dataAdapter, currentOrder.getDelivery());
 	}
 
 	public void addItemsOnStatus() {
@@ -199,10 +199,14 @@ public class OrderInfoActivity extends Activity {
 		new Helper().getListViewSize(listView);
 		totalTxt.setText(total + "");
 		TextView customerName = (TextView) findViewById(R.id.customerName);
-		customerName.append(" " + currentOrder.getCustomer().toString());
+		customerName.setText(" " + currentOrder.getCustomer().toString());
 		TextView customerAdd = (TextView) findViewById(R.id.customerAdd);
 		customerAdd
-				.append(" This is add"/* currentOrder.getAddress().toString() */);
+				.setText(currentOrder.getAddress().toString());
+		EditText notes = (EditText) findViewById(R.id.noteinput);
+		notes.setText(currentOrder.getNote());
+		
+		
 	}
 
 	@Override
@@ -232,7 +236,6 @@ public class OrderInfoActivity extends Activity {
 					.findViewById(R.id.quantity)).getText().toString());
 			item = new OrderItem();
 			item.setQuantity(quantity);
-			Log.d("rays","get: "+orderitem.get(i).getProduct().getId());
 			item.setId(orderitem.get(i).getProduct().getId());
 			item.setProduct(new Product(orderitem.get(i).getProduct().getId()));
 			newItems.add(item);
@@ -257,10 +260,10 @@ public class OrderInfoActivity extends Activity {
 	public void updateStatus(String s, String error) {
 		Order newOrder = new Order();
 		status = (Spinner) findViewById(R.id.order_status);
-		Spinner prep = (Spinner) findViewById(R.id.preparer_spinner);
-		Spinner delivery = (Spinner) findViewById(R.id.delivery_Spinner);
-		User preparer = ((User) prep.getSelectedItem());
-		User deliv = ((User) delivery.getSelectedItem());
+		Spinner preparerSp = (Spinner) findViewById(R.id.preparer_spinner);
+		Spinner deliverySp = (Spinner) findViewById(R.id.delivery_Spinner);
+		User preparer = ((User) preparerSp.getSelectedItem());
+		User deliv = ((User) deliverySp.getSelectedItem());
 		newOrder.setPreparer(preparer);
 		newOrder.setDelivery(deliv);
 		EditText notes = (EditText) findViewById(R.id.noteinput);

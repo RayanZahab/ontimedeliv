@@ -17,7 +17,7 @@ public class OrdersActivity extends Activity {
 	OrdersAdapter dataAdapter;
 	ArrayList<Order> morders;
 	ArrayList<Item> orderItems = new ArrayList<Item>();
-	boolean old = false;
+	boolean old = false, admin = true;
 	String status;
 
 	@Override
@@ -31,8 +31,15 @@ public class OrdersActivity extends Activity {
 				&& getIntent().getBooleanExtra("old", false)) {
 			old = getIntent().getBooleanExtra("old", false);
 		}
+		admin = ((ontimedeliv) OrdersActivity.this.getApplication())
+				.isAdmin();
+		if(!admin)
+		{
+			((ontimedeliv) OrdersActivity.this.getApplication()).setOrderStatus("assigned");
+		}
 		status = ((ontimedeliv) OrdersActivity.this.getApplication())
 				.getOrderStatus();
+
 
 		getOrders();
 	}
@@ -90,8 +97,7 @@ public class OrdersActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		Intent i = new Intent(OrdersActivity.this, NavigationActivity.class);
-		startActivity(i);
+		new GlobalM().bkToNav(OrdersActivity.this, null);
 	}
 
 	@Override

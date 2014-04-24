@@ -74,8 +74,11 @@ public class LoginActivity extends Activity {
 			editor.commit();
 
 			((ontimedeliv) this.getApplication()).setGlobals();
-
-			Intent i = new Intent(this, NavigationActivity.class);
+			Intent i;
+			if(user.isIs_admin())
+					i = new Intent(this, NavigationActivity.class);
+			else
+				i = new Intent(this, OrdersActivity.class);
 			startActivity(i);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.wrongcredentials,

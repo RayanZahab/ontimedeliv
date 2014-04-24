@@ -25,12 +25,17 @@ public class GlobalM {
 				return;
 			}
 		}
-
 	}
 
 	public void bkToNav(Activity a, String msg) {
 
-		Intent i = new Intent(a, NavigationActivity.class);
+		boolean admin = ((ontimedeliv) a.getApplication()).isAdmin();
+		Intent i;
+		if (admin)
+			i = new Intent(a, NavigationActivity.class);
+		else
+			i = new Intent(a, OrdersActivity.class);
+
 		if (msg != null && !msg.isEmpty()) {
 			Toast t = Toast.makeText(a.getApplicationContext(), msg,
 					Toast.LENGTH_SHORT);
