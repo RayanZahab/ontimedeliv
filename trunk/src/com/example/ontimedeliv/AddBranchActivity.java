@@ -280,7 +280,7 @@ public class AddBranchActivity extends Activity implements
 		String serverURL = new myURL("cities", "countries", CountryId, 30)
 				.getURL();
 		new MyJs("setCities", AddBranchActivity.this,
-				((ontimedeliv) this.getApplication()), "GET", click, false)
+				((ontimedeliv) this.getApplication()), "GET", click, true)
 				.execute(serverURL);
 		click = false;
 	}

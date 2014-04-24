@@ -841,9 +841,9 @@ public class APIManager {
 			if (!errorCheck(jsonResponse)) {
 				int id, count;
 				boolean is_fired, admin, preparer, delivery, is_new;
-				String date, password, username, mobile, customer_str, status;
+				String date, password, username, mobile, customer_str, status, customer_name_str;
 				double total;
-				Customer customer;
+				Customer customer = new Customer(0, null, null);
 				if (jsonResponse.has("elements")) {
 					JSONArray jsonMainNode = jsonResponse
 							.optJSONArray("elements");
@@ -859,22 +859,15 @@ public class APIManager {
 						is_new = Boolean.parseBoolean(jsonChildNode.optString(
 								"is_new").toString());
 
-						customer_str = jsonChildNode.optString("customer")
-								.toString();
-						if (customer_str != null && !customer_str.isEmpty()
-								&& !jsonChildNode.isNull("customer")) {
-							jsonCustomer = new JSONObject(customer_str);
-							customer = new Customer(
-									Integer.parseInt(jsonCustomer.optString(
-											"id").toString()), jsonCustomer
-											.optString("name").toString(),
-									jsonCustomer.optString("mobile").toString());
-						} else {
-							customer = new Customer(4,// Integer.parseInt(jsonCustomer.optString("id").toString()),
-									"Rayz",// jsonCustomer.optString("name").toString(),
-									"70909090"// jsonCustomer.optString("mobile").toString()
-							);
+						customer_name_str = jsonChildNode.optString(
+								"customer_name").toString();
+						Log.d("rays", "cust: " + customer_name_str);
+						if (customer_name_str != null
+								&& !customer_name_str.isEmpty()
+								&& !jsonChildNode.isNull("customer_name")) {
+							customer = new Customer(0, customer_name_str, null);
 						}
+
 						total = Double.parseDouble(jsonChildNode.optString(
 								"total").toString());
 						count = Integer.parseInt(jsonChildNode.optString(
@@ -930,15 +923,25 @@ public class APIManager {
 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
-				int id, count, quantity;
-				String customer_str, add_str, item_str, status, date;
+				int id, count, quantity,preparer_id,deliverer_id;
+				String customer_str, add_str, item_str, status, date, customer_name_str, note_str;
+
 				double total;
-				Customer customer;
+				Customer customer = new Customer(0, null, null);
 				Address address;
 				ArrayList<OrderItem> orderItems = new ArrayList<OrderItem>();
 				OrderItem orderItem;
 				Product product;
-
+				if(jsonResponse.has("preparer_id"))
+				{
+					preparer_id = Integer.parseInt(jsonResponse.optString("preparer_id").toString());
+					order.setPreparer(new User(preparer_id));
+				}
+				if(jsonResponse.has("deliverer_id"))
+				{
+					deliverer_id = Integer.parseInt(jsonResponse.optString("deliverer_id").toString());
+					order.setDelivery(new User(deliverer_id));
+				}
 				id = Integer.parseInt(jsonResponse.optString("id").toString());
 				order.setId(id);
 				total = Double.parseDouble(jsonResponse.optString("total")
@@ -966,7 +969,12 @@ public class APIManager {
 									.optString("details").toString());
 					order.setAddress(address);
 				} else {
-					order.setAddress(new Address(8));
+					order.setAddress(new Address(0));
+				}
+				note_str = jsonResponse.optString("note").toString();
+				if (note_str != null && !note_str.isEmpty()
+						&& !jsonResponse.isNull("note")) {
+					order.setNote(note_str);
 				}
 				customer_str = jsonResponse.optString("customer").toString();
 				if (customer_str != null && !customer_str.isEmpty()
@@ -977,10 +985,13 @@ public class APIManager {
 							.optString("name").toString(), jsonCustomer
 							.optString("mobile").toString());
 				} else {
-					customer = new Customer(4,// Integer.parseInt(jsonCustomer.optString("id").toString()),
-							"Rayz",// jsonCustomer.optString("name").toString(),
-							"70909090"// jsonCustomer.optString("mobile").toString()
-					);
+					customer_name_str = jsonResponse.optString("customer_name")
+							.toString();
+					if (customer_name_str != null
+							&& !customer_name_str.isEmpty()
+							&& !jsonResponse.isNull("customer_name")) {
+						customer = new Customer(0, customer_name_str, null);
+					}
 				}
 				order.setCustomer(customer);
 				order.setDate(date);
@@ -1109,7 +1120,7 @@ public class APIManager {
 					if (c.getName() != null)
 						body.put("name", c.getName());
 					if (c.getBranch_id() != 0)
-						body.put("branch_id", c.getBranch_id());
+						body.put("branch_id", c.getBranch_id());					
 					body.put("is_fired", 0);
 
 				}
