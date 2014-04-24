@@ -1,38 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <CheckBox
-        android:id="@+id/itemname"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/total"
+        android:layout_width="35dp"
         android:layout_height="wrap_content"
-        style="@style/mytextview"
-        android:checked="true"
-        android:text="@string/checkbox" />
+        android:layout_alignBaseline="@+id/itemname"
+        android:layout_alignBottom="@+id/itemname"
+        android:layout_marginLeft="26dp"
+        android:layout_toRightOf="@+id/itemname"
+        android:background="@drawable/myedittext"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1" >
+
+        <requestFocus />
+    </EditText>
 
     <EditText
         android:id="@+id/quantity"
         android:layout_width="35dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="10dp"
+        android:layout_alignBaseline="@+id/total"
+        android:layout_alignBottom="@+id/total"
+        android:layout_marginRight="25dp"
+        android:layout_toLeftOf="@+id/price"
         android:background="@drawable/myedittext"
         android:ems="10"
         android:gravity="center"
         android:inputType="number"
-        android:maxLength="1">
+        android:maxLength="1" />
 
-        <requestFocus />
-    </EditText>
+    <CheckBox
+        android:id="@+id/itemname"
+        style="@style/mytextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:checked="true"
+        android:text="@string/checkbox" />
 
     <TextView
         android:id="@+id/price"
         style="@style/mytextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:layout_alignBaseline="@+id/quantity"
+        android:layout_alignBottom="@+id/quantity"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bar"
+        android:gravity="center"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
         android:text="@string/textview" />
 
-</LinearLayout>
+</RelativeLayout>
