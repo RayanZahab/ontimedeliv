@@ -29,13 +29,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/myedittext"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp" >
 
                 <TextView
                     android:id="@+id/customerName"
                     style="@style/mytextview"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:paddingLeft="8dp"
                     android:paddingTop="10dp"
                     android:text="Name"
@@ -44,9 +47,10 @@
                 <TextView
                     android:id="@+id/customerAdd"
                     style="@style/mytextview"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
                     android:paddingLeft="8dp"
                     android:text="Add" />
             </LinearLayout>
@@ -57,8 +61,8 @@
                 android:layout_height="fill_parent"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/mylistview"
-                android:paddingTop="@dimen/activity_vertical_margin" 
-                 android:paddingBottom="@dimen/activity_vertical_margin" >
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingTop="@dimen/activity_vertical_margin" >
             </ListView>
 
             <RelativeLayout
@@ -69,7 +73,7 @@
                 android:background="@drawable/myedittext" >
 
                 <TextView
-                    android:id="@+id/total"
+                    android:id="@+id/unit"
                     style="@style/mytextview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -85,8 +89,8 @@
                     style="@style/mytextview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/total"
-                    android:layout_alignBottom="@+id/total"
+                    android:layout_alignBaseline="@+id/unit"
+                    android:layout_alignBottom="@+id/unit"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
                     android:paddingRight="7dp"
@@ -124,11 +128,11 @@
                     android:id="@+id/delivery_Spinner"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:paddingRight="22dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/textView6"
-                    android:background="@drawable/myspinner" />
+                    android:background="@drawable/myspinner"
+                    android:paddingRight="22dp" />
             </RelativeLayout>
 
             <TextView
@@ -136,28 +140,30 @@
                 style="@style/mytextview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="@string/preparer" />
 
             <Spinner
                 android:id="@+id/preparer_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:paddingRight="22dp"
-                android:background="@drawable/myspinner" />
+                android:background="@drawable/myspinner"
+                android:paddingRight="22dp" />
 
             <TextView
                 android:id="@+id/textView5"
                 style="@style/mytextview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="@string/status" />
 
             <Spinner
                 android:id="@+id/order_status"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:paddingRight="22dp"
-                android:background="@drawable/myspinner" />
+                android:background="@drawable/myspinner"
+                android:paddingRight="22dp" />
 
             <TextView
                 android:id="@+id/notes"

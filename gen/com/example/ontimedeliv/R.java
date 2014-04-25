@@ -182,10 +182,10 @@ public final class R {
         public static final int textView6=0x7f090032;
         public static final int textView7=0x7f090034;
         public static final int toBtn=0x7f09005e;
-        public static final int total=0x7f09002f;
         public static final int totalamount=0x7f09002d;
         public static final int totallabel=0x7f090030;
         public static final int txtQuery=0x7f09003b;
+        public static final int unit=0x7f09002f;
         public static final int units=0x7f090015;
         public static final int uploadimage=0x7f090012;
         public static final int user_name=0x7f09001b;
