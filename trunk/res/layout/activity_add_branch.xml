@@ -169,12 +169,14 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/vertical_margin"
+                android:paddingRight="22dp"
                 android:background="@drawable/myspinner" />
 
             <Spinner
                 android:id="@+id/areasSP"
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
+                android:paddingRight="22dp"
                 android:layout_below="@+id/areaLabel"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"

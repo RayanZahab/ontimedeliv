@@ -89,6 +89,7 @@
         android:id="@+id/branchesSP"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingRight="22dp"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
         android:background="@drawable/myspinner" />
