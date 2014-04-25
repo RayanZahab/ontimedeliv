@@ -46,6 +46,21 @@ public class GlobalM {
 			a.startActivity(i);
 	}
 
+	public void goTo(Activity from,Class to, String msg) {
+
+		Intent i;
+		i = new Intent(from, to.getClass());
+		
+		if (msg != null && !msg.isEmpty()) {
+			Toast t = Toast.makeText(from.getApplicationContext(), msg,
+					Toast.LENGTH_SHORT);
+			t.setGravity(Gravity.TOP, 0, 0);
+			t.show();
+		}
+		if (((ontimedeliv) from.getApplication()).getToken() != null)
+			from.startActivity(i);
+	}
+
 	public String getago(String date) {
 		try {
 			long now = System.currentTimeMillis();

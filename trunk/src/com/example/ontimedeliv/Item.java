@@ -54,6 +54,14 @@ public class Item {
 		this.selected = selected;
 	}
 
+	public Item(int id, int price, String title, boolean selected) {
+		super();
+		this.price = price;
+		this.title = title;
+		this.id = id;
+		this.selected = selected;
+	}
+
 	public Item(String title) {
 		super();
 		this.title = title;

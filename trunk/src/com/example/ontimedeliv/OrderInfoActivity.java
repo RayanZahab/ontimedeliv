@@ -115,8 +115,10 @@ public class OrderInfoActivity extends Activity {
 	}
 
 	public void setPreparers(String s, String error) {
-		ArrayList<User> userItems = new APIManager().getUsers(s);
-
+		User empty = new User(0,"Select");
+		ArrayList<User> userItems = new ArrayList<User>();
+		userItems.add(empty);
+		userItems.addAll(new APIManager().getUsers(s));
 		prep = (Spinner) findViewById(R.id.preparer_spinner);
 
 		ArrayAdapter<User> dataAdapter = new ArrayAdapter<User>(this,
@@ -126,6 +128,8 @@ public class OrderInfoActivity extends Activity {
 		prep.setAdapter(dataAdapter);
 		if(currentOrder.getPreparer()!=null)
 			glob.setSelected(prep, dataAdapter, currentOrder.getPreparer());
+		else
+			glob.setSelected(prep, dataAdapter,empty);
 	}
 
 	public void getDelivery() {
@@ -135,7 +139,11 @@ public class OrderInfoActivity extends Activity {
 	}
 
 	public void setDeivery(String s, String error) {
-		ArrayList<User> userItems = new APIManager().getUsers(s);
+		User empty = new User(0,"Select");
+		ArrayList<User> userItems = new ArrayList<User>();
+		userItems.add(empty);
+		userItems.addAll(new APIManager().getUsers(s));
+		
 		deliv = (Spinner) findViewById(R.id.delivery_Spinner);
 
 		ArrayAdapter<User> dataAdapter = new ArrayAdapter<User>(this,
@@ -147,6 +155,8 @@ public class OrderInfoActivity extends Activity {
 
 		if(currentOrder.getDelivery() !=null)
 			glob.setSelected(deliv, dataAdapter, currentOrder.getDelivery());
+		else
+			glob.setSelected(deliv, dataAdapter,empty);
 	}
 
 	public void addItemsOnStatus() {
@@ -277,10 +287,10 @@ public class OrderInfoActivity extends Activity {
 				.getURL();
 
 		 new MyJs("done", this, ((ontimedeliv) this.getApplication()),
-		 "PUT", newOrder,false,true).execute(serverURL);
+		 "PUT", newOrder,true,true).execute(serverURL);
 	}
 
 	public void done(String s, String error) {
-		Log.d("rays", "ray done: " + s);
+		new GlobalM().bkToNav(this,getString(R.string.order_updated));
 	}
 }

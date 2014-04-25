@@ -62,6 +62,11 @@ public class User {
 		this.setId(id);
 	}
 
+	public User(int i, String name) {
+		this.setId(id);
+		this.setName(name);
+	}
+
 	public String getPhone() {
 		return phone;
 	}
