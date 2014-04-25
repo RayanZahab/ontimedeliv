@@ -114,7 +114,7 @@ public class Product {
 	}
 
 	public String toString() {
-		return this.name + " - " + this.price + "L.L \n" + this.description;
+		return this.name;
 	}
 
 	public int getShop_id() {

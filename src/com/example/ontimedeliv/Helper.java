@@ -35,10 +35,13 @@ public class Helper {
 			}
 			// set listAdapter in loop for getting final size
 			int totalHeight = 0;
+			Log.i("height of listItem:", String.valueOf(myListAdapter.getCount()));
+			
 			for (int size = 0; size < myListAdapter.getCount(); size++) {
 				View listItem = myListAdapter.getView(size, null, myListView);
 				listItem.measure(0, 0);
-				totalHeight += listItem.getMeasuredHeight();
+				totalHeight += listItem.getMeasuredHeight()+ 36;
+				Log.i("height of listItem:", String.valueOf(listItem.getMeasuredHeight())) ;
 			}
 			// setting listview item in adapter
 			ViewGroup.LayoutParams params = myListView.getLayoutParams();
@@ -47,7 +50,6 @@ public class Helper {
 							.getCount() - 1));
 			myListView.setLayoutParams(params);
 			// print height of adapter on log
-			Log.i("height of listItem:", String.valueOf(totalHeight));
 		}
 	}
 }

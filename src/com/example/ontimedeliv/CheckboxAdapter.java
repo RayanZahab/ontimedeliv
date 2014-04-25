@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.TextView;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,11 +48,13 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 	private class ViewHolder {
 		CheckBox name;
 		Bitmap picture;
+		TextView price;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
+		final Item cat = currentList.get(position);
 
 		if (convertView == null) {
 
@@ -66,14 +69,17 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 				Bitmap picture = v.getDrawingCache();
 				holder.picture = picture;
 			} else
+			{
 				convertView = vi.inflate(R.layout.product_info, null);
+				holder.price = (TextView) convertView.findViewById(R.id.price);
+				holder.price.setText(cat.getPrice()+" L.L");
+			}
 			holder.name = (CheckBox) convertView.findViewById(R.id.checkBox1);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		final Item cat = currentList.get(position);
 		holder.name.setText(cat.getTitle());
 		holder.name.setChecked(cat.isSelected());
 		if(cat.isSelected())

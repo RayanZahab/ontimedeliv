@@ -194,7 +194,7 @@ public class ProductsActivity extends Activity {
 					getString(R.string.empty_list)));
 		} else {
 			for (int i = 0; i < products.size(); i++) {
-				productItems.add(new Item(products.get(i).getId(), picture,
+				productItems.add(new Item(products.get(i).getId(), products.get(i).getPrice(),
 						products.get(i).toString(), products.get(i)
 								.isAvailable()));
 
