@@ -102,6 +102,7 @@
                 android:id="@+id/units"
                 android:layout_width="100dp"
                 android:layout_height="35dp"
+                android:paddingRight="22dp"
                 android:layout_alignRight="@+id/description"
                 android:layout_below="@+id/preview"
                 android:layout_marginTop="@dimen/vertical_margin"
