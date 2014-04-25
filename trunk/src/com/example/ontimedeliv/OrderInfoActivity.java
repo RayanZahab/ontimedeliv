@@ -190,7 +190,7 @@ public class OrderInfoActivity extends Activity {
 		SPitems = new ArrayList<Item>();
 		Item _Item;
 		double total = 0;
-		TextView totalTxt = (TextView) findViewById(R.id.total);
+		TextView totalTxt = (TextView) findViewById(R.id.unit);
 
 		for (int i = 0; i < orderitem.size(); i++) {
 			_Item = new Item(orderitem.get(i).getId(), orderitem.get(i)
@@ -257,7 +257,7 @@ public class OrderInfoActivity extends Activity {
 		newOrder.setOrderItems(newItems);
 		newOrder.setAddress_id(currentOrder.getAddress().getId());
 		newOrder.setCustomer_id(currentOrder.getCustomer().getId());
-		double total = Double.parseDouble(((TextView) findViewById(R.id.total))
+		double total = Double.parseDouble(((TextView) findViewById(R.id.unit))
 				.getText().toString());
 		newOrder.setTotal(total);
 		if(!newOrder.equals(currentOrder))

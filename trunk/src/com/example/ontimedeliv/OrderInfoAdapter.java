@@ -76,6 +76,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 				holder.quantity = (EditText) convertView
 						.findViewById(R.id.quantity);
 				holder.price = (TextView) convertView.findViewById(R.id.price);
+				holder.unit = (TextView) convertView.findViewById(R.id.unit);
 				holder.itemname = (CheckBox) convertView
 						.findViewById(R.id.itemname);
 				holder.quantity.addTextChangedListener(new addListenerOnTextChange(context, holder));
@@ -88,6 +89,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 				oldHolder.quantity = (TextView) convertView
 						.findViewById(R.id.quantity);
 				oldHolder.price = (TextView) convertView.findViewById(R.id.price);
+				oldHolder.unit = (TextView) convertView.findViewById(R.id.unit);
 				oldHolder.itemname = (TextView) convertView
 						.findViewById(R.id.itemname);
 				convertView.setTag(oldHolder);
@@ -113,6 +115,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 			holder.quantity.setText("" + orderitem.getQuantity());
 			holder.price.setText("" + orderitem.getPrice()*orderitem.getQuantity());			
 			holder.unitPrice=orderitem.getPrice();
+			holder.unit.setText(holder.unitPrice+"");
 		}
 		else
 		{
@@ -120,7 +123,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 			oldHolder.quantity.setText("" + orderitem.getQuantity());
 			oldHolder.price.setText("" + orderitem.getPrice()*orderitem.getQuantity());
 			oldHolder.unitPrice=orderitem.getPrice();
-			oldHolder.unitPrice=orderitem.getPrice();
+			holder.unit.setText(holder.unitPrice+"");
 		}
 		return convertView;
 	}
@@ -136,12 +139,12 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 	class ViewHolder {
 		int id;
 		CheckBox itemname;
-		TextView price;
+		TextView price, unit;
 		EditText quantity;
 		double unitPrice;
 	}
 	class OldViewHolder {
-		TextView price, itemname,quantity;
+		TextView price, itemname,quantity, unit;
 		double unitPrice;
 	}
 	class addCheckListener implements OnCheckedChangeListener{

@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/activity_vertical_margin"
     android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:paddingTop="8dp"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -24,49 +25,42 @@
             android:text="shiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" />
 
         <TextView
-            android:id="@+id/price"
-            style="@style/mytextview"
-            android:layout_width="80dp"
+            android:id="@+id/unit"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/bar"
-            android:gravity="center"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:text="999000L.L" />
-
-        <EditText
-            android:id="@+id/total"
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/quantity"
-            android:layout_alignBottom="@+id/quantity"
+            android:layout_alignBottom="@+id/price"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/myedittext"
-             android:layout_toLeftOf="@+id/quantity"
             android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/quantity"
+            android:background="@drawable/myedittext"
             android:ems="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="1" />
+            android:gravity="center" />
 
         <EditText
             android:id="@+id/quantity"
             android:layout_width="35dp"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/price"
-            android:layout_alignBaseline="@+id/price"
             android:layout_alignBottom="@+id/price"
+            android:layout_toLeftOf="@+id/price"
             android:layout_marginRight="5dp"
-            android:background="@drawable/myedittext"
-            android:ems="10"
             android:gravity="center"
+            android:background="@drawable/myedittext"            
             android:inputType="number"
-            android:maxLength="1" >
+            android:maxLength="1" />
 
-            <requestFocus />
-        </EditText>
+        <TextView
+            android:id="@+id/price"
+            style="@style/mytextview"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/bar"
+            android:gravity="center"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:text="999000L.L" />
 
     </RelativeLayout>
 
