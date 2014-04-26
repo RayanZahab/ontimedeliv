@@ -176,7 +176,7 @@ public class UserInfoActivity extends Activity implements
 		int id = 0 ;
 		if(currentUser!=null)
 		 id = currentUser.getId();
-
+		Log.d("rays","role: "+s+" , "+error);
 		if (id < 1) {
 			id = new APIManager().getUserId(s);
 		} 

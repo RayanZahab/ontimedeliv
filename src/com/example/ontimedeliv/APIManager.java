@@ -1116,7 +1116,10 @@ public class APIManager {
 				} else {
 					if (c.getPassword() != null)
 						if (c.getId() == 0)
+						{
 							c.setEncPassword(c.getPhone());
+							body.put("pass", c.getPassword());
+						}
 					if (c.getName() != null)
 						body.put("name", c.getName());
 					if (c.getBranch_id() != 0)
@@ -1208,9 +1211,12 @@ public class APIManager {
 				} else {
 					if (c.getStatus() != null) {
 						jsonObjSend.put("status", c.getStatus());
-						jsonObjSend.put("p_id", c.getPreparer().getId());
-						jsonObjSend.put("d_id", c.getDelivery().getId());
-						jsonObjSend.put("note", c.getNote());
+						if(c.getPreparer()!=null)
+						{
+							jsonObjSend.put("p_id", c.getPreparer().getId());
+							jsonObjSend.put("d_id", c.getDelivery().getId());
+							jsonObjSend.put("note", c.getNote());
+						}
 					} else {
 						JSONArray jsonArray = new JSONArray();
 						try {

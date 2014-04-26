@@ -85,7 +85,7 @@ public class OldOrdersInfoActivity extends Activity {
 		ArrayList<Item> items = new ArrayList<Item>();
 		Item _Item;
 		double total = 0;
-		TextView totalTxt = (TextView) findViewById(R.id.unit);
+		TextView totalTxt = (TextView) findViewById(R.id.allTotal);
 		ListView listView = (ListView) findViewById(R.id.listView);
 		for (int i = 0; i < orderitem.size(); i++) {
 			_Item = new Item(orderitem.get(i).getId(), orderitem.get(i)

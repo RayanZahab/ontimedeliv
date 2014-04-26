@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +18,7 @@ public class OrdersActivity extends Activity {
 	OrdersAdapter dataAdapter;
 	ArrayList<Order> morders;
 	ArrayList<Item> orderItems = new ArrayList<Item>();
-	boolean old = false, admin = true;
+	boolean old = false, admin = true , isPreparer =false;
 	String status;
 
 	@Override
@@ -33,13 +34,22 @@ public class OrdersActivity extends Activity {
 		}
 		admin = ((ontimedeliv) OrdersActivity.this.getApplication())
 				.isAdmin();
-		if(!admin)
+		isPreparer = ((ontimedeliv) this.getApplication()).isPrep();
+		if(admin)
+		{
+			
+		}
+		else if(isPreparer)
 		{
 			((ontimedeliv) OrdersActivity.this.getApplication()).setOrderStatus("assigned");
 		}
+		else
+		{
+			((ontimedeliv) OrdersActivity.this.getApplication()).setOrderStatus("prepared");
+		}
 		status = ((ontimedeliv) OrdersActivity.this.getApplication())
 				.getOrderStatus();
-
+		Log.d("rays","stat: "+status);
 
 		getOrders();
 	}
@@ -81,12 +91,8 @@ public class OrdersActivity extends Activity {
 				if (morders.size()>0)
 				{
 					Intent i;
-					if (old) {
-						i = new Intent(getBaseContext(),
-								OldOrdersInfoActivity.class);
-					} else {
-						i = new Intent(getBaseContext(), OrderInfoActivity.class);
-					}
+					i = new Intent(getBaseContext(), OrderInfoActivity.class);
+					
 					((ontimedeliv) OrdersActivity.this.getApplication())
 							.setOrderId(orderItems.get(position).getId());
 					startActivity(i);

@@ -52,14 +52,14 @@
                 style="@style/mytextview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/unit"
-                android:layout_alignBottom="@+id/unit"
+                android:layout_alignBaseline="@+id/allTotal"
+                android:layout_alignBottom="@+id/allTotal"
                 android:layout_alignParentRight="true"
                 android:text="L.L"
                 android:textSize="19sp" />
 
             <TextView
-                android:id="@+id/unit"
+                android:id="@+id/allTotal"
                 style="@style/mytextview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

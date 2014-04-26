@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 
 
+
+
 import android.content.Context;
 import android.graphics.Color;
 import android.text.Editable;
@@ -29,8 +31,16 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 	View convertView;
 	int adapterView;
 	private TextView totalTxt;
-	private boolean old=false;
+	private boolean old = false;
 
+	public boolean isOld()
+	{
+		return this.old;
+	}
+	public void setOld(boolean old)
+	{
+		this.old = old;
+	}
 	public OrderInfoAdapter(Context context, int adapterView,
 			ArrayList<Item> navList) {
 		super(context, adapterView, navList);
@@ -55,17 +65,18 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 
 		ViewHolder holder = null;
 		OldViewHolder oldHolder = null;
-
-		Log.v("ConvertView", String.valueOf(position));
+		
+		Log.d("ConvertView", old+"");
 		
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-			convertView = vi.inflate(adapterView, null);
+			
 
 			if(!old)
 			{				
+				convertView = vi.inflate(R.layout.row_order_info, null);
 				holder = new ViewHolder();
 				if (this.orderList.get(position).isNew) {
 					RelativeLayout main = (RelativeLayout) convertView
@@ -85,6 +96,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 			}
 			else
 			{
+				convertView = vi.inflate(R.layout.row_old_order_info, null);
 				oldHolder = new OldViewHolder();	
 				oldHolder.quantity = (TextView) convertView
 						.findViewById(R.id.quantity);
@@ -123,7 +135,8 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 			oldHolder.quantity.setText("" + orderitem.getQuantity());
 			oldHolder.price.setText("" + orderitem.getPrice()*orderitem.getQuantity());
 			oldHolder.unitPrice=orderitem.getPrice();
-			holder.unit.setText(holder.unitPrice+"");
+			oldHolder.unit.setText(
+					oldHolder.unitPrice+"");
 		}
 		return convertView;
 	}

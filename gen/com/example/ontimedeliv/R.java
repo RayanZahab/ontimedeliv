@@ -86,7 +86,7 @@ public final class R {
     public static final class id {
         public static final int Userslist=0x7f090052;
         public static final int about=0x7f090025;
-        public static final int action_search=0x7f090069;
+        public static final int action_search=0x7f09006a;
         public static final int add=0x7f090057;
         public static final int addArea=0x7f090044;
         public static final int addAreaView=0x7f090056;
@@ -98,6 +98,7 @@ public final class R {
         public static final int addDesc=0x7f090005;
         public static final int addProduct=0x7f090018;
         public static final int admin=0x7f09004b;
+        public static final int allTotal=0x7f09002f;
         public static final int arabic=0x7f09003d;
         public static final int areaLabel=0x7f09000c;
         public static final int areasSP=0x7f09000e;
@@ -119,7 +120,7 @@ public final class R {
         public static final int countryLabel=0x7f090009;
         public static final int customerAdd=0x7f09002b;
         public static final int customerName=0x7f09002a;
-        public static final int delete=0x7f09006b;
+        public static final int delete=0x7f09006c;
         public static final int delivery=0x7f09004d;
         public static final int delivery_Spinner=0x7f090033;
         public static final int description=0x7f090013;
@@ -127,7 +128,7 @@ public final class R {
         public static final int divider2=0x7f090004;
         public static final int divider3=0x7f090006;
         public static final int divider4=0x7f090008;
-        public static final int edit=0x7f09006a;
+        public static final int edit=0x7f09006b;
         public static final int editText1=0x7f090061;
         public static final int editTextAddName=0x7f090001;
         public static final int editTextAddress=0x7f090003;
@@ -154,10 +155,10 @@ public final class R {
         public static final int name=0x7f09004f;
         public static final int nameLabel=0x7f090054;
         public static final int nameinput=0x7f090047;
-        public static final int newImg=0x7f090067;
+        public static final int newImg=0x7f090068;
         public static final int noteinput=0x7f090037;
         public static final int notes=0x7f090036;
-        public static final int numbofitems=0x7f090066;
+        public static final int numbofitems=0x7f090067;
         public static final int order_status=0x7f090039;
         public static final int orderbuttons=0x7f090031;
         public static final int orders=0x7f090022;
@@ -169,10 +170,10 @@ public final class R {
         public static final int preview=0x7f090017;
         public static final int price=0x7f090016;
         public static final int productName=0x7f090011;
-        public static final int quantity=0x7f090063;
+        public static final int quantity=0x7f090064;
         public static final int rightarrow=0x7f090021;
-        public static final int role=0x7f090068;
-        public static final int roworder=0x7f090064;
+        public static final int role=0x7f090069;
+        public static final int roworder=0x7f090065;
         public static final int scroll=0x7f090038;
         public static final int select=0x7f090045;
         public static final int settings=0x7f090023;
@@ -185,11 +186,11 @@ public final class R {
         public static final int totalamount=0x7f09002d;
         public static final int totallabel=0x7f090030;
         public static final int txtQuery=0x7f09003b;
-        public static final int unit=0x7f09002f;
+        public static final int unit=0x7f090063;
         public static final int units=0x7f090015;
         public static final int uploadimage=0x7f090012;
         public static final int user_name=0x7f09001b;
-        public static final int useraddress=0x7f090065;
+        public static final int useraddress=0x7f090066;
         public static final int users=0x7f090027;
         public static final int weekCheck=0x7f09005c;
     }
