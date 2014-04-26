@@ -1,8 +1,8 @@
 package com.example.ontimedeliv;
 
 import java.util.Locale;
-
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -97,6 +97,7 @@ public class SelectLanguageActivity extends Activity {
 				.setMessage(R.string.exitquest)
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
+							@SuppressLint("NewApi")
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
