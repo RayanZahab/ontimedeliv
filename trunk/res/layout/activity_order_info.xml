@@ -73,7 +73,7 @@
                 android:background="@drawable/myedittext" >
 
                 <TextView
-                    android:id="@+id/unit"
+                    android:id="@+id/allTotal"
                     style="@style/mytextview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -89,8 +89,8 @@
                     style="@style/mytextview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/unit"
-                    android:layout_alignBottom="@+id/unit"
+                    android:layout_alignBaseline="@+id/allTotal"
+                    android:layout_alignBottom="@+id/allTotal"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
                     android:paddingRight="7dp"
@@ -188,6 +188,19 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/mybutton"
+        android:onClick="cancel"
+        android:text="@string/cancel"
+        android:textColor="#6f6f71"
+        android:textSize="18sp" />
+    
+    <Button
         android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -200,17 +213,6 @@
         android:textColor="#6f6f71"
         android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginTop="7dp"
-        android:background="@drawable/mybutton"
-        android:onClick="cancel"
-        android:text="@string/cancel"
-        android:textColor="#6f6f71"
-        android:textSize="18sp" />
+    
 
 </LinearLayout>
