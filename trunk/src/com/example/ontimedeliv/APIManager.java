@@ -932,12 +932,12 @@ public class APIManager {
 				ArrayList<OrderItem> orderItems = new ArrayList<OrderItem>();
 				OrderItem orderItem;
 				Product product;
-				if(jsonResponse.has("preparer_id"))
+				if(jsonResponse.has("preparer_id") && !jsonResponse.optString("preparer_id").toString().equals("null") && jsonResponse.optString("preparer_id").toString()!=null )
 				{
 					preparer_id = Integer.parseInt(jsonResponse.optString("preparer_id").toString());
 					order.setPreparer(new User(preparer_id));
 				}
-				if(jsonResponse.has("deliverer_id"))
+				if(jsonResponse.has("deliverer_id") && !jsonResponse.optString("deliverer_id").toString().equals("null") && jsonResponse.optString("deliverer_id").toString()!="null" )
 				{
 					deliverer_id = Integer.parseInt(jsonResponse.optString("deliverer_id").toString());
 					order.setDelivery(new User(deliverer_id));

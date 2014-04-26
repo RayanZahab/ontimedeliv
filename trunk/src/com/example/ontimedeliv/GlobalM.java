@@ -1,6 +1,8 @@
 package com.example.ontimedeliv;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -66,7 +68,8 @@ public class GlobalM {
 			long now = System.currentTimeMillis();
 			long time = System.currentTimeMillis();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
+			TimeZone tz = TimeZone.getDefault();
+			sdf.setTimeZone(tz);
 			time = sdf.parse(date).getTime();
 
 			return ""
