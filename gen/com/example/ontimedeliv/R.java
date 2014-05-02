@@ -16,11 +16,6 @@ public final class R {
     public static final class attr {
     }
     public static final class dimen {
-        /** 
-         Customize dimensions originally defined in res/values/dimens.xml (such as
-         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
-    
-         */
         public static final int activity_horizontal_margin=0x7f040000;
         public static final int activity_left_margin=0x7f040002;
         public static final int activity_right_margin=0x7f040003;
@@ -55,37 +50,39 @@ public final class R {
         public static final int logincheckbox=0x7f020016;
         public static final int logo=0x7f020017;
         public static final int moto=0x7f020018;
-        public static final int myborder=0x7f020019;
-        public static final int mybutton=0x7f02001a;
-        public static final int mycheckbox=0x7f02001b;
-        public static final int myedittext=0x7f02001c;
-        public static final int mylistview=0x7f02001d;
-        public static final int mylogincheckbox=0x7f02001e;
-        public static final int mypromptedittext=0x7f02001f;
-        public static final int myred=0x7f020020;
-        public static final int myshadow=0x7f020021;
-        public static final int myspinner=0x7f020022;
-        public static final int mystyle=0x7f020023;
-        public static final int neworder=0x7f020024;
-        public static final int ordersbutton=0x7f020025;
-        public static final int preparer=0x7f020026;
-        public static final int reject=0x7f020027;
-        public static final int rightarrow=0x7f020028;
-        public static final int settings=0x7f020029;
-        public static final int shadow=0x7f02002a;
-        public static final int spinner=0x7f02002b;
-        public static final int spinner_arrow=0x7f02002c;
-        public static final int spinnerba=0x7f02002d;
-        public static final int splash=0x7f02002e;
-        public static final int sublogo=0x7f02002f;
-        public static final int topbottomborders=0x7f020030;
-        public static final int user=0x7f020031;
-        public static final int users=0x7f020032;
-        public static final int usersbutton=0x7f020033;
+        public static final int my_up=0x7f020019;
+        public static final int my_up_img=0x7f02001a;
+        public static final int myborder=0x7f02001b;
+        public static final int mybutton=0x7f02001c;
+        public static final int mycheckbox=0x7f02001d;
+        public static final int myedittext=0x7f02001e;
+        public static final int mylistview=0x7f02001f;
+        public static final int mylogincheckbox=0x7f020020;
+        public static final int mypromptedittext=0x7f020021;
+        public static final int myred=0x7f020022;
+        public static final int myshadow=0x7f020023;
+        public static final int myspinner=0x7f020024;
+        public static final int mystyle=0x7f020025;
+        public static final int neworder=0x7f020026;
+        public static final int ordersbutton=0x7f020027;
+        public static final int preparer=0x7f020028;
+        public static final int reject=0x7f020029;
+        public static final int rightarrow=0x7f02002a;
+        public static final int settings=0x7f02002b;
+        public static final int shadow=0x7f02002c;
+        public static final int spinner=0x7f02002d;
+        public static final int spinner_arrow=0x7f02002e;
+        public static final int spinnerba=0x7f02002f;
+        public static final int splash=0x7f020030;
+        public static final int sublogo=0x7f020031;
+        public static final int topbottomborders=0x7f020032;
+        public static final int user=0x7f020033;
+        public static final int users=0x7f020034;
+        public static final int usersbutton=0x7f020035;
     }
     public static final class id {
         public static final int Userslist=0x7f090052;
-        public static final int about=0x7f090025;
+        public static final int about=0x7f090024;
         public static final int action_search=0x7f09006a;
         public static final int add=0x7f090057;
         public static final int addArea=0x7f090044;
@@ -102,20 +99,20 @@ public final class R {
         public static final int arabic=0x7f09003d;
         public static final int areaLabel=0x7f09000c;
         public static final int areasSP=0x7f09000e;
-        public static final int assigned=0x7f090028;
-        public static final int branches=0x7f090026;
+        public static final int assigned=0x7f090025;
+        public static final int branches=0x7f090028;
         public static final int branchesSP=0x7f090049;
         public static final int businessLabel=0x7f09003f;
         public static final int businessSP=0x7f090040;
         public static final int button1=0x7f09001c;
         public static final int cancel=0x7f09003a;
-        public static final int canceled=0x7f090029;
+        public static final int canceled=0x7f090027;
         public static final int categorylist=0x7f09001a;
         public static final int checkBox1=0x7f090059;
         public static final int checkboxes=0x7f09004a;
         public static final int citiesLabel=0x7f09000a;
         public static final int citiesSP=0x7f09000d;
-        public static final int closed=0x7f090024;
+        public static final int closed=0x7f090023;
         public static final int countriesSP=0x7f09000b;
         public static final int countryLabel=0x7f090009;
         public static final int customerAdd=0x7f09002b;
@@ -161,7 +158,7 @@ public final class R {
         public static final int numbofitems=0x7f090067;
         public static final int order_status=0x7f090039;
         public static final int orderbuttons=0x7f090031;
-        public static final int orders=0x7f090022;
+        public static final int orders=0x7f090026;
         public static final int password=0x7f09001d;
         public static final int password2=0x7f090050;
         public static final int picture=0x7f090058;
@@ -176,7 +173,7 @@ public final class R {
         public static final int roworder=0x7f090065;
         public static final int scroll=0x7f090038;
         public static final int select=0x7f090045;
-        public static final int settings=0x7f090023;
+        public static final int settings=0x7f090022;
         public static final int submit=0x7f090010;
         public static final int textView1=0x7f090048;
         public static final int textView5=0x7f090014;
@@ -191,7 +188,7 @@ public final class R {
         public static final int uploadimage=0x7f090012;
         public static final int user_name=0x7f09001b;
         public static final int useraddress=0x7f090066;
-        public static final int users=0x7f090027;
+        public static final int users=0x7f090029;
         public static final int weekCheck=0x7f09005c;
     }
     public static final class layout {
@@ -393,36 +390,14 @@ public final class R {
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
 
-
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-
-
-        
-
-        Base application theme for API 11+. This theme completely replaces
-        AppBaseTheme from res/values/styles.xml on API 11+ devices.
-    
- API 11 theme customizations can go here. 
-
-        Base application theme for API 14+. This theme completely replaces
-        AppBaseTheme from BOTH res/values/styles.xml and
-        res/values-v11/styles.xml on API 14+ devices.
     
          */
         public static final int AppBaseTheme=0x7f070000;
-        /**  Application theme. 
- the theme applied to change action bar opacity 
-         */
-        public static final int CustomActionBarTheme=0x7f070002;
-        public static final int MyTheme_ActionBar_TitleTextStyle=0x7f070005;
+        public static final int MyTheme_ActionBar_TitleTextStyle=0x7f070003;
         /**  Transparent dialog 
          */
         public static final int TransparentProgressDialog=0x7f070001;
-        public static final int myActionbarTransparent=0x7f070003;
+        public static final int myActionbarTransparent=0x7f070002;
         public static final int mytextview=0x7f070004;
     }
 }

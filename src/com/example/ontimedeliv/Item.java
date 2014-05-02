@@ -160,5 +160,9 @@ public class Item {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	public String toString()
+	{
+		return this.title;
+	}
 
 }

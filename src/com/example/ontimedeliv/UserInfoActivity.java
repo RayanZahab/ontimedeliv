@@ -189,9 +189,13 @@ public class UserInfoActivity extends Activity implements
 		role.setPreparer(preparer.isChecked());
 		role.setAdmin(admin.isChecked());
 		role.setDelivery(delivery.isChecked());
-		new MyJs("afterRoles", this, ((ontimedeliv) this.getApplication()),
+		ValidationError valid = role.validate(false);
+		if(valid.isValid(this))
+		{
+			new MyJs("afterRoles", this, ((ontimedeliv) this.getApplication()),
 				"POST", (Object) role, false, true)
 				.execute(makePreparerURL);
+		}
 		
 	}
 

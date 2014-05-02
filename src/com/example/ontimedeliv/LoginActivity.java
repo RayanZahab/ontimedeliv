@@ -1,12 +1,9 @@
 package com.example.ontimedeliv;
 
-import java.text.SimpleDateFormat;
-
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.text.format.DateUtils;
 import android.view.Menu;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,6 +23,7 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		ReadCSV.main(null);
 
 		username = (EditText) findViewById(R.id.user_name);
 		password = (EditText) findViewById(R.id.password);

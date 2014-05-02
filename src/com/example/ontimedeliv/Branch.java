@@ -47,9 +47,6 @@ public class Branch {
 			msg = R.string.invalid_add;
 		} else if (this.area.getId() == 0) {
 			msg = R.string.invalid_area;
-		} else if (this.estimation_time.isEmpty()
-				|| this.estimation_time.length() < 2) {
-			msg = R.string.invalid_time;
 		} else {
 			Double from, to;
 			boolean error = true;
@@ -185,7 +182,7 @@ public class Branch {
 
 	public String toString() {
 		if(this.area!=null)
-		return this.name + "\n" + this.area.toString() + "," + this.address;
+			return this.name + "\n" + this.area.toString() + "," + this.address;
 		else
 			return this.name;
 	}
