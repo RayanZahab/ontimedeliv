@@ -34,7 +34,7 @@ public class Product {
 	{
 		boolean valid = false;
 		String msg="";
-		if(this.price==0 || this.price<500)
+		if(this.price==0 || this.price<1)
 		{
 			msg="Invalid price";
 		}

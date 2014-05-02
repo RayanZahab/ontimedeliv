@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 public class OrderInfoActivity extends Activity {
 	Spinner prep, deliv, status;
-	Button cancel,submit;
+	Button cancel, submit;
 	OrderInfoAdapter dataAdapter;
 	int orderId;
 	AlertDialog alertDialog;
@@ -34,9 +34,9 @@ public class OrderInfoActivity extends Activity {
 	ArrayList<Item> SPitems;
 	ListView listView;
 	EditText notes;
-	Boolean isAdmin = true,isPreparer=true , disabled =false;
+	Boolean isAdmin = true, isPreparer = true, disabled = false;
 	ArrayList<String> stat;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,7 +52,7 @@ public class OrderInfoActivity extends Activity {
 		stat.add(2, "Closed");
 		isAdmin = ((ontimedeliv) this.getApplication()).isAdmin();
 		isPreparer = ((ontimedeliv) this.getApplication()).isPrep();
-		
+
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -64,19 +64,14 @@ public class OrderInfoActivity extends Activity {
 			submit = (Button) findViewById(R.id.submit);
 			submit.setText("Update");
 		}
-		
-		if(!isAdmin)
-		{
-			 disable(false);
-				Log.d("rays","admin: ");
-		}
-		else
-		{
-			String orderStatus = ((ontimedeliv) OrderInfoActivity.this.getApplication())
-					.getOrderStatus();
-			Log.d("rays","stat: "+orderStatus);
-			if(orderStatus.equals("closed") ||  orderStatus.equals("canceled") )
-				 disable(true);
+
+		if (!isAdmin) {
+			disable(false);
+		} else {
+			String orderStatus = ((ontimedeliv) OrderInfoActivity.this
+					.getApplication()).getOrderStatus();
+			if (orderStatus.equals("closed") || orderStatus.equals("cancelled"))
+				disable(true);
 		}
 
 	}
@@ -146,7 +141,7 @@ public class OrderInfoActivity extends Activity {
 	}
 
 	public void setPreparers(String s, String error) {
-		User empty = new User(0,"Select");
+		User empty = new User(0, "Select");
 		ArrayList<User> userItems = new ArrayList<User>();
 		userItems.add(empty);
 		userItems.addAll(new APIManager().getUsers(s));
@@ -156,10 +151,10 @@ public class OrderInfoActivity extends Activity {
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		prep.setAdapter(dataAdapter);
-		if(currentOrder.getPreparer()!=null)
+		if (currentOrder.getPreparer() != null)
 			glob.setSelected(prep, dataAdapter, currentOrder.getPreparer());
 		else
-			glob.setSelected(prep, dataAdapter,empty);
+			glob.setSelected(prep, dataAdapter, empty);
 	}
 
 	public void getDelivery() {
@@ -169,11 +164,11 @@ public class OrderInfoActivity extends Activity {
 	}
 
 	public void setDeivery(String s, String error) {
-		User empty = new User(0,"Select");
+		User empty = new User(0, "Select");
 		ArrayList<User> userItems = new ArrayList<User>();
 		userItems.add(empty);
 		userItems.addAll(new APIManager().getUsers(s));
-		
+
 		ArrayAdapter<User> dataAdapter = new ArrayAdapter<User>(this,
 				android.R.layout.simple_spinner_item, userItems);
 		dataAdapter
@@ -181,10 +176,10 @@ public class OrderInfoActivity extends Activity {
 		deliv.setAdapter(dataAdapter);
 		getPreparers();
 
-		if(currentOrder.getDelivery() !=null)
+		if (currentOrder.getDelivery() != null)
 			glob.setSelected(deliv, dataAdapter, currentOrder.getDelivery());
 		else
-			glob.setSelected(deliv, dataAdapter,empty);
+			glob.setSelected(deliv, dataAdapter, empty);
 	}
 
 	public void addItemsOnStatus() {
@@ -229,19 +224,17 @@ public class OrderInfoActivity extends Activity {
 		dataAdapter = new OrderInfoAdapter(OrderInfoActivity.this,
 				R.layout.row_order_info, SPitems, disabled);
 		dataAdapter.setTotal(totalTxt);
-				
+
 		listView.setAdapter(dataAdapter);
 		new Helper().getListViewSize(listView);
 		totalTxt.setText(total + "");
 		TextView customerName = (TextView) findViewById(R.id.customerName);
 		customerName.setText(" " + currentOrder.getCustomer().toString());
 		TextView customerAdd = (TextView) findViewById(R.id.customerAdd);
-		customerAdd
-				.setText(currentOrder.getAddress().toString());
-		
+		customerAdd.setText(currentOrder.getAddress().toString());
+
 		notes.setText(currentOrder.getNote());
-		
-		
+
 	}
 
 	@Override
@@ -260,8 +253,7 @@ public class OrderInfoActivity extends Activity {
 	}
 
 	public void submit(View view) {
-		if(isAdmin)
-		{
+		if (isAdmin) {
 			ArrayList<OrderItem> newItems = new ArrayList<OrderItem>();
 			OrderItem item;
 			int quantity;
@@ -273,44 +265,47 @@ public class OrderInfoActivity extends Activity {
 				item = new OrderItem();
 				item.setQuantity(quantity);
 				item.setId(orderitem.get(i).getProduct().getId());
-				item.setProduct(new Product(orderitem.get(i).getProduct().getId()));
+				item.setProduct(new Product(orderitem.get(i).getProduct()
+						.getId()));
 				newItems.add(item);
 			}
 			String serverURL = new myURL(null, "orders", orderId, 0).getURL();
-	
+
 			Order newOrder = new Order();
 			newOrder.setId(currentOrder.getId());
 			newOrder.setOrderItems(newItems);
 			newOrder.setAddress_id(currentOrder.getAddress().getId());
 			newOrder.setCustomer_id(currentOrder.getCustomer().getId());
-			double total = Double.parseDouble(((TextView) findViewById(R.id.allTotal))
-					.getText().toString());
+			double total = Double
+					.parseDouble(((TextView) findViewById(R.id.allTotal))
+							.getText().toString());
 			newOrder.setTotal(total);
-			if(!newOrder.equals(currentOrder))
-				new MyJs("updateStatus", this, ((ontimedeliv) this.getApplication()),
-						"PUT", newOrder, true, false).execute(serverURL);
+			if (!newOrder.equals(currentOrder))
+				new MyJs("updateStatus", this,
+						((ontimedeliv) this.getApplication()), "PUT", newOrder,
+						true, false).execute(serverURL);
 			else
-				updateStatus(null,null);
-		}
-		else
+				updateStatus(null, null);
+		} else
 			assign();
 	}
+
 	public void assign() {
-		Order newOrder = new Order();	
-		if(isPreparer)
+		Order newOrder = new Order();
+		if (isPreparer)
 			newOrder.setStatus(stat.get(1));
 		else
 			newOrder.setStatus(stat.get(2));
 		String serverURL = new myURL("change_status", "orders", orderId + "", 0)
 				.getURL();
 
-		 new MyJs("done", this, ((ontimedeliv) this.getApplication()),
-		 "PUT", newOrder,true,true).execute(serverURL);
+		new MyJs("done", this, ((ontimedeliv) this.getApplication()), "PUT",
+				newOrder, true, true).execute(serverURL);
 	}
 
 	public void updateStatus(String s, String error) {
 		Order newOrder = new Order();
-		
+
 		User preparer = ((User) prep.getSelectedItem());
 		User delivery = ((User) deliv.getSelectedItem());
 		newOrder.setPreparer(preparer);
@@ -320,15 +315,15 @@ public class OrderInfoActivity extends Activity {
 		String serverURL = new myURL("assign", "orders", orderId + "", 0)
 				.getURL();
 
-		 new MyJs("done", this, ((ontimedeliv) this.getApplication()),
-		 "PUT", newOrder,true,true).execute(serverURL);
+		new MyJs("done", this, ((ontimedeliv) this.getApplication()), "PUT",
+				newOrder, true, true).execute(serverURL);
 	}
 
 	public void done(String s, String error) {
-		new GlobalM().bkToNav(this,getString(R.string.order_updated));
+		new GlobalM().bkToNav(this, getString(R.string.order_updated));
 	}
-	public void disable(boolean closed)
-	{
+
+	public void disable(boolean closed) {
 		status.setEnabled(false);
 		status.setClickable(false);
 		prep.setEnabled(false);
@@ -342,10 +337,12 @@ public class OrderInfoActivity extends Activity {
 		cancel = (Button) findViewById(R.id.cancel);
 		ViewGroup layout = (ViewGroup) cancel.getParent();
 		layout.removeView(cancel);
-		submit.setText("Prepared");
-		if (closed)
-		{
-			( (ViewGroup) submit.getParent()).removeView(submit);
+		if(isPreparer)
+			submit.setText("Prepared");
+		else if (!isAdmin)
+			submit.setText("Delivered");
+		if (closed) {
+			((ViewGroup) submit.getParent()).removeView(submit);
 		}
 		disabled = true;
 	}

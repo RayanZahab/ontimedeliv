@@ -49,7 +49,6 @@ public class OrdersActivity extends Activity {
 		}
 		status = ((ontimedeliv) OrdersActivity.this.getApplication())
 				.getOrderStatus();
-		Log.d("rays","stat: "+status);
 
 		getOrders();
 	}

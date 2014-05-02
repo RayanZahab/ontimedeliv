@@ -1,6 +1,8 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
+
+import android.R.menu;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -11,6 +13,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -18,6 +23,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -56,7 +62,8 @@ public class BranchesActivity extends Activity {
 		branches = new APIManager().getBranchesByShop(s);
 		branchesItem = new ArrayList<Item>();
 		ListView listView = (ListView) findViewById(R.id.list);
-		
+
+		listView.setTextFilterEnabled(true);
 		if (branches.size() == 0) {
 			branchesItem.add(new Item(0, picture,
 					getString(R.string.empty_list)));
@@ -66,8 +73,7 @@ public class BranchesActivity extends Activity {
 			Intent i = new Intent(getBaseContext(), CategoriesActivity.class);
 			startActivity(i);
 			return;
-		}else
-		{
+		} else {
 			for (int i = 1; i < branches.size(); i++) {
 				branchesItem.add(new Item(branches.get(i).getId(), picture,
 						branches.get(i).toString()));
@@ -99,7 +105,8 @@ public class BranchesActivity extends Activity {
 				}
 			}
 		});
-
+		 
+		  
 	}
 
 	public void onCreateContextMenu(ContextMenu menu, View v,
@@ -169,9 +176,35 @@ public class BranchesActivity extends Activity {
 				.getActionView();
 		searchView.setSearchableInfo(searchManager
 				.getSearchableInfo(getComponentName()));
+		
+		int  searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        EditText inputSearch = (EditText) searchView.findViewById(searchPlateId);
+		inputSearch.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence cs, int arg1, int arg2,
+					int arg3) {
+				// When user changed the Text
+				Log.d("rays",dataAdapter.getFilter().toString());
+				dataAdapter.getFilter().filter(cs);
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1,
+					int arg2, int arg3) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable arg0) {
+				// TODO Auto-generated method stub
+			}
+		});
 		return true;
+
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		Intent i = new Intent(BranchesActivity.this, NavigationActivity.class);
@@ -179,7 +212,7 @@ public class BranchesActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
+
 		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
 			// handle local menu items here or leave blank
 			switch (item.getItemId()) {
