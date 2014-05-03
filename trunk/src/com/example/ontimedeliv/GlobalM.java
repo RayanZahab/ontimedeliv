@@ -5,11 +5,18 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -28,7 +35,7 @@ public class GlobalM {
 			}
 		}
 	}
-
+	
 	public void bkToNav(Activity a, String msg) {
 
 		boolean admin = ((ontimedeliv) a.getApplication()).isAdmin();

@@ -31,7 +31,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class BranchesActivity extends Activity {
 
-	MyCustomAdapter dataAdapter = null;
+	public MyCustomAdapter dataAdapter = null;
 	ArrayList<Branch> branches;
 	ArrayList<Item> branchesItem;
 	int shopId;
@@ -47,6 +47,10 @@ public class BranchesActivity extends Activity {
 		shopId = ((ontimedeliv) this.getApplication()).getShopId();
 		getBranches();
 
+	}
+
+	public MyCustomAdapter getAdapter() {
+		return dataAdapter;
 	}
 
 	public void getBranches() {
@@ -82,7 +86,7 @@ public class BranchesActivity extends Activity {
 		}
 		dataAdapter = new MyCustomAdapter(this, R.layout.branches_list,
 				branchesItem);
-
+		SharedMenu.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -105,15 +109,12 @@ public class BranchesActivity extends Activity {
 				}
 			}
 		});
-		 
-		  
+
 	}
 
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.cat_context_menu, menu);
+		getMenuInflater().inflate(R.menu.cat_context_menu, menu);
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
@@ -170,37 +171,8 @@ public class BranchesActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.branches, menu);
-		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
-		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-		SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
-				.getActionView();
-		searchView.setSearchableInfo(searchManager
-				.getSearchableInfo(getComponentName()));
-		
-		int  searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-        EditText inputSearch = (EditText) searchView.findViewById(searchPlateId);
-		inputSearch.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void onTextChanged(CharSequence cs, int arg1, int arg2,
-					int arg3) {
-				// When user changed the Text
-				Log.d("rays",dataAdapter.getFilter().toString());
-				dataAdapter.getFilter().filter(cs);
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void afterTextChanged(Editable arg0) {
-				// TODO Auto-generated method stub
-			}
-		});
+		SharedMenu.onCreateOptionsMenu(this, menu, getApplicationContext(),
+				dataAdapter);
 		return true;
 
 	}

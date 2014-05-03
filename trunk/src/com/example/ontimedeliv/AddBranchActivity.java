@@ -237,7 +237,7 @@ public class AddBranchActivity extends Activity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.add_branch, menu);
-		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
+		SharedMenu.onCreateOptionsMenu(this,menu, getApplicationContext());
 		return true;
 	}
 

@@ -125,7 +125,7 @@ public class CategoriesActivity extends Activity {
 		}
 		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
 				categoryItems);
-
+		SharedMenu.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -146,12 +146,7 @@ public class CategoriesActivity extends Activity {
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.categories, menu);
-		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
-		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-		SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
-				.getActionView();
-		searchView.setSearchableInfo(searchManager
-				.getSearchableInfo(getComponentName()));
+		SharedMenu.onCreateOptionsMenu(this,menu, getApplicationContext(),dataAdapter);	
 		return true;
 	}
 
@@ -160,8 +155,9 @@ public class CategoriesActivity extends Activity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.cat_context_menu, menu);
+		SharedMenu.onCreateOptionsMenu(this,menu, getApplicationContext(),dataAdapter);	
 	}
-
+ 
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();

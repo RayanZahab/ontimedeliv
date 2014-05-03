@@ -177,7 +177,7 @@ public class ProductInfoActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.navigation, menu);
-		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
+		SharedMenu.onCreateOptionsMenu(this,menu, getApplicationContext());
 		return true;
 	}
 
