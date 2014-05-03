@@ -3,7 +3,6 @@ package com.example.ontimedeliv;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 
 class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 
-	private ArrayList<Item> currentList, tmpList;
+	public  ArrayList<Item> currentList, tmpList;
 	Context context;
 	private ItemsFilter mFilter;
 	private final Object mLock = new Object();
@@ -32,22 +31,25 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 		return currentList;
 	}
 
-    @Override
-    public int getCount() {
-        return tmpList.size();
-    }
-    @Override
-    public Item getItem(int position) {
-        return tmpList.get(position);
-    }
-    @Override
-    public int getPosition(Item item) {
-        return tmpList.indexOf(item);
-    }
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+	@Override
+	public int getCount() {
+		return tmpList.size();
+	}
+
+	@Override
+	public Item getItem(int position) {
+		return tmpList.get(position);
+	}
+
+	@Override
+	public int getPosition(Item item) {
+		return tmpList.indexOf(item);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
 
 	class ViewHolder {
 		TextView name;
@@ -90,63 +92,9 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 
 	public Filter getFilter() {
 		if (mFilter == null) {
-			mFilter = new ItemsFilter();
+			mFilter = new ItemsFilter(this, currentList, tmpList);
 		}
 		return mFilter;
 	}
 
-	private class ItemsFilter extends Filter {
-		protected FilterResults performFiltering(CharSequence prefix) {
-			// Initiate our results object
-			FilterResults results = new FilterResults();
-			
-			// No prefix is sent to filter by so we're going to send back the
-			// original array
-			if (currentList == null) {
-				currentList = tmpList; // saves the original data in mOriginalValues
-            }
-			if (prefix == null || prefix.length() == 0) {
-				Log.d("ray","empty pref: "+prefix);
-					results.values = currentList;
-					results.count = currentList.size();
-			} else {
-				Log.d("ray","rays pref: "+prefix);
-				// Compare lower case strings
-				String prefixString = prefix.toString().toLowerCase();
-				// Local to here so we're not changing actual array
-				final ArrayList<Item> items = currentList;
-				
-				final int count = items.size();
-				final ArrayList<Item> newItems = new ArrayList<Item>(count);
-				for (int i = 0; i < count; i++) {
-					final Item item = items.get(i);
-					final String itemName = item.toString().toLowerCase();
-					Log.d("ray","rays to str : "+itemName);
-					// First match against the whole, non-splitted value
-					if (itemName.contains(prefixString)) {
-						Log.d("=>","cont");
-						newItems.add(item);
-					}
-				}
-				// Set and return
-				results.values = newItems;
-				results.count = newItems.size();
-			}
-			return results;
-		}
-
-		@SuppressWarnings("unchecked")
-		protected void publishResults(CharSequence prefix, FilterResults results) {
-			// noinspection unchecked
-			tmpList =null; tmpList =(ArrayList<Item>) results.values;
-			
-			Log.d("ray","results : "+tmpList.size());
-			// Let the adapter know about the updated list
-			if (tmpList.size() > 0) {
-				notifyDataSetChanged();
-			} else {
-				notifyDataSetInvalidated();
-			}
-		}
-	}
 }

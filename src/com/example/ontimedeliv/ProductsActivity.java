@@ -117,6 +117,7 @@ public class ProductsActivity extends Activity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.cat_context_menu, menu);
+        
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
@@ -204,6 +205,7 @@ public class ProductsActivity extends Activity {
 
 		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
 				productItems,false);
+		SharedMenu.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -225,12 +227,7 @@ public class ProductsActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.categories, menu);
-		SharedMenu.onCreateOptionsMenu(menu, getApplicationContext());
-		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-		SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
-				.getActionView();
-		searchView.setSearchableInfo(searchManager
-				.getSearchableInfo(getComponentName()));
+		SharedMenu.onCreateOptionsMenu(this,menu, getApplicationContext(),dataAdapter);			
 		return true;
 	}
 

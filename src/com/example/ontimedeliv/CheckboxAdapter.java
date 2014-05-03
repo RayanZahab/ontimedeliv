@@ -6,6 +6,8 @@ import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.graphics.Bitmap;
@@ -13,9 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class CheckboxAdapter extends ArrayAdapter<Item> {
+public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 
-	private ArrayList<Item> currentList;
+	public ArrayList<Item> currentList, tmpList;
+	private ItemsFilter mFilter;
 	private ArrayList<Item> selectedList = new ArrayList<Item>();
 	private ArrayList<Item> unselectedList = new ArrayList<Item>();
 	private Context context;
@@ -26,8 +29,8 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 	ArrayList<Item> currentList, boolean icon) {
 		super(context, textViewResourceId, currentList);
 		this.context = context;
-		this.currentList = new ArrayList<Item>();
-		this.currentList.addAll(currentList);
+		this.tmpList = new ArrayList<Item>();
+		this.tmpList.addAll(currentList);
 		this.icon = icon;
 	}
 
@@ -36,15 +39,33 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 	ArrayList<Item> currentList) {
 		super(context, textViewResourceId, currentList);
 		this.context = context;
-		this.currentList = new ArrayList<Item>();
-		this.currentList.addAll(currentList);
+		this.tmpList = new ArrayList<Item>();
+		this.tmpList.addAll(currentList);
 		this.icon = true;
 	}
 
 	public ArrayList<Item> getCurrentList() {
 		return currentList;
 	}
+	@Override
+	public int getCount() {
+		return tmpList.size();
+	}
 
+	@Override
+	public Item getItem(int position) {
+		return tmpList.get(position);
+	}
+
+	@Override
+	public int getPosition(Item item) {
+		return tmpList.indexOf(item);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
 	private class ViewHolder {
 		CheckBox name;
 		Bitmap picture;
@@ -54,7 +75,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
-		final Item cat = currentList.get(position);
+		final Item cat = tmpList.get(position);
 
 		if (convertView == null) {
 
@@ -127,5 +148,12 @@ public class CheckboxAdapter extends ArrayAdapter<Item> {
 	public void setUnselectedList(ArrayList<Item> unselectedList) {
 		this.unselectedList = unselectedList;
 	}
+	public Filter getFilter() {
+		if (mFilter == null) {
+			mFilter = new ItemsFilter(this, currentList, tmpList);
+		}
+		return mFilter;
+	}
+
 
 }
