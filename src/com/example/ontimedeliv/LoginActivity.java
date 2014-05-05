@@ -35,13 +35,9 @@ public class LoginActivity extends Activity {
 		isChecked = settings1.getBoolean("isChecked", false);
 
 		if (isChecked) {
-			MyTask myTask = new MyTask(this);
-			myTask.execute("parameter");
 
 			((ontimedeliv) this.getApplication()).setGlobals();
-			Intent i = new Intent(LoginActivity.this, NavigationActivity.class);
-
-			startActivity(i);
+			new TextProgressDialog(this,"logging in ").showProg();		
 		}
 	}
 

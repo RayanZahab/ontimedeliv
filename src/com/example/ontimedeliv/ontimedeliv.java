@@ -9,6 +9,7 @@ public class ontimedeliv extends Application {
 			orderId = 0, userId = 0;
 	private boolean admin, prep, delivery, keepme;
 	public MyJs.TransparentProgressDialog loader;
+	public TextProgressDialog txtDialog;
 	
 	public ontimedeliv() {
 	}
