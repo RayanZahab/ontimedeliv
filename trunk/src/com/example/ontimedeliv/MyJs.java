@@ -443,7 +443,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			WindowManager.LayoutParams wlmp = getWindow().getAttributes();
 			wlmp.gravity = Gravity.CENTER_HORIZONTAL;
 			getWindow().setAttributes(wlmp);
-			setTitle("Loading");
+			setTitle(null);
 			setCancelable(false);
 			setOnCancelListener(null);
 			LinearLayout layout = new LinearLayout(context);
