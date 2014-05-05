@@ -1,10 +1,13 @@
 package com.example.ontimedeliv;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.view.Menu;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,8 +35,12 @@ public class LoginActivity extends Activity {
 		isChecked = settings1.getBoolean("isChecked", false);
 
 		if (isChecked) {
+			MyTask myTask = new MyTask(this);
+			myTask.execute("parameter");
+
 			((ontimedeliv) this.getApplication()).setGlobals();
 			Intent i = new Intent(LoginActivity.this, NavigationActivity.class);
+
 			startActivity(i);
 		}
 	}
@@ -42,8 +49,7 @@ public class LoginActivity extends Activity {
 
 		String serverURL = new myURL(null, "users", "login", 0).getURL();
 		User user = new User(username.getText().toString(), null);
-		user.setEncPassword(password.getText()
-				.toString());
+		user.setEncPassword(password.getText().toString());
 		MyJs mjs = new MyJs("getLoggedIn", this,
 				((ontimedeliv) this.getApplication()), "POST", (Object) user);
 		mjs.execute(serverURL);
@@ -73,8 +79,8 @@ public class LoginActivity extends Activity {
 
 			((ontimedeliv) this.getApplication()).setGlobals();
 			Intent i;
-			if(user.isIs_admin())
-					i = new Intent(this, NavigationActivity.class);
+			if (user.isIs_admin())
+				i = new Intent(this, NavigationActivity.class);
 			else
 				i = new Intent(this, OrdersActivity.class);
 			startActivity(i);
@@ -112,4 +118,31 @@ public class LoginActivity extends Activity {
 						}).setNegativeButton("No", null).show();
 	}
 
+}
+
+class MyTask extends AsyncTask<String, String, String> {
+	private Context context;
+	private ProgressDialog progressDialog;
+
+	MyTask(Context context) {
+		this.context = context;
+	}
+
+	@Override
+	protected void onPreExecute() {
+		progressDialog = new ProgressDialog(context);
+		progressDialog.show();
+	}
+
+	@Override
+	protected String doInBackground(String... params) {
+		// Do your loading here
+		return "finish";
+	}
+
+	@Override
+	protected void onPostExecute(String result) {
+		progressDialog.dismiss();
+		// Start other Activity or do whatever you want
+	}
 }

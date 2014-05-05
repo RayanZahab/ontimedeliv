@@ -76,40 +76,35 @@ public class ProductsActivity extends Activity {
 
 	public void submit(View v) {
 
-		StringBuffer responseText = new StringBuffer();
-		responseText.append("Selected Products are...\n");
+		unselectedIds = dataAdapter.getUnselectedList();
+		if (unselectedIds.size() > 0) {
+			myProd = new Activate("items", unselectedIds);
 
-		ArrayList<Item> stateList = dataAdapter.getCurrentList();
-
-		for (int i = 0; i < stateList.size(); i++) {
-			Item cat = stateList.get(i);
-			if (cat.isSelected()) {
-				selectedIds.add(cat.getId());
-			} else {
-				unselectedIds.add(cat.getId());
-			}
+			String serverURL = new myURL("deactivate_items", "branches",
+					branchId, 0).getURL();
+			new MyJs("afterDeactivate", this,
+					((ontimedeliv) this.getApplication()), "PUT",
+					(Object) myProd, true, false).execute(serverURL);
+		} else {
+			afterDeactivate("", null);
 		}
-		myProd = new Activate("items", unselectedIds);
 
-		Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG)
-				.show();
-
-		String serverURL = new myURL("deactivate_items", "branches", branchId,
-				0).getURL();
-		new MyJs("afterDeactivate", this,
-				((ontimedeliv) this.getApplication()), "PUT", (Object) myProd,
-				true, false).execute(serverURL);
 	}
 
 	public void afterDeactivate(String s, String error) {
-		Toast.makeText(getApplicationContext(), "DeActivate : " + s,
-				Toast.LENGTH_SHORT).show();
-		myProd = new Activate("items", selectedIds);
-		String serverURL = new myURL("activate_items", "branches", branchId, 0)
-				.getURL();
+		selectedIds = dataAdapter.getSelectedList();
+		if (selectedIds.size() > 0) {
+			myProd = new Activate("items", selectedIds);
 
-		new MyJs("afterActivate", this, ((ontimedeliv) this.getApplication()),
-				"PUT", (Object) myProd, false, true).execute(serverURL);
+			String serverURL = new myURL("activate_items", "branches",
+					branchId, 0).getURL();
+
+			new MyJs("afterActivate", this,
+					((ontimedeliv) this.getApplication()), "PUT",
+					(Object) myProd, false, true).execute(serverURL);
+		} else {
+			afterActivate("DONE", null);
+		}
 	}
 
 	public void onCreateContextMenu(ContextMenu menu, View v,
@@ -117,7 +112,7 @@ public class ProductsActivity extends Activity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.cat_context_menu, menu);
-        
+
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
@@ -159,7 +154,7 @@ public class ProductsActivity extends Activity {
 	}
 
 	public void afterDelete(String s, String error) {
-		backToActivity(BranchesActivity.class);
+		backToActivity(CategoriesActivity.class);
 	}
 
 	public void backToActivity(Class activity) {
@@ -174,8 +169,7 @@ public class ProductsActivity extends Activity {
 	}
 
 	public void afterActivate(String s, String error) {
-		Toast.makeText(getApplicationContext(), R.string.activate + s,
-				Toast.LENGTH_SHORT).show();
+		onBackPressed();
 	}
 
 	public void getProducts() {
@@ -195,16 +189,16 @@ public class ProductsActivity extends Activity {
 					getString(R.string.empty_list)));
 		} else {
 			for (int i = 0; i < products.size(); i++) {
-				productItems.add(new Item(products.get(i).getId(), products.get(i).getPrice(),
-						products.get(i).toString(), products.get(i)
-								.isAvailable()));
+				productItems.add(new Item(products.get(i).getId(), products
+						.get(i).getPrice(), products.get(i).toString(),
+						products.get(i).isAvailable()));
 
 			}
 			registerForContextMenu(listView);
 		}
 
 		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
-				productItems,false);
+				productItems, false);
 		SharedMenu.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);
 
@@ -212,7 +206,7 @@ public class ProductsActivity extends Activity {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (products.size() > 0) {					
+				if (products.size() > 0) {
 					Intent intent = new Intent(ProductsActivity.this,
 							ProductInfoActivity.class);
 					((ontimedeliv) ProductsActivity.this.getApplication())
@@ -227,16 +221,18 @@ public class ProductsActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.categories, menu);
-		SharedMenu.onCreateOptionsMenu(this,menu, getApplicationContext(),dataAdapter);			
+		SharedMenu.onCreateOptionsMenu(this, menu, getApplicationContext(),
+				dataAdapter);
 		return true;
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
+
 		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
 			// handle local menu items here or leave blank
 			Intent intent = new Intent(this, ProductInfoActivity.class);
-			((ontimedeliv) ProductsActivity.this.getApplication()).setProductId(0);
+			((ontimedeliv) ProductsActivity.this.getApplication())
+					.setProductId(0);
 			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);

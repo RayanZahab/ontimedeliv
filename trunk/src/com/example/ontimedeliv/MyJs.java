@@ -119,7 +119,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			new GlobalM().bkToNav(mc, mc.getString(R.string.no_net));
 		} else {
 			if (this.first) {
-				Log.d("rays","method: "+returnFunction+"->"+last);
+				Log.d("rays", "method: " + returnFunction + "->" + last);
 				showProg();
 			}
 		}
@@ -175,7 +175,9 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 						.objToCreate(this.objectToAdd);
 				OutputStreamWriter wr = new OutputStreamWriter(
 						conn.getOutputStream());
-				Log.d("ray", "ray writing: "+urls[0]+"->" + jsonObjSend.toString());
+				Log.d("ray",
+						"ray writing: " + urls[0] + "->"
+								+ jsonObjSend.toString());
 				wr.write(jsonObjSend.toString());
 				wr.flush();
 				wr.close();
@@ -211,7 +213,9 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 						.objToCreate(this.objectToAdd);
 				OutputStreamWriter wr = new OutputStreamWriter(
 						conn.getOutputStream());
-				Log.d("ray", "ray writing: " +urls[0]+"->" +  jsonObjSend.toString());
+				Log.d("ray",
+						"ray writing: " + urls[0] + "->"
+								+ jsonObjSend.toString());
 				wr.write(jsonObjSend.toString());
 				wr.flush();
 				wr.close();
@@ -242,7 +246,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				}
 			} else if (this.method.equals("Upload")) {
 				Product p = (Product) this.objectToAdd;
-				Content = uploadProduct(p,url,token);
+				Content = uploadProduct(p, url, token);
 			}
 		} catch (Exception ex) {
 			Error = ex.getLocalizedMessage();
@@ -259,16 +263,17 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	}
 
 	protected void onPostExecute(Void unused) {
-		Log.d("raya","post: "+returnFunction+": "+last+ ": "+global.loader.isShowing());
+		Log.d("raya", "post: " + returnFunction + ": " + last + ": "
+				+ global.loader.isShowing());
 		if (global.loader != null && last) {
 			global.loader.dismiss();
-			Log.d("raya","dismissing: ");
+			Log.d("raya", "dismissing: ");
 		}
 		try {
 			if (Content == null)
 				Content = "";
 			if (Error != null) {
-				//new GlobalM().bkToNav(mc, getError(Content,Error));
+				// new GlobalM().bkToNav(mc, getError(Content,Error));
 			}
 			Method returnFunction = this.mc.getClass()
 					.getMethod(this.returnFunction, Content.getClass(),
@@ -296,8 +301,10 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	public void setGlobal(ontimedeliv global) {
 		this.global = global;
 	}
+
 	@SuppressWarnings("rawtypes")
-	private String uploadProduct(Product p,URL url,String token) throws Exception {
+	private String uploadProduct(Product p, URL url, String token)
+			throws Exception {
 
 		String USER_AGENT = "Mozilla/5.0";
 		String boundary = "*****";
@@ -373,8 +380,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			dos.writeBytes("\r\n--" + boundary + "--\r\n");
 			// close streams
 			fileInputStream.close();
-		}
-		else
+		} else
 			dos.writeBytes("\r\n--" + boundary + "--\r\n");
 		dos.flush();
 
@@ -416,7 +422,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		};
 		global.loader.show();
 		h.postDelayed(r, 10000);
-	}	
+	}
 
 	public boolean isLast() {
 		return last;
@@ -424,7 +430,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
 	public void setLast(boolean last) {
 		this.last = last;
-		if(last && global.loader!=null)
+		if (last && global.loader != null)
 			global.loader.dismiss();
 	}
 
@@ -437,7 +443,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			WindowManager.LayoutParams wlmp = getWindow().getAttributes();
 			wlmp.gravity = Gravity.CENTER_HORIZONTAL;
 			getWindow().setAttributes(wlmp);
-			setTitle(null);
+			setTitle("Loading");
 			setCancelable(false);
 			setOnCancelListener(null);
 			LinearLayout layout = new LinearLayout(context);
@@ -445,9 +451,9 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			DisplayMetrics dm = new DisplayMetrics();
 			mc.getWindowManager().getDefaultDisplay().getMetrics(dm);
 			int w = dm.widthPixels;
-			
+
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-					w/2, w/2);
+					w / 2, w / 2);
 			iv = new ImageView(context);
 			iv.setImageResource(resourceIdOfImage);
 			layout.addView(iv, params);
@@ -457,7 +463,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		@Override
 		public void show() {
 			super.show();
-			
+
 			RotateAnimation anim = new RotateAnimation(360.0f, 0.0f,
 					Animation.RELATIVE_TO_SELF, .5f,
 					Animation.RELATIVE_TO_SELF, .5f);
@@ -469,12 +475,11 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		}
 	}
 
-	public String getError(String cont,String Error) {
-		Log.d("rays","error: "+cont+","+Error+"->"+returnFunction);
+	public String getError(String cont, String Error) {
 		JSONObject jsonResponse;
 		try {
 			jsonResponse = new JSONObject(cont);
-			if(jsonResponse.has("error"))
+			if (jsonResponse.has("error"))
 				return jsonResponse.optString("error").toString();
 			else
 				return cont;

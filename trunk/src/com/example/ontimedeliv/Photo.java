@@ -1,6 +1,8 @@
 package com.example.ontimedeliv;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import android.net.Uri;
 
@@ -53,6 +55,29 @@ public class Photo {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public ValidationError validate()
+	{
+		boolean valid = false;
+		String msg=null;
+		FileInputStream fileInputStream;
+		try {
+			fileInputStream = new FileInputStream(url);
+			int bytesAvailable = fileInputStream.available();
+			if(bytesAvailable <= (50*1024))
+			{
+				valid = true;
+				
+			}
+			else
+				msg = "Image too big";
+			fileInputStream.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ValidationError(valid,msg);
 	}
 
 }
