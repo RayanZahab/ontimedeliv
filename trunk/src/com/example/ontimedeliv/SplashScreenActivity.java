@@ -39,18 +39,11 @@ public class SplashScreenActivity extends Activity {
 					i = new Intent(SplashScreenActivity.this,
 							SelectLanguageActivity.class);
 				} else {
-					boolean isChecked = settings1
-							.getBoolean("isChecked", false);
-					if (isChecked) {
-						i = new Intent(SplashScreenActivity.this,
-								NavigationActivity.class);
-					} else {
-						i = new Intent(SplashScreenActivity.this,
-								LoginActivity.class);
-					}
+					i = new Intent(SplashScreenActivity.this,
+							LoginActivity.class);
 				}
 				startActivity(i);
-				finish();
+				finish();			
 			}
 		}, SPLASH_TIME_OUT);
 	}
