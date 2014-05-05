@@ -2,12 +2,17 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
+import com.example.ontimedeliv.MyJs.TransparentProgressDialog;
+
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.util.Log;
@@ -28,10 +33,10 @@ public class ProductInfoActivity extends Activity {
 	String picturePath, picName;
 	Product currentProduct = null;
 	Photo uploaded;
-	TextView name ;
-	TextView desc ;
-	TextView price ;
-	Spinner unitsSP ;
+	TextView name;
+	TextView desc;
+	TextView price;
+	Spinner unitsSP;
 	GlobalM glob = new GlobalM();
 
 	@Override
@@ -42,7 +47,7 @@ public class ProductInfoActivity extends Activity {
 		desc = (TextView) findViewById(R.id.description);
 		price = (TextView) findViewById(R.id.price);
 		unitsSP = (Spinner) findViewById(R.id.units);
-		
+
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
 				.permitAll().build();
 		StrictMode.setThreadPolicy(policy);
@@ -58,7 +63,7 @@ public class ProductInfoActivity extends Activity {
 		} else {
 			getUnits(true);
 		}
-
+		
 		upload = (Button) findViewById(R.id.uploadimage);
 		upload.setOnClickListener(new View.OnClickListener() {
 
@@ -72,7 +77,6 @@ public class ProductInfoActivity extends Activity {
 		});
 	}
 
-	
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
 		new MyJs("setProduct", this, ((ontimedeliv) this.getApplication()),
@@ -86,8 +90,9 @@ public class ProductInfoActivity extends Activity {
 		desc.setText(currentProduct.getDescription());
 		price.setText("" + currentProduct.getPrice());
 
-		new ImageTask((ImageView) findViewById(R.id.preview),ProductInfoActivity.this)
-				.execute(currentProduct.getPhoto().getUrl());
+		new ImageTask((ImageView) findViewById(R.id.preview),
+				ProductInfoActivity.this).execute(currentProduct.getPhoto()
+				.getUrl());
 
 		getUnits(false);
 	}
@@ -144,11 +149,13 @@ public class ProductInfoActivity extends Activity {
 			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 			picturePath = cursor.getString(columnIndex);
 			picName = cursor.getString(columnIndex);
-			Log.d("rays","path"+picturePath+ "->"+picName);
+			Log.d("rays", "path" + picturePath + "->" + picName);
 			uploaded = new Photo(picturePath, picName);
 			cursor.close();
-			new ImageTask((ImageView) findViewById(R.id.preview),ProductInfoActivity.this)
-			.execute(picturePath);
+			if (uploaded.validate().isValid(this)) {
+				new ImageTask((ImageView) findViewById(R.id.preview),
+						ProductInfoActivity.this).execute(picturePath);
+			}
 		}
 	}
 
@@ -161,7 +168,7 @@ public class ProductInfoActivity extends Activity {
 		unitsSP.setAdapter(dataAdapter);
 
 		if (currentProduct != null) {
-			Log.d("ray","selecting"+currentProduct.getUnit().getId());
+			Log.d("ray", "selecting" + currentProduct.getUnit().getId());
 			glob.setSelected(unitsSP, dataAdapter, currentProduct.getUnit());
 		}
 	}
@@ -177,7 +184,7 @@ public class ProductInfoActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.navigation, menu);
-		SharedMenu.onCreateOptionsMenu(this,menu, getApplicationContext());
+		SharedMenu.onCreateOptionsMenu(this, menu, getApplicationContext());
 		return true;
 	}
 

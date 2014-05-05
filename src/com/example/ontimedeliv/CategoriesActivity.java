@@ -96,7 +96,7 @@ public class CategoriesActivity extends Activity {
 	}
 
 	public void afterActivate(String s, String error) {
-		Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+		onBackPressed();
 	}
 
 	public void getCategories() {
@@ -155,7 +155,6 @@ public class CategoriesActivity extends Activity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.cat_context_menu, menu);
-		SharedMenu.onCreateOptionsMenu(this,menu, getApplicationContext(),dataAdapter);	
 	}
  
 	public boolean onContextItemSelected(MenuItem item) {

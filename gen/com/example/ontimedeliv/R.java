@@ -390,6 +390,7 @@ public final class R {
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
 
+
     
          */
         public static final int AppBaseTheme=0x7f070000;

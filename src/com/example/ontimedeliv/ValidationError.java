@@ -20,7 +20,7 @@ public class ValidationError {
 	}
 
 	public boolean isValid(Activity mc) {
-		if(!valid)
+		if(!valid && mc!=null)
 			showError(mc);
 		return valid;
 	}
