@@ -77,8 +77,6 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 		}
 
 		Item navitem = tmpList.get(position);
-		// holder.picture =navitem.getImg();
-		// holder.picture ;
 		holder.name = (TextView) convertView.findViewById(R.id.name);
 		holder.name.setText(navitem.getTitle());
 

@@ -83,7 +83,9 @@ public class OrdersActivity extends Activity {
 		dataAdapter = new OrdersAdapter(OrdersActivity.this,
 				R.layout.row_order, orderItems);
 		listView.setAdapter(dataAdapter);
-
+		if (morders.size() == 0) {
+			dataAdapter.empty=true;
+		}
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
