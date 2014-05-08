@@ -84,7 +84,7 @@ public class BranchesActivity extends Activity {
 			}
 			registerForContextMenu(listView);
 		}
-		dataAdapter = new MyCustomAdapter(this, R.layout.branches_list,
+		dataAdapter = new MyCustomAdapter(this, 0,
 				branchesItem);
 		SharedMenu.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);

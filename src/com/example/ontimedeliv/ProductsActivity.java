@@ -19,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -75,7 +77,6 @@ public class ProductsActivity extends Activity {
 	}
 
 	public void submit(View v) {
-
 		unselectedIds = dataAdapter.getUnselectedList();
 		if (unselectedIds.size() > 0) {
 			myProd = new Activate("items", unselectedIds);
@@ -179,6 +180,8 @@ public class ProductsActivity extends Activity {
 	}
 
 	public void setProducts(String s, String error) {
+		Button submit = (Button) findViewById(R.id.submit);
+		
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
 		ListView listView = (ListView) findViewById(R.id.categorylist);
@@ -187,18 +190,20 @@ public class ProductsActivity extends Activity {
 		if (products.size() == 0) {
 			productItems.add(new Item(0, picture,
 					getString(R.string.empty_list)));
+			submit.setEnabled(false);
 		} else {
 			for (int i = 0; i < products.size(); i++) {
 				productItems.add(new Item(products.get(i).getId(), products
 						.get(i).getPrice(), products.get(i).toString(),
 						products.get(i).isAvailable()));
-
 			}
 			registerForContextMenu(listView);
 		}
-
 		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
 				productItems, false);
+		if (products.size() == 0) {
+			dataAdapter.empty = true;
+		}
 		SharedMenu.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);
 

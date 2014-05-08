@@ -23,7 +23,8 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 	private ArrayList<Item> unselectedList = new ArrayList<Item>();
 	private Context context;
 	boolean icon;
-
+	public boolean empty =false;
+	
 	public CheckboxAdapter(Context context, int textViewResourceId,
 
 	ArrayList<Item> currentList, boolean icon) {
@@ -82,48 +83,62 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 			LayoutInflater vi = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			holder = new ViewHolder();
-			if (this.icon) {
-				convertView = vi.inflate(R.layout.category_info, null);
-				View v = convertView.findViewById(R.id.item_image);
-				v.setDrawingCacheEnabled(true);
-				v.buildDrawingCache();
-				Bitmap picture = v.getDrawingCache();
-				holder.picture = picture;
-			} else
+			if(!empty)
 			{
-				convertView = vi.inflate(R.layout.product_info, null);
-				holder.price = (TextView) convertView.findViewById(R.id.price);
-				holder.price.setText(cat.getPrice()+" L.L");
+				if (this.icon) {
+					convertView = vi.inflate(R.layout.category_info, null);
+					View v = convertView.findViewById(R.id.item_image);
+					v.setDrawingCacheEnabled(true);
+					v.buildDrawingCache();
+					Bitmap picture = v.getDrawingCache();
+					holder.picture = picture;
+				} else
+				{
+					convertView = vi.inflate(R.layout.product_info, null);
+					holder.price = (TextView) convertView.findViewById(R.id.price);
+					holder.price.setText(cat.getPrice()+" L.L");
+				}
+				holder.name = (CheckBox) convertView.findViewById(R.id.checkBox1);
 			}
-			holder.name = (CheckBox) convertView.findViewById(R.id.checkBox1);
+			else
+			{
+				convertView = vi.inflate(R.layout.categories_list, null);
+				holder.price = (TextView) convertView.findViewById(R.id.name);
+			}
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		
-		holder.name.setText(cat.getTitle());
-		holder.name.setChecked(cat.isSelected());
-		if(cat.isSelected())
-			selectedList.add(cat);
-		else
-			unselectedList.add(cat);
-		holder.name.setTag(cat);
-		holder.name.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				if (arg1) {
-					if(unselectedList.indexOf(cat)>=0)
-						unselectedList.remove(cat);
-					if(selectedList.indexOf(cat)<0)
-						selectedList.add(cat);
-				} else {
-					if(selectedList.indexOf(cat)>=0)
-						selectedList.remove(cat);
-					if(unselectedList.indexOf(cat)<0)
-						unselectedList.add(cat);
+		if(!empty)
+		{
+			holder.name.setText(cat.getTitle());
+			holder.name.setChecked(cat.isSelected());
+			if(cat.isSelected())
+				selectedList.add(cat);
+			else
+				unselectedList.add(cat);
+			holder.name.setTag(cat);
+			holder.name.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+					if (arg1) {
+						if(unselectedList.indexOf(cat)>=0)
+							unselectedList.remove(cat);
+						if(selectedList.indexOf(cat)<0)
+							selectedList.add(cat);
+					} else {
+						if(selectedList.indexOf(cat)>=0)
+							selectedList.remove(cat);
+						if(unselectedList.indexOf(cat)<0)
+							unselectedList.add(cat);
+					}
 				}
-			}
-		});
+			});
+		}
+		else
+		{
+			holder.price.setText(cat.getTitle());
+		}
 		return convertView;
 	}
 

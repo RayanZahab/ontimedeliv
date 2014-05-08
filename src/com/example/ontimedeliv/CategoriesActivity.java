@@ -112,6 +112,7 @@ public class CategoriesActivity extends Activity {
 				R.drawable.user);
 		categories = new APIManager().getCategoriesByBranch(s);
 		categoryItems = new ArrayList<Item>();
+
 		if (categories.size() == 0) {
 			categoryItems.add(new Item(0, picture,
 					getString(R.string.empty_list)));
@@ -125,6 +126,9 @@ public class CategoriesActivity extends Activity {
 		}
 		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
 				categoryItems);
+		if (categories.size() == 0) {
+			dataAdapter.empty = true;
+		}
 		SharedMenu.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);
 
