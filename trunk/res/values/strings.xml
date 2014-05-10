@@ -147,6 +147,7 @@
     <string name="userrole">User Role</string>
     <string name="invalid_phone">Invalid Phone number</string>
     <string name="admin">Admin</string>
+    <string name="lira">L.L</string>
     <string name="from_bigger">Make sure all from is less than to</string>
     <string name="open_missing">Please select FROM And TO</string>
     <string name="invalid_name">Invalid Name</string>
