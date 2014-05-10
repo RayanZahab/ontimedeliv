@@ -55,7 +55,7 @@
                 android:layout_alignBaseline="@+id/allTotal"
                 android:layout_alignBottom="@+id/allTotal"
                 android:layout_alignParentRight="true"
-                android:text="L.L"
+                android:text="@string/lira"
                 android:textSize="19sp" />
 
             <TextView
