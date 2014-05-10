@@ -23,59 +23,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".UserInfoActivity" >
 
-    <EditText
-        android:id="@+id/nameinput"
-        android:layout_width="fill_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/myedittext"
-        android:ems="10"
-        android:hint="@string/name"
-        android:paddingLeft="8dp"
-        android:textSize="12sp" />
-    
-    <RelativeLayout 
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/branchesSP"
-        android:layout_marginTop="10dp"
-        android:id="@+id/checkboxes"
-        android:background="@drawable/myedittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    <CheckBox
-        android:id="@+id/admin"
-        style="@style/mytextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/preparer"
-        android:layout_below="@+id/preparer"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="15dp"
-        android:button="@drawable/mycheckbox"
-        android:text="@string/admin" />
-
-    <CheckBox
-        android:id="@+id/preparer"
-        style="@style/mytextview"
-        android:layout_marginLeft="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/delivery"
-        android:layout_marginTop="8dp"
-        android:button="@drawable/mycheckbox"
-        android:text="@string/preparerguy" />
-
-    <CheckBox
-        android:id="@+id/delivery"
-        style="@style/mytextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/preparer"
-        android:layout_marginTop="15dp"
-        android:button="@drawable/mycheckbox"
-        android:text="@string/app_name" />
-    </RelativeLayout>
-
     <TextView
         android:id="@+id/textView1"
         style="@style/mytextview"
@@ -83,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/inputphone"
         android:layout_marginTop="16dp"
+        android:textColor="#6f6f71"
         android:text="@string/branch" />
 
     <Spinner
@@ -94,13 +42,44 @@
         android:layout_below="@+id/textView1"
         android:background="@drawable/myspinner" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nameinput"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="12dp"
+        android:textColor="#6f6f71"
+        android:text="@string/name" />
+
+    <EditText
+        android:id="@+id/nameinput"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/inputphone"
+        android:layout_below="@+id/textView2"
+        android:background="@drawable/myedittext"
+        android:ems="10"
+        android:hint="@string/name"
+        android:paddingLeft="8dp"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/inputphone"
+        android:layout_below="@+id/nameinput"
+        android:layout_marginTop="12dp"
+        android:textColor="#6f6f71"
+        android:text="@string/phonenum" />
+
     <EditText
         android:id="@+id/inputphone"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/nameinput"
-        android:layout_marginTop="15dp"
+        android:layout_below="@+id/textView3"
         android:background="@drawable/myedittext"
         android:ems="10"
         android:hint="@string/phonenum"
@@ -110,6 +89,60 @@
 
         <requestFocus />
     </EditText>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/checkboxes"
+        android:layout_below="@+id/branchesSP"
+        android:text="@string/userrole"
+        android:textColor="#6f6f71"
+        android:layout_marginTop="10dp" />
+
+    <RelativeLayout
+        android:id="@+id/checkboxes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/branchesSP"
+        android:layout_below="@+id/textView4"
+        android:background="@drawable/myedittext" >
+
+        <CheckBox
+            android:id="@+id/admin"
+            style="@style/mytextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/preparer"
+            android:layout_below="@+id/preparer"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="8dp"
+            android:button="@drawable/mycheckbox"
+            android:text="@string/admin" />
+
+        <CheckBox
+            android:id="@+id/preparer"
+            style="@style/mytextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/delivery"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="8dp"
+            android:button="@drawable/mycheckbox"
+            android:text="@string/preparerguy" />
+
+        <CheckBox
+            android:id="@+id/delivery"
+            style="@style/mytextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/preparer"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="12dp"
+            android:button="@drawable/mycheckbox"
+            android:text="@string/app_name" />
+    </RelativeLayout>
+
 </RelativeLayout>
 
 </ScrollView>

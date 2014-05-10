@@ -144,6 +144,7 @@
     <string name="pass_dnt_match">Passwords do not match </string>
     <string name="branch">Branch</string>
     <string name="phonenum">Phone number</string>
+    <string name="userrole">User Role</string>
     <string name="invalid_phone">Invalid Phone number</string>
     <string name="admin">Admin</string>
     <string name="from_bigger">Make sure all from is less than to</string>
