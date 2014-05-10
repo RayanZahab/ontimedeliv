@@ -35,7 +35,7 @@
                 android:inputType="text"
                 android:paddingLeft="@dimen/txt_inner_padding"
                 android:paddingRight="@dimen/txt_inner_padding"
-                android:textColor="#bdbdbd"
+                android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd"
                 android:textSize="16sp" />
 
@@ -51,7 +51,7 @@
                 android:inputType="text"
                 android:paddingLeft="@dimen/txt_inner_padding"
                 android:paddingRight="@dimen/txt_inner_padding"
-                android:textColor="#bdbdbd"
+                android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd"
                 android:textSize="16sp" />
 
@@ -67,7 +67,7 @@
                 android:inputType="textPassword"
                 android:paddingLeft="@dimen/txt_inner_padding"
                 android:paddingRight="@dimen/txt_inner_padding"
-                android:textColor="#bdbdbd"
+                android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd"
                 android:textSize="16sp" />
 
@@ -83,7 +83,7 @@
                 android:inputType="textPassword"
                 android:paddingLeft="@dimen/txt_inner_padding"
                 android:paddingRight="@dimen/txt_inner_padding"
-                android:textColor="#bdbdbd"
+                android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd"
                 android:textSize="16sp" />
 
@@ -95,7 +95,7 @@
                 android:layout_marginTop="@dimen/vertical_margin"
                 android:button="@drawable/mylogincheckbox"
                 android:text="@string/keeploggedin"
-                android:textColor="#818281"
+                android:textColor="#6f6f71"
                 android:textSize="18sp" />
 
             <Spinner
@@ -120,7 +120,7 @@
             android:background="@drawable/mybutton"
             android:onClick="updateInfo"
             android:text="@string/submit"
-            android:textColor="#cdcccb"
+            android:textColor="#6f6f71"
             android:textSize="18sp" />
     </RelativeLayout>
 

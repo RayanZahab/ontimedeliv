@@ -27,6 +27,6 @@
         style="@style/mytextview"
         android:layout_alignBottom="@+id/picture"
         android:layout_alignLeft="@+id/name"
-        android:text="@string/delivery" />
+        android:text="@string/app_name" />
 
 </RelativeLayout>
