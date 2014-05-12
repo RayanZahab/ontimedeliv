@@ -193,7 +193,9 @@ public class AddBranchActivity extends Activity implements
 	public void addBranch(View v) {
 
 		areasSp = (Spinner) findViewById(R.id.areasSP);
-		int selectedArea = ((Area) areasSp.getSelectedItem()).getId();
+		int selectedArea = 0;
+		if(areasSp.getSelectedItem()!=null)
+			selectedArea = ((Area) areasSp.getSelectedItem()).getId();
 		String name = ((EditText) findViewById(R.id.editTextAddName)).getText()
 				.toString();
 		String desc = ((EditText) findViewById(R.id.addDesc)).getText()

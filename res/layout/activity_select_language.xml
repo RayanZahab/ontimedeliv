@@ -30,7 +30,7 @@
         android:onClick="select" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/settings"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_alignParentTop="true"

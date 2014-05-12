@@ -8,7 +8,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,7 +54,7 @@ public class OrderInfoActivity extends Activity {
 
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-
+		
 		((ontimedeliv) this.getApplication()).clear("order");
 		this.orderId = ((ontimedeliv) this.getApplication()).getOrderId();
 
@@ -65,11 +64,13 @@ public class OrderInfoActivity extends Activity {
 			submit.setText("Update");
 		}
 
+		String orderStatus = ((ontimedeliv) OrderInfoActivity.this
+				.getApplication()).getOrderStatus();
+		actionBar.setTitle(orderStatus);
 		if (!isAdmin) {
 			disable(false);
 		} else {
-			String orderStatus = ((ontimedeliv) OrderInfoActivity.this
-					.getApplication()).getOrderStatus();
+			
 			if (orderStatus.equals("closed") || orderStatus.equals("cancelled"))
 				disable(true);
 		}
@@ -241,7 +242,7 @@ public class OrderInfoActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.order_info, menu);
-		SharedMenu.onCreateOptionsMenu(this,menu, getApplicationContext());
+		SharedMenu.onCreateOptionsMenu(this, menu, getApplicationContext());
 		return true;
 	}
 
@@ -337,7 +338,7 @@ public class OrderInfoActivity extends Activity {
 		cancel = (Button) findViewById(R.id.cancel);
 		ViewGroup layout = (ViewGroup) cancel.getParent();
 		layout.removeView(cancel);
-		if(isPreparer)
+		if (isPreparer)
 			submit.setText("Prepared");
 		else if (!isAdmin)
 			submit.setText("Delivered");

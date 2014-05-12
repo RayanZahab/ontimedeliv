@@ -16,7 +16,7 @@
         android:targetSdkVersion="19" />
 
     <application
-        android:name=".ontimedeliv"
+        android:name="com.example.ontimedeliv.ontimedeliv"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme" >
         <activity
-            android:name="SplashScreenActivity"
+            android:name="com.example.ontimedeliv.SplashScreenActivity"
             android:icon="@drawable/logo"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="LoginActivity"
+            android:name="com.example.ontimedeliv.LoginActivity"
             android:icon="@drawable/moto"
             android:label="@string/buttonlogin"
             android:screenOrientation="portrait"
@@ -43,7 +43,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="NavigationActivity"
+            android:name="com.example.ontimedeliv.NavigationActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_navigation"
             android:windowSoftInputMode="adjustResize" 
@@ -51,7 +51,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="CategoriesActivity"
+            android:name="com.example.ontimedeliv.CategoriesActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_categories"
             android:parentActivityName="BranchesActivity"
@@ -60,7 +60,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="BranchesActivity"
+            android:name="com.example.ontimedeliv.BranchesActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_branches"
             android:parentActivityName="NavigationActivity"
@@ -69,7 +69,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="AddBranchActivity"
+            android:name="com.example.ontimedeliv.AddBranchActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_add_branch"
             android:parentActivityName="BranchesActivity"
@@ -78,7 +78,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="SelectionActivity"
+            android:name="com.example.ontimedeliv.SelectionActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_selection"
             android:screenOrientation="portrait"
@@ -86,7 +86,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="AddLocationDetails"
+            android:name="com.example.ontimedeliv.AddLocationDetails"
             android:icon="@drawable/moto"
             android:label="@string/add_country"
             android:screenOrientation="portrait"
@@ -94,7 +94,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="UsersActivity"
+            android:name="com.example.ontimedeliv.UsersActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_users"
             android:parentActivityName="NavigationActivity"
@@ -102,7 +102,7 @@
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
-            android:name="UserInfoActivity"
+            android:name="com.example.ontimedeliv.UserInfoActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_user_info"
             android:parentActivityName="UsersActivity"
@@ -110,14 +110,14 @@
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
-            android:name="AddCategoryActivity"
+            android:name="com.example.ontimedeliv.AddCategoryActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_add_category"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
-            android:name="OrderInfoActivity"
+            android:name="com.example.ontimedeliv.OrderInfoActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_order_info"
             android:parentActivityName="OrdersActivity"
@@ -126,7 +126,7 @@
 
         </activity>
         <activity
-            android:name="OrdersActivity"
+            android:name="com.example.ontimedeliv.OrdersActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_orders"
             android:parentActivityName="NavigationActivity"
@@ -134,7 +134,7 @@
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
-            android:name="ProductsActivity"
+            android:name="com.example.ontimedeliv.ProductsActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_product"
             android:parentActivityName="CategoriesActivity"
@@ -142,7 +142,7 @@
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
-            android:name="ProductInfoActivity"
+            android:name="com.example.ontimedeliv.ProductInfoActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_add_product"
             android:parentActivityName="ProductsActivity"
@@ -150,14 +150,14 @@
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
-            android:name="ForgotPasswordActivity"
+            android:name="com.example.ontimedeliv.ForgotPasswordActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_old_orders"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
-            android:name="OldOrdersInfoActivity"
+            android:name="com.example.ontimedeliv.OldOrdersInfoActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_old_orders_info"
             android:parentActivityName="OrdersActivity"
@@ -165,22 +165,26 @@
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
-            android:name="SearchResultsActivity"
+            android:name="com.example.ontimedeliv.SearchResultsActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_search_results"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="UserProfileActivity"
+            android:name="com.example.ontimedeliv.UserProfileActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_user_profile"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="SelectLanguageActivity"
+            android:name="com.example.ontimedeliv.SelectLanguageActivity"
             android:icon="@drawable/moto"
             android:label="Select language"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.example.ontimedeliv.BlockUser"
+            android:label="@string/title_activity_block_user" >
         </activity>
     </application>
 

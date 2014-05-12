@@ -835,8 +835,7 @@ public class APIManager {
 	public ArrayList<Order> getOrders(String cont) {
 		JSONObject jsonResponse, jsonCustomer;
 		ArrayList<Order> gridArray = new ArrayList<Order>();
-		Log.d("ray", "get order" + cont);
-		try {
+ 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id, count;

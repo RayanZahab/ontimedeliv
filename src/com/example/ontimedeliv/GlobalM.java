@@ -1,22 +1,13 @@
 package com.example.ontimedeliv;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.TimeZone;
 
 import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -34,6 +25,27 @@ public class GlobalM {
 				return;
 			}
 		}
+	}
+	public int getStatus(String status)
+	{
+		int return_id = 0;
+		if(status.equals("assigned"))
+		{
+			return_id = R.string.assigned_orders;
+		}
+		else if (status.equals("closed"))
+		{
+			return_id = R.string.closed_orders;
+		}
+		else if(status.equals("opened"))
+		{
+			return_id = R.string.new_orders;
+		}
+		else if(status.equals("cancelled"))
+		{
+			return_id = R.string.canceled_orders;
+		}
+		return return_id;
 	}
 	
 	public void bkToNav(Activity a, String msg) {

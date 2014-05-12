@@ -338,7 +338,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		paramsVal.put("shop_id", "" + p.getShop_id());
 		paramsVal.put("price", "" + p.getPrice());
 		paramsVal.put("unit_id", "" + p.getUnit().getId());
-		paramsVal.put("photo_name", "" + iFileName);
+		if (p.getPhoto() != null)
+			paramsVal.put("photo_name", "" + iFileName);
 		paramsVal.put("description", "" + p.getDescription());
 		Iterator iterator = paramsVal.entrySet().iterator();
 		while (iterator.hasNext()) {

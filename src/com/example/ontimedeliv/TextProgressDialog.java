@@ -1,10 +1,7 @@
 package com.example.ontimedeliv;
 
-import com.example.ontimedeliv.MyJs.TransparentProgressDialog;
-
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.util.DisplayMetrics;

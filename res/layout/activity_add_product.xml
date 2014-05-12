@@ -88,21 +88,6 @@
                 android:textColor="#6f6f71"
                 android:text="@string/productname" />
 
-            <EditText
-                android:id="@+id/productName"
-                android:layout_width="fill_parent"
-                android:layout_height="35dp"
-                android:layout_alignLeft="@+id/preview"
-                android:layout_below="@+id/textView1"
-                android:background="@drawable/edittext"
-                android:ems="10"
-                android:hint="@string/productname"
-                android:inputType="text"
-                android:minWidth="30dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textSize="12sp" />
-
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
@@ -142,6 +127,21 @@
                 android:layout_centerHorizontal="true"
                 android:text="@string/slash"
                 android:textSize="25sp" />
+
+            <EditText
+                android:id="@+id/productName"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView1"
+                android:background="@drawable/edittext"
+                android:ems="10"
+                android:hint="@string/productname"
+                android:inputType="text"
+                android:minWidth="30dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textSize="12sp" />
 
         </RelativeLayout>
 

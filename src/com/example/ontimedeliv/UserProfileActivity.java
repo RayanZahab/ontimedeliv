@@ -6,7 +6,6 @@ import java.util.Locale;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.view.Menu;

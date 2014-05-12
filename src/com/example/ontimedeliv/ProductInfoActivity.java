@@ -2,17 +2,12 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
-import com.example.ontimedeliv.MyJs.TransparentProgressDialog;
-
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.util.Log;
@@ -63,7 +58,7 @@ public class ProductInfoActivity extends Activity {
 		} else {
 			getUnits(true);
 		}
-		
+
 		upload = (Button) findViewById(R.id.uploadimage);
 		upload.setOnClickListener(new View.OnClickListener() {
 
