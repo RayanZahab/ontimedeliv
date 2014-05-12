@@ -2,9 +2,6 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
-import android.util.Log;
-import android.widget.TextView;
-
 public class Order {
 	private int id;
 	private int customer_id;

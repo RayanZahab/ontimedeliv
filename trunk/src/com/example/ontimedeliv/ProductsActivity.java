@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,11 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -181,14 +176,14 @@ public class ProductsActivity extends Activity {
 
 	public void setProducts(String s, String error) {
 		Button submit = (Button) findViewById(R.id.submit);
-		
+
 		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.user);
 		ListView listView = (ListView) findViewById(R.id.categorylist);
 		products = new APIManager().getItemsByCategoryAndBranch(s);
 		productItems = new ArrayList<Item>();
 		if (products.size() == 0) {
-			productItems.add(new Item(0, picture,
+			productItems.add(new Item(0, "",
 					getString(R.string.empty_list)));
 			submit.setEnabled(false);
 		} else {
@@ -234,11 +229,13 @@ public class ProductsActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
-			// handle local menu items here or leave blank
-			Intent intent = new Intent(this, ProductInfoActivity.class);
-			((ontimedeliv) ProductsActivity.this.getApplication())
-					.setProductId(0);
-			startActivity(intent);
+			if (item.getItemId() == R.id.add) {
+				// handle local menu items here or leave blank
+				Intent intent = new Intent(this, ProductInfoActivity.class);
+				((ontimedeliv) ProductsActivity.this.getApplication())
+						.setProductId(0);
+				startActivity(intent);
+			}
 		}
 		return super.onOptionsItemSelected(item);
 	}

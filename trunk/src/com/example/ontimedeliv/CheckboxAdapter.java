@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.graphics.Bitmap;
@@ -69,7 +70,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 	}
 	private class ViewHolder {
 		CheckBox name;
-		Bitmap picture;
+		String picture;
 		TextView price;
 	}
 
@@ -77,7 +78,6 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		final Item cat = tmpList.get(position);
-
 		if (convertView == null) {
 
 			LayoutInflater vi = (LayoutInflater) context
@@ -87,11 +87,9 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 			{
 				if (this.icon) {
 					convertView = vi.inflate(R.layout.category_info, null);
-					View v = convertView.findViewById(R.id.item_image);
-					v.setDrawingCacheEnabled(true);
-					v.buildDrawingCache();
-					Bitmap picture = v.getDrawingCache();
-					holder.picture = picture;
+					ImageTask img = new ImageTask((ImageView) convertView.findViewById(R.id.item_image),context);
+					img.isCat =true;
+					img.execute(cat.getImage());
 				} else
 				{
 					convertView = vi.inflate(R.layout.product_info, null);

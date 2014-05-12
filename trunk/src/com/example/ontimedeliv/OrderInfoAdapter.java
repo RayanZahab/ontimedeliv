@@ -1,13 +1,6 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
-
-
-
-
-
-
-
 import android.content.Context;
 import android.graphics.Color;
 import android.text.Editable;
@@ -165,7 +158,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 		ViewHolder holder;
 		public addCheckListener(Context context, ViewHolder holder) {
 			super();
-			this.mContext = context;
+			this.setmContext(context);
 			this.holder=holder;
 		}
 
@@ -176,6 +169,14 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 				holder.quantity.setText("0");
 			} 
 			
+		}
+
+		public Context getmContext() {
+			return mContext;
+		}
+
+		public void setmContext(Context mContext) {
+			this.mContext = mContext;
 		}
 		
 	}
@@ -189,7 +190,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 
 		public addListenerOnTextChange(Context context, ViewHolder holder) {
 			super();
-			this.mContext = context;
+			this.setmContext(context);
 			this.mEdittextview = holder.quantity;
 			this.holder=holder;
 		}
@@ -231,6 +232,14 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before, int count) {
 			// What you want to do
+		}
+
+		public Context getmContext() {
+			return mContext;
+		}
+
+		public void setmContext(Context mContext) {
+			this.mContext = mContext;
 		}
 
 

@@ -18,8 +18,7 @@ public class myURL {
 		this.by = by;
 		this.setSvalue(svalue);
 		this.limit = limit;
-	}
-
+	}	
 	public String getURL() {
 
 		String currentVal = "";

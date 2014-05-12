@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
-import android.widget.Filterable;
 
 public class ItemsFilter extends Filter {
 	public ArrayList<Item> currentList , tmpList;

@@ -3,7 +3,7 @@ package com.example.ontimedeliv;
 import android.graphics.Bitmap;
 
 public class Item {
-	private Bitmap image;
+	private String image;
 	private String title,date;
 	boolean selected = false;
 	String code = null;
@@ -39,14 +39,14 @@ public class Item {
 		this.setPrice(price);
 	}
 
-	public Item(int id, Bitmap image, String title) {
+	public Item(int id, String image, String title) {
 		super();
 		this.image = image;
 		this.title = title;
 		this.id = id;
 	}
 
-	public Item(int id, Bitmap image, String title, boolean selected) {
+	public Item(int id, String image, String title, boolean selected) {
 		super();
 		this.image = image;
 		this.title = title;
@@ -67,11 +67,11 @@ public class Item {
 		this.title = title;
 	}
 
-	public Bitmap getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(Bitmap image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 

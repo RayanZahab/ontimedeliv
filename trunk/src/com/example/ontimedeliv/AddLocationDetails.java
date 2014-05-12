@@ -159,9 +159,8 @@ public class AddLocationDetails extends Activity implements
 	public void getCountries() {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();// "http://enigmatic-springs-5176.herokuapp.com/api/v1/countries?limit=30";
 
-		new MyJs("setCountries", this,
-				((ontimedeliv) this.getApplication()), "GET")
-				.execute(serverURL);
+		new MyJs("setCountries", this, ((ontimedeliv) this.getApplication()),
+				"GET").execute(serverURL);
 	}
 
 	public void setCountries(String s) {
@@ -180,9 +179,8 @@ public class AddLocationDetails extends Activity implements
 	public void getCities(int CountryId) {
 		String serverURL = new myURL("cities", "countries", CountryId, 30)
 				.getURL();
-		new MyJs("setCities", this,
-				((ontimedeliv) this.getApplication()), "GET")
-				.execute(serverURL);
+		new MyJs("setCities", this, ((ontimedeliv) this.getApplication()),
+				"GET").execute(serverURL);
 	}
 
 	public void setCities(String s) {

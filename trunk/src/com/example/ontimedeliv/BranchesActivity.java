@@ -2,30 +2,21 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
-import android.R.menu;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -69,7 +60,7 @@ public class BranchesActivity extends Activity {
 
 		listView.setTextFilterEnabled(true);
 		if (branches.size() == 0) {
-			branchesItem.add(new Item(0, picture,
+			branchesItem.add(new Item(0, "",
 					getString(R.string.empty_list)));
 		} else if (branches.size() == 1) {
 			((ontimedeliv) BranchesActivity.this.getApplication())
@@ -79,7 +70,7 @@ public class BranchesActivity extends Activity {
 			return;
 		} else {
 			for (int i = 1; i < branches.size(); i++) {
-				branchesItem.add(new Item(branches.get(i).getId(), picture,
+				branchesItem.add(new Item(branches.get(i).getId(), "",
 						branches.get(i).toString()));
 			}
 			registerForContextMenu(listView);

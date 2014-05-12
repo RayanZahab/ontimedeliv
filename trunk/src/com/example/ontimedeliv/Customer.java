@@ -5,7 +5,6 @@ public class Customer {
 	private String name;
 	private String username;
 	private String password;
-	private String phone;
 	private String mobile;
 	private int is_allowed;
 	private int default_address_id;
@@ -17,7 +16,6 @@ public class Customer {
 		this.setName(name);
 		this.setUsername(username);
 		this.setPassword(password);
-		this.setPhone(phone);
 		this.setMobile(mobile);
 		this.setIs_allowed(is_allowed);
 		this.setDefault_address_id(is_allowed);
@@ -28,7 +26,6 @@ public class Customer {
 			Photo photo) {
 		this.setId(id);
 		this.setName(name);
-		this.setPhone(phone);
 		this.setMobile(mobile);
 		this.setPhoto(photo);
 	}
@@ -53,14 +50,6 @@ public class Customer {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
 	}
 
 	public String getPassword() {

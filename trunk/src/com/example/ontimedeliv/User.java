@@ -1,7 +1,5 @@
 package com.example.ontimedeliv;
 
-import android.util.Log;
-
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 

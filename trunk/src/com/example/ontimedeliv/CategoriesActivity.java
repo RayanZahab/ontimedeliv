@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.Base64;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,10 +26,9 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class CategoriesActivity extends Activity {
@@ -39,6 +42,7 @@ public class CategoriesActivity extends Activity {
 	ArrayList<Integer> selectedIds = new ArrayList<Integer>();
 	ArrayList<Integer> unselectedIds = new ArrayList<Integer>();
 	Activate myCat;
+	AlertDialog alertDialog;
 
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
@@ -106,19 +110,36 @@ public class CategoriesActivity extends Activity {
 		mjs.execute(serverURL);
 	}
 
+	public Bitmap drawableToBitmap(String uri) {
+		Drawable drawable = getResources()
+				.getDrawable(
+						getResources().getIdentifier(uri, "drawable",
+								getPackageName()));
+		if (drawable instanceof BitmapDrawable) {
+			return ((BitmapDrawable) drawable).getBitmap();
+		}
+		Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+				drawable.getIntrinsicHeight(), Config.ARGB_8888);
+		Canvas canvas = new Canvas(bitmap);
+		drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+		drawable.draw(canvas);
+		return bitmap;
+	}
+
 	public void setCategories(String s, String error) {
 		ListView listView = (ListView) findViewById(R.id.categorylist);
-		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.user);
+		Bitmap picture = drawableToBitmap("delivery");
+
 		categories = new APIManager().getCategoriesByBranch(s);
 		categoryItems = new ArrayList<Item>();
-
+		String catUrl = null;
 		if (categories.size() == 0) {
-			categoryItems.add(new Item(0, picture,
-					getString(R.string.empty_list)));
+			categoryItems.add(new Item(0, "", getString(R.string.empty_list)));
 		} else {
 			for (int i = 0; i < categories.size(); i++) {
-				categoryItems.add(new Item(categories.get(i).getId(), picture,
+				catUrl = (new myURL(null, "cat_images", categories.get(i)
+						.toString(), 0)).getURL();
+				categoryItems.add(new Item(categories.get(i).getId(), catUrl,
 						categories.get(i).toString(), categories.get(i)
 								.isActive()));
 			}
@@ -150,7 +171,8 @@ public class CategoriesActivity extends Activity {
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.categories, menu);
-		SharedMenu.onCreateOptionsMenu(this,menu, getApplicationContext(),dataAdapter);	
+		SharedMenu.onCreateOptionsMenu(this, menu, getApplicationContext(),
+				dataAdapter);
 		return true;
 	}
 
@@ -160,7 +182,7 @@ public class CategoriesActivity extends Activity {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.cat_context_menu, menu);
 	}
- 
+
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();
@@ -201,12 +223,12 @@ public class CategoriesActivity extends Activity {
 						if (userInput.getText().toString() != null
 								&& userInput.getText().toString().length() > 3)
 							editCategory(itemId, userInput.getText().toString());
-						else
-						{
-							(new ValidationError(true, getString(R.string.invalid_name)))
+						else {
+							(new ValidationError(true,
+									getString(R.string.invalid_name)))
 									.isValid(CategoriesActivity.this);
 						}
-
+						dialog.dismiss();
 					}
 				})
 				.setNegativeButton("Cancel",
@@ -216,12 +238,14 @@ public class CategoriesActivity extends Activity {
 							}
 						});
 
-		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
+
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+		Log.d("ray", "ray id: " + item.getItemId());
+		if (item.getItemId() == R.id.add) {
 
 			// get prompts.xml view
 			LayoutInflater li = LayoutInflater.from(this);
@@ -249,7 +273,8 @@ public class CategoriesActivity extends Activity {
 										addCategory(userInput.getText()
 												.toString(), shopId);
 									else
-										(new ValidationError(true,
+										(new ValidationError(
+												true,
 												getString(R.string.invalid_name)))
 												.isValid(CategoriesActivity.this);
 								}

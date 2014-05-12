@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,7 +48,8 @@ public class OrdersActivity extends Activity {
 		}
 		status = ((ontimedeliv) OrdersActivity.this.getApplication())
 				.getOrderStatus();
-
+		int status_id = new GlobalM().getStatus(status);
+		actionBar.setTitle(getString(status_id));
 		getOrders();
 	}
 
@@ -92,10 +92,16 @@ public class OrdersActivity extends Activity {
 				if (morders.size()>0)
 				{
 					Intent i;
-					i = new Intent(getBaseContext(), OrderInfoActivity.class);
-					
+					if(orderItems.get(position).isNew)
+					{
+						i = new Intent(getBaseContext(), BlockUser.class);
+					}
+					else
+					{
+						i = new Intent(getBaseContext(), OrderInfoActivity.class);												
+					}
 					((ontimedeliv) OrdersActivity.this.getApplication())
-							.setOrderId(orderItems.get(position).getId());
+					.setOrderId(orderItems.get(position).getId());
 					startActivity(i);
 				}
 			}

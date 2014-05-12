@@ -26,10 +26,10 @@ public class ForgotPasswordActivity extends Activity {
 
 	public void reset(View view) {
 		username = (EditText) findViewById(R.id.user_name);
-		sendSMS(username.getText().toString(), "Your password is now 123");
+		//sendSMS(username.getText().toString(), "Your password is now 123");
 
 	}
-
+/*
 	private void sendSMS(String phoneNumber, String message) {
 		TelephonyManager tMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 		String mPhoneNumber = tMgr.getLine1Number();
@@ -48,4 +48,5 @@ public class ForgotPasswordActivity extends Activity {
 		email.setType("message/rfc822");
 		startActivity(Intent.createChooser(email, "Choose an Email client :"));
 	}
+	*/
 }

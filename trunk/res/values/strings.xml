@@ -155,8 +155,9 @@
     <string name="invalid_area">Invalid Area</string>
     <string name="invalid_time">Invalid Estimation time</string>
     <string name="select_role">Please select a role</string>
-	<string name="invalid_branch">Please select a branch</string>
-	<string name="order_updated">Order updated successfully</string>
-		
-
+    <string name="invalid_branch">Please select a branch</string>
+    <string name="order_updated">Order updated successfully</string>
+    <string name="title_activity_block_user">BlockUser</string>
+    <string name="block">Block</string>
+    
 </resources>
