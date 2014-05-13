@@ -14,7 +14,7 @@
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/fromBtnn"
+        android:layout_alignParentStart="true"
         android:text="Ray" />
 
     <Button
@@ -22,6 +22,7 @@
         android:layout_width="70dp"
         android:layout_height="35dp"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/mybutton"
         android:onClick="from"
@@ -32,6 +33,7 @@
         android:id="@+id/toBtn"
         android:layout_width="70dp"
         android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/fromBtnn"
         android:background="@drawable/mybutton"

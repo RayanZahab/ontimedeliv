@@ -57,11 +57,11 @@
             <TextView
                 android:id="@+id/countryLabel"
                 style="@style/mytextview"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/divider4"
+                android:layout_alignParentRight="true"
                 android:layout_below="@+id/divider4"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/vertical_margin"
                 android:text="@string/select_country"
                 android:textColor="#6f6f71"
@@ -70,11 +70,9 @@
             <TextView
                 android:id="@+id/citiesLabel"
                 style="@style/mytextview"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/countriesSP"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/vertical_margin"
                 android:text="@string/select_city"
                 android:textColor="#6f6f71"
@@ -97,22 +95,20 @@
                 android:id="@+id/countriesSP"
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
                 android:layout_below="@+id/countryLabel"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/myspinner"
                 android:ellipsize="marquee"
-				android:gravity="center_vertical" 
-				android:singleLine="false"
-				android:paddingRight="22dp"
-                android:background="@drawable/myspinner" />
+                android:gravity="center_vertical"
+                android:paddingRight="22dp"
+                android:singleLine="false" />
 
             <Spinner
                 android:id="@+id/citiesSP"
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
                 android:layout_below="@+id/citiesLabel"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:paddingRight="22dp"
                 android:background="@drawable/myspinner" />
 
@@ -122,8 +118,6 @@
                 android:layout_height="45dp"
                 android:paddingRight="22dp"
                 android:layout_below="@+id/areaLabel"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:background="@drawable/myspinner" />
 
             <ExpandableListView
@@ -136,13 +130,14 @@
 
             <TextView
                 android:id="@+id/textView1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="12dp"
-                android:textColor="#6f6f71"
-                android:text="@string/name" />
+                android:text="@string/name"
+                android:textColor="#6f6f71" />
 
             <EditText
                 android:id="@+id/editTextAddName"
@@ -163,7 +158,7 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/editTextAddress"
                 android:layout_below="@+id/divider"
@@ -187,7 +182,7 @@
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/addDesc"
                 android:layout_below="@+id/divider2"
@@ -211,7 +206,7 @@
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/estimation"
                 android:layout_below="@+id/divider3"
