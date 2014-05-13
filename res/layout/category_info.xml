@@ -7,12 +7,15 @@
 
     <CheckBox
         android:id="@+id/checkBox1"
+        style="@style/mytextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:focusable="false"
-        style="@style/mytextview"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/item_image"
+        android:layout_toStartOf="@+id/item_image"
         android:button="@drawable/mycheckbox"
+        android:focusable="false"
         android:focusableInTouchMode="false"
         android:text="checkbox"
         android:textColor="#6f6f71" />
@@ -22,7 +25,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/checkBox1"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/moto" />
 
 </RelativeLayout>

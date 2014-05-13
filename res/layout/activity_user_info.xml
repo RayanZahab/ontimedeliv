@@ -28,35 +28,39 @@
         style="@style/mytextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/inputphone"
         android:layout_marginTop="16dp"
-        android:textColor="#6f6f71"
-        android:text="@string/branch" />
+        android:text="@string/branch"
+        android:textColor="#6f6f71" />
 
     <Spinner
         android:id="@+id/branchesSP"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="22dp"
-        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/textView1"
-        android:background="@drawable/myspinner" />
+        android:background="@drawable/myspinner"
+        android:paddingRight="22dp" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/nameinput"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="12dp"
-        android:textColor="#6f6f71"
-        android:text="@string/name" />
+        android:text="@string/name"
+        android:textColor="#6f6f71" />
 
     <EditText
         android:id="@+id/nameinput"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:layout_alignLeft="@+id/inputphone"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView2"
         android:background="@drawable/myedittext"
         android:ems="10"
@@ -68,17 +72,19 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/inputphone"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/nameinput"
         android:layout_marginTop="12dp"
-        android:textColor="#6f6f71"
-        android:text="@string/phonenum" />
+        android:text="@string/phonenum"
+        android:textColor="#6f6f71" />
 
     <EditText
         android:id="@+id/inputphone"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/textView3"
         android:background="@drawable/myedittext"
         android:ems="10"
@@ -94,17 +100,19 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/checkboxes"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/branchesSP"
+        android:layout_marginTop="10dp"
         android:text="@string/userrole"
-        android:textColor="#6f6f71"
-        android:layout_marginTop="10dp" />
+        android:textColor="#6f6f71" />
 
     <RelativeLayout
         android:id="@+id/checkboxes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/branchesSP"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/textView4"
         android:background="@drawable/myedittext" >
 
@@ -113,7 +121,8 @@
             style="@style/mytextview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/preparer"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/preparer"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="8dp"
@@ -125,8 +134,9 @@
             style="@style/mytextview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/delivery"
-            android:layout_marginLeft="15dp"
             android:layout_marginTop="8dp"
             android:button="@drawable/mycheckbox"
             android:text="@string/preparerguy" />
@@ -136,11 +146,13 @@
             style="@style/mytextview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/preparer"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="12dp"
             android:button="@drawable/mycheckbox"
             android:text="@string/app_name" />
+
     </RelativeLayout>
 
 </RelativeLayout>

@@ -90,7 +90,7 @@
             <CheckBox
                 android:id="@+id/keeploggedin"
                 style="@style/mytextview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vertical_margin"
                 android:button="@drawable/mylogincheckbox"
