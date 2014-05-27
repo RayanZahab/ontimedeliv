@@ -44,9 +44,7 @@ public class Helper {
 			}
 			// setting listview item in adapter
 			ViewGroup.LayoutParams params = myListView.getLayoutParams();
-			params.height = totalHeight
-					+ (myListView.getDividerHeight() * (myListAdapter
-							.getCount() - 1));
+			params.height = totalHeight;
 			myListView.setLayoutParams(params);
 			// print height of adapter on log
 		}
