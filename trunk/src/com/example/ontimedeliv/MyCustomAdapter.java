@@ -18,10 +18,12 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 	Context context;
 	private ItemsFilter mFilter;
 	private final Object mLock = new Object();
-
+	private int layout = R.layout.categories_list;
 	public MyCustomAdapter(Context context, int textViewResourceId,
 			ArrayList<Item> navList) {
 		super(context, textViewResourceId, navList);
+		if(textViewResourceId!=0)
+			layout = textViewResourceId;
 		this.tmpList = new ArrayList<Item>();
 		this.tmpList.addAll(navList);
 		this.context = context;
@@ -66,7 +68,7 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 			LayoutInflater vi = (LayoutInflater) this.context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-			convertView = vi.inflate(R.layout.categories_list, null);
+			convertView = vi.inflate(layout, null);
 
 			holder = new ViewHolder();
 

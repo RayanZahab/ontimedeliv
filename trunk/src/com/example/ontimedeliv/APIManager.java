@@ -445,14 +445,17 @@ public class APIManager {
 	}
 
 	public Photo getPhoto(String cont) {
-		JSONObject jsonResponse;
-		String url = "", thumb = "";
+		JSONObject jsonResponse,thumbR;
+		String url = "", thumbO = "",thumb ="";
 		Photo photo = new Photo(0, url, thumb);
 		try {
 			jsonResponse = new JSONObject(cont);
 
 			url = jsonResponse.optString("url").toString();
-			thumb = jsonResponse.optString("thumb").toString();
+			thumbO = jsonResponse.optString("thumb").toString();
+			thumbR = new JSONObject(thumbO);
+			thumb = thumbR.optString("url").toString();
+			Log.d("rays","thum: "+thumb);
 			photo.setUrl(url);
 			photo.setThumb(thumb);
 		} catch (JSONException e) {

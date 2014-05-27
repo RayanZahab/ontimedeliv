@@ -23,43 +23,49 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin" >
-		  <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             android:orientation="vertical"
-             android:background="@drawable/myedittext">
-            <TextView
-                android:id="@+id/customerName"
-                style="@style/mytextview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingLeft="8dp"
-                android:textColor="#ed1c24"
-                android:text="@string/name" />
+            android:paddingRight="@dimen/activity_right_margin" >
 
-            <TextView
-                android:id="@+id/customerAdd"
-                style="@style/mytextview"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="8dp"
-                android:text="@string/address" />
-</LinearLayout>
+                android:background="@drawable/myedittext"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/customerName"
+                    style="@style/mytextview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/name"
+                    android:textColor="#ed1c24" />
+
+                <TextView
+                    android:id="@+id/customerAdd"
+                    style="@style/mytextview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:text="@string/address" />
+            </LinearLayout>
+
             <ListView
                 android:id="@+id/listView"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/mylistview" >
+                android:divider="@android:color/transparent"
+                android:dividerHeight="10.0sp" >
             </ListView>
 
             <RelativeLayout
                 android:id="@+id/totalamount"
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/myedittext" >
 
@@ -71,9 +77,10 @@
                     android:layout_alignBaseline="@+id/totallabel"
                     android:layout_alignBottom="@+id/totallabel"
                     android:layout_toLeftOf="@+id/lira"
-                    android:text="25"
                     android:gravity="center_vertical"
+                    android:text="25"
                     android:textSize="19sp" />
+
                 <TextView
                     android:id="@+id/lira"
                     style="@style/mytextview"
@@ -82,21 +89,21 @@
                     android:layout_alignBaseline="@+id/total"
                     android:layout_alignBottom="@+id/total"
                     android:layout_alignParentRight="true"
-                    android:paddingRight="7dp"
                     android:gravity="center_vertical"
+                    android:paddingRight="7dp"
                     android:text="@string/lira"
                     android:textSize="19sp" />
+
                 <TextView
                     android:id="@+id/totallabel"
                     style="@style/mytextview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:paddingLeft="7dp"
                     android:gravity="center_vertical"
+                    android:paddingLeft="7dp"
                     android:text="@string/total"
                     android:textSize="19sp" />
-                
             </RelativeLayout>
 
             <RelativeLayout
@@ -118,11 +125,11 @@
                     android:id="@+id/delivery_Spinner"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:paddingRight="22dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/textView6"
-                    android:background="@drawable/myspinner" />
+                    android:background="@drawable/myspinner"
+                    android:paddingRight="22dp" />
             </RelativeLayout>
 
             <TextView
@@ -136,8 +143,8 @@
                 android:id="@+id/preparer_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:paddingRight="22dp"
-                android:background="@drawable/myspinner" />
+                android:background="@drawable/myspinner"
+                android:paddingRight="22dp" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -150,8 +157,8 @@
                 android:id="@+id/order_status"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:paddingRight="22dp"
-                android:background="@drawable/myspinner" />
+                android:background="@drawable/myspinner"
+                android:paddingRight="22dp" />
 
             <TextView
                 android:id="@+id/notes"
@@ -174,32 +181,35 @@
                 android:singleLine="false" />
         </LinearLayout>
     </ScrollView>
-<RelativeLayout
-    android:id="@+id/buttons"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:layout_marginLeft="@dimen/activity_vertical_margin"
-    android:layout_marginRight="@dimen/activity_vertical_margin" >
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="110dp"
-        android:layout_height="40dp"
-        android:background="@drawable/mybutton"
-        android:onClick="submit"
-        android:text="@string/submit"
-        android:textColor="#6f6f71"
-        android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="110dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/mybutton"
-        android:onClick="cancel"
-        android:text="@string/cancel"
-        android:textColor="#6f6f71"
-        android:textSize="18sp" />
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginTop="10dp" >
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:background="@drawable/mybutton"
+            android:onClick="submit"
+            android:text="@string/submit"
+            android:textColor="#6f6f71"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/mybutton"
+            android:onClick="cancel"
+            android:text="@string/cancel"
+            android:textColor="#6f6f71"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
 </LinearLayout>

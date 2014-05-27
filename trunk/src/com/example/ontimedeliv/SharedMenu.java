@@ -1,5 +1,6 @@
 package com.example.ontimedeliv;
 
+import android.R.color;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
@@ -56,6 +57,10 @@ public class SharedMenu extends Activity {
 		
 		int  searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         EditText inputSearch = (EditText) searchView.findViewById(searchPlateId);
+        
+
+		inputSearch.setHintTextColor(searchView.getContext().getResources().getColor(color.darker_gray));
+		inputSearch.setTextColor(searchView.getContext().getResources().getColor(color.darker_gray));
 		inputSearch.addTextChangedListener(new TextWatcher() {
 
 			@Override

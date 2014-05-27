@@ -114,7 +114,7 @@ public class AddBranchActivity extends Activity implements
 				Toast.makeText(getApplicationContext(),
 						listDataHeader.get(groupPosition) + " Expanded",
 						Toast.LENGTH_SHORT).show();
-				new Helper(900).getListViewSize(expListView);
+				new Helper(1000).getListViewSize(expListView);
 			}
 		});
 

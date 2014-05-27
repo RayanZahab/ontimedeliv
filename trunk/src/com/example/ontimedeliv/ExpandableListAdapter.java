@@ -88,9 +88,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 			convertView = infalInflater.inflate(R.layout.list_item, null);
 		}
 
-		CheckBox txtListChild = (CheckBox) convertView
+		CheckBox chbListChild = (CheckBox) convertView
 				.findViewById(R.id.weekCheck);
-		txtListChild.setOnCheckedChangeListener(new addCheckListener(
+
+		TextView txtListChild = (TextView) convertView
+				.findViewById(R.id.weekCheckTxt);
+		chbListChild.setOnCheckedChangeListener(new addCheckListener(
 				childPosition));
 
 		final Button from = (Button) convertView.findViewById(R.id.fromBtnn);
@@ -131,7 +134,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 				from.setText(froms.get(childPosition).replace(".", ":"));
 			if (tos.get(childPosition) != null)
 				to.setText(tos.get(childPosition).replace(".", ":"));
-			txtListChild.setChecked(openDays.get(childPosition));
+			chbListChild.setChecked(openDays.get(childPosition));
 		}
 		txtListChild.setText(childText);
 		return convertView;

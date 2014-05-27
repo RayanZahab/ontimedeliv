@@ -22,8 +22,6 @@
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/unit"
             android:layout_toStartOf="@+id/unit"
-            android:checked="true"
-            android:maxWidth="110dp"
             android:paddingLeft="10dp"
             android:paddingStart="10dp"
             android:singleLine="false"
@@ -64,14 +62,11 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/bar"
             android:gravity="center"
             android:paddingLeft="2dp"
-            android:paddingStart="2dp"
             android:paddingRight="2dp"
-            android:paddingEnd="2dp"
             android:text="999000L.L" />
 
     </RelativeLayout>

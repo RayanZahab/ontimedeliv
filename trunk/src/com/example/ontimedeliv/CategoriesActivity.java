@@ -127,11 +127,12 @@ public class CategoriesActivity extends Activity {
 	}
 
 	public void setCategories(String s, String error) {
-		ListView listView = (ListView) findViewById(R.id.categorylist);
-		Bitmap picture = drawableToBitmap("delivery");
-
 		categories = new APIManager().getCategoriesByBranch(s);
 		categoryItems = new ArrayList<Item>();
+		ListView listView = (ListView) findViewById(R.id.categorylist);
+		
+		listView.setTextFilterEnabled(true);
+		
 		String catUrl = null;
 		if (categories.size() == 0) {
 			categoryItems.add(new Item(0, "", getString(R.string.empty_list)));
@@ -157,7 +158,9 @@ public class CategoriesActivity extends Activity {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (categories.size() > 0) {
+				//if (categories.size() > 0) 
+				{
+					Log.d("rays","clicked");
 					Intent i = new Intent(getBaseContext(),
 							ProductsActivity.class);
 					((ontimedeliv) CategoriesActivity.this.getApplication())
@@ -244,52 +247,54 @@ public class CategoriesActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Log.d("ray", "ray id: " + item.getItemId());
-		if (item.getItemId() == R.id.add) {
-
-			// get prompts.xml view
-			LayoutInflater li = LayoutInflater.from(this);
-			View promptsView = li.inflate(R.layout.prompt_addcategory, null);
-
-			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-					this);
-
-			// set prompts.xml to alertdialog builder
-			alertDialogBuilder.setView(promptsView);
-
-			final EditText userInput = (EditText) promptsView
-					.findViewById(R.id.editTextDialogUserInput);
-
-			alertDialogBuilder
-					.setCancelable(false)
-					.setPositiveButton("OK",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									setDialog(dialog);
-									if (userInput.getText().toString() != null
-											&& userInput.getText().toString()
-													.length() > 3)
-										addCategory(userInput.getText()
-												.toString(), shopId);
-									else
-										(new ValidationError(
-												true,
-												getString(R.string.invalid_name)))
-												.isValid(CategoriesActivity.this);
-								}
-							})
-					.setNegativeButton("Cancel",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									dialog.cancel();
-								}
-							});
-
-			AlertDialog alertDialog = alertDialogBuilder.create();
-			alertDialog.show();
+		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
+			if (item.getItemId() == R.id.add) {
+	
+				// get prompts.xml view
+				LayoutInflater li = LayoutInflater.from(this);
+				View promptsView = li.inflate(R.layout.prompt_addcategory, null);
+	
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						this);
+	
+				// set prompts.xml to alertdialog builder
+				alertDialogBuilder.setView(promptsView);
+	
+				final EditText userInput = (EditText) promptsView
+						.findViewById(R.id.editTextDialogUserInput);
+	
+				alertDialogBuilder
+						.setCancelable(false)
+						.setPositiveButton("OK",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										setDialog(dialog);
+										if (userInput.getText().toString() != null
+												&& userInput.getText().toString()
+														.length() > 3)
+											addCategory(userInput.getText()
+													.toString(), shopId);
+										else
+											(new ValidationError(
+													true,
+													getString(R.string.invalid_name)))
+													.isValid(CategoriesActivity.this);
+									}
+								})
+						.setNegativeButton("Cancel",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										dialog.cancel();
+									}
+								});
+	
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
+			}
 		}
+		
 
 		return super.onOptionsItemSelected(item);
 	}

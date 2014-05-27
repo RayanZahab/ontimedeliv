@@ -156,14 +156,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
-        <activity
-            android:name="com.example.ontimedeliv.OldOrdersInfoActivity"
-            android:icon="@drawable/moto"
-            android:label="@string/title_activity_old_orders_info"
-            android:parentActivityName="OrdersActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" >
-        </activity>
+       
         <activity
             android:name="com.example.ontimedeliv.SearchResultsActivity"
             android:icon="@drawable/moto"

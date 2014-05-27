@@ -25,6 +25,7 @@
     <string name="cancel">إلغاء</string>
     <string name="deliveryguy">مسؤول التوصيل:</string>
     <string name="preparerguy">مسؤول التحضير:</string>
+    <string name="admin">مسؤول :</string>
     <string name="details">تفاصيل</string>
     <string name="name">الاسم:</string>
     <string name="textButton">زر</string>

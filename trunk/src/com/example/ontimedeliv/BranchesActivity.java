@@ -25,7 +25,7 @@ public class BranchesActivity extends Activity {
 	public MyCustomAdapter dataAdapter = null;
 	ArrayList<Branch> branches;
 	ArrayList<Item> branchesItem;
-	int shopId;
+	int shopId; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class BranchesActivity extends Activity {
 		((ontimedeliv) this.getApplication()).clear("listing");
 		shopId = ((ontimedeliv) this.getApplication()).getShopId();
 		getBranches();
-
+		
 	}
 
 	public MyCustomAdapter getAdapter() {
@@ -75,7 +75,7 @@ public class BranchesActivity extends Activity {
 			}
 			registerForContextMenu(listView);
 		}
-		dataAdapter = new MyCustomAdapter(this, 0,
+		dataAdapter = new MyCustomAdapter(this, R.layout.categories_list,
 				branchesItem);
 		SharedMenu.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);

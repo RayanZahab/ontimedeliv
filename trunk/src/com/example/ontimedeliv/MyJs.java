@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -273,7 +274,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			if (Content == null)
 				Content = "";
 			if (Error != null) {
-				// new GlobalM().bkToNav(mc, getError(Content,Error));
+				new GlobalM().bkToNav(mc, getError(Content,Error));
 			}
 			Method returnFunction = this.mc.getClass()
 					.getMethod(this.returnFunction, Content.getClass(),
@@ -322,11 +323,13 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", USER_AGENT);
 		con.setRequestProperty("auth_token", token);
-		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+		con.setRequestProperty("Accept-Charset", "utf-8"); 		
+		con.setRequestProperty("Accept-Language", "en-us;q=0.9");
 		con.setRequestProperty("Connection", "Keep-Alive");
-		con.setRequestProperty("Content-Type", "multipart/form-data;boundary="
+		con.setRequestProperty("Content-Type", "multipart/form-data; charset=utf-8;boundary="
 				+ boundary);
-
+		//con.setCharacterEncoding("UTF-8");
+		
 		con.setDoInput(true);
 		con.setDoOutput(true);
 		con.setUseCaches(false);
@@ -406,6 +409,9 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		System.out.println(response.toString());
 		return response.toString();
 
+	}
+	public void addCustomer() {
+		
 	}
 
 	public void showProg() {
