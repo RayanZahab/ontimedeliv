@@ -10,29 +10,37 @@
         style="@style/mytextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/price"
-        android:layout_toStartOf="@+id/price"
         android:button="@drawable/mycheckbox"
+        	    android:layout_alignParentLeft="true"
+        
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:text="Item"
+        android:text=""
         android:textColor="#6f6f71" />
 
-	<TextView
-	    android:id="@+id/price"
-	    style="@style/mytextview"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignBaseline="@+id/checkBox1"
-	    android:layout_alignBottom="@+id/checkBox1"
-	    android:layout_alignParentRight="true"
-	    android:layout_alignParentEnd="true"
-	    android:background="@drawable/bar"
-	    android:gravity="center"
-	    android:paddingLeft="5dp"
-	    android:paddingStart="5dp"
-	    android:text="@string/total" />
+    <TextView
+        android:id="@+id/checkBox1_txt"
+        style="@style/mytextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/checkBox1"
+        android:layout_alignTop="@+id/checkBox1"
+        android:layout_toRightOf="@+id/checkBox1"
+        android:gravity="center"
+        android:text="text"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/price"
+        style="@style/mytextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/checkBox1"
+        android:layout_alignBottom="@+id/checkBox1"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bar"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:text="@string/total" />
 
 </RelativeLayout>

@@ -2,13 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/roworder"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    
+        android:layout_marginLeft="8dp" >
 
     <TextView
         android:id="@+id/numbofitems"
         style="@style/mytextview"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/useraddress"
         android:layout_marginTop="14dp"
         android:text="@string/item" />
@@ -18,26 +21,8 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/neworder" />
-
-    <TextView
-        android:id="@+id/useraddress"
-        style="@style/mytextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="14dp"
-        android:layout_toLeftOf="@+id/totalamount"
-        android:layout_toStartOf="@+id/totalamount"
-        android:layout_toRightOf="@+id/newImg"
-        android:layout_toEndOf="@+id/newImg"
-        android:text="@string/address"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#ed1c24" />
 
     <TextView
         android:id="@+id/totalamount"
@@ -47,11 +32,28 @@
         android:layout_alignBaseline="@+id/useraddress"
         android:layout_alignBottom="@+id/useraddress"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:paddingLeft="5dp"
-        android:paddingStart="5dp"
-        android:gravity="center"
         android:background="@drawable/bar"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:text="@string/total" />
+
+    <TextView
+        android:id="@+id/useraddress"
+        style="@style/mytextview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_toRightOf="@+id/newImg"
+        android:layout_toLeftOf="@+id/totalamount"
+        android:gravity="left"
+        android:text="@string/address"
+        android:textAlignment="gravity"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ed1c24" />
 
 </RelativeLayout>

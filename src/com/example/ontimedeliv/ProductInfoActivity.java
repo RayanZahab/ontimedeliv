@@ -1,5 +1,6 @@
 package com.example.ontimedeliv;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import android.net.Uri;
@@ -80,15 +81,21 @@ public class ProductInfoActivity extends Activity {
 
 	public void setProduct(String s, String error) {
 		currentProduct = new APIManager().getItemsByCategoryAndBranch(s).get(0);
-
-		name.setText(currentProduct.getName());
-		desc.setText(currentProduct.getDescription());
-		price.setText("" + currentProduct.getPrice());
-
-		new ImageTask((ImageView) findViewById(R.id.preview),
-				ProductInfoActivity.this).execute(currentProduct.getPhoto()
+		String n;
+		try {
+			n = new String ((currentProduct.getName()).getBytes ("iso-8859-1"), "UTF-8");
+		
+			name.setText(n);
+			desc.setText(currentProduct.getDescription());
+			price.setText("" + currentProduct.getPrice());
+	
+			new ImageTask((ImageView) findViewById(R.id.preview),
+					ProductInfoActivity.this).execute(currentProduct.getPhoto()
 				.getUrl());
-
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		getUnits(false);
 	}
 

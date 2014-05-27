@@ -22,46 +22,17 @@
             android:layout_height="fill_parent"
             android:background="@drawable/myborder"
             android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_left_margin"
-    		android:paddingRight="@dimen/activity_left_margin" >
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/editTextAddName"
-                android:background="@drawable/divider" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/editTextAddress"
-                android:background="@drawable/divider" />
-
-            <View
-                android:id="@+id/divider3"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/addDesc"
-                android:background="@drawable/divider" />
-
-            <View
-                android:id="@+id/divider4"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/estimation"
-                android:background="@drawable/divider" />
+            android:paddingRight="@dimen/activity_left_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
 
             <TextView
                 android:id="@+id/countryLabel"
                 style="@style/mytextview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/divider4"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/divider4"
+                android:layout_below="@+id/estimation"
                 android:layout_marginTop="@dimen/vertical_margin"
                 android:text="@string/select_country"
                 android:textColor="#6f6f71"
@@ -109,16 +80,16 @@
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
                 android:layout_below="@+id/citiesLabel"
-                android:paddingRight="22dp"
-                android:background="@drawable/myspinner" />
+                android:background="@drawable/myspinner"
+                android:paddingRight="22dp" />
 
             <Spinner
                 android:id="@+id/areasSP"
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
-                android:paddingRight="22dp"
                 android:layout_below="@+id/areaLabel"
-                android:background="@drawable/myspinner" />
+                android:background="@drawable/myspinner"
+                android:paddingRight="22dp" />
 
             <ExpandableListView
                 android:id="@+id/lvExp"
@@ -149,11 +120,9 @@
                 android:ems="10"
                 android:hint="@string/name"
                 android:inputType="textPostalAddress"
-                android:textColor="#6f6f71"
                 android:paddingLeft="5dp"
+                android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd" >
-
-                <requestFocus />
             </EditText>
 
             <TextView
@@ -161,22 +130,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/editTextAddress"
-                android:layout_below="@+id/divider"
+                android:layout_below="@+id/editTextAddName"
                 android:layout_marginTop="10dp"
-                android:textColor="#6f6f71"
-                android:text="@string/address" />
+                android:text="@string/address"
+                android:textColor="#6f6f71" />
 
             <EditText
                 android:id="@+id/editTextAddress"
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
-                android:layout_alignLeft="@+id/divider2"
                 android:layout_below="@+id/textView2"
                 android:background="@drawable/edittext"
                 android:ems="10"
-                android:paddingLeft="5dp"
                 android:hint="@string/address"
                 android:inputType="text"
+                android:paddingLeft="5dp"
                 android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd" />
 
@@ -185,22 +153,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/addDesc"
-                android:layout_below="@+id/divider2"
+                android:layout_below="@+id/editTextAddress"
                 android:layout_marginTop="10dp"
-                android:textColor="#6f6f71"
-                android:text="@string/description" />
+                android:text="@string/description"
+                android:textColor="#6f6f71" />
 
             <EditText
                 android:id="@+id/addDesc"
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
-                android:layout_alignLeft="@+id/divider3"
                 android:layout_below="@+id/textView3"
                 android:background="@drawable/edittext"
                 android:ems="10"
-                android:paddingLeft="5dp"
                 android:hint="@string/description"
                 android:inputType="text"
+                android:paddingLeft="5dp"
                 android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd" />
 
@@ -209,26 +176,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/estimation"
-                android:layout_below="@+id/divider3"
+                android:layout_below="@+id/addDesc"
                 android:layout_marginTop="10dp"
-                android:textColor="#6f6f71"
-                android:text="@string/estimatedtime" />
+                android:text="@string/estimatedtime"
+                android:textColor="#6f6f71" />
 
             <EditText
                 android:id="@+id/estimation"
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
-                android:layout_alignLeft="@+id/divider4"
                 android:layout_below="@+id/textView4"
                 android:background="@drawable/edittext"
                 android:ems="10"
-                android:paddingLeft="5dp"
                 android:hint="@string/estimatedtime"
                 android:inputType="text"
+                android:paddingLeft="5dp"
                 android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd" />
-
         </RelativeLayout>
+
     </ScrollView>
 
 

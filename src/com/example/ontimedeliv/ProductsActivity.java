@@ -129,7 +129,7 @@ public class ProductsActivity extends Activity {
 		return true;
 	}
 
-	public void Delete(final int branchId) {
+	public void Delete(final int productId) {
 
 		new AlertDialog.Builder(this)
 				.setTitle(R.string.deletethisprod)
@@ -139,8 +139,8 @@ public class ProductsActivity extends Activity {
 
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
-								String serverURL = new myURL(null, "branches",
-										branchId, 0).getURL();
+								String serverURL = new myURL(null, "items",
+										productId, 0).getURL();
 								new MyJs("afterDelete", ProductsActivity.this,
 										((ontimedeliv) ProductsActivity.this
 												.getApplication()), "DELETE",

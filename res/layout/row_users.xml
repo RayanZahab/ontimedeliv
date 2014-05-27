@@ -6,32 +6,20 @@
         android:id="@+id/picture"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/user" />
 
     <TextView
         android:id="@+id/name"
+        style="@style/mytextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="23dp"
-        android:layout_marginStart="23dp"
-        style="@style/mytextview"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/picture"
-        android:layout_toEndOf="@+id/picture"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
         android:text="Name"
+        android:textAlignment="gravity"
         android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/role"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/mytextview"
-        android:layout_alignBottom="@+id/picture"
-        android:layout_alignLeft="@+id/name"
-        android:layout_alignStart="@+id/name"
-        android:text="@string/app_name" />
 
 </RelativeLayout>
