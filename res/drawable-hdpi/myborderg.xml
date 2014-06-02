@@ -4,7 +4,7 @@
     <item><layer-list>
             
             <item android:bottom="5dp" ><shape>
-                    <solid android:color="#fdfbe8"></solid>
+                    <solid android:color="#FFFFFF"></solid>
 
                     <padding android:bottom="10dp" />
                 </shape></item>
