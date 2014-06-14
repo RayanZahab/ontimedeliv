@@ -25,7 +25,7 @@ public class OrdersActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_orders);
 		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		
 		((ontimedeliv) this.getApplication()).clear("orders");
 		if (getIntent().hasExtra("old")
 				&& getIntent().getBooleanExtra("old", false)) {
@@ -36,7 +36,7 @@ public class OrdersActivity extends Activity {
 		isPreparer = ((ontimedeliv) this.getApplication()).isPrep();
 		if(admin)
 		{
-			
+			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 		else if(isPreparer)
 		{
