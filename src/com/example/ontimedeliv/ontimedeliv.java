@@ -1,6 +1,12 @@
 package com.example.ontimedeliv;
 
+import java.lang.Thread.UncaughtExceptionHandler;
+
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 public class ontimedeliv extends Application {
@@ -10,8 +16,13 @@ public class ontimedeliv extends Application {
 	private boolean admin, prep, delivery, keepme;
 	public MyJs.TransparentProgressDialog loader;
 	public TextProgressDialog txtDialog;
-	
+	private UncaughtExceptionHandler defaultUEH;
+
 	public ontimedeliv() {
+		defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
+
+		// setup handler for uncaught exception
+		Thread.setDefaultUncaughtExceptionHandler(_unCaughtExceptionHandler);
 	}
 
 	public String getToken() {
@@ -29,6 +40,29 @@ public class ontimedeliv extends Application {
 	public void setShopId(int shopId) {
 		this.shopId = shopId;
 	}
+
+	// handler listener
+	private Thread.UncaughtExceptionHandler _unCaughtExceptionHandler = new Thread.UncaughtExceptionHandler() {
+		@Override
+		public void uncaughtException(Thread thread, Throwable ex) {
+			// here I do logging of exception to a db
+			PendingIntent myActivity = PendingIntent.getActivity(
+					getBaseContext(), 192837, new Intent(getBaseContext(),
+							LoginActivity.class), PendingIntent.FLAG_ONE_SHOT);
+
+			AlarmManager alarmManager;
+			alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+			alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 15000,
+					myActivity);
+			SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+			settings.edit().clear().commit();
+			System.exit(2);
+
+			// re-throw critical exception further to the os (important)
+			defaultUEH.uncaughtException(thread, ex);
+
+		}
+	};
 
 	public void setGlobals() {
 
@@ -69,18 +103,18 @@ public class ontimedeliv extends Application {
 			productId = 0;
 			orderId = 0;
 			orderStatus = null;
-		}else if (current.equals("order")) {
+		} else if (current.equals("order")) {
 			branchId = 0;
 			categoryId = 0;
 			productId = 0;
 			userId = 0;
-		}else if (current.equals("orders")) {
+		} else if (current.equals("orders")) {
 			branchId = 0;
 			categoryId = 0;
 			productId = 0;
 			orderId = 0;
 			userId = 0;
-		}else if (current.equals("user")) {
+		} else if (current.equals("user")) {
 			branchId = 0;
 			categoryId = 0;
 			productId = 0;
