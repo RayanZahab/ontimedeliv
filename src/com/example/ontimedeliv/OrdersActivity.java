@@ -2,6 +2,8 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
+import eu.erikw.PullToRefreshListView;
+import eu.erikw.PullToRefreshListView.OnRefreshListener;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -10,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -17,34 +21,31 @@ public class OrdersActivity extends Activity {
 	OrdersAdapter dataAdapter;
 	ArrayList<Order> morders;
 	ArrayList<Item> orderItems = new ArrayList<Item>();
-	boolean old = false, admin = true , isPreparer =false;
+	boolean old = false, admin = true, isPreparer = false;
 	String status;
+	PullToRefreshListView lvTweets;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_orders);
 		ActionBar actionBar = getActionBar();
-		
+
 		((ontimedeliv) this.getApplication()).clear("orders");
 		if (getIntent().hasExtra("old")
 				&& getIntent().getBooleanExtra("old", false)) {
 			old = getIntent().getBooleanExtra("old", false);
 		}
-		admin = ((ontimedeliv) OrdersActivity.this.getApplication())
-				.isAdmin();
+		admin = ((ontimedeliv) OrdersActivity.this.getApplication()).isAdmin();
 		isPreparer = ((ontimedeliv) this.getApplication()).isPrep();
-		if(admin)
-		{
+		if (admin) {
 			actionBar.setDisplayHomeAsUpEnabled(true);
-		}
-		else if(isPreparer)
-		{
-			((ontimedeliv) OrdersActivity.this.getApplication()).setOrderStatus("assigned");
-		}
-		else
-		{
-			((ontimedeliv) OrdersActivity.this.getApplication()).setOrderStatus("prepared");
+		} else if (isPreparer) {
+			((ontimedeliv) OrdersActivity.this.getApplication())
+					.setOrderStatus("assigned");
+		} else {
+			((ontimedeliv) OrdersActivity.this.getApplication())
+					.setOrderStatus("prepared");
 		}
 		status = ((ontimedeliv) OrdersActivity.this.getApplication())
 				.getOrderStatus();
@@ -56,24 +57,36 @@ public class OrdersActivity extends Activity {
 	public void getOrders() {
 		String serverURL;
 		serverURL = new myURL(null, "orders", status, 30).getURL();
-		new MyJs("setOrders", this,
-				((ontimedeliv) this.getApplication()), "GET")
-				.execute(serverURL);
+		new MyJs("setOrders", this, ((ontimedeliv) this.getApplication()),
+				"GET").execute(serverURL);
+	}
+
+	public void fetchTimelineAsync(int page) {
+		Toast.makeText(getApplicationContext(), "Refreshed", Toast.LENGTH_SHORT)
+				.show();
+		getOrders();
 	}
 
 	public void setOrders(String s, String error) {
-
+		orderItems = new ArrayList<Item>();
 		morders = new APIManager().getOrders(s);
-		ListView listView = (ListView) findViewById(R.id.list);
+		lvTweets = (PullToRefreshListView) findViewById(R.id.list);
+
+		lvTweets.setOnRefreshListener(new OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				lvTweets.setAdapter(null);
+				fetchTimelineAsync(0);
+
+			}
+		});
 		if (morders.size() == 0) {
-			orderItems.add(new Item(0, getString(R.string.empty_list),0,0,false
-					));
-		}
-		else
-		{
+			orderItems.add(new Item(0, getString(R.string.empty_list), 0, 0,
+					false));
+		} else {
 			for (int i = 0; i < morders.size(); i++) {
-				Item itm= new Item(morders.get(i).getId(), 
-						morders.get(i).toString(), morders.get(i).getCount(), morders.get(i)
+				Item itm = new Item(morders.get(i).getId(), morders.get(i)
+						.toString(), morders.get(i).getCount(), morders.get(i)
 						.getTotal(), morders.get(i).isNewCustomer());
 				itm.setDate(morders.get(i).getDate());
 				orderItems.add(itm);
@@ -82,30 +95,28 @@ public class OrdersActivity extends Activity {
 
 		dataAdapter = new OrdersAdapter(OrdersActivity.this,
 				R.layout.row_order, orderItems);
-		listView.setAdapter(dataAdapter);
+		lvTweets.setAdapter(dataAdapter);
 		if (morders.size() == 0) {
-			dataAdapter.empty=true;
+			dataAdapter.empty = true;
 		}
-		listView.setOnItemClickListener(new OnItemClickListener() {
+		lvTweets.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (morders.size()>0)
-				{
+				if (morders.size() > 0) {
 					Intent i;
-					if(orderItems.get(position).isNew)
-					{
+					if (orderItems.get(position).isNew) {
 						i = new Intent(getBaseContext(), BlockUser.class);
-					}
-					else
-					{
-						i = new Intent(getBaseContext(), OrderInfoActivity.class);												
+					} else {
+						i = new Intent(getBaseContext(),
+								OrderInfoActivity.class);
 					}
 					((ontimedeliv) OrdersActivity.this.getApplication())
-					.setOrderId(orderItems.get(position).getId());
+							.setOrderId(orderItems.get(position).getId());
 					startActivity(i);
 				}
 			}
 		});
+		lvTweets.onRefreshComplete();
 	}
 
 	@Override
@@ -117,7 +128,7 @@ public class OrdersActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.orders, menu);
-		SharedMenu.onCreateOptionsMenu(this,menu, getApplicationContext());
+		SharedMenu.onCreateOptionsMenu(this, menu, getApplicationContext());
 		return true;
 	}
 
