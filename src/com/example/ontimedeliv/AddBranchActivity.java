@@ -114,7 +114,7 @@ public class AddBranchActivity extends Activity implements
 				Toast.makeText(getApplicationContext(),
 						listDataHeader.get(groupPosition) + " Expanded",
 						Toast.LENGTH_SHORT).show();
-				new Helper(1000).getListViewSize(expListView);
+				new Helper(2350).getListViewSize(expListView);
 			}
 		});
 
@@ -125,7 +125,7 @@ public class AddBranchActivity extends Activity implements
 				Toast.makeText(getApplicationContext(),
 						listDataHeader.get(groupPosition) + " Collapsed",
 						Toast.LENGTH_SHORT).show();
-				new Helper(60).getListViewSize(expListView);
+				new Helper(100).getListViewSize(expListView);
 
 			}
 		});
