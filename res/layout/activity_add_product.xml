@@ -124,8 +124,6 @@
                 android:paddingTop="10dp"
                 android:singleLine="false"
                 android:textSize="12sp" >
-
-                <requestFocus />
             </EditText>
 
             <TextView
