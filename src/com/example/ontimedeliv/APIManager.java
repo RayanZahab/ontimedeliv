@@ -133,6 +133,7 @@ public class APIManager {
 				int id, country_id, city_id;
 				String name;
 				if (jsonResponse.has("elements")) {
+					gridArray.add(new Area(0, "Select"));
 					JSONArray jsonMainNode = jsonResponse
 							.optJSONArray("elements");
 					int lengthJsonArr = jsonMainNode.length();
@@ -682,8 +683,10 @@ public class APIManager {
 	public ArrayList<User> getUsers(String cont) {
 		JSONObject jsonResponse, jsonRole;
 		ArrayList<User> gridArray = new ArrayList<User>();
-
+		if(cont.isEmpty())
+			return gridArray;
 		try {
+			Log.d("ray","getuser: "+cont);
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id, branch_id;

@@ -43,9 +43,11 @@ public class ItemsFilter extends Filter {
 				Log.d("ray","rays to str : "+itemName);
 				// First match against the whole, non-splitted value
 				if (itemName.contains(prefixString)) {
-					Log.d("=>","cont");
+					Log.d("=>","search: "+prefixString);
 					newItems.add(item);
-				}
+				}else if(newItems.indexOf(item)>-1)
+					newItems.remove(item);
+					
 			}
 			// Set and return
 			results.values = newItems;
@@ -75,6 +77,19 @@ public class ItemsFilter extends Filter {
 			}
 			adapter.notifyDataSetChanged();
 		} else {
+			tmpList = new ArrayList<Item>();
+			Item i = new Item("empty");
+			tmpList.add(i);
+			if(adapter instanceof MyCustomAdapter)
+			{
+				((MyCustomAdapter) adapter).tmpList = tmpList;
+				((MyCustomAdapter) adapter).currentList = currentList;
+			}
+			else if (adapter instanceof CheckboxAdapter)
+			{
+				((CheckboxAdapter) adapter).tmpList = tmpList;
+				((CheckboxAdapter) adapter).currentList = currentList;
+			}
 			adapter.notifyDataSetInvalidated();
 		}
 	}

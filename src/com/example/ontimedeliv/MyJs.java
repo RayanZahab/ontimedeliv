@@ -148,6 +148,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			}
 
 			if (this.method.equals("GET")) {
+				Log.d("ray","stream: "+conn.getInputStream());
 				reader = new BufferedReader(new InputStreamReader(
 						conn.getInputStream()));
 				StringBuilder sb = new StringBuilder();
@@ -274,7 +275,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			if (Content == null)
 				Content = "";
 			if (Error != null) {
-				new GlobalM().bkToNav(mc, getError(Content,Error));
+				Log.d("ray","ray error: "+Error);
+				//new GlobalM().bkToNav(mc, getError(Content,Error));
 			}
 			Method returnFunction = this.mc.getClass()
 					.getMethod(this.returnFunction, Content.getClass(),

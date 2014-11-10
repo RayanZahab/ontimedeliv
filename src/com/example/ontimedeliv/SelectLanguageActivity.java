@@ -70,7 +70,7 @@ public class SelectLanguageActivity extends Activity {
 		case R.id.about:
 			method = null;
 			Toast.makeText(getApplicationContext(),
-					"Developed By Array Fusion", Toast.LENGTH_SHORT)
+					"Developed With Passion", Toast.LENGTH_SHORT)
 					.show();
 			break;
 		}

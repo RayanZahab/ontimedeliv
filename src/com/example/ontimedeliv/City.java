@@ -1,10 +1,14 @@
 package com.example.ontimedeliv;
 
+import java.util.ArrayList;
+
 public class City {
 	private int id;
 	private int country_id;
 	private String name;
-
+	private ArrayList<Area> areas = new ArrayList<Area>();
+	private String json;
+	
 	public City(int id,String name) {
 		this.setId(id);
 		this.setName(name);
@@ -51,5 +55,17 @@ public class City {
 		if(this.id == c.getId())
 			return true;
 		return false;
+	}
+	public ArrayList<Area> getAreas() {
+		return areas;
+	}
+	public void setAreas(ArrayList<Area> areas) {
+		this.areas = areas;
+	}
+	public String getJson() {
+		return json;
+	}
+	public void setJson(String json) {
+		this.json = json;
 	}
 }

@@ -88,7 +88,7 @@ public class SharedMenu extends Activity {
 		Intent intent;
 		switch (item.getItemId()) {
 		case SharedMenu.ABOUT:
-			Toast msg = Toast.makeText(context, "Developped by ArrayFusion",
+			Toast msg = Toast.makeText(context, "Developped with Passion",
 					Toast.LENGTH_LONG);
 			msg.show();
 			return true;

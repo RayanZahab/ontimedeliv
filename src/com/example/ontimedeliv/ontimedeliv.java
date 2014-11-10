@@ -1,6 +1,7 @@
 package com.example.ontimedeliv;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.ArrayList;
 
 import android.app.AlarmManager;
 import android.app.Application;
@@ -17,14 +18,20 @@ public class ontimedeliv extends Application {
 	public MyJs.TransparentProgressDialog loader;
 	public TextProgressDialog txtDialog;
 	private UncaughtExceptionHandler defaultUEH;
+	private ArrayList<Country> countries ;
 
 	public ontimedeliv() {
-		defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
+		//defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
 
 		// setup handler for uncaught exception
-		Thread.setDefaultUncaughtExceptionHandler(_unCaughtExceptionHandler);
+		//Thread.setDefaultUncaughtExceptionHandler(_unCaughtExceptionHandler);
 	}
-
+	public ArrayList<Country> getCountries() {
+		return countries;
+	}
+	public void setCountries(ArrayList<Country> countries) {
+		this.countries = countries;
+	}
 	public String getToken() {
 		return token;
 	}

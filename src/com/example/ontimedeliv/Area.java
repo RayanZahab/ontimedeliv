@@ -5,6 +5,7 @@ public class Area {
 	private String name;
 	private Integer city_id;
 	private int country_id;
+	private String displayName;
 
 	public Area(int id) {
 		this.id = id;
@@ -60,6 +61,12 @@ public class Area {
 
 	public void setCountry_id(int country_id) {
 		this.country_id = country_id;
+	}
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 	@Override
 	public boolean equals(Object obj) {
