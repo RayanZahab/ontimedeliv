@@ -120,7 +120,7 @@ public class ProductsActivity extends Activity {
 			Edit(productItems.get((int) info.id));
 			break;
 		case R.id.delete:
-			Delete(productItems.get((int) info.id).getId());
+			Delete((int) info.id);
 			break;
 		default:
 			break;
@@ -129,8 +129,8 @@ public class ProductsActivity extends Activity {
 		return true;
 	}
 
-	public void Delete(final int productId) {
-
+	public void Delete(final int position) {
+		final int productId = productItems.get(position).getId();
 		new AlertDialog.Builder(this)
 				.setTitle(R.string.deletethisprod)
 				.setIcon(R.drawable.branches)
@@ -145,12 +145,15 @@ public class ProductsActivity extends Activity {
 										((ontimedeliv) ProductsActivity.this
 												.getApplication()), "DELETE",
 										true, true).execute(serverURL);
+								productItems.remove(position);
 							}
 						}).setNegativeButton(android.R.string.no, null).show();
 	}
 
 	public void afterDelete(String s, String error) {
-		backToActivity(CategoriesActivity.class);
+		dataAdapter.currentList = productItems;
+		dataAdapter.tmpList = productItems;
+		dataAdapter.notifyDataSetChanged();
 	}
 
 	public void backToActivity(Class activity) {

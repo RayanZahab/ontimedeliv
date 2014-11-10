@@ -195,7 +195,7 @@ public class CategoriesActivity extends Activity {
 			Edit(categoryItems.get((int) info.id));
 			break;
 		case R.id.delete:
-			Delete((categoryItems.get((int) info.id)).getId());
+			Delete((int) info.id);
 			break;
 		default:
 			break;
@@ -327,8 +327,8 @@ public class CategoriesActivity extends Activity {
 		startActivity(i);
 	}
 
-	public void Delete(final int catId) {
-
+	public void Delete(final int position) {
+		final int catId = categoryItems.get(position).getId();
 		new AlertDialog.Builder(this)
 				.setTitle(R.string.deletethiscat)
 				.setIcon(R.drawable.categories)
@@ -343,13 +343,16 @@ public class CategoriesActivity extends Activity {
 										CategoriesActivity.this,
 										((ontimedeliv) CategoriesActivity.this
 												.getApplication()), "DELETE");
+								categoryItems.remove(position);
 								mjs.execute(serverURL);
 							}
 						}).setNegativeButton(android.R.string.no, null).show();
 	}
 
 	public void afterDelete(String s, String error) {
-		backToActivity(CategoriesActivity.class);
+		dataAdapter.currentList = categoryItems;
+		dataAdapter.tmpList = categoryItems;
+		dataAdapter.notifyDataSetChanged();
 	}
 
 	public void backToActivity(Class activity) {

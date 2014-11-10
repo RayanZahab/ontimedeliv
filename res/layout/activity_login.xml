@@ -24,7 +24,7 @@
             android:background="@drawable/edittext"
             android:ellipsize="start"
             android:ems="10"
-            android:hint="@string/username"
+            android:hint="@string/phonenum"
             android:inputType="text"
             android:textSize="16sp"
             android:paddingLeft="10dp"

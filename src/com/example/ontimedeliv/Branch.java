@@ -182,7 +182,7 @@ public class Branch {
 
 	public String toString() {
 		if(this.area!=null)
-			return this.name + "\n" + this.area.getName()+ " , "  + this.address;
+			return " <b> " +this.name + " </b> <BR>" + this.area.getName()+ " , "  + this.address;
 		else
 			return this.name;
 	}
