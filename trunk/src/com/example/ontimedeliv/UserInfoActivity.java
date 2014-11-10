@@ -104,6 +104,7 @@ public class UserInfoActivity extends Activity implements
 		admin.setChecked(currentUser.isIs_admin());
 		preparer.setChecked(currentUser.isIs_preparer());
 		delivery.setChecked(currentUser.isIs_delivery());
+		getActionBar().setTitle(currentUser.getName());  
 		getBranches(false);
 	}
 

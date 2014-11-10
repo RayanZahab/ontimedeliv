@@ -88,7 +88,7 @@ public class ProductInfoActivity extends Activity {
 			name.setText(n);
 			desc.setText(currentProduct.getDescription());
 			price.setText("" + currentProduct.getPrice());
-	
+			getActionBar().setTitle(currentProduct.getName());  
 			new ImageTask((ImageView) findViewById(R.id.preview),
 					ProductInfoActivity.this).execute(currentProduct.getPhoto()
 				.getUrl());

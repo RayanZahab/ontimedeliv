@@ -43,7 +43,6 @@ public class AddBranchActivity extends Activity implements
 	List<String> listDataHeader;
 	HashMap<String, List<String>> listDataChild;
 	GlobalM glob = new GlobalM();
-	boolean click = false;
 	String method = "PUT";
 	String openMethod = "update_opening_hours";
 	String serverURL = "";
@@ -59,14 +58,7 @@ public class AddBranchActivity extends Activity implements
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);
 		areasSp = (Spinner) findViewById(R.id.areasSP);
-		countrySp.setOnTouchListener(new View.OnTouchListener() {
 
-			@Override
-			public boolean onTouch(View arg0, MotionEvent arg1) {
-				click = true;
-				return false;
-			}
-		});
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
 		((ontimedeliv) this.getApplication()).clear("branch");
@@ -77,7 +69,7 @@ public class AddBranchActivity extends Activity implements
 			serverURL = new myURL(null, "branches", branchId, 0).getURL();
 			submit.setText("Update");
 		} else {
-			getCountries(true);
+			getCountries();
 			populateExp(null);
 			serverURL = new myURL("branches", null, 0, 0).getURL();
 			method = "POST";
@@ -152,7 +144,7 @@ public class AddBranchActivity extends Activity implements
 		String url = new myURL(null, "branches", branchId, 1).getURL();
 		String serverURL = url;
 		new MyJs("setBranchInfo", this, ((ontimedeliv) this.getApplication()),
-				"GET", true, false).execute(serverURL);
+				"GET", true, true).execute(serverURL);
 
 	}
 
@@ -168,7 +160,7 @@ public class AddBranchActivity extends Activity implements
 		openhour.add(getString(R.string.friday));
 		openhour.add(getString(R.string.saturday));
 		openhour.add(getString(R.string.sunday));
-
+		
 		listDataChild.put(listDataHeader.get(0), openhour);
 	}
 
@@ -187,7 +179,8 @@ public class AddBranchActivity extends Activity implements
 		desc.setText(currentBranch.getDescription());
 		address.setText(currentBranch.getAddress());
 		estimation.setText(currentBranch.getEstimation_time());
-		getCountries(false);
+		getActionBar().setTitle(currentBranch.getName());  
+		getCountries();
 	}
 
 	public void addBranch(View v) {
@@ -250,97 +243,68 @@ public class AddBranchActivity extends Activity implements
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void getCountries(boolean first) {
-		String serverURL = new myURL("countries", null, 0, 30).getURL();
-		MyJs mjs = new MyJs("setCountries", AddBranchActivity.this,
-				((ontimedeliv) this.getApplication()), "GET", first, false);
-		mjs.execute(serverURL);
-	}
-
-	public void setCountries(String s, String error) {
-		click = false;
-		countries = new APIManager().getCountries(s);
-		ArrayAdapter<Country> counrytAdapter = new ArrayAdapter<Country>(this,
-				android.R.layout.simple_spinner_item, countries);
-		counrytAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-		counrytAdapter.notifyDataSetChanged();
-		areasSp.setAdapter(null);
-		countrySp.setAdapter(counrytAdapter);
-		countrySp.setOnItemSelectedListener(this);
-		if (currentBranch != null
-				&& currentBranch.getArea().getCountry_id() != 0)
-		{
-			glob.setSelected(countrySp, counrytAdapter, new Country(
-					currentBranch.getArea().getCountry_id()));
-		}
-		
+	public void getCountries() {
+		countries = ((ontimedeliv) getApplication())
+				.getCountries();
+		updateList("country");
 	}
 
 	public void getCities(int CountryId) {
-		String serverURL = new myURL("cities", "countries", CountryId, 30)
-				.getURL();
-		new MyJs("setCities", AddBranchActivity.this,
-				((ontimedeliv) this.getApplication()), "GET", click, true)
-				.execute(serverURL);
-		click = false;
-	}
-
-	public void setCities(String s, String error) {
-		cities = new APIManager().getCitiesByCountry(s);
-		ArrayAdapter<City> cityAdapter = new ArrayAdapter<City>(this,
-				android.R.layout.simple_spinner_item, cities);
-		cityAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		cityAdapter.notifyDataSetChanged();
-		areasSp.setAdapter(null);
-		citySp.setAdapter(cityAdapter);
-		citySp.setOnItemSelectedListener(this);
-		if (currentBranch != null && currentBranch.getArea().getCity_id() != 0)
-			glob.setSelected(citySp, cityAdapter, new City(currentBranch
-					.getArea().getCity_id()));
+		cities = countries.get(CountryId).getCities();
+		Log.d("ray","country: "+CountryId+"->"+cities.size()+"-"+ citySp.getCount());
+		updateList("city");
 	}
 
 	public void getAreas(int CityId) {
-		String serverURL = new myURL("areas", "cities", CityId, 30).getURL();
-		MyJs mjs = new MyJs("setAreas", AddBranchActivity.this,
-				((ontimedeliv) this.getApplication()), "GET", click, true);
-		click = false;
-		mjs.execute(serverURL);
+		areas = cities.get(CityId).getAreas();
+		updateList("area");
 	}
-
-	public void setAreas(String s, String error) {
-		areas = new APIManager().getAreasByCity(s);
-		ArrayAdapter<Area> areaAdapter = new ArrayAdapter<Area>(this,
-				android.R.layout.simple_spinner_item, areas);
-		areaAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		areaAdapter.notifyDataSetChanged();
-		areasSp.setAdapter(areaAdapter);
-		areasSp.setOnItemSelectedListener(this);
-		if (currentBranch != null && currentBranch.getArea() != null)
-			glob.setSelected(areasSp, areaAdapter, new Area(currentBranch
-					.getArea().getId()));
-		click=true;
-	}
-
-	@Override
-	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
-			long arg3) {
-		Object sp1 = arg0.getSelectedItem();
-		if (sp1 instanceof Country) {
-			if (((Country) sp1).getId() != 0)
-				getCities(((Country) sp1).getId());
-		} else if (sp1 instanceof City) {
-			if (((City) sp1).getId() != 0)
-				getAreas(((City) sp1).getId());
+	public void updateList(String type) {
+		if (type.equals("country")) {
+			ArrayAdapter<Country> counrytAdapter = new ArrayAdapter<Country>(
+					this, android.R.layout.simple_spinner_item, countries);
+			counrytAdapter
+					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			counrytAdapter.notifyDataSetChanged();
+			areasSp.setAdapter(null);
+			countrySp.setAdapter(counrytAdapter);
+			countrySp.setOnItemSelectedListener(this);
+		} else if (type.equals("city")) {
+			ArrayAdapter<City> cityAdapter = new ArrayAdapter<City>(this,
+					android.R.layout.simple_spinner_item, cities);
+			cityAdapter
+					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			cityAdapter.notifyDataSetChanged();
+			areasSp.setAdapter(null);
+			citySp.setAdapter(cityAdapter);
+			citySp.setOnItemSelectedListener(this);
+		} else if (type.equals("area")) {
+			ArrayAdapter<Area> areaAdapter = new ArrayAdapter<Area>(this,
+					android.R.layout.simple_spinner_item, areas);
+			areaAdapter
+					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			areaAdapter.notifyDataSetChanged();
+			areasSp.setAdapter(areaAdapter);
+			areasSp.setOnItemSelectedListener(this);
 		}
+
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
 		Log.d("ray", "ray nothing");
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
+		Object sp1 = arg0.getSelectedItem();
+		if (sp1 instanceof Country) {
+			getCities(position);
+		} else if (sp1 instanceof City) {
+			getAreas(position);
+		}
+		
 	}
 
 }
