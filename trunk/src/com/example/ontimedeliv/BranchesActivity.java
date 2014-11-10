@@ -79,7 +79,6 @@ public class BranchesActivity extends Activity {
 				branchesItem);
 		SharedMenu.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);
-
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -117,7 +116,7 @@ public class BranchesActivity extends Activity {
 			Edit(branchesItem.get((int) info.id));
 			break;
 		case R.id.delete:
-			Delete(branchesItem.get((int) info.id).getId());
+			Delete((int) info.id);
 			break;
 		default:
 			break;
@@ -126,10 +125,10 @@ public class BranchesActivity extends Activity {
 		return true;
 	}
 
-	public void Delete(final int branchId) {
-
+	public void Delete(final int position) {
+		final int branchId = branchesItem.get(position).getId();
 		new AlertDialog.Builder(this)
-				.setTitle("Delete this branch?")
+				.setTitle("Delete this branch?: "+branchId)
 				.setIcon(R.drawable.branches)
 				.setPositiveButton(android.R.string.yes,
 						new DialogInterface.OnClickListener() {
@@ -143,12 +142,16 @@ public class BranchesActivity extends Activity {
 										((ontimedeliv) BranchesActivity.this
 												.getApplication()), "DELETE");
 								mjs.execute(serverURL);
+								branchesItem.remove(position);
+
 							}
 						}).setNegativeButton(android.R.string.no, null).show();
 	}
 
 	public void afterDelete(String s, String error) {
-		backToActivity(BranchesActivity.class);
+		dataAdapter.currentList = branchesItem;
+		dataAdapter.tmpList = branchesItem;
+		dataAdapter.notifyDataSetChanged();
 	}
 
 	public void Edit(Item item) {

@@ -3,6 +3,7 @@ package com.example.ontimedeliv;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +81,7 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 
 		Item navitem = tmpList.get(position);
 		holder.name = (TextView) convertView.findViewById(R.id.name);
-		holder.name.setText(navitem.getTitle());
+		holder.name.setText(Html.fromHtml(navitem.getTitle()));
 
 		holder.picture = (ImageView) convertView.findViewById(R.id.picture);
 		holder.picture.setImageResource(navitem.getImg());
