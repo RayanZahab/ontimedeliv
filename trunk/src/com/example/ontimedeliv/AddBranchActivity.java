@@ -209,15 +209,13 @@ public class AddBranchActivity extends Activity implements
 		if (valid.isValid(this)) {
 			//new MyJs("openHours", this, ((ontimedeliv) this.getApplication()),
 			//		method, (Object) currentBranch).execute(serverURL);
-			
+			RZHelper p = new RZHelper(serverURL,this,"afterDeactivate");			
 			if(method.equals("POST"))
 			{
-				RZHelper p = new RZHelper(serverURL,this,"afterDeactivate");
 				p.post(currentBranch);
 			}
 			else
 			{
-				RZHelper p = new RZHelper(serverURL,this,"afterDeactivate");
 				p.put(currentBranch);
 			}
 		}
@@ -230,15 +228,13 @@ public class AddBranchActivity extends Activity implements
 		if (error == null) {
 			String ourl = new myURL(openMethod, "branches", branchId, 0)
 					.getURL();			
-			
+			RZHelper p = new RZHelper(ourl,this,"backToSelection");			
 			if(method.equals("POST"))
 			{
-				RZHelper p = new RZHelper(ourl,this,"backToSelection");
 				p.post(currentBranch);
 			}
 			else
 			{
-				RZHelper p = new RZHelper(ourl,this,"backToSelection");
 				p.put(currentBranch);
 			}
 			
