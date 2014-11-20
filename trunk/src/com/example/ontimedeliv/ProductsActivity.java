@@ -173,8 +173,10 @@ public class ProductsActivity extends Activity {
 
 	public void getProducts() {
 		String serverURL = this.url;
-		new MyJs("setProducts", this, ((ontimedeliv) this.getApplication()),
-				"GET").execute(serverURL);
+		//new MyJs("setProducts", this, ((ontimedeliv) this.getApplication()),
+			//	"GET").execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setProducts");
+		p.async_get();
 	}
 
 	public void setProducts(String s, String error) {

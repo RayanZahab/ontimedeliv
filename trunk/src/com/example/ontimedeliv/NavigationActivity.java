@@ -69,9 +69,11 @@ public class NavigationActivity extends Activity {
 	public void getCountries() {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
 		Log.d("ray", "count: " + serverURL);
-		MyJs mjs = new MyJs("setCountries", this,
-				((ontimedeliv) getApplication()), "GET", true, false);
-		mjs.execute(serverURL);
+		//MyJs mjs = new MyJs("setCountries", this,
+			//	((ontimedeliv) getApplication()), "GET", true, false);
+		//mjs.execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setCountries");
+		p.async_get();
 	}
 
 	public void setCountries(String s, String error) {
@@ -91,8 +93,10 @@ public class NavigationActivity extends Activity {
 		Log.d("ray", "City for: " + position + "->" + countryId);
 		String serverURL = new myURL("cities", "countries", countryId, 30)
 				.getURL();
-		new MyJs("setCities", this, ((ontimedeliv) getApplication()), "GET",
-				false, false).execute(serverURL);
+		//new MyJs("setCities", this, ((ontimedeliv) getApplication()), "GET",
+			//	false, false).execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setCities");
+		p.async_get();
 	}
 
 	public void setCities(String s, String error) {
@@ -112,9 +116,11 @@ public class NavigationActivity extends Activity {
 		cityP = position;
 		CityId = cities.get(position).getId();
 		String serverURL = new myURL("areas", "cities", CityId, 30).getURL();
-		MyJs mjs = new MyJs("setAreas", this,
-				((ontimedeliv) this.getApplication()), "GET", false, false);
-		mjs.execute(serverURL);
+		//MyJs mjs = new MyJs("setAreas", this,
+			//	((ontimedeliv) this.getApplication()), "GET", false, false);
+		//mjs.execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setAreas");
+		p.async_get();
 	}
 
 	public void setAreas(String s, String error) {

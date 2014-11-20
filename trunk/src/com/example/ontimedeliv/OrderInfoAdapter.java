@@ -200,7 +200,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 			double newPrice;
 			if(!s.toString().isEmpty())
 			{
-				newPrice = holder.unitPrice*Integer.parseInt(s.toString());
+				newPrice = holder.unitPrice*Converter.toInt(s.toString());
 				this.holder.price.setText(""+newPrice);
 			}
 			else
@@ -209,17 +209,17 @@ public class OrderInfoAdapter extends ArrayAdapter<Item> {
 				newPrice=0;
 			}
 
-			double total=Double.parseDouble(totalTxt.getText().toString())+newPrice;
+			double total=Converter.toDouble(totalTxt.getText().toString())+newPrice;
 			totalTxt.setText(""+total);
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			double total=Double.parseDouble(totalTxt.getText().toString());
+			double total=Converter.toDouble(totalTxt.getText().toString());
 			if(!s.toString().isEmpty())
 			{
-				this.oldValue =Double.parseDouble(holder.price.getText().toString());
+				this.oldValue =Converter.toDouble(holder.price.getText().toString());
 				total=total-this.oldValue;
 			}
 			else

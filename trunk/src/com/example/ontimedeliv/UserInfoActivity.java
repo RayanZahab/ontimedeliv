@@ -2,6 +2,8 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -43,7 +45,7 @@ public class UserInfoActivity extends Activity implements
 		if (getIntent().hasExtra("id")) {
 			Bundle extras = getIntent().getExtras();
 			try {
-				userId = Integer.parseInt((String) extras.getString("id"));
+				userId = Converter.toInt((String) extras.getString("id"));
 				getCurrentUser(userId);
 				Button submit = (Button) findViewById(R.id.submit);
 				submit.setText("Update");
@@ -83,8 +85,10 @@ public class UserInfoActivity extends Activity implements
 	public void getCurrentUser(int userId) {
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
-		new MyJs("setUserInfo", this, ((ontimedeliv) this.getApplication()),
-				"GET", true, false).execute(serverURL);
+		//new MyJs("setUserInfo", this, ((ontimedeliv) this.getApplication()),
+			//	"GET", true, false).execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setUserInfo");
+		p.async_get();
 	}
 
 	public void setUserInfo(String s, String error) {
@@ -110,8 +114,10 @@ public class UserInfoActivity extends Activity implements
 
 	public void getBranches(boolean first) {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		new MyJs("setBranches", this, ((ontimedeliv) this.getApplication()),
-				"GET", first, true).execute(serverURL);
+		//new MyJs("setBranches", this, ((ontimedeliv) this.getApplication()),
+			//	"GET", first, true).execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setBranches");
+		p.async_get();
 	}
 
 	public void setBranches(String s, String error) {
@@ -193,9 +199,13 @@ public class UserInfoActivity extends Activity implements
 		ValidationError valid = role.validate(false);
 		if(valid.isValid(this))
 		{
-			new MyJs("afterRoles", this, ((ontimedeliv) this.getApplication()),
-				"POST", (Object) role, false, true)
-				.execute(makePreparerURL);
+			//new MyJs("afterRoles", this, ((ontimedeliv) this.getApplication()),
+				//"POST", (Object) role, false, true)
+			//	.execute(makePreparerURL);
+			JSONObject params = (new APIManager())
+					.objToCreate((Object) role);
+			RZHelper p = new RZHelper(makePreparerURL,this,"afterRoles");
+			p.async_post(params);
 		}
 		
 	}

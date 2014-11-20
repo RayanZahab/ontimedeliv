@@ -1,11 +1,18 @@
 package com.example.ontimedeliv;
 
+import org.json.JSONObject;
+
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.util.Log;
 import android.view.Menu;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -45,13 +52,18 @@ public class LoginActivity extends Activity {
 		String serverURL = new myURL(null, "users", "login", 0).getURL();
 		User user = new User(username.getText().toString(), null);
 		user.setEncPassword(password.getText().toString());
-		MyJs mjs = new MyJs("getLoggedIn", this,
-				((ontimedeliv) this.getApplication()), "POST", (Object) user);
-		mjs.execute(serverURL);
+		//MyJs mjs = new MyJs("getLoggedIn", this,
+		//		((ontimedeliv) this.getApplication()), "POST", (Object) user);
+		//mjs.execute(serverURL);
+		JSONObject params = (new APIManager())
+				.objToCreate((Object) user);
+		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn");
+		p.async_post(params);
+		//Activity a,final String m, String url,JSONObject params){
 
 	}
-
-	public void getLoggedIn(String s, String error) {
+	
+	public  void getLoggedIn(String s, String error) {
 		if (error == null) {
 			User user = new APIManager().getLogedInUser(s);
 			CheckBox keeplog = (CheckBox) findViewById(R.id.keeploggedin);
@@ -69,7 +81,7 @@ public class LoginActivity extends Activity {
 			editor.putInt("shopId", 6);
 			editor.putInt("branchId", user.getBranch_id());
 			editor.putInt("id", user.getId());
-
+			Log.d("login",user.getToken());
 			editor.commit();
 
 			((ontimedeliv) this.getApplication()).setGlobals();

@@ -2,6 +2,8 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -105,9 +107,12 @@ public class CategoriesActivity extends Activity {
 
 	public void getCategories() {
 		String serverURL = this.url;
+		/*
 		MyJs mjs = new MyJs("setCategories", this,
 				((ontimedeliv) CategoriesActivity.this.getApplication()), "GET");
-		mjs.execute(serverURL);
+		mjs.execute(serverURL);*/
+		RZHelper p = new RZHelper(serverURL,this,"setCategories");
+		p.async_get();
 	}
 
 	public Bitmap drawableToBitmap(String uri) {
@@ -309,8 +314,12 @@ public class CategoriesActivity extends Activity {
 	public void addCategory(String categoryName, int shopId) {
 		String serverURL = new myURL("categories", null, 0, 0).getURL();
 		Category newCategory = new Category(0, categoryName, true, shopId);
-		new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
-				"POST", (Object) newCategory).execute(serverURL);
+		//new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
+			//	"POST", (Object) newCategory).execute(serverURL);
+		JSONObject params = (new APIManager())
+				.objToCreate((Object) newCategory);
+		RZHelper p = new RZHelper(serverURL,this,"afterCreation");
+		p.async_post(params);
 	}
 
 	public void editCategory(int categoryId, String categoryName) {

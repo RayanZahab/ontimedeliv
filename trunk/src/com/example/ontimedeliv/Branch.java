@@ -63,8 +63,8 @@ public class Branch {
 					
 					if (froms.get(i) != null
 							&& tos.get(i) != null) {
-						from = Double.parseDouble(froms.get(i));
-						to = Double.parseDouble(tos.get(i));
+						from = Converter.toDouble(froms.get(i));
+						to = Converter.toDouble(tos.get(i));
 						if (from >= to || from<0 || to <0) {
 							msg = R.string.from_bigger;
 							error = false;
@@ -169,7 +169,7 @@ public class Branch {
 	}
 
 	public void setEstimation_time(String estimation_time) {
-		this.estimation_time = estimation_time;
+		this.estimation_time = estimation_time; 
 	}
 
 	public Shop getShop() {
@@ -181,6 +181,13 @@ public class Branch {
 	}
 
 	public String toString() {
+		if(this.area!=null)
+			return this.name + "\n" + this.area.getName()+ " , "  + this.address;
+		else
+			return this.name;
+	}
+
+	public String displayName() {
 		if(this.area!=null)
 			return " <b> " +this.name + " </b> <BR>" + this.area.getName()+ " , "  + this.address;
 		else

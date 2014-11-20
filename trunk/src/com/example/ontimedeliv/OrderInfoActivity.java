@@ -137,8 +137,10 @@ public class OrderInfoActivity extends Activity {
 
 	public void getPreparers() {
 		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
-		new MyJs("setPreparers", this, ((ontimedeliv) this.getApplication()),
-				"GET", false, true).execute(serverURL);
+		//new MyJs("setPreparers", this, ((ontimedeliv) this.getApplication()),
+			//	"GET", false, true).execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setPreparers");
+		p.async_get();
 	}
 
 	public void setPreparers(String s, String error) {
@@ -160,8 +162,10 @@ public class OrderInfoActivity extends Activity {
 
 	public void getDelivery() {
 		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
-		new MyJs("setDeivery", this, ((ontimedeliv) this.getApplication()),
-				"GET", false, false).execute(serverURL);
+		//new MyJs("setDeivery", this, ((ontimedeliv) this.getApplication()),
+			//	"GET", false, false).execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setDeivery");
+		p.async_get();
 	}
 
 	public void setDeivery(String s, String error) {
@@ -200,9 +204,11 @@ public class OrderInfoActivity extends Activity {
 
 	public void getCurrentOrder(int orderId) {
 		String serverURL = new myURL(null, "orders", orderId, 0).getURL();
-		MyJs mjs = new MyJs("setOrderInfo", this,
-				((ontimedeliv) this.getApplication()), "GET", true, false);
-		mjs.execute(serverURL);
+		//MyJs mjs = new MyJs("setOrderInfo", this,
+			//	((ontimedeliv) this.getApplication()), "GET", true, false);
+		//mjs.execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setOrderInfo");
+		p.async_get();
 	}
 
 	public void setOrderInfo(String s, String error) {
@@ -261,7 +267,7 @@ public class OrderInfoActivity extends Activity {
 			View single;
 			for (int i = 0; i < listView.getAdapter().getCount(); i++) {
 				single = listView.getChildAt(i);
-				quantity = Integer.parseInt(((EditText) single
+				quantity = Converter.toInt(((EditText) single
 						.findViewById(R.id.quantity)).getText().toString());
 				item = new OrderItem();
 				item.setQuantity(quantity);
