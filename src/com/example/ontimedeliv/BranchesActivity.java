@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -46,9 +47,11 @@ public class BranchesActivity extends Activity {
 
 	public void getBranches() {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		MyJs mjs = new MyJs("setBranches", this,
-				((ontimedeliv) this.getApplication()), "GET");
-		mjs.execute(serverURL);
+		//MyJs mjs = new MyJs("setBranches", this,
+		//		((ontimedeliv) this.getApplication()), "GET");
+		//mjs.execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setBranches");
+		p.async_get();
 	}
 
 	public void setBranches(String s, String error) {
@@ -71,7 +74,7 @@ public class BranchesActivity extends Activity {
 		} else {
 			for (int i = 1; i < branches.size(); i++) {
 				branchesItem.add(new Item(branches.get(i).getId(), "",
-						branches.get(i).toString()));
+						branches.get(i).displayName()));
 			}
 			registerForContextMenu(listView);
 		}

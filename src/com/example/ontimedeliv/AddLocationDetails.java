@@ -2,6 +2,8 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -114,34 +116,53 @@ public class AddLocationDetails extends Activity implements
 
 	public void addCountry(String countryName) {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
+		//http://107.170.86.46/api/v1/countries
 		Country newCountry = new Country(0, countryName);
-		new MyJs("backToSelection", this,
-				((ontimedeliv) this.getApplication()), "POST",
-				(Object) newCountry).execute(serverURL);
+		//new MyJs("backToSelection", this,
+			//	((ontimedeliv) this.getApplication()), "POST",
+				//(Object) newCountry).execute(serverURL);
+		JSONObject params = (new APIManager())
+				.objToCreate((Object) newCountry);
+		RZHelper p = new RZHelper(serverURL,this,"backToSelection");
+		p.async_post(params);
 	}
 
 	public void addBusiness(String businessName) {
 		String serverURL = new myURL("businesses", null, 0, 30).getURL();
 		Business newBusiness = new Business(0, businessName);
-		new MyJs("backToSelection", this,
-				((ontimedeliv) this.getApplication()), "POST",
-				(Object) newBusiness).execute(serverURL);
+		//new MyJs("backToSelection", this,
+			//	((ontimedeliv) this.getApplication()), "POST",
+			//	(Object) newBusiness).execute(serverURL);
+		JSONObject params = (new APIManager())
+				.objToCreate((Object) newBusiness);
+		RZHelper p = new RZHelper(serverURL,this,"backToSelection");
+		p.async_post(params);
 	}
 
 	public void addCity(String cityName, int countryId) {
 		String serverURL = new myURL("cities", null, 0, 30).getURL();
 		City newCity = new City(0, countryId, cityName);
-		new MyJs("backToSelection", this,
-				((ontimedeliv) this.getApplication()), "POST", (Object) newCity)
-				.execute(serverURL);
+		//new MyJs("backToSelection", this,
+		//		((ontimedeliv) this.getApplication()), "POST", (Object) newCity)
+			//	.execute(serverURL);
+		
+		JSONObject params = (new APIManager())
+				.objToCreate((Object) newCity);
+		RZHelper p = new RZHelper(serverURL,this,"backToSelection");
+		p.async_post(params);
 	}
 
 	public void addArea(String areaName, int cityId) {
 		String serverURL = new myURL("areas", null, 0, 30).getURL();
 		Area newArea = new Area(0, cityId, areaName);
-		new MyJs("backToSelection", this,
-				((ontimedeliv) this.getApplication()), "POST", (Object) newArea)
-				.execute(serverURL);
+		//new MyJs("backToSelection", this,
+		//		((ontimedeliv) this.getApplication()), "POST", (Object) newArea)
+		//		.execute(serverURL);
+		
+		JSONObject params = (new APIManager())
+				.objToCreate((Object) newArea);
+		RZHelper p = new RZHelper(serverURL,this,"backToSelection");
+		p.async_post(params);
 	}
 
 	public void backToSelection(String s, String error) {
@@ -159,8 +180,10 @@ public class AddLocationDetails extends Activity implements
 	public void getCountries() {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();// "http://enigmatic-springs-5176.herokuapp.com/api/v1/countries?limit=30";
 
-		new MyJs("setCountries", this, ((ontimedeliv) this.getApplication()),
-				"GET").execute(serverURL);
+		//new MyJs("setCountries", this, ((ontimedeliv) this.getApplication()),
+		//		"GET").execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setCountries");
+		p.async_get();
 	}
 
 	public void setCountries(String s) {
@@ -179,8 +202,10 @@ public class AddLocationDetails extends Activity implements
 	public void getCities(int CountryId) {
 		String serverURL = new myURL("cities", "countries", CountryId, 30)
 				.getURL();
-		new MyJs("setCities", this, ((ontimedeliv) this.getApplication()),
-				"GET").execute(serverURL);
+		//new MyJs("setCities", this, ((ontimedeliv) this.getApplication()),
+		//		"GET").execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setCities");
+		p.async_get();
 	}
 
 	public void setCities(String s) {

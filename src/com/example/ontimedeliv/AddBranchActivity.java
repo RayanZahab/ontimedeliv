@@ -37,7 +37,7 @@ public class AddBranchActivity extends Activity implements
 	ArrayList<Area> areas = new ArrayList<Area>();
 	Spinner countrySp, citySp, areasSp;
 	ProgressDialog Dialog;
-	Branch currentBranch;
+	Branch currentBranch; 
 	ExpandableListAdapter listAdapter;
 	ExpandableListView expListView;
 	List<String> listDataHeader;

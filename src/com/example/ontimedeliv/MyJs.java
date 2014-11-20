@@ -16,6 +16,10 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -166,6 +170,9 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					Error = null;
 				}
 			} else if (this.method.equals("POST")) {
+				JSONObject params = (new APIManager())
+						.objToCreate(this.objectToAdd);
+				
 				conn.addRequestProperty("Accept", "application/json");
 				conn.addRequestProperty("Accept-Encoding", "gzip");
 				conn.addRequestProperty("Cache-Control",
@@ -178,7 +185,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				OutputStreamWriter wr = new OutputStreamWriter(
 						conn.getOutputStream());
 				Log.d("ray",
-						"ray writing: " + urls[0] + "->"
+						"ray POSTING: " + urls[0] + "->"
 								+ jsonObjSend.toString());
 				wr.write(jsonObjSend.toString());
 				wr.flush();
@@ -202,6 +209,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 					Content = sb.toString();
 					Error = null;
 				}
+				
 			} else if (this.method.equals("PUT")) {
 				conn.addRequestProperty("Accept", "application/json");
 				conn.addRequestProperty("Accept-Encoding", "gzip");
@@ -263,7 +271,52 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		/*****************************************************/
 		return null;
 	}
+	public void async_post(String url,JSONObject params){
+		//do a twiiter search with a http post
+		AjaxCallback<JSONObject> cb = new AjaxCallback<JSONObject>() {
 
+			@Override
+			public void callback(String url, JSONObject html, AjaxStatus status) {
+				System.out.println(html);
+				Log.d("razzz","async: "+url+": " +html+ "->"+status.getError());
+				callb();
+			}
+		};
+		cb.header("Accept", "application/json");
+		cb.header("Accept-Encoding", "gzip");
+		cb.header("Cache-Control",
+				"max-stale=0,max-age=60");
+		cb.header("Content-Type", "application/json; charset=utf-8");
+		//String url = "http://search.twitter.com/search.json";
+		//objToCreateP
+		//Map<String, Object> params = new HashMap<String, Object>();
+		//params.put("q", "androidquery");
+		Log.d("razzz","async1: "+params);
+		JSONObject s;
+		AQuery aq;
+		aq = new AQuery(mc);
+		JSONObject jsonObjSend = new JSONObject();
+		//aq.ajax(url, params, JSONObject.class, cb);
+		aq.post(url, params, JSONObject.class, cb);
+	}
+	public void callb()
+	{
+		try {
+			if (Content == null)
+				Content = "";
+			if (Error != null) {
+				Log.d("ray","ray error: "+Error);
+				new GlobalM().bkToNav(mc, getError(Content,Error));
+			}
+			Method returnFunction = this.mc.getClass()
+					.getMethod(this.returnFunction, Content.getClass(),
+							Content.getClass());
+			returnFunction.invoke(this.mc, Content, Error);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	protected void onPostExecute(Void unused) {
 		Log.d("raya", "post: " + returnFunction + ": " + last + ": "
 				+ global.loader.isShowing());
@@ -276,7 +329,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				Content = "";
 			if (Error != null) {
 				Log.d("ray","ray error: "+Error);
-				//new GlobalM().bkToNav(mc, getError(Content,Error));
+				new GlobalM().bkToNav(mc, getError(Content,Error));
 			}
 			Method returnFunction = this.mc.getClass()
 					.getMethod(this.returnFunction, Content.getClass(),

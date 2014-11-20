@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -99,9 +101,14 @@ public class UserProfileActivity extends Activity {
 		String serverURL = new myURL(null, "users", "login", 0).getURL();
 		User user = new User(phone, pass);
 		user.setEncPassword(pass);
-		MyJs mjs = new MyJs("getLoggedIn", this,
-				((ontimedeliv) this.getApplication()), "POST", (Object) user);
-		mjs.execute(serverURL);
+		//MyJs mjs = new MyJs("getLoggedIn", this,
+			//	((ontimedeliv) this.getApplication()), "POST", (Object) user);
+		//mjs.execute(serverURL);
+		
+		JSONObject params = (new APIManager())
+				.objToCreate((Object) user);
+		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn");
+		p.async_post(params);
 	}
 
 	public void getLoggedIn(String s, String error) {

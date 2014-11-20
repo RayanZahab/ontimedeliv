@@ -75,8 +75,10 @@ public class ProductInfoActivity extends Activity {
 
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
-		new MyJs("setProduct", this, ((ontimedeliv) this.getApplication()),
-				"GET", true, false).execute(serverURL);
+		//new MyJs("setProduct", this, ((ontimedeliv) this.getApplication()),
+			//	"GET", true, false).execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setProduct");
+		p.async_get();
 	}
 
 	public void setProduct(String s, String error) {
@@ -105,7 +107,7 @@ public class ProductInfoActivity extends Activity {
 		String desc_str = desc.getText().toString();
 		int price_val = 0;
 		if (!price.getText().toString().isEmpty())
-			price_val = Integer.parseInt(price.getText().toString());
+			price_val = Converter.toInt(price.getText().toString());
 		Product p = new Product(0, price_val, name_str, desc_str, uploaded,
 				new Category(categoryId), (Unit) unitsSP.getSelectedItem(),
 				true, shopId);
@@ -178,9 +180,10 @@ public class ProductInfoActivity extends Activity {
 	public void getUnits(boolean first) {
 		// getUnits
 		String serverURL = new myURL("units", null, 0, 30).getURL();
-		new MyJs("setUnits", this, ((ontimedeliv) this.getApplication()),
-				"GET", first, true).execute(serverURL);
-
+		//new MyJs("setUnits", this, ((ontimedeliv) this.getApplication()),
+			//	"GET", first, true).execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setUnits");
+		p.async_get();
 	}
 
 	@Override
