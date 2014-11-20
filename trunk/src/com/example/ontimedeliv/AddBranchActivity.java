@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -142,10 +144,10 @@ public class AddBranchActivity extends Activity implements
 
 	public void getCurrentBranch(int branchId) {
 		String url = new myURL(null, "branches", branchId, 1).getURL();
-		String serverURL = url;
-		new MyJs("setBranchInfo", this, ((ontimedeliv) this.getApplication()),
-				"GET", true, true).execute(serverURL);
-
+//		new MyJs("setBranchInfo", this, ((ontimedeliv) this.getApplication()),
+	//			"GET", true, true).execute(serverURL);
+		RZHelper p = new RZHelper(url,this,"setBranchInfo");
+		p.get();
 	}
 
 	private void prepareListData() {
@@ -205,8 +207,19 @@ public class AddBranchActivity extends Activity implements
 		ValidationError valid = currentBranch.validate();
 
 		if (valid.isValid(this)) {
-			new MyJs("openHours", this, ((ontimedeliv) this.getApplication()),
-					method, (Object) currentBranch).execute(serverURL);
+			//new MyJs("openHours", this, ((ontimedeliv) this.getApplication()),
+			//		method, (Object) currentBranch).execute(serverURL);
+			
+			if(method.equals("POST"))
+			{
+				RZHelper p = new RZHelper(serverURL,this,"afterDeactivate");
+				p.post(currentBranch);
+			}
+			else
+			{
+				RZHelper p = new RZHelper(serverURL,this,"afterDeactivate");
+				p.put(currentBranch);
+			}
 		}
 
 	}
@@ -216,10 +229,19 @@ public class AddBranchActivity extends Activity implements
 			branchId = new APIManager().getBranchId(s);
 		if (error == null) {
 			String ourl = new myURL(openMethod, "branches", branchId, 0)
-					.getURL();
-			new MyJs("backToSelection", this,
-					((ontimedeliv) this.getApplication()), method,
-					(Object) new OpenHours(currentBranch)).execute(ourl);
+					.getURL();			
+			
+			if(method.equals("POST"))
+			{
+				RZHelper p = new RZHelper(ourl,this,"backToSelection");
+				p.post(currentBranch);
+			}
+			else
+			{
+				RZHelper p = new RZHelper(ourl,this,"backToSelection");
+				p.put(currentBranch);
+			}
+			
 		}
 	}
 

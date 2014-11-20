@@ -51,7 +51,7 @@ public class BranchesActivity extends Activity {
 		//		((ontimedeliv) this.getApplication()), "GET");
 		//mjs.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setBranches");
-		p.async_get();
+		p.get();
 	}
 
 	public void setBranches(String s, String error) {
@@ -140,11 +140,13 @@ public class BranchesActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "branches",
 										branchId, 0).getURL();
-								MyJs mjs = new MyJs("afterDelete",
-										BranchesActivity.this,
-										((ontimedeliv) BranchesActivity.this
-												.getApplication()), "DELETE");
-								mjs.execute(serverURL);
+								//MyJs mjs = new MyJs("afterDelete",
+								//		BranchesActivity.this,
+								//		((ontimedeliv) BranchesActivity.this
+								//				.getApplication()), "DELETE");
+								//mjs.execute(serverURL);
+								RZHelper p = new RZHelper(serverURL,BranchesActivity.this,"afterDelete");
+								p.delete();
 								branchesItem.remove(position);
 
 							}

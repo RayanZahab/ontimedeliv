@@ -3,6 +3,8 @@ package com.example.ontimedeliv;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -78,7 +80,7 @@ public class ProductInfoActivity extends Activity {
 		//new MyJs("setProduct", this, ((ontimedeliv) this.getApplication()),
 			//	"GET", true, false).execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setProduct");
-		p.async_get();
+		p.get();
 	}
 
 	public void setProduct(String s, String error) {
@@ -117,7 +119,7 @@ public class ProductInfoActivity extends Activity {
 		}
 	}
 
-	public void addProduct(Product p) {
+	public void addProduct(Product prod) {
 		String serverURL;
 		if (currentProduct == null) {
 			serverURL = new myURL("items", null, 0, 0).getURL();
@@ -126,8 +128,11 @@ public class ProductInfoActivity extends Activity {
 					.getURL();
 		}
 
-		new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
-				"Upload", (Object) p).execute(serverURL);
+		//new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
+		//		"Upload", (Object) prod).execute(serverURL);
+		
+		RZHelper p = new RZHelper(serverURL,this,"afterCreation");
+		p.put(prod);
 	}
 
 	public void afterCreation(String s, String error) {
@@ -183,7 +188,7 @@ public class ProductInfoActivity extends Activity {
 		//new MyJs("setUnits", this, ((ontimedeliv) this.getApplication()),
 			//	"GET", first, true).execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setUnits");
-		p.async_get();
+		p.get();
 	}
 
 	@Override

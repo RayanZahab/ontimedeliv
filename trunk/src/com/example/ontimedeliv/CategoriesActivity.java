@@ -77,9 +77,12 @@ public class CategoriesActivity extends Activity {
 
 			String serverURL = new myURL("deactivate_categories", "branches",
 					branchId, 0).getURL();
-			new MyJs("afterDeactivate", this,
-					((ontimedeliv) this.getApplication()), "PUT",
-					(Object) myCat, true, false).execute(serverURL);
+			//new MyJs("afterDeactivate", this,
+			//		((ontimedeliv) this.getApplication()), "PUT",
+			//		(Object) myCat, true, false).execute(serverURL);
+			
+			RZHelper p = new RZHelper(serverURL,this,"afterDeactivate");
+			p.put(myCat);
 		} else {
 			afterDeactivate("", null);
 		}
@@ -92,10 +95,13 @@ public class CategoriesActivity extends Activity {
 			String serverURL = new myURL("activate_categories", "branches",
 					branchId, 0).getURL();
 
-			MyJs mjs = new MyJs("afterActivate", this,
-					((ontimedeliv) this.getApplication()), "PUT",
-					(Object) myCat, false, true);
-			mjs.execute(serverURL);
+			//MyJs mjs = new MyJs("afterActivate", this,
+			//		((ontimedeliv) this.getApplication()), "PUT",
+			//		(Object) myCat, false, true);
+			//mjs.execute(serverURL);
+			
+			RZHelper p = new RZHelper(serverURL,this,"afterActivate");
+			p.put(myCat);
 		} else {
 			afterActivate("DONE", null);
 		}
@@ -112,7 +118,7 @@ public class CategoriesActivity extends Activity {
 				((ontimedeliv) CategoriesActivity.this.getApplication()), "GET");
 		mjs.execute(serverURL);*/
 		RZHelper p = new RZHelper(serverURL,this,"setCategories");
-		p.async_get();
+		p.get();
 	}
 
 	public Bitmap drawableToBitmap(String uri) {
@@ -316,10 +322,9 @@ public class CategoriesActivity extends Activity {
 		Category newCategory = new Category(0, categoryName, true, shopId);
 		//new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
 			//	"POST", (Object) newCategory).execute(serverURL);
-		JSONObject params = (new APIManager())
-				.objToCreate((Object) newCategory);
+		
 		RZHelper p = new RZHelper(serverURL,this,"afterCreation");
-		p.async_post(params);
+		p.post(newCategory);
 	}
 
 	public void editCategory(int categoryId, String categoryName) {
@@ -327,8 +332,11 @@ public class CategoriesActivity extends Activity {
 				.getURL();
 		Category newCategory = new Category(categoryId, categoryName, true,
 				shopId);
-		new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
-				"PUT", (Object) newCategory).execute(serverURL);
+		//new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
+		//		"PUT", (Object) newCategory).execute(serverURL);
+		
+		RZHelper p = new RZHelper(serverURL,this,"afterCreation");
+		p.put(newCategory);
 	}
 
 	public void afterCreation(String s, String error) {
@@ -348,12 +356,15 @@ public class CategoriesActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null,
 										"categories", catId, 0).getURL();
-								MyJs mjs = new MyJs("afterDelete",
-										CategoriesActivity.this,
-										((ontimedeliv) CategoriesActivity.this
-												.getApplication()), "DELETE");
+								//MyJs mjs = new MyJs("afterDelete",
+								//		CategoriesActivity.this,
+								//		((ontimedeliv) CategoriesActivity.this
+								//				.getApplication()), "DELETE");
+								//mjs.execute(serverURL);
 								categoryItems.remove(position);
-								mjs.execute(serverURL);
+								
+								RZHelper p = new RZHelper(serverURL,CategoriesActivity.this,"afterDelete");
+								p.delete();
 							}
 						}).setNegativeButton(android.R.string.no, null).show();
 	}

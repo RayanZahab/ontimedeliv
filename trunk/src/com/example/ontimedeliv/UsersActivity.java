@@ -39,7 +39,7 @@ public class UsersActivity extends Activity {
 		//new MyJs("setUsers", this, ((ontimedeliv) this.getApplication()), "GET")
 			//	.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setUsers");
-		p.async_get();
+		p.get();
 	}
 
 	public void setUsers(String s, String error) {
@@ -122,16 +122,20 @@ public class UsersActivity extends Activity {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();
-		if (item.getTitle() == "Delete") {
-			Delete((usersItem.get((int) info.id)).getId());
-		} else {
-			return false;
+
+		switch (item.getItemId()) {
+		case R.id.delete:
+			Delete((int) info.id);
+			break;
+		default:
+			break;
+
 		}
 		return true;
 	}
 
-	public void Delete(final int catId) {
-
+	public void Delete(final int position) {
+		final int catId = (usersItem.get(position)).getId();
 		new AlertDialog.Builder(this)
 				.setTitle(R.string.deletethisuser)
 				.setIcon(R.drawable.users)
@@ -142,11 +146,15 @@ public class UsersActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "users",
 										catId, 0).getURL();
-								MyJs mjs = new MyJs("afterDelete",
-										UsersActivity.this,
-										((ontimedeliv) UsersActivity.this
-												.getApplication()), "DELETE");
-								mjs.execute(serverURL);
+								//MyJs mjs = new MyJs("afterDelete",
+								//		UsersActivity.this,
+								//		((ontimedeliv) UsersActivity.this
+								//				.getApplication()), "DELETE");
+								//mjs.execute(serverURL);
+								
+								RZHelper p = new RZHelper(serverURL,UsersActivity.this,"afterDelete");
+								p.delete();
+								usersItem.remove(position);
 							}
 						}).setNegativeButton(android.R.string.no, null).show();
 	}

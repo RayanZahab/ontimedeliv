@@ -55,10 +55,9 @@ public class LoginActivity extends Activity {
 		//MyJs mjs = new MyJs("getLoggedIn", this,
 		//		((ontimedeliv) this.getApplication()), "POST", (Object) user);
 		//mjs.execute(serverURL);
-		JSONObject params = (new APIManager())
-				.objToCreate((Object) user);
+		
 		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn");
-		p.async_post(params);
+		p.post(user);
 		//Activity a,final String m, String url,JSONObject params){
 
 	}

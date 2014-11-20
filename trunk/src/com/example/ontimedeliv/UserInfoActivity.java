@@ -88,7 +88,7 @@ public class UserInfoActivity extends Activity implements
 		//new MyJs("setUserInfo", this, ((ontimedeliv) this.getApplication()),
 			//	"GET", true, false).execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setUserInfo");
-		p.async_get();
+		p.get();
 	}
 
 	public void setUserInfo(String s, String error) {
@@ -117,7 +117,7 @@ public class UserInfoActivity extends Activity implements
 		//new MyJs("setBranches", this, ((ontimedeliv) this.getApplication()),
 			//	"GET", first, true).execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setBranches");
-		p.async_get();
+		p.get();
 	}
 
 	public void setBranches(String s, String error) {
@@ -202,10 +202,9 @@ public class UserInfoActivity extends Activity implements
 			//new MyJs("afterRoles", this, ((ontimedeliv) this.getApplication()),
 				//"POST", (Object) role, false, true)
 			//	.execute(makePreparerURL);
-			JSONObject params = (new APIManager())
-					.objToCreate((Object) role);
+			
 			RZHelper p = new RZHelper(makePreparerURL,this,"afterRoles");
-			p.async_post(params);
+			p.post(role);
 		}
 		
 	}

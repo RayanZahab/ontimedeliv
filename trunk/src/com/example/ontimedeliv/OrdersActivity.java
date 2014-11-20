@@ -60,7 +60,7 @@ public class OrdersActivity extends Activity {
 		//new MyJs("setOrders", this, ((ontimedeliv) this.getApplication()),
 			//	"GET").execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setOrders");
-		p.async_get();
+		p.get();
 	}
 
 	public void fetchTimelineAsync(int page) {
