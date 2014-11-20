@@ -64,8 +64,10 @@ public class SelectionActivity extends Activity implements
 
 	public void getCountries() {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
-		new MyJs("setCountries", SelectionActivity.this, ((ontimedeliv) SelectionActivity.this.getApplication()),"GET")
-				.execute(serverURL);
+		//new MyJs("setCountries", SelectionActivity.this, ((ontimedeliv) SelectionActivity.this.getApplication()),"GET")
+		//		.execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setCountries");
+		p.get();
 	}
 
 	public void setCountries(String s,String error) {
@@ -85,8 +87,10 @@ public class SelectionActivity extends Activity implements
 		String serverURL = new myURL("cities", "countries", CountryId, 30)
 				.getURL();
 
-		new MyJs("setCities", SelectionActivity.this,((ontimedeliv) SelectionActivity.this.getApplication()), "GET")
-				.execute(serverURL);
+		//new MyJs("setCities", SelectionActivity.this,((ontimedeliv) SelectionActivity.this.getApplication()), "GET")
+		//		.execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setCities");
+		p.get();
 	}
 
 	public void setCities(String s,String error) {
@@ -104,8 +108,10 @@ public class SelectionActivity extends Activity implements
 
 	public void getAreas(int CityId) {
 		String serverURL = new myURL("areas", "cities", CityId, 30).getURL();
-		new MyJs("setAreas", SelectionActivity.this,((ontimedeliv) SelectionActivity.this.getApplication()), "GET")
-				.execute(serverURL);
+		//new MyJs("setAreas", SelectionActivity.this,((ontimedeliv) SelectionActivity.this.getApplication()), "GET")
+		//		.execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setAreas");
+		p.get();
 	}
 
 	public void setAreas(String s,String error) {
@@ -123,8 +129,10 @@ public class SelectionActivity extends Activity implements
 	public void getBusinesses() {
 		String serverURL = new myURL("businesses", null, 0, 30).getURL();
 
-		new MyJs("setBusiness", SelectionActivity.this,((ontimedeliv) SelectionActivity.this.getApplication()), "GET")
-				.execute(serverURL);
+		//new MyJs("setBusiness", SelectionActivity.this,((ontimedeliv) SelectionActivity.this.getApplication()), "GET")
+		//		.execute(serverURL);
+		RZHelper p = new RZHelper(serverURL,this,"setBusiness");
+		p.get();
 	}
 
 	public void setBusiness(String s,String error) {

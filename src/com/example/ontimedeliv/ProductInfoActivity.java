@@ -77,9 +77,9 @@ public class ProductInfoActivity extends Activity {
 
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
-		//new MyJs("setProduct", this, ((ontimedeliv) this.getApplication()),
-			//	"GET", true, false).execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setProduct");
+		// new MyJs("setProduct", this, ((ontimedeliv) this.getApplication()),
+		// "GET", true, false).execute(serverURL);
+		RZHelper p = new RZHelper(serverURL, this, "setProduct");
 		p.get();
 	}
 
@@ -87,15 +87,16 @@ public class ProductInfoActivity extends Activity {
 		currentProduct = new APIManager().getItemsByCategoryAndBranch(s).get(0);
 		String n;
 		try {
-			n = new String ((currentProduct.getName()).getBytes ("iso-8859-1"), "UTF-8");
-		
+			n = new String((currentProduct.getName()).getBytes("iso-8859-1"),
+					"UTF-8");
+
 			name.setText(n);
 			desc.setText(currentProduct.getDescription());
 			price.setText("" + currentProduct.getPrice());
-			getActionBar().setTitle(currentProduct.getName());  
+			getActionBar().setTitle(currentProduct.getName());
 			new ImageTask((ImageView) findViewById(R.id.preview),
 					ProductInfoActivity.this).execute(currentProduct.getPhoto()
-				.getUrl());
+					.getUrl());
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,11 +129,12 @@ public class ProductInfoActivity extends Activity {
 					.getURL();
 		}
 
-		//new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
-		//		"Upload", (Object) prod).execute(serverURL);
-		
-		RZHelper p = new RZHelper(serverURL,this,"afterCreation");
-		p.put(prod);
+		 new MyJs("afterCreation", this, ((ontimedeliv)
+		 this.getApplication()),
+		 "Upload", (Object) prod).execute(serverURL);
+
+		//RZHelper p = new RZHelper(serverURL, this, "afterCreation");
+		//p.aync_multipart(prod);
 	}
 
 	public void afterCreation(String s, String error) {
@@ -158,7 +160,6 @@ public class ProductInfoActivity extends Activity {
 			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 			picturePath = cursor.getString(columnIndex);
 			picName = cursor.getString(columnIndex);
-			Log.d("rays", "path" + picturePath + "->" + picName);
 			uploaded = new Photo(picturePath, picName);
 			cursor.close();
 			if (uploaded.validate().isValid(this)) {
@@ -185,9 +186,9 @@ public class ProductInfoActivity extends Activity {
 	public void getUnits(boolean first) {
 		// getUnits
 		String serverURL = new myURL("units", null, 0, 30).getURL();
-		//new MyJs("setUnits", this, ((ontimedeliv) this.getApplication()),
-			//	"GET", first, true).execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setUnits");
+		// new MyJs("setUnits", this, ((ontimedeliv) this.getApplication()),
+		// "GET", first, true).execute(serverURL);
+		RZHelper p = new RZHelper(serverURL, this, "setUnits");
 		p.get();
 	}
 

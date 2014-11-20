@@ -1,12 +1,17 @@
 package com.example.ontimedeliv;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -33,16 +38,24 @@ public class RZHelper {
 					reply = html.toString();
 				if (status != null)
 					error = status.getError();
-
-				Method returnFunction;
-				try {
-					returnFunction = currentActivity.getClass().getMethod(
-							returnMethod, stringType.getClass(),
-							stringType.getClass());
-					returnFunction.invoke(currentActivity, reply, error);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if(error!=null)
+				{
+					Toast.makeText(myAQuery.getContext(), "Error: "+error,
+							Toast.LENGTH_LONG).show();
+				}
+				else
+				{
+					Method returnFunction;
+					try {
+						returnFunction = currentActivity.getClass().getMethod(
+								returnMethod, stringType.getClass(),
+								stringType.getClass());
+						returnFunction.invoke(currentActivity, reply, error);
+						Log.d("ray callback","error: "+error+" => reply: "+reply);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		};
@@ -74,10 +87,69 @@ public class RZHelper {
 		myAQuery.put(url, params, JSONObject.class, callBack);
 
 	}
-	
+
 	public void delete() {
-		//myAQuery.delete(url, JSONObject.class, (Ob, returnMethod);
+		// myAQuery.delete(url, JSONObject.class, (Ob, returnMethod);
 		myAQuery.delete(url, JSONObject.class, callBack);
+
+	}
+
+	public void aync_multipart(Object obj) {
+		String USER_AGENT = "Mozilla/5.0";
+		String boundary = "*****";
+		callBack.header("User-Agent", USER_AGENT);
+		callBack.header("Accept-Charset", "utf-8"); 		
+		callBack.header("Accept-Language", "en-us;q=0.9");
+		callBack.header("Connection", "Keep-Alive");
+		callBack.header("Content-Type", "multipart/form-data; charset=utf-8;boundary="
+				+ boundary);
+		
+		JSONObject params = (new APIManager()).objToCreate((Object) obj);
+		Product p = (Product) obj;
+		Map<String, Object> paramsVal = new HashMap<String, Object>();
+		paramsVal.put("name", "" + p.getName());
+		paramsVal.put("category_id", "" + p.getCategory().getId());
+		paramsVal.put("shop_id", "" + p.getShop_id());
+		paramsVal.put("price", "" + p.getPrice());
+		paramsVal.put("unit_id", "" + p.getUnit().getId());
+		String fileUrl = "",iFileName = "";
+		paramsVal.put("description", "" + p.getDescription());
+		if (p.getPhoto() != null){
+			paramsVal.put("photo_name", "" + iFileName);
+			iFileName = p.getPhoto().getName();
+			fileUrl = p.getPhoto().getUrl();		
+			
+			FileInputStream fileInputStream;
+			try {
+				fileInputStream = new FileInputStream(fileUrl);
+			
+				int bufferSize = fileInputStream.available();
+	
+				
+				byte[] buffer = new byte[bufferSize];
+				int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+				paramsVal.put("photo", buffer);
+				
+				
+				fileInputStream.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				Log.d("ray error ","ERROR");
+			}
+		}
+		//Map<String, Object> params = new HashMap<String, Object>();
+		//params.put("message", "Message");
+
+		// Simply put a byte[] to the params, AQuery will detect it and treat it
+		// as a multi-part post
+		//byte[] data = getImageData();
+
+		// Alternatively, put a File or InputStream instead of byte[]
+		// File file = getImageFile();
+		// params.put("source", file);
+
+		myAQuery.ajax(url, paramsVal, JSONObject.class,callBack); 
 
 	}
 }

@@ -1188,7 +1188,8 @@ public class APIManager {
 				body.put("shop_id", c.getShop_id());
 				body.put("category_id", c.getCategory().getId());
 				body.put("unit_id", c.getUnit().getId());
-				body.put("photo", c.getPhoto().getUrl());
+				if(c.getPhoto()!= null)
+					body.put("photo", c.getPhoto().getUrl());
 
 				jsonObjSend.put("item", body);
 			} catch (JSONException e) {

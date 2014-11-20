@@ -73,39 +73,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 
-	public MyJs(String returnFunction, Activity m, ontimedeliv mg, String method) {
-		this.returnFunction = returnFunction;
-		this.mc = m;
-		this.global = mg;
-		this.method = method;
-		this.last = true;
-		this.first = true;
-		MyJs();
-	}
-
-	public MyJs(String returnFunction, Activity m, ontimedeliv mg,
-			String method, boolean sm, boolean last) {
-		this.returnFunction = returnFunction;
-		this.mc = m;
-		this.global = mg;
-		this.method = method;
-		this.first = sm;
-		this.setLast(last);
-		MyJs();
-	}
-
-	public MyJs(String returnFunction, Activity m, ontimedeliv mg,
-			String method, Object o, boolean first, boolean last) {
-		this.returnFunction = returnFunction;
-		this.mc = m;
-		this.global = mg;
-		this.method = method;
-		this.objectToAdd = o;
-		this.setfirst(first);
-		this.setLast(last);
-		MyJs();
-	}
-
+	
 	public MyJs(String returnFunction, Activity m, ontimedeliv mg,
 			String method, Object o) {
 		this.returnFunction = returnFunction;

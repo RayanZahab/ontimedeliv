@@ -173,8 +173,17 @@ public class UserInfoActivity extends Activity implements
 		ValidationError valid = user.validate(false);
 		if(valid.isValid(this))
 		{
-			new MyJs("setRoles", this, ((ontimedeliv) this.getApplication()),
-				method, (Object) user, true, false).execute(serverURL);
+			//new MyJs("setRoles", this, ((ontimedeliv) this.getApplication()),
+			//	method, (Object) user, true, false).execute(serverURL);
+			RZHelper p = new RZHelper(serverURL,this,"setRoles");
+			if(method.equals("POST"))
+			{
+				p.post(user);
+			}
+			else
+			{
+				p.put(user);
+			}
 		}
 
 	}

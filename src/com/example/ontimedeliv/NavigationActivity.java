@@ -137,7 +137,7 @@ public class NavigationActivity extends Activity {
 		countries.get(countryP).setCities(cities);
 		if (last) {
 			((ontimedeliv) this.getApplication()).setCountries(countries);
-			((ontimedeliv) this.getApplication()).loader.dismiss();
+			//((ontimedeliv) this.getApplication()).loader.dismiss();
 			last = false;
 		}
 	}
