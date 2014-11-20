@@ -73,7 +73,7 @@ public class NavigationActivity extends Activity {
 			//	((ontimedeliv) getApplication()), "GET", true, false);
 		//mjs.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setCountries");
-		p.async_get();
+		p.get();
 	}
 
 	public void setCountries(String s, String error) {
@@ -96,7 +96,7 @@ public class NavigationActivity extends Activity {
 		//new MyJs("setCities", this, ((ontimedeliv) getApplication()), "GET",
 			//	false, false).execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setCities");
-		p.async_get();
+		p.get();
 	}
 
 	public void setCities(String s, String error) {
@@ -120,7 +120,7 @@ public class NavigationActivity extends Activity {
 			//	((ontimedeliv) this.getApplication()), "GET", false, false);
 		//mjs.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setAreas");
-		p.async_get();
+		p.get();
 	}
 
 	public void setAreas(String s, String error) {

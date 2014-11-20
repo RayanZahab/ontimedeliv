@@ -28,9 +28,12 @@ public class RZHelper {
 
 			@Override
 			public void callback(String url, JSONObject html, AjaxStatus status) {
-				String reply = html.toString();
-				String error = status.getError();
-				String stringType = "";
+				String reply = "", error = null, stringType = "";
+				if (html != null)
+					reply = html.toString();
+				if (status != null)
+					error = status.getError();
+
 				Method returnFunction;
 				try {
 					returnFunction = currentActivity.getClass().getMethod(
@@ -47,21 +50,34 @@ public class RZHelper {
 		callBack.header("Accept-Encoding", "gzip");
 		callBack.header("Cache-Control", "max-stale=0,max-age=60");
 		callBack.header("Content-Type", "application/json; charset=utf-8");
-		
-		SharedPreferences settings1 = currentActivity.getSharedPreferences("PREFS_NAME", 0);
+
+		SharedPreferences settings1 = currentActivity.getSharedPreferences(
+				"PREFS_NAME", 0);
 		String token = settings1.getString("token", "");
-		if(!token.isEmpty())
-		{
-			callBack.header("auth_token", token);			
+		if (!token.isEmpty()) {
+			callBack.header("auth_token", token);
 		}
 	}
 
-	public void async_post(JSONObject params) {
+	public void post(Object obj) {
+		JSONObject params = (new APIManager()).objToCreate(obj);
 		myAQuery.post(url, params, JSONObject.class, callBack);
 	}
 
-	public void async_get() {
+	public void get() {
 		myAQuery.ajax(url, JSONObject.class, callBack);
+
+	}
+
+	public void put(Object obj) {
+		JSONObject params = (new APIManager()).objToCreate((Object) obj);
+		myAQuery.put(url, params, JSONObject.class, callBack);
+
+	}
+	
+	public void delete() {
+		//myAQuery.delete(url, JSONObject.class, (Ob, returnMethod);
+		myAQuery.delete(url, JSONObject.class, callBack);
 
 	}
 }

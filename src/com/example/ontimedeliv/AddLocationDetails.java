@@ -121,10 +121,9 @@ public class AddLocationDetails extends Activity implements
 		//new MyJs("backToSelection", this,
 			//	((ontimedeliv) this.getApplication()), "POST",
 				//(Object) newCountry).execute(serverURL);
-		JSONObject params = (new APIManager())
-				.objToCreate((Object) newCountry);
+		
 		RZHelper p = new RZHelper(serverURL,this,"backToSelection");
-		p.async_post(params);
+		p.post(newCountry);
 	}
 
 	public void addBusiness(String businessName) {
@@ -133,10 +132,9 @@ public class AddLocationDetails extends Activity implements
 		//new MyJs("backToSelection", this,
 			//	((ontimedeliv) this.getApplication()), "POST",
 			//	(Object) newBusiness).execute(serverURL);
-		JSONObject params = (new APIManager())
-				.objToCreate((Object) newBusiness);
+		
 		RZHelper p = new RZHelper(serverURL,this,"backToSelection");
-		p.async_post(params);
+		p.post(newBusiness);
 	}
 
 	public void addCity(String cityName, int countryId) {
@@ -146,10 +144,8 @@ public class AddLocationDetails extends Activity implements
 		//		((ontimedeliv) this.getApplication()), "POST", (Object) newCity)
 			//	.execute(serverURL);
 		
-		JSONObject params = (new APIManager())
-				.objToCreate((Object) newCity);
 		RZHelper p = new RZHelper(serverURL,this,"backToSelection");
-		p.async_post(params);
+		p.post(newCity);
 	}
 
 	public void addArea(String areaName, int cityId) {
@@ -159,10 +155,8 @@ public class AddLocationDetails extends Activity implements
 		//		((ontimedeliv) this.getApplication()), "POST", (Object) newArea)
 		//		.execute(serverURL);
 		
-		JSONObject params = (new APIManager())
-				.objToCreate((Object) newArea);
 		RZHelper p = new RZHelper(serverURL,this,"backToSelection");
-		p.async_post(params);
+		p.post(newArea);
 	}
 
 	public void backToSelection(String s, String error) {
@@ -183,7 +177,7 @@ public class AddLocationDetails extends Activity implements
 		//new MyJs("setCountries", this, ((ontimedeliv) this.getApplication()),
 		//		"GET").execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setCountries");
-		p.async_get();
+		p.get();
 	}
 
 	public void setCountries(String s) {
@@ -205,7 +199,7 @@ public class AddLocationDetails extends Activity implements
 		//new MyJs("setCities", this, ((ontimedeliv) this.getApplication()),
 		//		"GET").execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setCities");
-		p.async_get();
+		p.get();
 	}
 
 	public void setCities(String s) {

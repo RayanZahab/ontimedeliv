@@ -84,12 +84,13 @@ public class UserProfileActivity extends Activity {
 			User user = new User(nameTxt.getText().toString(), phone, null, branchId, 0);
 			user.setEncPassword(passTxt
 					.getText().toString());
-			String method = "PUT";
 			ValidationError valid = user.validate(true);
 			if(valid.isValid(this))
 			{
-				new MyJs("done", this, ((ontimedeliv) this.getApplication()),
-						method, (Object) user, true, true).execute(serverURL);
+				//new MyJs("done", this, ((ontimedeliv) this.getApplication()),
+				//		method, (Object) user, true, true).execute(serverURL);
+				RZHelper p = new RZHelper(serverURL,this,"done");
+				p.put(user);
 			}
 			
 		}
@@ -104,11 +105,9 @@ public class UserProfileActivity extends Activity {
 		//MyJs mjs = new MyJs("getLoggedIn", this,
 			//	((ontimedeliv) this.getApplication()), "POST", (Object) user);
 		//mjs.execute(serverURL);
-		
-		JSONObject params = (new APIManager())
-				.objToCreate((Object) user);
+				
 		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn");
-		p.async_post(params);
+		p.post(user);
 	}
 
 	public void getLoggedIn(String s, String error) {

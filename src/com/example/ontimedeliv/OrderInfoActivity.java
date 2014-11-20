@@ -3,6 +3,8 @@ package com.example.ontimedeliv;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -108,11 +110,14 @@ public class OrderInfoActivity extends Activity {
 							order.setCancel(true);
 							String serverURL = new myURL("cancel", "orders",
 									orderId, 0).getURL();
-							new MyJs("cancelOrder", OrderInfoActivity.this,
-									((ontimedeliv) OrderInfoActivity.this
-											.getApplication()), "PUT",
-									(Object) order).execute(serverURL);
+							//new MyJs("cancelOrder", OrderInfoActivity.this,
+							//		((ontimedeliv) OrderInfoActivity.this
+							//				.getApplication()), "PUT",
+							//		(Object) order).execute(serverURL);
 
+							RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"cancelOrder");
+							p.put(order);
+							
 						} else {
 							Toast.makeText(getApplicationContext(),
 									R.string.cancelreason, Toast.LENGTH_SHORT)
@@ -140,7 +145,7 @@ public class OrderInfoActivity extends Activity {
 		//new MyJs("setPreparers", this, ((ontimedeliv) this.getApplication()),
 			//	"GET", false, true).execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setPreparers");
-		p.async_get();
+		p.get();
 	}
 
 	public void setPreparers(String s, String error) {
@@ -165,7 +170,7 @@ public class OrderInfoActivity extends Activity {
 		//new MyJs("setDeivery", this, ((ontimedeliv) this.getApplication()),
 			//	"GET", false, false).execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setDeivery");
-		p.async_get();
+		p.get();
 	}
 
 	public void setDeivery(String s, String error) {
@@ -208,7 +213,7 @@ public class OrderInfoActivity extends Activity {
 			//	((ontimedeliv) this.getApplication()), "GET", true, false);
 		//mjs.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setOrderInfo");
-		p.async_get();
+		p.get();
 	}
 
 	public void setOrderInfo(String s, String error) {
@@ -288,9 +293,14 @@ public class OrderInfoActivity extends Activity {
 							.getText().toString());
 			newOrder.setTotal(total);
 			if (!newOrder.equals(currentOrder))
-				new MyJs("updateStatus", this,
-						((ontimedeliv) this.getApplication()), "PUT", newOrder,
-						true, false).execute(serverURL);
+			{
+				//new MyJs("updateStatus", this,
+				//		((ontimedeliv) this.getApplication()), "PUT", newOrder,
+				//		true, false).execute(serverURL);
+				
+				RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"updateStatus");
+				p.put(newOrder);
+			}
 			else
 				updateStatus(null, null);
 		} else
@@ -306,8 +316,11 @@ public class OrderInfoActivity extends Activity {
 		String serverURL = new myURL("change_status", "orders", orderId + "", 0)
 				.getURL();
 
-		new MyJs("done", this, ((ontimedeliv) this.getApplication()), "PUT",
-				newOrder, true, true).execute(serverURL);
+		//new MyJs("done", this, ((ontimedeliv) this.getApplication()), "PUT",
+		//		newOrder, true, true).execute(serverURL);
+		
+		RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"done");
+		p.put(newOrder);
 	}
 
 	public void updateStatus(String s, String error) {
@@ -322,8 +335,11 @@ public class OrderInfoActivity extends Activity {
 		String serverURL = new myURL("assign", "orders", orderId + "", 0)
 				.getURL();
 
-		new MyJs("done", this, ((ontimedeliv) this.getApplication()), "PUT",
-				newOrder, true, true).execute(serverURL);
+		//new MyJs("done", this, ((ontimedeliv) this.getApplication()), "PUT",
+		//		newOrder, true, true).execute(serverURL);
+		
+		RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"done");
+		p.put(newOrder);
 	}
 
 	public void done(String s, String error) {

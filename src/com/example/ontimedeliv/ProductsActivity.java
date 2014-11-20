@@ -2,6 +2,8 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -78,9 +80,12 @@ public class ProductsActivity extends Activity {
 
 			String serverURL = new myURL("deactivate_items", "branches",
 					branchId, 0).getURL();
-			new MyJs("afterDeactivate", this,
-					((ontimedeliv) this.getApplication()), "PUT",
-					(Object) myProd, true, false).execute(serverURL);
+			//new MyJs("afterDeactivate", this,
+				//	((ontimedeliv) this.getApplication()), "PUT",
+					//(Object) myProd, true, false).execute(serverURL);
+			
+			RZHelper p = new RZHelper(serverURL,this,"afterDeactivate");
+			p.put(myProd);
 		} else {
 			afterDeactivate("", null);
 		}
@@ -95,9 +100,12 @@ public class ProductsActivity extends Activity {
 			String serverURL = new myURL("activate_items", "branches",
 					branchId, 0).getURL();
 
-			new MyJs("afterActivate", this,
-					((ontimedeliv) this.getApplication()), "PUT",
-					(Object) myProd, false, true).execute(serverURL);
+			//new MyJs("afterActivate", this,
+			//		((ontimedeliv) this.getApplication()), "PUT",
+			//		(Object) myProd, false, true).execute(serverURL);
+			
+			RZHelper p = new RZHelper(serverURL,this,"afterDeactivate");
+			p.put(myProd);
 		} else {
 			afterActivate("DONE", null);
 		}
@@ -141,10 +149,13 @@ public class ProductsActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "items",
 										productId, 0).getURL();
-								new MyJs("afterDelete", ProductsActivity.this,
-										((ontimedeliv) ProductsActivity.this
-												.getApplication()), "DELETE",
-										true, true).execute(serverURL);
+								//new MyJs("afterDelete", ProductsActivity.this,
+								//		((ontimedeliv) ProductsActivity.this
+								//				.getApplication()), "DELETE",
+								//		true, true).execute(serverURL);
+								
+								RZHelper p = new RZHelper(serverURL,ProductsActivity.this,"afterDelete");
+								p.delete();
 								productItems.remove(position);
 							}
 						}).setNegativeButton(android.R.string.no, null).show();
@@ -176,7 +187,7 @@ public class ProductsActivity extends Activity {
 		//new MyJs("setProducts", this, ((ontimedeliv) this.getApplication()),
 			//	"GET").execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setProducts");
-		p.async_get();
+		p.get();
 	}
 
 	public void setProducts(String s, String error) {
