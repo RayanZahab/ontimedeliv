@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -14,7 +12,6 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -182,7 +179,7 @@ public class AddBranchActivity extends Activity implements
 		address.setText(currentBranch.getAddress());
 		estimation.setText(currentBranch.getEstimation_time());
 		getActionBar().setTitle(currentBranch.getName());  
-		getCountries();
+		getCountries(); 
 	}
 
 	public void addBranch(View v) {
@@ -209,12 +206,12 @@ public class AddBranchActivity extends Activity implements
 		if (valid.isValid(this)) {
 			//new MyJs("openHours", this, ((ontimedeliv) this.getApplication()),
 			//		method, (Object) currentBranch).execute(serverURL);
-			RZHelper p = new RZHelper(serverURL,this,"afterDeactivate");			
+			RZHelper p = new RZHelper(serverURL,this,"openHours");			
 			if(method.equals("POST"))
 			{
 				p.post(currentBranch);
 			}
-			else
+			else 
 			{
 				p.put(currentBranch);
 			}
@@ -286,7 +283,9 @@ public class AddBranchActivity extends Activity implements
 			counrytAdapter.notifyDataSetChanged();
 			areasSp.setAdapter(null);
 			countrySp.setAdapter(counrytAdapter);
-			countrySp.setOnItemSelectedListener(this);
+			countrySp.setOnItemSelectedListener(this); 
+			
+			glob.setSelected(countrySp, counrytAdapter, new Country(currentBranch.getArea().getCountry_id()) );
 		} else if (type.equals("city")) {
 			ArrayAdapter<City> cityAdapter = new ArrayAdapter<City>(this,
 					android.R.layout.simple_spinner_item, cities);
@@ -296,6 +295,8 @@ public class AddBranchActivity extends Activity implements
 			areasSp.setAdapter(null);
 			citySp.setAdapter(cityAdapter);
 			citySp.setOnItemSelectedListener(this);
+			
+			glob.setSelected(citySp, cityAdapter, new City(currentBranch.getArea().getCity_id()) );
 		} else if (type.equals("area")) {
 			ArrayAdapter<Area> areaAdapter = new ArrayAdapter<Area>(this,
 					android.R.layout.simple_spinner_item, areas);
@@ -304,6 +305,7 @@ public class AddBranchActivity extends Activity implements
 			areaAdapter.notifyDataSetChanged();
 			areasSp.setAdapter(areaAdapter);
 			areasSp.setOnItemSelectedListener(this);
+			glob.setSelected(citySp, areaAdapter,currentBranch.getArea());
 		}
 
 	}
