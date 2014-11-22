@@ -280,7 +280,7 @@ public class CategoriesActivity extends Activity {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-										setDialog(dialog);
+										setDialog(dialog); 
 										if (userInput.getText().toString() != null
 												&& userInput.getText().toString()
 														.length() > 3)
@@ -288,7 +288,7 @@ public class CategoriesActivity extends Activity {
 													.toString(), shopId);
 										else
 											(new ValidationError(
-													true,
+													true, 
 													getString(R.string.invalid_name)))
 													.isValid(CategoriesActivity.this);
 									}

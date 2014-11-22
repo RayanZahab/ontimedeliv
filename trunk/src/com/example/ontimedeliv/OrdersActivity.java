@@ -2,21 +2,19 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
-import eu.erikw.PullToRefreshListView;
-import eu.erikw.PullToRefreshListView.OnRefreshListener;
-import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.ontimedeliv.PullToRefreshListView.OnRefreshListener;
+ 
 public class OrdersActivity extends Activity {
 	OrdersAdapter dataAdapter;
 	ArrayList<Order> morders;
@@ -39,7 +37,7 @@ public class OrdersActivity extends Activity {
 		admin = ((ontimedeliv) OrdersActivity.this.getApplication()).isAdmin();
 		isPreparer = ((ontimedeliv) this.getApplication()).isPrep();
 		if (admin) {
-			actionBar.setDisplayHomeAsUpEnabled(true);
+			actionBar.setDisplayHomeAsUpEnabled(true); 
 		} else if (isPreparer) {
 			((ontimedeliv) OrdersActivity.this.getApplication())
 					.setOrderStatus("assigned");

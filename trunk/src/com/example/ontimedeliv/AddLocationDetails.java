@@ -29,7 +29,7 @@ public class AddLocationDetails extends Activity implements
 	ArrayList<City> cities = new ArrayList<City>();
 	String type = "Country";
 	Button addButton;
-
+ 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -4,21 +4,15 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -101,9 +95,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	// Call after onPreExecute returnFunction
 	protected Void doInBackground(String... urls) {
 
-		/************ Make Post Call To Web Server ***********/
-		BufferedReader reader = null;
-
 		try {
 
 			URL url = new URL(urls[0]);
@@ -113,116 +104,9 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
 			if (this.method.equals("Upload")) {
 				conn.setRequestMethod("POST");
-			} else {
-				conn.setRequestMethod(this.method);
-				conn.setRequestProperty("Content-Type",
-						"application/json; charset=utf-8");
-			}
+			} 
 
-			if (this.method.equals("GET")) {
-				Log.d("ray","stream: "+conn.getInputStream());
-				reader = new BufferedReader(new InputStreamReader(
-						conn.getInputStream()));
-				StringBuilder sb = new StringBuilder();
-				String line = null;
-
-				while ((line = reader.readLine()) != null) {
-					sb.append(line + "\n");
-				}
-				Content = sb.toString();
-				if (conn.getResponseCode() != 200) {
-					Error = conn.getResponseMessage();
-					JSONObject jsonResponse = new JSONObject(Content);
-					Error = jsonResponse.optString("error").toString();
-				} else {
-					Error = null;
-				}
-			} else if (this.method.equals("POST")) {
-				JSONObject params = (new APIManager())
-						.objToCreate(this.objectToAdd);
-				
-				conn.addRequestProperty("Accept", "application/json");
-				conn.addRequestProperty("Accept-Encoding", "gzip");
-				conn.addRequestProperty("Cache-Control",
-						"max-stale=0,max-age=60");
-				conn.setDoOutput(true);
-				conn.setDoInput(true);
-
-				JSONObject jsonObjSend = (new APIManager())
-						.objToCreate(this.objectToAdd);
-				OutputStreamWriter wr = new OutputStreamWriter(
-						conn.getOutputStream());
-				Log.d("ray",
-						"ray POSTING: " + urls[0] + "->"
-								+ jsonObjSend.toString());
-				wr.write(jsonObjSend.toString());
-				wr.flush();
-				wr.close();
-
-				if (conn.getResponseCode() != 201
-						&& conn.getResponseCode() != 200) {
-					Log.d("ray",
-							"Failed: " + url + "\n" + conn.getResponseMessage());
-					Content = conn.getResponseMessage();
-					Error = conn.getResponseMessage();
-				} else {
-					BufferedReader responseContent = new BufferedReader(
-							new InputStreamReader(conn.getInputStream()));
-					StringBuilder sb = new StringBuilder();
-					String line = null;
-
-					while ((line = responseContent.readLine()) != null) {
-						sb.append(line + "\n");
-					}
-					Content = sb.toString();
-					Error = null;
-				}
-				
-			} else if (this.method.equals("PUT")) {
-				conn.addRequestProperty("Accept", "application/json");
-				conn.addRequestProperty("Accept-Encoding", "gzip");
-				conn.addRequestProperty("Cache-Control",
-						"max-stale=0,max-age=60");
-				conn.setDoOutput(true);
-				conn.setDoInput(true);
-				Log.d("ray", "ray req: "
-						+ conn.getRequestProperties().toString());
-				JSONObject jsonObjSend = (new APIManager())
-						.objToCreate(this.objectToAdd);
-				OutputStreamWriter wr = new OutputStreamWriter(
-						conn.getOutputStream());
-				Log.d("ray",
-						"ray writing: " + urls[0] + "->"
-								+ jsonObjSend.toString());
-				wr.write(jsonObjSend.toString());
-				wr.flush();
-				wr.close();
-
-				if (conn.getResponseCode() != 200) {
-					Log.d("ray",
-							"Failed: " + url + "\n" + conn.getResponseMessage());
-					Content = null;
-					Error = conn.getResponseMessage();
-				} else {
-					Content = "done";
-					Error = null;
-				}
-
-			} else if (this.method.equals("DELETE")) {
-				conn.addRequestProperty("Accept", "application/json");
-				conn.addRequestProperty("Accept-Encoding", "gzip");
-				conn.addRequestProperty("Cache-Control",
-						"max-stale=0,max-age=60");
-				if (conn.getResponseCode() != 204) {
-					Log.d("ray",
-							"Failed: " + url + "\n" + conn.getResponseMessage());
-					Content = null;
-					Error = conn.getResponseMessage();
-				} else {
-					Content = "done";
-					Error = null;
-				}
-			} else if (this.method.equals("Upload")) {
+			if (this.method.equals("Upload")) {
 				Product p = (Product) this.objectToAdd;
 				Content = uploadProduct(p, url, token);
 			}
@@ -230,61 +114,10 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			Error = ex.getLocalizedMessage();
 			ex.printStackTrace();
 			Log.d("ray", "ray err:" + Error);
-		} finally {
-			try {
-				reader.close();
-			} catch (Exception ex) {
-			}
-		}
-		/*****************************************************/
+		} 
 		return null;
 	}
-	public void async_post(String url,JSONObject params){
-		//do a twiiter search with a http post
-		AjaxCallback<JSONObject> cb = new AjaxCallback<JSONObject>() {
-
-			@Override
-			public void callback(String url, JSONObject html, AjaxStatus status) {
-				System.out.println(html);
-				Log.d("razzz","async: "+url+": " +html+ "->"+status.getError());
-				callb();
-			}
-		};
-		cb.header("Accept", "application/json");
-		cb.header("Accept-Encoding", "gzip");
-		cb.header("Cache-Control",
-				"max-stale=0,max-age=60");
-		cb.header("Content-Type", "application/json; charset=utf-8");
-		//String url = "http://search.twitter.com/search.json";
-		//objToCreateP
-		//Map<String, Object> params = new HashMap<String, Object>();
-		//params.put("q", "androidquery");
-		Log.d("razzz","async1: "+params);
-		JSONObject s;
-		AQuery aq;
-		aq = new AQuery(mc);
-		JSONObject jsonObjSend = new JSONObject();
-		//aq.ajax(url, params, JSONObject.class, cb);
-		aq.post(url, params, JSONObject.class, cb);
-	}
-	public void callb()
-	{
-		try {
-			if (Content == null)
-				Content = "";
-			if (Error != null) {
-				Log.d("ray","ray error: "+Error);
-				new GlobalM().bkToNav(mc, getError(Content,Error));
-			}
-			Method returnFunction = this.mc.getClass()
-					.getMethod(this.returnFunction, Content.getClass(),
-							Content.getClass());
-			returnFunction.invoke(this.mc, Content, Error);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 	protected void onPostExecute(Void unused) {
 		Log.d("raya", "post: " + returnFunction + ": " + last + ": "
 				+ global.loader.isShowing());
@@ -432,9 +265,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		System.out.println(response.toString());
 		return response.toString();
 
-	}
-	public void addCustomer() {
-		
 	}
 
 	public void showProg() {
