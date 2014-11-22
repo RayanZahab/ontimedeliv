@@ -1,4 +1,4 @@
-package eu.erikw;
+package com.example.ontimedeliv;
 
 import android.content.Context;
 import android.util.AttributeSet;

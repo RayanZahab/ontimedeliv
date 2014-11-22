@@ -22,7 +22,7 @@ public class RZHelper {
 	private Activity currentActivity;
 	private String returnMethod;
 	private String url;
-	private static AQuery myAQuery;
+	private AQuery myAQuery;
 
 	RZHelper(String myurl, Activity a, String method) {
 		url = myurl;
