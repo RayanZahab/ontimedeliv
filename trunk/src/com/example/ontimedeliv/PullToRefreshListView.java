@@ -2,7 +2,6 @@ package com.example.ontimedeliv;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.*;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.*;
@@ -295,10 +294,9 @@ public class PullToRefreshListView extends ListView{
                             bounceBackHeader();
 
                             break;
-
-                        case PULL_TO_REFRESH:
+					default:
                             resetHeader();
-                            break;
+						break;
                     }
                 }
                 break;

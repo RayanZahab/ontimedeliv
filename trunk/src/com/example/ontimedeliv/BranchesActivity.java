@@ -8,9 +8,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -55,8 +52,7 @@ public class BranchesActivity extends Activity {
 	}
 
 	public void setBranches(String s, String error) {
-		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.user);
+		
 		branches = new APIManager().getBranchesByShop(s);
 		branchesItem = new ArrayList<Item>();
 		ListView listView = (ListView) findViewById(R.id.list);

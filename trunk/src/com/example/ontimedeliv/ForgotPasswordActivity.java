@@ -3,12 +3,8 @@ package com.example.ontimedeliv;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.telephony.SmsManager;
-import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class ForgotPasswordActivity extends Activity {
 

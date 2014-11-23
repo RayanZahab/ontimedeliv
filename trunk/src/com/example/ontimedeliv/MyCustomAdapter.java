@@ -18,7 +18,6 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 	public  ArrayList<Item> currentList, tmpList;
 	Context context;
 	private ItemsFilter mFilter;
-	private final Object mLock = new Object();
 	private int layout = R.layout.categories_list;
 	public MyCustomAdapter(Context context, int textViewResourceId,
 			ArrayList<Item> navList) {

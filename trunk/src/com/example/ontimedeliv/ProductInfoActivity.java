@@ -3,8 +3,6 @@ package com.example.ontimedeliv;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-import org.json.JSONObject;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;

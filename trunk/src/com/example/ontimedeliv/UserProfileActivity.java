@@ -3,9 +3,6 @@ package com.example.ontimedeliv;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -29,6 +26,7 @@ public class UserProfileActivity extends Activity {
 	int id;
 	int branchId;
 	User user;
+	GlobalM glob = new GlobalM();
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,7 +70,7 @@ public class UserProfileActivity extends Activity {
 		passTxt.setText(pass);
 		pass2.setText(pass);
 		keep.setChecked(isChecked);
-		new GlobalM().setSelected(langSp, dataAdapter, lang);
+		glob.setSelected(langSp, dataAdapter, lang);
 	}
 
 	public void updateInfo(View view) {
@@ -140,7 +138,7 @@ public class UserProfileActivity extends Activity {
 
 			getBaseContext().getResources().updateConfiguration(config,
 					getBaseContext().getResources().getDisplayMetrics());
-			new GlobalM().bkToNav(UserProfileActivity.this, null);
+			glob.bkToNav(UserProfileActivity.this, null);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.wrongcredentials,
 					Toast.LENGTH_SHORT).show();
@@ -157,7 +155,7 @@ public class UserProfileActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		new GlobalM().bkToNav(UserProfileActivity.this, null);
+		glob.bkToNav(UserProfileActivity.this, null);
 	}
 
 }

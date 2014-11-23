@@ -22,6 +22,7 @@ public class OrdersActivity extends Activity {
 	boolean old = false, admin = true, isPreparer = false;
 	String status;
 	PullToRefreshListView lvTweets;
+	GlobalM glob = new GlobalM();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class OrdersActivity extends Activity {
 		}
 		status = ((ontimedeliv) OrdersActivity.this.getApplication())
 				.getOrderStatus();
-		int status_id = new GlobalM().getStatus(status);
+		int status_id = glob.getStatus(status);
 		actionBar.setTitle(getString(status_id));
 		getOrders();
 	}
@@ -121,7 +122,7 @@ public class OrdersActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		new GlobalM().bkToNav(OrdersActivity.this, null);
+		glob.bkToNav(OrdersActivity.this, null);
 	}
 
 	@Override

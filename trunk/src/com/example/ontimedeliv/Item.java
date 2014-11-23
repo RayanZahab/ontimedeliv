@@ -1,7 +1,5 @@
 package com.example.ontimedeliv;
 
-import android.graphics.Bitmap;
-
 public class Item {
 	private String image;
 	private String title,date;

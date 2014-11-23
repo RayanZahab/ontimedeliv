@@ -130,12 +130,13 @@ public class NavigationActivity extends Activity {
 			for (int j = 1; j < cities.size(); j++) {
 				currentName = currentCity + "," + areas.get(j).getName();
 				areas.get(j).setDisplayName("lala: "+currentName);
-				Log.d("ray", "Area : " + areas.get(j).getDisplayName());
+				Log.d("rayzzzz", "Area : " + areas.get(j).getDisplayName());
 			}
 		}
 		cities.get(cityP).setAreas(areas);
 		countries.get(countryP).setCities(cities);
 		if (last) {
+			Log.d("rayzzzz", "setting countr");
 			((ontimedeliv) this.getApplication()).setCountries(countries);
 			//((ontimedeliv) this.getApplication()).loader.dismiss();
 			last = false;

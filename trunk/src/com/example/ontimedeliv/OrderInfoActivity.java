@@ -3,8 +3,6 @@ package com.example.ontimedeliv;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -135,7 +133,7 @@ public class OrderInfoActivity extends Activity {
 	public void cancelOrder(String s, String Error) {
 		alertDialog.dismiss();
 		if (Error == null) {
-			new GlobalM().bkToNav(OrderInfoActivity.this,
+			glob.bkToNav(OrderInfoActivity.this,
 					getString(R.string.ordercanceled));
 		}
 	}
@@ -343,7 +341,7 @@ public class OrderInfoActivity extends Activity {
 	}
 
 	public void done(String s, String error) {
-		new GlobalM().bkToNav(this, getString(R.string.order_updated));
+		glob.bkToNav(this, getString(R.string.order_updated));
 	}
 
 	public void disable(boolean closed) {

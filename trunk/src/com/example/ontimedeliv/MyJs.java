@@ -49,6 +49,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	String token;
 	private ontimedeliv global;
 	TransparentProgressDialog pd;
+	GlobalM glob = new GlobalM();
 
 	private void MyJs() {
 		try {
@@ -83,7 +84,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	protected void onPreExecute() {
 		if (!isNetworkAvailable()) {
 			cancel(true);
-			new GlobalM().bkToNav(mc, mc.getString(R.string.no_net));
+			glob.bkToNav(mc, mc.getString(R.string.no_net));
 		} else {
 			if (this.first) {
 				Log.d("rays", "method: " + returnFunction + "->" + last);
@@ -130,7 +131,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 				Content = "";
 			if (Error != null) {
 				Log.d("ray","ray error: "+Error);
-				new GlobalM().bkToNav(mc, getError(Content,Error));
+				glob.bkToNav(mc, getError(Content,Error));
 			}
 			Method returnFunction = this.mc.getClass()
 					.getMethod(this.returnFunction, Content.getClass(),
