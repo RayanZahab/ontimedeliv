@@ -78,8 +78,10 @@ public class ItemsFilter extends Filter {
 			adapter.notifyDataSetChanged();
 		} else {
 			tmpList = new ArrayList<Item>();
-			Item i = new Item("empty");
+			Item i = new Item("No items found");
+			i.setEmpty(true);
 			tmpList.add(i);
+			
 			if(adapter instanceof MyCustomAdapter)
 			{
 				((MyCustomAdapter) adapter).tmpList = tmpList;
@@ -93,6 +95,5 @@ public class ItemsFilter extends Filter {
 			adapter.notifyDataSetInvalidated();
 		}
 	}
-	
-	
+
 }
