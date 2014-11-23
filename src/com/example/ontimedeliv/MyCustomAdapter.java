@@ -11,18 +11,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Filterable;
 import android.widget.Filter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 
-	public  ArrayList<Item> currentList, tmpList;
+	public ArrayList<Item> currentList, tmpList;
 	Context context;
 	private ItemsFilter mFilter;
 	private int layout = R.layout.categories_list;
+
 	public MyCustomAdapter(Context context, int textViewResourceId,
 			ArrayList<Item> navList) {
 		super(context, textViewResourceId, navList);
-		if(textViewResourceId!=0)
+		if (textViewResourceId != 0)
 			layout = textViewResourceId;
 		this.tmpList = new ArrayList<Item>();
 		this.tmpList.addAll(navList);
@@ -88,6 +90,20 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 		holder.name.setTag(navitem);
 
 		return convertView;
+	}
+
+	@Override
+	public boolean areAllItemsEnabled() {
+
+		return false;
+
+	}
+
+	@Override
+	public boolean isEnabled(int position) {
+		if (tmpList.get(position).isEmpty())
+			return false;
+		return true;
 	}
 
 	public Filter getFilter() {

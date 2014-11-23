@@ -15,7 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
+public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 
 	public ArrayList<Item> currentList, tmpList;
 	private ItemsFilter mFilter;
@@ -23,8 +23,8 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 	private ArrayList<Item> unselectedList = new ArrayList<Item>();
 	private Context context;
 	boolean icon;
-	public boolean empty =false;
-	
+	public boolean empty = false;
+
 	public CheckboxAdapter(Context context, int textViewResourceId,
 
 	ArrayList<Item> currentList, boolean icon) {
@@ -48,6 +48,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 	public ArrayList<Item> getCurrentList() {
 		return currentList;
 	}
+
 	@Override
 	public int getCount() {
 		return tmpList.size();
@@ -67,6 +68,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 	public long getItemId(int position) {
 		return position;
 	}
+
 	private class ViewHolder {
 		CheckBox name;
 		TextView chTxt;
@@ -83,25 +85,29 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 			LayoutInflater vi = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			holder = new ViewHolder();
-			if(!empty)
-			{
+			if (!empty) {
 				if (this.icon) {
 					convertView = vi.inflate(R.layout.category_info, null);
-					ImageTask img = new ImageTask((ImageView) convertView.findViewById(R.id.item_image),context);
-					img.isCat =true;
-					String image_name = (cat.getImage()).replace(" ", "_") + ".png";
+					ImageTask img = new ImageTask(
+							(ImageView) convertView
+									.findViewById(R.id.item_image),
+							context);
+					img.isCat = true;
+					String image_name = (cat.getImage()).replace(" ", "_")
+							+ ".png";
 					img.execute(image_name);
-				} else
-				{
+				} else {
 					convertView = vi.inflate(R.layout.product_info, null);
-					holder.price = (TextView) convertView.findViewById(R.id.price);
-					holder.price.setText(cat.getPrice()+context.getString(R.string.lira));
+					holder.price = (TextView) convertView
+							.findViewById(R.id.price);
+					holder.price.setText(cat.getPrice()
+							+ context.getString(R.string.lira));
 				}
-				holder.name = (CheckBox) convertView.findViewById(R.id.checkBox1);
-				holder.chTxt = (TextView) convertView.findViewById(R.id.checkBox1_txt);
-			}
-			else
-			{
+				holder.name = (CheckBox) convertView
+						.findViewById(R.id.checkBox1);
+				holder.chTxt = (TextView) convertView
+						.findViewById(R.id.checkBox1_txt);
+			} else {
 				convertView = vi.inflate(R.layout.categories_list, null);
 				holder.price = (TextView) convertView.findViewById(R.id.name);
 			}
@@ -109,38 +115,35 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		if(!empty)
-		{
+		if (!empty) {
 			holder.chTxt.setText(cat.getTitle());
 			holder.name.setChecked(cat.isSelected());
-			if(cat.isSelected())
+			if (cat.isSelected())
 				selectedList.add(cat);
 			else
 				unselectedList.add(cat);
 			holder.chTxt.setTag(cat);
-			setLis(cat,holder);
-			
-		}
-		else
-		{
+			setLis(cat, holder);
+
+		} else {
 			holder.price.setText(cat.getTitle());
 		}
 		return convertView;
 	}
-	public void setLis(final Item cat,ViewHolder holder)
-	{
+
+	public void setLis(final Item cat, ViewHolder holder) {
 		holder.name.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 				if (arg1) {
-					if(unselectedList.indexOf(cat)>=0)
+					if (unselectedList.indexOf(cat) >= 0)
 						unselectedList.remove(cat);
-					if(selectedList.indexOf(cat)<0)
+					if (selectedList.indexOf(cat) < 0)
 						selectedList.add(cat);
 				} else {
-					if(selectedList.indexOf(cat)>=0)
+					if (selectedList.indexOf(cat) >= 0)
 						selectedList.remove(cat);
-					if(unselectedList.indexOf(cat)<0)
+					if (unselectedList.indexOf(cat) < 0)
 						unselectedList.add(cat);
 				}
 			}
@@ -149,7 +152,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 
 	public ArrayList<Integer> getSelectedList() {
 		ArrayList<Integer> ids = new ArrayList<Integer>();
-		for(int i =0;i<selectedList.size();i++)
+		for (int i = 0; i < selectedList.size(); i++)
 			ids.add(selectedList.get(i).getId());
 		return ids;
 	}
@@ -160,7 +163,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 
 	public ArrayList<Integer> getUnselectedList() {
 		ArrayList<Integer> ids = new ArrayList<Integer>();
-		for(int i =0;i<unselectedList.size();i++)
+		for (int i = 0; i < unselectedList.size(); i++)
 			ids.add(unselectedList.get(i).getId());
 		return ids;
 	}
@@ -168,6 +171,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 	public void setUnselectedList(ArrayList<Item> unselectedList) {
 		this.unselectedList = unselectedList;
 	}
+
 	public Filter getFilter() {
 		if (mFilter == null) {
 			mFilter = new ItemsFilter(this, currentList, tmpList);
@@ -175,5 +179,18 @@ public class CheckboxAdapter extends ArrayAdapter<Item>  implements Filterable {
 		return mFilter;
 	}
 
+	@Override
+	public boolean areAllItemsEnabled() {
+
+		return false;
+
+	}
+
+	@Override
+	public boolean isEnabled(int position) {
+		if (tmpList.get(position).isEmpty())
+			return false;
+		return true;
+	}
 
 }

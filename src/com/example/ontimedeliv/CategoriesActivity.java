@@ -42,6 +42,8 @@ public class CategoriesActivity extends Activity {
 	ArrayList<Integer> unselectedIds = new ArrayList<Integer>();
 	Activate myCat;
 	AlertDialog alertDialog;
+	int editing = -1;
+	String newName;
 
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
@@ -135,7 +137,7 @@ public class CategoriesActivity extends Activity {
 	}
 
 	public void setCategories(String s, String error) {
-		categories = new APIManager().getCategoriesByBranch(s);
+		categories = new APIManager().getCategories(s);
 		categoryItems = new ArrayList<Item>();
 		ListView listView = (ListView) findViewById(R.id.categorylist);
 		
@@ -227,6 +229,8 @@ public class CategoriesActivity extends Activity {
 		userInput.setHint(item.getTitle());
 
 		final int itemId = item.getId();
+		editing = categoryItems.indexOf(item);
+		
 		alertDialogBuilder
 				.setCancelable(false)
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -331,14 +335,35 @@ public class CategoriesActivity extends Activity {
 				shopId);
 		//new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
 		//		"PUT", (Object) newCategory).execute(serverURL);
-		
+		newName = categoryName;
 		RZHelper p = new RZHelper(serverURL,this,"afterCreation");
 		p.put(newCategory);
 	}
 
 	public void afterCreation(String s, String error) {
-		Intent i = new Intent(this, CategoriesActivity.class);
-		startActivity(i);
+		
+		Category newCat;
+		String catUrl ;
+		if(editing>=0)
+		{
+			newCat = categories.get(editing);
+			newCat.setName(newName);
+			catUrl = (new myURL(null, "cat_images", newCat
+					.toString(), 0)).getURL();
+			categoryItems.remove(editing);
+		}
+		else
+		{
+			newCat =  new APIManager().getCategories(s).get(0);
+			catUrl = (new myURL(null, "cat_images", newCat
+					.toString(), 0)).getURL();
+		}
+		categoryItems.add(editing,new Item(newCat.getId(), catUrl,
+				newCat.toString(), true));
+		
+		dataAdapter.currentList = categoryItems;
+		dataAdapter.tmpList = categoryItems;
+		dataAdapter.notifyDataSetChanged();
 	}
 
 	public void Delete(final int position) {

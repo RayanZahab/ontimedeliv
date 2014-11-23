@@ -3,7 +3,7 @@ package com.example.ontimedeliv;
 public class Item {
 	private String image;
 	private String title,date;
-	boolean selected = false;
+	private boolean selected = false,empty = false;
 	String code = null;
 	String address;
 	boolean isNew = false;
@@ -161,6 +161,14 @@ public class Item {
 	public String toString()
 	{
 		return this.title;
+	}
+
+	public boolean isEmpty() {
+		return empty;
+	}
+
+	public void setEmpty(boolean empty) {
+		this.empty = empty;
 	}
 
 }

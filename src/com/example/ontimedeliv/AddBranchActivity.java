@@ -61,6 +61,7 @@ public class AddBranchActivity extends Activity implements
 		Dialog.setCancelable(false);
 		((ontimedeliv) this.getApplication()).clear("branch");
 		branchId = ((ontimedeliv) this.getApplication()).getBranchId();
+		((ontimedeliv) this.getApplication()).clear("listing");
 		if (branchId != 0) {
 			getCurrentBranch(branchId);
 			Button submit = (Button) findViewById(R.id.submit);
@@ -279,9 +280,9 @@ public class AddBranchActivity extends Activity implements
 			areasSp.setAdapter(null);
 			countrySp.setAdapter(counrytAdapter);
 			countrySp.setOnItemSelectedListener(this);
-
-			glob.setSelected(countrySp, counrytAdapter, new Country(
-					currentBranch.getArea().getCountry_id()));
+			if (branchId != 0)
+				glob.setSelected(countrySp, counrytAdapter, new Country(
+						currentBranch.getArea().getCountry_id()));
 		} else if (type.equals("city")) {
 			ArrayAdapter<City> cityAdapter = new ArrayAdapter<City>(this,
 					android.R.layout.simple_spinner_item, cities);
@@ -291,9 +292,9 @@ public class AddBranchActivity extends Activity implements
 			areasSp.setAdapter(null);
 			citySp.setAdapter(cityAdapter);
 			citySp.setOnItemSelectedListener(this);
-
-			glob.setSelected(citySp, cityAdapter, new City(currentBranch
-					.getArea().getCity_id()));
+			if (branchId != 0)
+				glob.setSelected(citySp, cityAdapter, new City(currentBranch
+						.getArea().getCity_id()));
 		} else if (type.equals("area")) {
 			ArrayAdapter<Area> areaAdapter = new ArrayAdapter<Area>(this,
 					android.R.layout.simple_spinner_item, areas);
@@ -302,7 +303,8 @@ public class AddBranchActivity extends Activity implements
 			areaAdapter.notifyDataSetChanged();
 			areasSp.setAdapter(areaAdapter);
 			areasSp.setOnItemSelectedListener(this);
-			glob.setSelected(areasSp, areaAdapter, currentBranch.getArea());
+			if (branchId != 0)
+				glob.setSelected(areasSp, areaAdapter, currentBranch.getArea());
 		}
 
 	}

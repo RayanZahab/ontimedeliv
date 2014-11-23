@@ -22,6 +22,7 @@ public class UsersActivity extends Activity {
 	MyCustomAdapter dataAdapter;
 	ArrayList<Item> usersItem = new ArrayList<Item>();
 	ArrayList<User> users = new ArrayList<User>();
+	boolean empty = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class UsersActivity extends Activity {
 		if (users.size() == 0) {
 			usersItem.add(new Item(0, R.drawable.user,
 					getString(R.string.empty_list)));
+			empty = true;
 		} else {
 			for (int i = 0; i < users.size(); i++) {
 				if (users.get(i).isIs_admin()) {
@@ -78,7 +80,7 @@ public class UsersActivity extends Activity {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (users.size() > 0) {
+				if (!empty) {
 					Intent i;
 					try {
 						i = new Intent(getBaseContext(), Class

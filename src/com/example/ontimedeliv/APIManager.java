@@ -405,7 +405,7 @@ public class APIManager {
 		return null;
 	}
 
-	public ArrayList<Category> getCategoriesByBranch(String cont) {
+	public ArrayList<Category> getCategories(String cont) {
 		JSONObject jsonResponse;
 		ArrayList<Category> gridArray = new ArrayList<Category>();
 
