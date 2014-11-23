@@ -1,9 +1,6 @@
 package com.example.ontimedeliv;
 
 import java.util.ArrayList;
-
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -148,7 +145,7 @@ public class UserInfoActivity extends Activity implements
 		String method = "POST";
 		branchId = ((Branch)branchesSP.getSelectedItem()).getId();
 		if (userId > 0) {
-			serverURL = new myURL(null, "users", userId, 0).getURL();
+			serverURL = new myURL(null, "users", userId, 0).getURL(); 
 			user = new User(userId, 
 					username.getText().toString(),// name
 					null,// password

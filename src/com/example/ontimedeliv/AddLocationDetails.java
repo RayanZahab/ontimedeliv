@@ -2,8 +2,6 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;

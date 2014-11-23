@@ -2,7 +2,6 @@ package com.example.ontimedeliv;
 
 import java.util.ArrayList;
 
-import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.app.ActionBar;
@@ -12,11 +11,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Base64;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;

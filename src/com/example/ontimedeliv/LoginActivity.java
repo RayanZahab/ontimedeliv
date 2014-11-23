@@ -1,20 +1,11 @@
 package com.example.ontimedeliv;
 
-import org.json.JSONObject;
-
-import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.Menu;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,7 +34,10 @@ public class LoginActivity extends Activity {
 		if (isChecked) {
 
 			((ontimedeliv) this.getApplication()).setGlobals();
-			new TextProgressDialog(this,"logging in ").showProg();		
+			//new TextProgressDialog(this,"logging in ").showProg();	
+			Intent i = new Intent(this, NavigationActivity.class);
+
+			startActivity(i);
 		}
 	}
 
@@ -77,7 +71,7 @@ public class LoginActivity extends Activity {
 			editor.putBoolean("admin", user.isIs_admin());
 			editor.putBoolean("preparer", user.isIs_preparer());
 			editor.putBoolean("delivery", user.isIs_delivery());
-			editor.putInt("shopId", 6);
+			editor.putInt("shopId", user.getShop_id());
 			editor.putInt("branchId", user.getBranch_id());
 			editor.putInt("id", user.getId());
 			Log.d("login",user.getToken());
@@ -126,29 +120,4 @@ public class LoginActivity extends Activity {
 
 }
 
-class MyTask extends AsyncTask<String, String, String> {
-	private Context context;
-	private ProgressDialog progressDialog;
 
-	MyTask(Context context) {
-		this.context = context;
-	}
-
-	@Override
-	protected void onPreExecute() {
-		progressDialog = new ProgressDialog(context);
-		progressDialog.show();
-	}
-
-	@Override
-	protected String doInBackground(String... params) {
-		// Do your loading here
-		return "finish";
-	}
-
-	@Override
-	protected void onPostExecute(String result) {
-		progressDialog.dismiss();
-		// Start other Activity or do whatever you want
-	}
-}

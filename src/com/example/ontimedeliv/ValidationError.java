@@ -37,7 +37,7 @@ public class ValidationError {
 		if(errorMsgId!=0)
 		{
 			errorMsg = mc.getString(errorMsgId);
-			Toast ts = Toast.makeText(mc, errorMsg, Toast.LENGTH_SHORT);
+			Toast ts = Toast.makeText(mc, "ray: "+errorMsg, Toast.LENGTH_LONG);
 			ts.setGravity(Gravity.TOP, 0, 0);
 			ts.show();
 		}

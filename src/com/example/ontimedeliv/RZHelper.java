@@ -1,7 +1,6 @@
 package com.example.ontimedeliv;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +50,7 @@ public class RZHelper {
 								returnMethod, stringType.getClass(),
 								stringType.getClass());
 						returnFunction.invoke(currentActivity, reply, error);
-						Log.d("ray callback","error: "+error+" => reply: "+reply);
+						Log.d("ray callback",returnMethod+ ": "+"error: "+error+" => reply: "+reply);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -104,7 +103,6 @@ public class RZHelper {
 		callBack.header("Content-Type", "multipart/form-data; charset=utf-8;boundary="
 				+ boundary);
 		
-		JSONObject params = (new APIManager()).objToCreate((Object) obj);
 		Product p = (Product) obj;
 		Map<String, Object> paramsVal = new HashMap<String, Object>();
 		paramsVal.put("name", "" + p.getName());

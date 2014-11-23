@@ -24,9 +24,10 @@ public class APIManager {
 			if (!errorCheck(jsonResponse)) {
 				int id = Converter.toInt(jsonResponse.optString("id")
 						.toString());
-				Log.d("rays", cont);
 				int branch_id = Converter.toInt(jsonResponse.optString(
 						"branch_id").toString());
+				int shop_id = Converter.toInt(jsonResponse.optString(
+						"shop_id").toString());
 				String token = jsonResponse.optString("auth_token").toString();
 				String name = jsonResponse.optString("name").toString();
 				String role_str = jsonResponse.optString("roles").toString();
@@ -37,9 +38,11 @@ public class APIManager {
 						"preparer").toString());
 				boolean delivery = Converter.toBoolean(jsonRole.optString(
 						"deliverer").toString());
-
-				return new User(id, name, token, branch_id, admin, preparer,
+				User u = new User(id, name, token, branch_id, admin, preparer,
 						delivery);
+				u.setShop_id(shop_id);
+				Log.d("rays shop","shop: "+ shop_id);
+				return u;
 
 			}
 		} catch (JSONException e) {

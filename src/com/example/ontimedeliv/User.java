@@ -11,7 +11,7 @@ public class User {
 	private String phone, token;
 	private int is_fired;
 	private Address address;
-	private int branch_id;
+	private int branch_id, shop_id;
 	private boolean is_admin, is_preparer, is_delivery, login;
 
 	public User(int id, String name, String password, String phone,
@@ -200,5 +200,13 @@ public class User {
 
 	public void setLogin(boolean login) {
 		this.login = login;
+	}
+
+	public int getShop_id() {
+		return shop_id;
+	}
+
+	public void setShop_id(int shop_id) {
+		this.shop_id = shop_id;
 	}
 }

@@ -30,19 +30,18 @@ public class AddBranchActivity extends Activity implements
 		OnItemSelectedListener {
 
 	Button from, to;
-	int fmHour, fmMinute, tHour, tMinute, shopId, branchId;
+	int fmHour, fmMinute, tHour, tMinute, shopId, branchId = 0;
 	ArrayList<Country> countries = new ArrayList<Country>();
 	ArrayList<City> cities = new ArrayList<City>();
 	ArrayList<Area> areas = new ArrayList<Area>();
 	Spinner countrySp, citySp, areasSp;
 	ProgressDialog Dialog;
-	Branch currentBranch; 
+	Branch currentBranch;
 	ExpandableListAdapter listAdapter;
 	ExpandableListView expListView;
 	List<String> listDataHeader;
 	HashMap<String, List<String>> listDataChild;
 	GlobalM glob = new GlobalM();
-	String method = "PUT";
 	String openMethod = "update_opening_hours";
 	String serverURL = "";
 
@@ -71,7 +70,6 @@ public class AddBranchActivity extends Activity implements
 			getCountries();
 			populateExp(null);
 			serverURL = new myURL("branches", null, 0, 0).getURL();
-			method = "POST";
 			openMethod = "opening_hours";
 		}
 
@@ -141,9 +139,10 @@ public class AddBranchActivity extends Activity implements
 
 	public void getCurrentBranch(int branchId) {
 		String url = new myURL(null, "branches", branchId, 1).getURL();
-//		new MyJs("setBranchInfo", this, ((ontimedeliv) this.getApplication()),
-	//			"GET", true, true).execute(serverURL);
-		RZHelper p = new RZHelper(url,this,"setBranchInfo");
+		// new MyJs("setBranchInfo", this, ((ontimedeliv)
+		// this.getApplication()),
+		// "GET", true, true).execute(serverURL);
+		RZHelper p = new RZHelper(url, this, "setBranchInfo");
 		p.get();
 	}
 
@@ -159,7 +158,7 @@ public class AddBranchActivity extends Activity implements
 		openhour.add(getString(R.string.friday));
 		openhour.add(getString(R.string.saturday));
 		openhour.add(getString(R.string.sunday));
-		
+
 		listDataChild.put(listDataHeader.get(0), openhour);
 	}
 
@@ -178,15 +177,15 @@ public class AddBranchActivity extends Activity implements
 		desc.setText(currentBranch.getDescription());
 		address.setText(currentBranch.getAddress());
 		estimation.setText(currentBranch.getEstimation_time());
-		getActionBar().setTitle(currentBranch.getName());  
-		getCountries(); 
+		getActionBar().setTitle(currentBranch.getName());
+		getCountries();
 	}
 
 	public void addBranch(View v) {
 
 		areasSp = (Spinner) findViewById(R.id.areasSP);
 		int selectedArea = 0;
-		if(areasSp.getSelectedItem()!=null)
+		if (areasSp.getSelectedItem() != null)
 			selectedArea = ((Area) areasSp.getSelectedItem()).getId();
 		String name = ((EditText) findViewById(R.id.editTextAddName)).getText()
 				.toString();
@@ -204,15 +203,13 @@ public class AddBranchActivity extends Activity implements
 		ValidationError valid = currentBranch.validate();
 
 		if (valid.isValid(this)) {
-			//new MyJs("openHours", this, ((ontimedeliv) this.getApplication()),
-			//		method, (Object) currentBranch).execute(serverURL);
-			RZHelper p = new RZHelper(serverURL,this,"openHours");			
-			if(method.equals("POST"))
-			{
+			// new MyJs("openHours", this, ((ontimedeliv)
+			// this.getApplication()),
+			// method, (Object) currentBranch).execute(serverURL);
+			RZHelper p = new RZHelper(serverURL, this, "openHours");
+			if (branchId == 0) {
 				p.post(currentBranch);
-			}
-			else 
-			{
+			} else {
 				p.put(currentBranch);
 			}
 		}
@@ -224,17 +221,14 @@ public class AddBranchActivity extends Activity implements
 			branchId = new APIManager().getBranchId(s);
 		if (error == null) {
 			String ourl = new myURL(openMethod, "branches", branchId, 0)
-					.getURL();			
-			RZHelper p = new RZHelper(ourl,this,"backToSelection");			
-			if(method.equals("POST"))
-			{
+					.getURL();
+			RZHelper p = new RZHelper(ourl, this, "backToSelection");
+			if (branchId == 0) {
 				p.post(currentBranch);
-			}
-			else
-			{
+			} else {
 				p.put(currentBranch);
 			}
-			
+
 		}
 	}
 
@@ -247,7 +241,7 @@ public class AddBranchActivity extends Activity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.add_branch, menu);
-		SharedMenu.onCreateOptionsMenu(this,menu, getApplicationContext());
+		SharedMenu.onCreateOptionsMenu(this, menu, getApplicationContext());
 		return true;
 	}
 
@@ -259,14 +253,14 @@ public class AddBranchActivity extends Activity implements
 	}
 
 	public void getCountries() {
-		countries = ((ontimedeliv) getApplication())
-				.getCountries();
+		countries = ((ontimedeliv) getApplication()).getCountries();
 		updateList("country");
 	}
 
 	public void getCities(int CountryId) {
 		cities = countries.get(CountryId).getCities();
-		Log.d("ray","country: "+CountryId+"->"+cities.size()+"-"+ citySp.getCount());
+		Log.d("ray", "country: " + CountryId + "->" + cities.size() + "-"
+				+ citySp.getCount());
 		updateList("city");
 	}
 
@@ -274,6 +268,7 @@ public class AddBranchActivity extends Activity implements
 		areas = cities.get(CityId).getAreas();
 		updateList("area");
 	}
+
 	public void updateList(String type) {
 		if (type.equals("country")) {
 			ArrayAdapter<Country> counrytAdapter = new ArrayAdapter<Country>(
@@ -283,9 +278,10 @@ public class AddBranchActivity extends Activity implements
 			counrytAdapter.notifyDataSetChanged();
 			areasSp.setAdapter(null);
 			countrySp.setAdapter(counrytAdapter);
-			countrySp.setOnItemSelectedListener(this); 
-			
-			glob.setSelected(countrySp, counrytAdapter, new Country(currentBranch.getArea().getCountry_id()) );
+			countrySp.setOnItemSelectedListener(this);
+
+			glob.setSelected(countrySp, counrytAdapter, new Country(
+					currentBranch.getArea().getCountry_id()));
 		} else if (type.equals("city")) {
 			ArrayAdapter<City> cityAdapter = new ArrayAdapter<City>(this,
 					android.R.layout.simple_spinner_item, cities);
@@ -295,8 +291,9 @@ public class AddBranchActivity extends Activity implements
 			areasSp.setAdapter(null);
 			citySp.setAdapter(cityAdapter);
 			citySp.setOnItemSelectedListener(this);
-			
-			glob.setSelected(citySp, cityAdapter, new City(currentBranch.getArea().getCity_id()) );
+
+			glob.setSelected(citySp, cityAdapter, new City(currentBranch
+					.getArea().getCity_id()));
 		} else if (type.equals("area")) {
 			ArrayAdapter<Area> areaAdapter = new ArrayAdapter<Area>(this,
 					android.R.layout.simple_spinner_item, areas);
@@ -305,7 +302,7 @@ public class AddBranchActivity extends Activity implements
 			areaAdapter.notifyDataSetChanged();
 			areasSp.setAdapter(areaAdapter);
 			areasSp.setOnItemSelectedListener(this);
-			glob.setSelected(citySp, areaAdapter,currentBranch.getArea());
+			glob.setSelected(areasSp, areaAdapter, currentBranch.getArea());
 		}
 
 	}
@@ -324,7 +321,7 @@ public class AddBranchActivity extends Activity implements
 		} else if (sp1 instanceof City) {
 			getAreas(position);
 		}
-		
+
 	}
 
 }
