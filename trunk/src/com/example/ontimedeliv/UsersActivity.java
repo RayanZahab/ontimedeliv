@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -110,8 +111,15 @@ public class UsersActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
+		SearchView searchView = (SearchView) SharedMenu.menu.findItem(
+				R.id.action_search).getActionView();
+
+		if (!searchView.isIconified()) {
+			searchView.setIconified(true);
+		} else {
 		Intent i = new Intent(UsersActivity.this, NavigationActivity.class);
 		startActivity(i);
+		}
 	}
 
 	public void onCreateContextMenu(ContextMenu menu, View v,

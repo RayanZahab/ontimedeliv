@@ -15,15 +15,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.SearchView;
 
 public class BranchesActivity extends Activity {
 
 	public MyCustomAdapter dataAdapter = null;
 	ArrayList<Branch> branches;
 	ArrayList<Item> branchesItem;
-	int shopId; 
+	int shopId;
+	boolean opened = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,7 @@ public class BranchesActivity extends Activity {
 		((ontimedeliv) this.getApplication()).clear("listing");
 		shopId = ((ontimedeliv) this.getApplication()).getShopId();
 		getBranches();
-		
+
 	}
 
 	public MyCustomAdapter getAdapter() {
@@ -44,23 +47,23 @@ public class BranchesActivity extends Activity {
 
 	public void getBranches() {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		//MyJs mjs = new MyJs("setBranches", this,
-		//		((ontimedeliv) this.getApplication()), "GET");
-		//mjs.execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setBranches");
+		// MyJs mjs = new MyJs("setBranches", this,
+		// ((ontimedeliv) this.getApplication()), "GET");
+		// mjs.execute(serverURL);
+		RZHelper p = new RZHelper(serverURL, this, "setBranches");
 		p.get();
 	}
 
 	public void setBranches(String s, String error) {
-		
+
 		branches = new APIManager().getBranchesByShop(s);
 		branchesItem = new ArrayList<Item>();
 		ListView listView = (ListView) findViewById(R.id.list);
 
 		listView.setTextFilterEnabled(true);
+
 		if (branches.size() == 0) {
-			branchesItem.add(new Item(0, "",
-					getString(R.string.empty_list)));
+			branchesItem.add(new Item(0, "", getString(R.string.empty_list)));
 		} else if (branches.size() == 1) {
 			((ontimedeliv) BranchesActivity.this.getApplication())
 					.setBranchId(branchesItem.get(0).getId());
@@ -69,8 +72,8 @@ public class BranchesActivity extends Activity {
 			return;
 		} else {
 			for (int i = 1; i < branches.size(); i++) {
-				branchesItem.add(new Item(branches.get(i).getId(), "",
-						branches.get(i).displayName()));
+				branchesItem.add(new Item(branches.get(i).getId(), "", branches
+						.get(i).displayName()));
 			}
 			registerForContextMenu(listView);
 		}
@@ -127,7 +130,7 @@ public class BranchesActivity extends Activity {
 	public void Delete(final int position) {
 		final int branchId = branchesItem.get(position).getId();
 		new AlertDialog.Builder(this)
-				.setTitle("Delete this branch?: "+branchId)
+				.setTitle("Delete this branch?: " + branchId)
 				.setIcon(R.drawable.branches)
 				.setPositiveButton(android.R.string.yes,
 						new DialogInterface.OnClickListener() {
@@ -136,12 +139,13 @@ public class BranchesActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "branches",
 										branchId, 0).getURL();
-								//MyJs mjs = new MyJs("afterDelete",
-								//		BranchesActivity.this,
-								//		((ontimedeliv) BranchesActivity.this
-								//				.getApplication()), "DELETE");
-								//mjs.execute(serverURL);
-								RZHelper p = new RZHelper(serverURL,BranchesActivity.this,"afterDelete");
+								// MyJs mjs = new MyJs("afterDelete",
+								// BranchesActivity.this,
+								// ((ontimedeliv) BranchesActivity.this
+								// .getApplication()), "DELETE");
+								// mjs.execute(serverURL);
+								RZHelper p = new RZHelper(serverURL,
+										BranchesActivity.this, "afterDelete");
 								p.delete();
 								branchesItem.remove(position);
 
@@ -174,16 +178,30 @@ public class BranchesActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		Intent i = new Intent(BranchesActivity.this, NavigationActivity.class);
-		startActivity(i);
+
+		SearchView searchView = (SearchView) SharedMenu.menu.findItem(
+				R.id.action_search).getActionView();
+
+		if (!searchView.isIconified()) {
+			searchView.setIconified(true);
+		} else {
+			Intent i = new Intent(BranchesActivity.this,
+					NavigationActivity.class);
+			startActivity(i);
+		}
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
 			// handle local menu items here or leave blank
+
+			Toast.makeText(getApplicationContext(), "shi: " + item.getItemId(),
+					Toast.LENGTH_SHORT).show();
 			switch (item.getItemId()) {
+
 			case R.id.action_search:
+				opened = true;
 				break;
 			case R.id.add:
 				Intent intent = new Intent(this, AddBranchActivity.class);

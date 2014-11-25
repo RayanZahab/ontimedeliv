@@ -14,6 +14,7 @@ public class ItemsFilter extends Filter {
 		tmpList=tlist;
 		adapter =adp;
 		
+		
 	}
 	protected FilterResults performFiltering(CharSequence prefix) {
 		// Initiate our results object

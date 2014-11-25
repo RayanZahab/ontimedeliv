@@ -48,10 +48,11 @@ public class SharedMenu extends Activity {
 		adapter = adpt;
 		setSearch(a, menu);
 	}	
-	public static void setSearch(Activity a,Menu menu)
+	public static void setSearch(Activity a,Menu mymenu)
 	{
+		menu = mymenu;
 		SearchManager searchManager = (SearchManager) a.getSystemService(Context.SEARCH_SERVICE);
-		SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
+		SearchView searchView = (SearchView) mymenu.findItem(R.id.action_search)
 				.getActionView();
 		searchView.setSearchableInfo(searchManager
 				.getSearchableInfo(a.getComponentName()));
@@ -98,10 +99,6 @@ public class SharedMenu extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-			Toast msg = Toast.makeText(context, "Developped with Passion",
-					Toast.LENGTH_LONG);
-
 			msg.show();
 			return true;
 		case SharedMenu.settings:
