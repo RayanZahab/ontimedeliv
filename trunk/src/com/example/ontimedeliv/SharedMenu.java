@@ -6,6 +6,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -88,8 +89,19 @@ public class SharedMenu extends Activity {
 		Intent intent;
 		switch (item.getItemId()) {
 		case SharedMenu.ABOUT:
+
+			Toast msg = null;
+			try {
+				msg = Toast.makeText(context,"version" + context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName,
+						Toast.LENGTH_LONG);
+			} catch (NameNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			Toast msg = Toast.makeText(context, "Developped with Passion",
 					Toast.LENGTH_LONG);
+
 			msg.show();
 			return true;
 		case SharedMenu.settings:
