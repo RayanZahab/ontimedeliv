@@ -19,6 +19,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -66,9 +67,18 @@ public class ProductsActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		Intent i = new Intent(ProductsActivity.this, CategoriesActivity.class);
-		((ontimedeliv) ProductsActivity.this.getApplication()).setCategoryId(0);
-		startActivity(i);
+		SearchView searchView = (SearchView) SharedMenu.menu.findItem(
+				R.id.action_search).getActionView();
+
+		if (!searchView.isIconified()) {
+			searchView.setIconified(true);
+		} else {
+			Intent i = new Intent(ProductsActivity.this,
+					CategoriesActivity.class);
+			((ontimedeliv) ProductsActivity.this.getApplication())
+					.setCategoryId(0);
+			startActivity(i);
+		}
 	}
 
 	public void submit(View v) {
@@ -78,11 +88,11 @@ public class ProductsActivity extends Activity {
 
 			String serverURL = new myURL("deactivate_items", "branches",
 					branchId, 0).getURL();
-			//new MyJs("afterDeactivate", this,
-				//	((ontimedeliv) this.getApplication()), "PUT",
-					//(Object) myProd, true, false).execute(serverURL);
-			
-			RZHelper p = new RZHelper(serverURL,this,"afterDeactivate");
+			// new MyJs("afterDeactivate", this,
+			// ((ontimedeliv) this.getApplication()), "PUT",
+			// (Object) myProd, true, false).execute(serverURL);
+
+			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate");
 			p.put(myProd);
 		} else {
 			afterDeactivate("", null);
@@ -98,11 +108,11 @@ public class ProductsActivity extends Activity {
 			String serverURL = new myURL("activate_items", "branches",
 					branchId, 0).getURL();
 
-			//new MyJs("afterActivate", this,
-			//		((ontimedeliv) this.getApplication()), "PUT",
-			//		(Object) myProd, false, true).execute(serverURL);
-			
-			RZHelper p = new RZHelper(serverURL,this,"afterDeactivate");
+			// new MyJs("afterActivate", this,
+			// ((ontimedeliv) this.getApplication()), "PUT",
+			// (Object) myProd, false, true).execute(serverURL);
+
+			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate");
 			p.put(myProd);
 		} else {
 			afterActivate("DONE", null);
@@ -147,12 +157,14 @@ public class ProductsActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "items",
 										productId, 0).getURL();
-								//new MyJs("afterDelete", ProductsActivity.this,
-								//		((ontimedeliv) ProductsActivity.this
-								//				.getApplication()), "DELETE",
-								//		true, true).execute(serverURL);
-								
-								RZHelper p = new RZHelper(serverURL,ProductsActivity.this,"afterDelete");
+								// new MyJs("afterDelete",
+								// ProductsActivity.this,
+								// ((ontimedeliv) ProductsActivity.this
+								// .getApplication()), "DELETE",
+								// true, true).execute(serverURL);
+
+								RZHelper p = new RZHelper(serverURL,
+										ProductsActivity.this, "afterDelete");
 								p.delete();
 								productItems.remove(position);
 							}
@@ -182,9 +194,9 @@ public class ProductsActivity extends Activity {
 
 	public void getProducts() {
 		String serverURL = this.url;
-		//new MyJs("setProducts", this, ((ontimedeliv) this.getApplication()),
-			//	"GET").execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setProducts");
+		// new MyJs("setProducts", this, ((ontimedeliv) this.getApplication()),
+		// "GET").execute(serverURL);
+		RZHelper p = new RZHelper(serverURL, this, "setProducts");
 		p.get();
 	}
 
@@ -197,8 +209,7 @@ public class ProductsActivity extends Activity {
 		products = new APIManager().getItemsByCategoryAndBranch(s);
 		productItems = new ArrayList<Item>();
 		if (products.size() == 0) {
-			productItems.add(new Item(0, "",
-					getString(R.string.empty_list)));
+			productItems.add(new Item(0, "", getString(R.string.empty_list)));
 			submit.setEnabled(false);
 		} else {
 			for (int i = 0; i < products.size(); i++) {
