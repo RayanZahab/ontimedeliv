@@ -1081,7 +1081,7 @@ public class APIManager {
 					if (c.getBranch_id() != 0)
 						params2.put("branch_id", c.getBranch_id());					
 					params2.put("is_fired", 0);
-
+					
 				}
 
 			} catch (Exception e) {
@@ -1162,17 +1162,21 @@ public class APIManager {
 					body.put("pass", c.getPassword());
 				} else {
 					if (c.getPassword() != null)
+					{
 						if (c.getId() == 0)
 						{
 							c.setEncPassword(c.getPhone());
 							body.put("pass", c.getPassword());
 						}
+						else
+							body.put("pass", c.getPassword());							
+					}
 					if (c.getName() != null)
 						body.put("name", c.getName());
 					if (c.getBranch_id() != 0)
 						body.put("branch_id", c.getBranch_id());					
 					body.put("is_fired", 0);
-
+					Log.d("ray user","user: "+body.toString());
 				}
 
 				jsonObjSend.put("user", body);

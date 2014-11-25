@@ -143,7 +143,6 @@ public class OrdersActivity extends Activity {
 						}
 					}).setNegativeButton(android.R.string.no, null).show();
 		}
-		//glob.bkToNav(OrdersActivity.this, null);
 	}
 
 	@Override
