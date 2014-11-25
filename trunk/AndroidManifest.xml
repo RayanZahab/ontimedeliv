@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ontimedeliv"
+    package="com.ontimedeliv"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -15,7 +15,7 @@
         android:targetSdkVersion="19" />
 
     <application
-        android:name="com.example.ontimedeliv.ontimedeliv"
+        android:name="com.ontimedeliv.ontimedeliv"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme" >
         <activity
-            android:name="com.example.ontimedeliv.SplashScreenActivity"
+            android:name="com.ontimedeliv.SplashScreenActivity"
             android:icon="@drawable/logo"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.LoginActivity"
+            android:name="com.ontimedeliv.LoginActivity"
             android:icon="@drawable/moto"
             android:label="@string/buttonlogin"
             android:screenOrientation="portrait"
@@ -42,7 +42,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.NavigationActivity"
+            android:name="com.ontimedeliv.NavigationActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_navigation"
             android:screenOrientation="portrait"
@@ -50,7 +50,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.CategoriesActivity"
+            android:name="com.ontimedeliv.CategoriesActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_categories"
             android:parentActivityName="BranchesActivity"
@@ -59,7 +59,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.BranchesActivity"
+            android:name="com.ontimedeliv.BranchesActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_branches"
             android:parentActivityName="NavigationActivity"
@@ -68,7 +68,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.AddBranchActivity"
+            android:name="com.ontimedeliv.AddBranchActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_add_branch"
             android:parentActivityName="BranchesActivity"
@@ -77,7 +77,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.SelectionActivity"
+            android:name="com.ontimedeliv.SelectionActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_selection"
             android:screenOrientation="portrait"
@@ -85,7 +85,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.AddLocationDetails"
+            android:name="com.ontimedeliv.AddLocationDetails"
             android:icon="@drawable/moto"
             android:label="@string/add_country"
             android:screenOrientation="portrait"
@@ -93,7 +93,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.UsersActivity"
+            android:name="com.ontimedeliv.UsersActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_users"
             android:parentActivityName="NavigationActivity"
@@ -101,7 +101,7 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.UserInfoActivity"
+            android:name="com.ontimedeliv.UserInfoActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_user_info"
             android:parentActivityName="UsersActivity"
@@ -109,14 +109,14 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.AddCategoryActivity"
+            android:name="com.ontimedeliv.AddCategoryActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_add_category"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.OrderInfoActivity"
+            android:name="com.ontimedeliv.OrderInfoActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_order_info"
             android:parentActivityName="OrdersActivity"
@@ -124,7 +124,7 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.OrdersActivity"
+            android:name="com.ontimedeliv.OrdersActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_orders"
             android:parentActivityName="NavigationActivity"
@@ -132,7 +132,7 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.ProductsActivity"
+            android:name="com.ontimedeliv.ProductsActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_product"
             android:parentActivityName="CategoriesActivity"
@@ -140,7 +140,7 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.ProductInfoActivity"
+            android:name="com.ontimedeliv.ProductInfoActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_add_product"
             android:parentActivityName="ProductsActivity"
@@ -148,33 +148,33 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.ForgotPasswordActivity"
+            android:name="com.ontimedeliv.ForgotPasswordActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_old_orders"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.SearchResultsActivity"
+            android:name="com.ontimedeliv.SearchResultsActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_search_results"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.UserProfileActivity"
+            android:name="com.ontimedeliv.UserProfileActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_user_profile"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.SelectLanguageActivity"
+            android:name="com.ontimedeliv.SelectLanguageActivity"
             android:icon="@drawable/moto"
             android:label="Select language"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.example.ontimedeliv.BlockUser"
+            android:name="com.ontimedeliv.BlockUser"
             android:label="@string/title_activity_block_user" >
         </activity>
     </application>
