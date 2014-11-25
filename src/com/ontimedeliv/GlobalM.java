@@ -3,8 +3,6 @@ package com.ontimedeliv;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
-
-
 import android.app.Activity;
 import android.content.Intent;
 import android.text.format.DateUtils;
@@ -21,35 +19,30 @@ public class GlobalM {
 
 	public void setSelected(Spinner sp, ArrayAdapter<?> list, Object o) {
 
-		for (int position = list.getCount()-1; position >=0; position--) {
+		for (int position = list.getCount() - 1; position >= 0; position--) {
 			if (list.getItem(position).equals(o)) {
 				sp.setSelection(position);
 				return;
 			}
 		}
 	}
-	public int getStatus(String status)
-	{
+
+	public int getStatus(String status) {
 		int return_id = 0;
-		if(status.equals("assigned"))
-		{
+		if (status.equals("assigned")) {
 			return_id = R.string.assigned_orders;
-		}
-		else if (status.equals("closed"))
-		{
+		} else if (status.equals("closed")) {
 			return_id = R.string.closed_orders;
-		}
-		else if(status.equals("opened"))
-		{
+		} else if (status.equals("opened")) {
 			return_id = R.string.new_orders;
-		}
-		else if(status.equals("cancelled"))
-		{
+		} else if (status.equals("cancelled")) {
 			return_id = R.string.canceled_orders;
+		} else if (status.equals("prepared")) {
+			return_id = R.string.prepared_orders;
 		}
 		return return_id;
 	}
-	
+
 	public void bkToNav(Activity a, String msg) {
 
 		boolean admin = ((ontimedeliv) a.getApplication()).isAdmin();
@@ -69,11 +62,11 @@ public class GlobalM {
 			a.startActivity(i);
 	}
 
-	public void goTo(Activity from,Class to, String msg) {
+	public void goTo(Activity from, Class to, String msg) {
 
 		Intent i;
 		i = new Intent(from, to.getClass());
-		
+
 		if (msg != null && !msg.isEmpty()) {
 			Toast t = Toast.makeText(from.getApplicationContext(), msg,
 					Toast.LENGTH_SHORT);
@@ -88,7 +81,8 @@ public class GlobalM {
 		try {
 			long now = System.currentTimeMillis();
 			long time = System.currentTimeMillis();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+			SimpleDateFormat sdf = new SimpleDateFormat(
+					"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 			TimeZone tz = TimeZone.getTimeZone("GMT");
 			sdf.setTimeZone(tz);
 			time = sdf.parse(date).getTime();
