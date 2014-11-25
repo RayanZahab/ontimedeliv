@@ -83,6 +83,7 @@ public class UserProfileActivity extends Activity {
 		} else {
 			String serverURL = new myURL(null, "users", id, 0).getURL();
 			User user = new User(nameTxt.getText().toString(), phone, null, branchId, 0);
+			user.setId(id);
 			user.setEncPassword(passTxt
 					.getText().toString());
 			ValidationError valid = user.validate(true);
@@ -97,21 +98,22 @@ public class UserProfileActivity extends Activity {
 		}
 	}
 
-	public void done(String s, String error) {
-		Toast.makeText(getApplicationContext(), "GOOD", Toast.LENGTH_SHORT)
-				.show();
+	public void done(String s, String error) {		
 		String serverURL = new myURL(null, "users", "login", 0).getURL();
-		User user = new User(phone, pass);
-		user.setEncPassword(pass);
+		User user = new User(phone, null);
+		user.setEncPassword(passTxt
+				.getText().toString());
 		//MyJs mjs = new MyJs("getLoggedIn", this,
 			//	((ontimedeliv) this.getApplication()), "POST", (Object) user);
 		//mjs.execute(serverURL);
 				
 		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn");
-		p.post(user);
+		p.post(user);			
 	}
 
 	public void getLoggedIn(String s, String error) {
+		Toast.makeText(getApplicationContext(), getString(R.string.passchanged), Toast.LENGTH_SHORT)
+		.show();
 		if (error == null) {
 			User user = new APIManager().getLogedInUser(s);
 			CheckBox keeplog = (CheckBox) findViewById(R.id.keeploggedin);

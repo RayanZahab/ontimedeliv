@@ -79,7 +79,8 @@
     <string name="cancelreason">Please enter a reason</string>
     <string name="ordercanceled">Order Canceled</string>
     <string name="forgotpass">Forgot Password</string>
-
+    <string name="passchanged">Password successfully changed</string>
+    
     <string-array name="acc_type">
         <item>Income</item>
         <item>Expense</item>

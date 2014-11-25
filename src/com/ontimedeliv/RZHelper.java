@@ -50,7 +50,7 @@ public class RZHelper {
 								returnMethod, stringType.getClass(),
 								stringType.getClass());
 						returnFunction.invoke(currentActivity, reply, error);
-						Log.d("ray callback",returnMethod+ ": "+"error: "+error+" => reply: "+reply);
+						Log.d("ray callback",url+ ": "+"error: "+error+" => reply: "+reply);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -68,6 +68,7 @@ public class RZHelper {
 		String token = settings1.getString("token", "");
 		if (!token.isEmpty()) {
 			callBack.header("auth_token", token);
+			Log.d("ray token: ","token: "+token);
 		}
 	}
 
