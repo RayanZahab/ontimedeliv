@@ -2,8 +2,11 @@ package com.ontimedeliv;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,7 +18,7 @@ import android.widget.Toast;
 
 
 import com.ontimedeliv.PullToRefreshListView.OnRefreshListener;
- 
+@SuppressLint("NewApi")
 public class OrdersActivity extends Activity {
 	OrdersAdapter dataAdapter;
 	ArrayList<Order> morders;
@@ -43,9 +46,11 @@ public class OrdersActivity extends Activity {
 		} else if (isPreparer) {
 			((ontimedeliv) OrdersActivity.this.getApplication())
 					.setOrderStatus("assigned");
+			actionBar.setDisplayHomeAsUpEnabled(false);
 		} else {
 			((ontimedeliv) OrdersActivity.this.getApplication())
 					.setOrderStatus("prepared");
+			actionBar.setDisplayHomeAsUpEnabled(false);
 		}
 		status = ((ontimedeliv) OrdersActivity.this.getApplication())
 				.getOrderStatus();
@@ -123,7 +128,22 @@ public class OrdersActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		glob.bkToNav(OrdersActivity.this, null);
+		if(status!=null)
+		{
+			new AlertDialog.Builder(this)
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.setTitle(R.string.exit)
+			.setMessage(R.string.exitquest)
+			.setPositiveButton(android.R.string.yes,
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog,
+								int which) {
+							OrdersActivity.this.finishAffinity();
+						}
+					}).setNegativeButton(android.R.string.no, null).show();
+		}
+		//glob.bkToNav(OrdersActivity.this, null);
 	}
 
 	@Override
