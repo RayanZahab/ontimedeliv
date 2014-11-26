@@ -35,7 +35,7 @@ public class LoginActivity extends Activity {
 
 		if (isChecked) {
 
-			((ontimedeliv) this.getApplication()).setGlobals();
+			ontimedeliv.getInstance().setGlobals();
 			//new TextProgressDialog(this,"logging in ").showProg();	
 			Intent i = new Intent(this, NavigationActivity.class);
 
@@ -52,7 +52,7 @@ public class LoginActivity extends Activity {
 		//		((ontimedeliv) this.getApplication()), "POST", (Object) user);
 		//mjs.execute(serverURL);
 		
-		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn");
+		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn",false);
 		p.post(user);
 		//Activity a,final String m, String url,JSONObject params){
 
@@ -79,7 +79,7 @@ public class LoginActivity extends Activity {
 			Log.d("login",user.getToken());
 			editor.commit();
 
-			((ontimedeliv) this.getApplication()).setGlobals();
+			ontimedeliv.getInstance().setGlobals();
 			Intent i;
 			if (user.isIs_admin())
 				i = new Intent(this, NavigationActivity.class);

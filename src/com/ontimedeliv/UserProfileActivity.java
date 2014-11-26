@@ -91,7 +91,7 @@ public class UserProfileActivity extends Activity {
 			{
 				//new MyJs("done", this, ((ontimedeliv) this.getApplication()),
 				//		method, (Object) user, true, true).execute(serverURL);
-				RZHelper p = new RZHelper(serverURL,this,"done");
+				RZHelper p = new RZHelper(serverURL,this,"done",false);
 				p.put(user);
 			}
 			
@@ -107,7 +107,7 @@ public class UserProfileActivity extends Activity {
 			//	((ontimedeliv) this.getApplication()), "POST", (Object) user);
 		//mjs.execute(serverURL);
 				
-		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn");
+		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn",false);
 		p.post(user);			
 	}
 
@@ -135,7 +135,7 @@ public class UserProfileActivity extends Activity {
 
 			editor.commit();
 
-			((ontimedeliv) this.getApplication()).setGlobals();
+			ontimedeliv.getInstance().setGlobals();
 			Locale locale = new Locale(lang_abv);
 			Locale.setDefault(locale);
 			Configuration config = new Configuration();

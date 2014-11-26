@@ -122,7 +122,7 @@ public class AddLocationDetails extends Activity implements
 			//	((ontimedeliv) this.getApplication()), "POST",
 				//(Object) newCountry).execute(serverURL);
 		
-		RZHelper p = new RZHelper(serverURL,this,"backToSelection");
+		RZHelper p = new RZHelper(serverURL,this,"backToSelection",false);
 		p.post(newCountry);
 	}
 
@@ -133,7 +133,7 @@ public class AddLocationDetails extends Activity implements
 			//	((ontimedeliv) this.getApplication()), "POST",
 			//	(Object) newBusiness).execute(serverURL);
 		
-		RZHelper p = new RZHelper(serverURL,this,"backToSelection");
+		RZHelper p = new RZHelper(serverURL,this,"backToSelection",false);
 		p.post(newBusiness);
 	}
 
@@ -144,7 +144,7 @@ public class AddLocationDetails extends Activity implements
 		//		((ontimedeliv) this.getApplication()), "POST", (Object) newCity)
 			//	.execute(serverURL);
 		
-		RZHelper p = new RZHelper(serverURL,this,"backToSelection");
+		RZHelper p = new RZHelper(serverURL,this,"backToSelection",false);
 		p.post(newCity);
 	}
 
@@ -155,7 +155,7 @@ public class AddLocationDetails extends Activity implements
 		//		((ontimedeliv) this.getApplication()), "POST", (Object) newArea)
 		//		.execute(serverURL);
 		
-		RZHelper p = new RZHelper(serverURL,this,"backToSelection");
+		RZHelper p = new RZHelper(serverURL,this,"backToSelection",false);
 		p.post(newArea);
 	}
 
@@ -176,7 +176,7 @@ public class AddLocationDetails extends Activity implements
 
 		//new MyJs("setCountries", this, ((ontimedeliv) this.getApplication()),
 		//		"GET").execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setCountries");
+		RZHelper p = new RZHelper(serverURL,this,"setCountries",false);
 		p.get();
 	}
 
@@ -198,7 +198,7 @@ public class AddLocationDetails extends Activity implements
 				.getURL();
 		//new MyJs("setCities", this, ((ontimedeliv) this.getApplication()),
 		//		"GET").execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setCities");
+		RZHelper p = new RZHelper(serverURL,this,"setCities",false);
 		p.get();
 	}
 

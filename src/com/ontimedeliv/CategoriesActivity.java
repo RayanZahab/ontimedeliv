@@ -54,9 +54,9 @@ public class CategoriesActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		((ontimedeliv) this.getApplication()).clear("categories");
-		this.branchId = ((ontimedeliv) this.getApplication()).getBranchId();
-		this.shopId = ((ontimedeliv) this.getApplication()).getShopId();
+		ontimedeliv.getInstance().clear("categories");
+		this.branchId = ontimedeliv.getInstance().getBranchId();
+		this.shopId = ontimedeliv.getInstance().getShopId();
 		url = new myURL("categories", "branches", branchId, 30).getURL();
 
 		getCategories();
@@ -79,10 +79,10 @@ public class CategoriesActivity extends Activity {
 			String serverURL = new myURL("deactivate_categories", "branches",
 					branchId, 0).getURL();
 			// new MyJs("afterDeactivate", this,
-			// ((ontimedeliv) this.getApplication()), "PUT",
+			// ontimedeliv.getInstance(), "PUT",
 			// (Object) myCat, true, false).execute(serverURL);
 
-			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate");
+			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate",false);
 			p.put(myCat);
 		} else {
 			afterDeactivate("", null);
@@ -97,11 +97,11 @@ public class CategoriesActivity extends Activity {
 					branchId, 0).getURL();
 
 			// MyJs mjs = new MyJs("afterActivate", this,
-			// ((ontimedeliv) this.getApplication()), "PUT",
+			// ontimedeliv.getInstance(), "PUT",
 			// (Object) myCat, false, true);
 			// mjs.execute(serverURL);
 
-			RZHelper p = new RZHelper(serverURL, this, "afterActivate");
+			RZHelper p = new RZHelper(serverURL, this, "afterActivate",false);
 			p.put(myCat);
 		} else {
 			afterActivate("DONE", null);
@@ -119,7 +119,7 @@ public class CategoriesActivity extends Activity {
 		 * CategoriesActivity.this.getApplication()), "GET");
 		 * mjs.execute(serverURL);
 		 */
-		RZHelper p = new RZHelper(serverURL, this, "setCategories");
+		RZHelper p = new RZHelper(serverURL, this, "setCategories",false);
 		p.get();
 	}
 
@@ -337,7 +337,7 @@ public class CategoriesActivity extends Activity {
 		// this.getApplication()),
 		// "POST", (Object) newCategory).execute(serverURL);
 
-		RZHelper p = new RZHelper(serverURL, this, "afterCreation");
+		RZHelper p = new RZHelper(serverURL, this, "afterCreation",true);
 		p.post(newCategory);
 	}
 
@@ -350,7 +350,7 @@ public class CategoriesActivity extends Activity {
 		// this.getApplication()),
 		// "PUT", (Object) newCategory).execute(serverURL);
 		newName = categoryName;
-		RZHelper p = new RZHelper(serverURL, this, "afterCreation");
+		RZHelper p = new RZHelper(serverURL, this, "afterCreation",true);
 		p.put(newCategory);
 	}
 
@@ -397,7 +397,7 @@ public class CategoriesActivity extends Activity {
 								categoryItems.remove(position);
 
 								RZHelper p = new RZHelper(serverURL,
-										CategoriesActivity.this, "afterDelete");
+										CategoriesActivity.this, "afterDelete",true);
 								p.delete();
 							}
 						}).setNegativeButton(android.R.string.no, null).show();

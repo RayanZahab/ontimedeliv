@@ -43,11 +43,11 @@ public class ProductsActivity extends Activity {
 		setContentView(R.layout.activity_product);
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		((ontimedeliv) this.getApplication()).clear("products");
-		categoryId = ((ontimedeliv) this.getApplication()).getCategoryId();
+		ontimedeliv.getInstance().clear("products");
+		categoryId = ontimedeliv.getInstance().getCategoryId();
 		if (categoryId != 0) {
-			branchId = ((ontimedeliv) this.getApplication()).getBranchId();
-			shopId = ((ontimedeliv) this.getApplication()).getShopId();
+			branchId = ontimedeliv.getInstance().getBranchId();
+			shopId = ontimedeliv.getInstance().getShopId();
 
 			url = new myURL("items", "branches/" + branchId + "/categories",
 					categoryId, 30).getURL();
@@ -77,8 +77,7 @@ public class ProductsActivity extends Activity {
 		} else {
 			Intent i = new Intent(ProductsActivity.this,
 					CategoriesActivity.class);
-			((ontimedeliv) ProductsActivity.this.getApplication())
-					.setCategoryId(0);
+			ontimedeliv.getInstance().setCategoryId(0);
 			startActivity(i);
 		}
 	}
@@ -91,10 +90,10 @@ public class ProductsActivity extends Activity {
 			String serverURL = new myURL("deactivate_items", "branches",
 					branchId, 0).getURL();
 			// new MyJs("afterDeactivate", this,
-			// ((ontimedeliv) this.getApplication()), "PUT",
+			// ontimedeliv.getInstance(), "PUT",
 			// (Object) myProd, true, false).execute(serverURL);
 
-			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate");
+			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate",false);
 			p.put(myProd);
 		} else {
 			afterDeactivate("", null);
@@ -111,10 +110,10 @@ public class ProductsActivity extends Activity {
 					branchId, 0).getURL();
 
 			// new MyJs("afterActivate", this,
-			// ((ontimedeliv) this.getApplication()), "PUT",
+			// ontimedeliv.getInstance(), "PUT",
 			// (Object) myProd, false, true).execute(serverURL);
 
-			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate");
+			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate",false);
 			p.put(myProd);
 		} else {
 			afterActivate("DONE", null);
@@ -166,7 +165,7 @@ public class ProductsActivity extends Activity {
 								// true, true).execute(serverURL);
 
 								RZHelper p = new RZHelper(serverURL,
-										ProductsActivity.this, "afterDelete");
+										ProductsActivity.this, "afterDelete",true);
 								p.delete();
 								productItems.remove(position);
 							}
@@ -186,7 +185,7 @@ public class ProductsActivity extends Activity {
 
 	public void Edit(Item item) {
 		Intent i = new Intent(ProductsActivity.this, ProductInfoActivity.class);
-		((ontimedeliv) this.getApplication()).setProductId(item.getId());
+		ontimedeliv.getInstance().setProductId(item.getId());
 		startActivity(i);
 	}
 
@@ -196,9 +195,9 @@ public class ProductsActivity extends Activity {
 
 	public void getProducts() {
 		String serverURL = this.url;
-		// new MyJs("setProducts", this, ((ontimedeliv) this.getApplication()),
+		// new MyJs("setProducts", this, ontimedeliv.getInstance(),
 		// "GET").execute(serverURL);
-		RZHelper p = new RZHelper(serverURL, this, "setProducts");
+		RZHelper p = new RZHelper(serverURL, this, "setProducts",false);
 		p.get();
 	}
 
@@ -236,8 +235,7 @@ public class ProductsActivity extends Activity {
 				if (products.size() > 0) {
 					Intent intent = new Intent(ProductsActivity.this,
 							ProductInfoActivity.class);
-					((ontimedeliv) ProductsActivity.this.getApplication())
-							.setProductId(productItems.get(position).getId());
+					ontimedeliv.getInstance().setProductId(productItems.get(position).getId());
 					startActivity(intent);
 				}
 			}
@@ -259,8 +257,7 @@ public class ProductsActivity extends Activity {
 			if (item.getItemId() == R.id.add) {
 				// handle local menu items here or leave blank
 				Intent intent = new Intent(this, ProductInfoActivity.class);
-				((ontimedeliv) ProductsActivity.this.getApplication())
-						.setProductId(0);
+				ontimedeliv.getInstance().setProductId(0);
 				startActivity(intent);
 			}
 		}

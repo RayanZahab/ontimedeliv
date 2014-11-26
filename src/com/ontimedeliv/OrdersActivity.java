@@ -34,26 +34,24 @@ public class OrdersActivity extends Activity {
 		setContentView(R.layout.activity_orders);
 		ActionBar actionBar = getActionBar();
 
-		((ontimedeliv) this.getApplication()).clear("orders");
+		ontimedeliv.getInstance().clear("orders");
 		if (getIntent().hasExtra("old")
 				&& getIntent().getBooleanExtra("old", false)) {
 			old = getIntent().getBooleanExtra("old", false);
 		}
-		admin = ((ontimedeliv) OrdersActivity.this.getApplication()).isAdmin();
-		isPreparer = ((ontimedeliv) this.getApplication()).isPrep();
+		admin = ontimedeliv.getInstance().isAdmin();
+		isPreparer = ontimedeliv.getInstance().isPrep();
 		if (admin) {
 			actionBar.setDisplayHomeAsUpEnabled(true); 
 		} else if (isPreparer) {
-			((ontimedeliv) OrdersActivity.this.getApplication())
+			ontimedeliv.getInstance()
 					.setOrderStatus("assigned");
 			actionBar.setDisplayHomeAsUpEnabled(false);
 		} else {
-			((ontimedeliv) OrdersActivity.this.getApplication())
-					.setOrderStatus("prepared");
+			ontimedeliv.getInstance().setOrderStatus("prepared");
 			actionBar.setDisplayHomeAsUpEnabled(false);
 		}
-		status = ((ontimedeliv) OrdersActivity.this.getApplication())
-				.getOrderStatus();
+		status = ontimedeliv.getInstance().getOrderStatus();
 		int status_id = glob.getStatus(status);
 		actionBar.setTitle(getString(status_id));
 		getOrders();
@@ -62,9 +60,9 @@ public class OrdersActivity extends Activity {
 	public void getOrders() {
 		String serverURL;
 		serverURL = new myURL(null, "orders", status, 30).getURL();
-		//new MyJs("setOrders", this, ((ontimedeliv) this.getApplication()),
+		//new MyJs("setOrders", this, ontimedeliv.getInstance(),
 			//	"GET").execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setOrders");
+		RZHelper p = new RZHelper(serverURL,this,"setOrders",false);
 		p.get();
 	}
 
@@ -117,8 +115,7 @@ public class OrdersActivity extends Activity {
 						i = new Intent(getBaseContext(),
 								OrderInfoActivity.class);
 					}
-					((ontimedeliv) OrdersActivity.this.getApplication())
-							.setOrderId(orderItems.get(position).getId());
+					ontimedeliv.getInstance().setOrderId(orderItems.get(position).getId());
 					startActivity(i);
 				}
 			}

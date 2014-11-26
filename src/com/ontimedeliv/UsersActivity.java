@@ -33,16 +33,16 @@ public class UsersActivity extends Activity {
 		setContentView(R.layout.activity_users);
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		((ontimedeliv) this.getApplication()).clear("listing");
+		ontimedeliv.getInstance().clear("listing");
 		getUsers();
 
 	}
 
 	public void getUsers() {
 		String serverURL = new myURL("users", null, 0, 30).getURL();
-		//new MyJs("setUsers", this, ((ontimedeliv) this.getApplication()), "GET")
+		//new MyJs("setUsers", this, ontimedeliv.getInstance(), "GET")
 			//	.execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setUsers");
+		RZHelper p = new RZHelper(serverURL,this,"setUsers",false);
 		p.get();
 	}
 
@@ -164,7 +164,7 @@ public class UsersActivity extends Activity {
 								//				.getApplication()), "DELETE");
 								//mjs.execute(serverURL);
 								
-								RZHelper p = new RZHelper(serverURL,UsersActivity.this,"afterDelete");
+								RZHelper p = new RZHelper(serverURL,UsersActivity.this,"afterDelete",false);
 								p.delete();
 								usersItem.remove(position);
 							}

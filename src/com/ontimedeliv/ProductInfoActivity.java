@@ -79,7 +79,7 @@ public class ProductInfoActivity extends Activity {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
 		// new MyJs("setProduct", this, ((ontimedeliv) this.getApplication()),
 		// "GET", true, false).execute(serverURL);
-		RZHelper p = new RZHelper(serverURL, this, "setProduct");
+		RZHelper p = new RZHelper(serverURL, this, "setProduct",false);
 		p.get();
 	}
 
@@ -188,7 +188,7 @@ public class ProductInfoActivity extends Activity {
 		String serverURL = new myURL("units", null, 0, 30).getURL();
 		// new MyJs("setUnits", this, ((ontimedeliv) this.getApplication()),
 		// "GET", first, true).execute(serverURL);
-		RZHelper p = new RZHelper(serverURL, this, "setUnits");
+		RZHelper p = new RZHelper(serverURL, this, "setUnits",true);
 		p.get();
 	}
 
