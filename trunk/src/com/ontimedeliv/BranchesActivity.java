@@ -34,8 +34,8 @@ public class BranchesActivity extends Activity {
 
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		((ontimedeliv) this.getApplication()).clear("listing");
-		shopId = ((ontimedeliv) this.getApplication()).getShopId();
+		ontimedeliv.getInstance().clear("listing");
+		shopId = ontimedeliv.getInstance().getShopId();
 		getBranches();
 
 	}
@@ -49,7 +49,7 @@ public class BranchesActivity extends Activity {
 		// MyJs mjs = new MyJs("setBranches", this,
 		// ((ontimedeliv) this.getApplication()), "GET");
 		// mjs.execute(serverURL);
-		RZHelper p = new RZHelper(serverURL, this, "setBranches");
+		RZHelper p = new RZHelper(serverURL, this, "setBranches",false);
 		p.get();
 	}
 
@@ -64,8 +64,7 @@ public class BranchesActivity extends Activity {
 		if (branches.size() == 0) {
 			branchesItem.add(new Item(0, "", getString(R.string.empty_list)));
 		} else if (branches.size() == 1) {
-			((ontimedeliv) BranchesActivity.this.getApplication())
-					.setBranchId(branchesItem.get(0).getId());
+			ontimedeliv.getInstance().setBranchId(branchesItem.get(0).getId());
 			Intent i = new Intent(getBaseContext(), CategoriesActivity.class);
 			startActivity(i);
 			return;
@@ -90,8 +89,7 @@ public class BranchesActivity extends Activity {
 						i = new Intent(getBaseContext(), Class
 								.forName(getPackageName() + "."
 										+ "CategoriesActivity"));
-						((ontimedeliv) BranchesActivity.this.getApplication())
-								.setBranchId(branchesItem.get(position).getId());
+						ontimedeliv.getInstance().setBranchId(branchesItem.get(position).getId());
 						startActivity(i);
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -144,7 +142,7 @@ public class BranchesActivity extends Activity {
 								// .getApplication()), "DELETE");
 								// mjs.execute(serverURL);
 								RZHelper p = new RZHelper(serverURL,
-										BranchesActivity.this, "afterDelete");
+										BranchesActivity.this, "afterDelete",true);
 								p.delete();
 								branchesItem.remove(position);
 
@@ -160,7 +158,7 @@ public class BranchesActivity extends Activity {
 
 	public void Edit(Item item) {
 		Intent i = new Intent(BranchesActivity.this, AddBranchActivity.class);
-		((ontimedeliv) BranchesActivity.this.getApplication()).setBranchId(item
+		ontimedeliv.getInstance().setBranchId(item
 				.getId());
 		startActivity(i);
 	}

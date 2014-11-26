@@ -31,9 +31,9 @@ public class NavigationActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_navigation);
-		((ontimedeliv) NavigationActivity.this.getApplication())
+		ontimedeliv.getInstance()
 				.clear("listing");
-		if (((ontimedeliv) NavigationActivity.this.getApplication())
+		if (ontimedeliv.getInstance()
 				.getCountries() == null)
 			getCountries();
 	}
@@ -74,7 +74,7 @@ public class NavigationActivity extends Activity {
 		//MyJs mjs = new MyJs("setCountries", this,
 			//	((ontimedeliv) getApplication()), "GET", true, false);
 		//mjs.execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setCountries");
+		RZHelper p = new RZHelper(serverURL,this,"setCountries",true);
 		p.get();
 	}
 
@@ -97,7 +97,7 @@ public class NavigationActivity extends Activity {
 				.getURL();
 		//new MyJs("setCities", this, ((ontimedeliv) getApplication()), "GET",
 			//	false, false).execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setCities");
+		RZHelper p = new RZHelper(serverURL,this,"setCities",true);
 		p.get();
 	}
 
@@ -119,9 +119,9 @@ public class NavigationActivity extends Activity {
 		CityId = cities.get(position).getId();
 		String serverURL = new myURL("areas", "cities", CityId, 30).getURL();
 		//MyJs mjs = new MyJs("setAreas", this,
-			//	((ontimedeliv) this.getApplication()), "GET", false, false);
+			//	ontimedeliv.getInstance(), "GET", false, false);
 		//mjs.execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setAreas");
+		RZHelper p = new RZHelper(serverURL,this,"setAreas",true);
 		p.get();
 	}
 
@@ -139,8 +139,8 @@ public class NavigationActivity extends Activity {
 		countries.get(countryP).setCities(cities);
 		if (last) {
 			Log.d("rayzzzz", "setting countr");
-			((ontimedeliv) this.getApplication()).setCountries(countries);
-			//((ontimedeliv) this.getApplication()).loader.dismiss();
+			ontimedeliv.getInstance().setCountries(countries);
+			//ontimedeliv.getInstance().loader.dismiss();
 			last = false;
 		}
 	}
@@ -194,7 +194,7 @@ public class NavigationActivity extends Activity {
 				i = new Intent(getBaseContext(), Class.forName(getPackageName()
 						+ "." + method + "Activity"));
 				if (status != null) {
-					((ontimedeliv) NavigationActivity.this.getApplication())
+					ontimedeliv.getInstance()
 							.setOrderStatus(status);
 					if (status != null && !status.equals("opened")
 							&& !status.equals("assigned")) {

@@ -9,10 +9,12 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.androidquery.AbstractAQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 
@@ -22,12 +24,18 @@ public class RZHelper {
 	private String returnMethod;
 	private String url;
 	private AQuery myAQuery;
+	GlobalM glob = new GlobalM();
+	protected TransparentProgressDialog loader;
+	private boolean silent = false;
 
-	RZHelper(String myurl, Activity a, String method) {
+	RZHelper(String myurl, Activity a, String method,boolean isSilent) {
 		url = myurl;
 		currentActivity = a;
 		returnMethod = method;
+		silent = isSilent;
 		myAQuery = new AQuery(currentActivity);
+		if(!silent)
+			showProg();
 		callBack = new AjaxCallback<JSONObject>() {
 
 			@Override
@@ -37,6 +45,8 @@ public class RZHelper {
 					reply = html.toString();
 				if (status != null)
 					error = status.getError();
+				if(!silent && loader!=null)
+					loader.dismiss();
 				if(error!=null)
 				{
 					Toast.makeText(myAQuery.getContext(), "Error: "+error,
@@ -89,11 +99,27 @@ public class RZHelper {
 	}
 
 	public void delete() {
-		// myAQuery.delete(url, JSONObject.class, (Ob, returnMethod);
 		myAQuery.delete(url, JSONObject.class, callBack);
 
 	}
-
+	public void showProg() {
+		Handler h;
+		Runnable r;
+		h = new Handler();
+		loader = new TransparentProgressDialog(
+				currentActivity, R.drawable.spinner);
+		
+		r = new Runnable() {
+			@Override
+			public void run() {
+				if (loader.isShowing()) {
+					loader.dismiss();
+				}
+			}
+		};
+		loader.show();
+		h.postDelayed(r, 10000);
+	}
 	public void aync_multipart(Object obj) {
 		String USER_AGENT = "Mozilla/5.0";
 		String boundary = "*****";
@@ -150,5 +176,13 @@ public class RZHelper {
 
 		myAQuery.ajax(url, paramsVal, JSONObject.class,callBack); 
 
+	}
+
+	public boolean isSilent() {
+		return silent;
+	}
+
+	public void setSilent(boolean silent) {
+		this.silent = silent;
 	}
 }

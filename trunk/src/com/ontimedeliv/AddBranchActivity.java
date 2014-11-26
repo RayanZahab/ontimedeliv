@@ -54,16 +54,16 @@ public class AddBranchActivity extends Activity implements
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		shopId = ((ontimedeliv) this.getApplication()).getShopId();
+		shopId = ontimedeliv.getInstance().getShopId();
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);
 		areasSp = (Spinner) findViewById(R.id.areasSP);
 
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
-		((ontimedeliv) this.getApplication()).clear("branch");
-		branchId = ((ontimedeliv) this.getApplication()).getBranchId();
-		((ontimedeliv) this.getApplication()).clear("listing");
+		ontimedeliv.getInstance().clear("branch");
+		branchId = ontimedeliv.getInstance().getBranchId();
+		ontimedeliv.getInstance().clear("listing");
 		if (branchId != 0) {
 			getCurrentBranch(branchId);
 			Button submit = (Button) findViewById(R.id.submit);
@@ -145,7 +145,7 @@ public class AddBranchActivity extends Activity implements
 		// new MyJs("setBranchInfo", this, ((ontimedeliv)
 		// this.getApplication()),
 		// "GET", true, true).execute(serverURL);
-		RZHelper p = new RZHelper(url, this, "setBranchInfo");
+		RZHelper p = new RZHelper(url, this, "setBranchInfo",false);
 		p.get();
 	}
 
@@ -209,7 +209,7 @@ public class AddBranchActivity extends Activity implements
 			// new MyJs("openHours", this, ((ontimedeliv)
 			// this.getApplication()),
 			// method, (Object) currentBranch).execute(serverURL);
-			RZHelper p = new RZHelper(serverURL, this, "openHours");
+			RZHelper p = new RZHelper(serverURL, this, "openHours",false);
 			if (branchId == 0) {
 				p.post(currentBranch);
 			} else {
@@ -225,7 +225,7 @@ public class AddBranchActivity extends Activity implements
 		if (error == null) {
 			String ourl = new myURL(openMethod, "branches", branchId, 0)
 					.getURL();
-			RZHelper p = new RZHelper(ourl, this, "backToSelection");
+			RZHelper p = new RZHelper(ourl, this, "backToSelection",true);
 			if (branchId == 0) {
 				p.post(currentBranch);
 			} else {
@@ -256,7 +256,7 @@ public class AddBranchActivity extends Activity implements
 	}
 
 	public void getCountries() {
-		countries = ((ontimedeliv) getApplication()).getCountries();
+		countries = ontimedeliv.getInstance().getCountries();
 		updateList("country");
 	}
 

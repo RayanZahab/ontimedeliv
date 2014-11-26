@@ -38,10 +38,10 @@ public class UserInfoActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_info);
 		ActionBar actionBar = getActionBar();
-		shopId = ((ontimedeliv) this.getApplication()).getShopId();
+		shopId = ontimedeliv.getInstance().getShopId();
 		
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		((ontimedeliv) this.getApplication()).clear("user");
+		ontimedeliv.getInstance().clear("user");
 		if (getIntent().hasExtra("id")) {
 			Bundle extras = getIntent().getExtras();
 			try {
@@ -85,9 +85,9 @@ public class UserInfoActivity extends Activity implements
 	public void getCurrentUser(int userId) {
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
-		//new MyJs("setUserInfo", this, ((ontimedeliv) this.getApplication()),
+		//new MyJs("setUserInfo", this, ontimedeliv.getInstance(),
 			//	"GET", true, false).execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setUserInfo");
+		RZHelper p = new RZHelper(serverURL,this,"setUserInfo",false);
 		p.get();
 	}
 
@@ -114,9 +114,9 @@ public class UserInfoActivity extends Activity implements
 
 	public void getBranches(boolean first) {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		//new MyJs("setBranches", this, ((ontimedeliv) this.getApplication()),
+		//new MyJs("setBranches", this, ontimedeliv.getInstance(),
 			//	"GET", first, true).execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setBranches");
+		RZHelper p = new RZHelper(serverURL,this,"setBranches",false);
 		p.get();
 	}
 
@@ -173,9 +173,9 @@ public class UserInfoActivity extends Activity implements
 		ValidationError valid = user.validate(false);
 		if(valid.isValid(this))
 		{
-			//new MyJs("setRoles", this, ((ontimedeliv) this.getApplication()),
+			//new MyJs("setRoles", this, ontimedeliv.getInstance(),
 			//	method, (Object) user, true, false).execute(serverURL);
-			RZHelper p = new RZHelper(serverURL,this,"setRoles");
+			RZHelper p = new RZHelper(serverURL,this,"setRoles",false);
 			if(method.equals("POST"))
 			{
 				p.post(user);
@@ -208,11 +208,11 @@ public class UserInfoActivity extends Activity implements
 		ValidationError valid = role.validate(false);
 		if(valid.isValid(this))
 		{
-			//new MyJs("afterRoles", this, ((ontimedeliv) this.getApplication()),
+			//new MyJs("afterRoles", this, ontimedeliv.getInstance(),
 				//"POST", (Object) role, false, true)
 			//	.execute(makePreparerURL);
 			
-			RZHelper p = new RZHelper(makePreparerURL,this,"afterRoles");
+			RZHelper p = new RZHelper(makePreparerURL,this,"afterRoles",false);
 			p.post(role);
 		}
 		

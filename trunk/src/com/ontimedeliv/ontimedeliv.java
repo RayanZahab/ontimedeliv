@@ -15,17 +15,27 @@ public class ontimedeliv extends Application {
 	private int shopId = 0, branchId = 0, categoryId = 0, productId = 0,
 			orderId = 0, userId = 0;
 	private boolean admin, prep, delivery, keepme;
-	public MyJs.TransparentProgressDialog loader;
+	public TransparentProgressDialog loader;
 	public TextProgressDialog txtDialog;
 	private UncaughtExceptionHandler defaultUEH;
 	private ArrayList<Country> countries ;
-
-	public ontimedeliv() {
-		//defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
-
-		// setup handler for uncaught exception
-		//Thread.setDefaultUncaughtExceptionHandler(_unCaughtExceptionHandler);
+	
+	private static ontimedeliv mInstance= null;
+	
+	public ontimedeliv(){
+		mInstance=this;
 	}
+
+    public static synchronized ontimedeliv getInstance(){
+    	if(null == mInstance){
+    		mInstance = new ontimedeliv();
+    		//defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
+
+    		// setup handler for uncaught exception
+    		//Thread.setDefaultUncaughtExceptionHandler(_unCaughtExceptionHandler);
+    	}
+    	return mInstance;
+    }
 	public ArrayList<Country> getCountries() {
 		return countries;
 	}
@@ -210,11 +220,11 @@ public class ontimedeliv extends Application {
 		this.userId = userId;
 	}
 
-	public MyJs.TransparentProgressDialog getLoader() {
+	public TransparentProgressDialog getLoader() {
 		return loader;
 	}
 
-	public void setLoader(MyJs.TransparentProgressDialog loader) {
+	public void setLoader(TransparentProgressDialog loader) {
 		this.loader = loader;
 	}
 }

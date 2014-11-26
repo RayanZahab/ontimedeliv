@@ -20,7 +20,7 @@ public class BlockUser extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_block_user);
-		this.orderId = ((ontimedeliv) this.getApplication()).getOrderId();
+		this.orderId = ontimedeliv.getInstance().getOrderId();
 		getCurrentCustomer(orderId);
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -29,9 +29,9 @@ public class BlockUser extends Activity {
 	public void getCurrentCustomer(int orderId) {
 		String serverURL = new myURL(null, "orders", orderId, 0).getURL();
 		//MyJs mjs = new MyJs("setCustomerInfo", this,
-		//		((ontimedeliv) this.getApplication()), "GET", true, true);
+		//		ontimedeliv.getInstance(), "GET", true, true);
 		//mjs.execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setCustomerInfo");
+		RZHelper p = new RZHelper(serverURL,this,"setCustomerInfo",false);
 		p.get();
 	}
 
@@ -50,9 +50,9 @@ public class BlockUser extends Activity {
 		String serverURL;
 		serverURL = new myURL("deny", "customers", currentCustomer.getId(), 0).getURL();
 		//new MyJs("back", this,
-		//		((ontimedeliv) this.getApplication()), "POST")
+		//		ontimedeliv.getInstance(), "POST")
 		//		.execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"back");
+		RZHelper p = new RZHelper(serverURL,this,"back",false);
 		p.post(currentCustomer);
 	}
 
