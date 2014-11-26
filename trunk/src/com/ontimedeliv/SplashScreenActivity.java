@@ -33,9 +33,8 @@ public class SplashScreenActivity extends Activity {
 			public void run() {
 				// This method will be executed once the timer is over
 				// Start your app main activity
-				SharedPreferences settings1 = getSharedPreferences(
-						"PREFS_NAME", 0);
-				String lang = settings1.getString("lang", null);
+				
+				String lang = ontimedeliv.getInstance().mySettings.getString("lang", null);
 				Intent i;
 				if (lang == null) {
 					i = new Intent(SplashScreenActivity.this,

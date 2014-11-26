@@ -42,7 +42,7 @@ public class UserProfileActivity extends Activity {
 		langSp = (Spinner) findViewById(R.id.languageSP);
 		keep = (CheckBox) findViewById(R.id.keeploggedin);
 
-		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
+		SharedPreferences settings1 = ontimedeliv.getInstance().mySettings;
 		boolean isChecked = settings1.getBoolean("isChecked", false);
 
 		name = settings1.getString("name", "");
@@ -117,8 +117,7 @@ public class UserProfileActivity extends Activity {
 		if (error == null) {
 			User user = new APIManager().getLogedInUser(s);
 			CheckBox keeplog = (CheckBox) findViewById(R.id.keeploggedin);
-			SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
-			SharedPreferences.Editor editor = settings.edit();
+			SharedPreferences.Editor editor = ontimedeliv.getInstance().mySettings.edit();
 
 			editor.putBoolean("isChecked", keeplog.isChecked());
 			editor.putString("token", user.getToken());

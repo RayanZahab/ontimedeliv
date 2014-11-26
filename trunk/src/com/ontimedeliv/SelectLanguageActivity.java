@@ -28,8 +28,7 @@ public class SelectLanguageActivity extends Activity {
 		actionBar.hide();
 		setContentView(R.layout.activity_select_language);
 
-		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
-		String lang = settings1.getString("lang", null);
+		String lang = ontimedeliv.getInstance().mySettings.getString("lang", null);
 		if (lang != null) {
 			Intent i = new Intent(SelectLanguageActivity.this,
 					LoginActivity.class);
@@ -56,8 +55,7 @@ public class SelectLanguageActivity extends Activity {
 		getBaseContext().getResources().updateConfiguration(config,
 				getBaseContext().getResources().getDisplayMetrics());
 
-		SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
-		SharedPreferences.Editor editor = settings.edit();
+		SharedPreferences.Editor editor = ontimedeliv.getInstance().mySettings.edit();
 		editor.putString("lang", lang_ab);
 		editor.commit();
 		Intent i = new Intent(SelectLanguageActivity.this, LoginActivity.class);
