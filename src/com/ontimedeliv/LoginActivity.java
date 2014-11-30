@@ -1,4 +1,4 @@
-package com.ontimedeliv;
+ package com.ontimedeliv;
 
 
 
@@ -21,7 +21,7 @@ public class LoginActivity extends Activity {
 	private EditText username;
 	private EditText password;
 	boolean isChecked = false;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,7 +30,8 @@ public class LoginActivity extends Activity {
 		username = (EditText) findViewById(R.id.user_name);
 		password = (EditText) findViewById(R.id.password);
 
-		isChecked = ontimedeliv.getInstance().mySettings.getBoolean("isChecked", false);
+		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
+		isChecked = settings1.getBoolean("isChecked", false);
 
 		if (isChecked) {
 
@@ -61,7 +62,7 @@ public class LoginActivity extends Activity {
 		if (error == null) {
 			User user = new APIManager().getLogedInUser(s);
 			CheckBox keeplog = (CheckBox) findViewById(R.id.keeploggedin);
-			SharedPreferences settings = ontimedeliv.getInstance().mySettings;
+			SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
 			SharedPreferences.Editor editor = settings.edit();
 
 			editor.putBoolean("isChecked", keeplog.isChecked());
