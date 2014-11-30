@@ -1,4 +1,4 @@
-package com.ontimedeliv;
+ package com.ontimedeliv;
 
 import java.io.FileInputStream;
 import java.lang.reflect.Method;
@@ -73,8 +73,9 @@ public class RZHelper {
 		callBack.header("Cache-Control", "max-stale=0,max-age=60");
 		callBack.header("Content-Type", "application/json; charset=utf-8");
 
-		
-		String token = ontimedeliv.getInstance().mySettings.getString("token", "");
+		SharedPreferences settings1 = currentActivity.getSharedPreferences(
+				"PREFS_NAME", 0);
+		String token = settings1.getString("token", "");
 		if (!token.isEmpty()) {
 			callBack.header("auth_token", token);
 			Log.d("ray token: ","token: "+token);

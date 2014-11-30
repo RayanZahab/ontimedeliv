@@ -1,4 +1,4 @@
-package com.ontimedeliv;
+ package com.ontimedeliv;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
@@ -19,12 +19,11 @@ public class ontimedeliv extends Application {
 	public TextProgressDialog txtDialog;
 	private UncaughtExceptionHandler defaultUEH;
 	private ArrayList<Country> countries ;
-	SharedPreferences mySettings;
+	
 	private static ontimedeliv mInstance= null;
 	
 	public ontimedeliv(){
 		mInstance=this;
-		mySettings = getSharedPreferences("PREFS_NAME", 0);
 	}
 
     public static synchronized ontimedeliv getInstance(){
@@ -72,7 +71,8 @@ public class ontimedeliv extends Application {
 			alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 			alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 15000,
 					myActivity);
-			mySettings.edit().clear().commit();
+			SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+			settings.edit().clear().commit();
 			System.exit(2);
 
 			// re-throw critical exception further to the os (important)
@@ -83,13 +83,13 @@ public class ontimedeliv extends Application {
 
 	public void setGlobals() {
 
-		
-		this.token = mySettings.getString("token", null);
-		this.shopId = mySettings.getInt("shopId", 0);
-		this.admin = mySettings.getBoolean("admin", false);
-		this.prep = mySettings.getBoolean("preparer", false);
-		this.delivery = mySettings.getBoolean("delivery", false);
-		this.keepme = mySettings.getBoolean("isChecked", false);
+		SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+		this.token = settings.getString("token", null);
+		this.shopId = settings.getInt("shopId", 0);
+		this.admin = settings.getBoolean("admin", false);
+		this.prep = settings.getBoolean("preparer", false);
+		this.delivery = settings.getBoolean("delivery", false);
+		this.keepme = settings.getBoolean("isChecked", false);
 	}
 
 	public void clear(String current) {

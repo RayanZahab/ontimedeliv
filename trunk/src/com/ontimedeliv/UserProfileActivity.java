@@ -27,7 +27,7 @@ public class UserProfileActivity extends Activity {
 	String name, phone, pass;
 	String lang, lang_abv;
 	int id;
-	int branchId;
+	int branchId; 
 	User user;
 	GlobalM glob = new GlobalM();
 
@@ -42,7 +42,7 @@ public class UserProfileActivity extends Activity {
 		langSp = (Spinner) findViewById(R.id.languageSP);
 		keep = (CheckBox) findViewById(R.id.keeploggedin);
 
-		SharedPreferences settings1 = ontimedeliv.getInstance().mySettings;
+		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
 		boolean isChecked = settings1.getBoolean("isChecked", false);
 
 		name = settings1.getString("name", "");
@@ -117,7 +117,8 @@ public class UserProfileActivity extends Activity {
 		if (error == null) {
 			User user = new APIManager().getLogedInUser(s);
 			CheckBox keeplog = (CheckBox) findViewById(R.id.keeploggedin);
-			SharedPreferences.Editor editor = ontimedeliv.getInstance().mySettings.edit();
+			SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+			SharedPreferences.Editor editor = settings.edit();
 
 			editor.putBoolean("isChecked", keeplog.isChecked());
 			editor.putString("token", user.getToken());
