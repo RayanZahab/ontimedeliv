@@ -42,7 +42,7 @@
     <string name="description">Description:</string>
     <string name="productname">Product Name:</string>
     <string name="selectlanguage">Select Language</string>
-    <string name="buttonlogin">Login</string>
+    <string name="login">LOGIN</string>
     <string name="products">Products</string>
     <string name="reason">Reason:</string>
     <string name="item">Item</string>
@@ -79,6 +79,7 @@
     <string name="cancelreason">Please enter a reason</string>
     <string name="ordercanceled">Order Canceled</string>
     <string name="forgotpass">Forgot Password</string>
+    <string name="enter">Enter</string>
     <string name="passchanged">Password successfully changed</string>
     
     <string-array name="acc_type">
