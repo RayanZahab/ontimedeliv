@@ -16,7 +16,7 @@
         android:paddingTop="@dimen/activity_vertical_margin" >
 
         <EditText
-            android:id="@+id/user_name"
+            android:id="@+id/user_name1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -36,9 +36,9 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/user_name"
-            android:layout_alignRight="@+id/user_name"
-            android:layout_below="@+id/user_name"
+            android:layout_alignLeft="@+id/user_name1"
+            android:layout_alignRight="@+id/user_name1"
+            android:layout_below="@+id/user_name1"
             android:layout_marginTop="@dimen/vertical_margin"
             android:background="@drawable/edittext"
             android:ellipsize="start"
