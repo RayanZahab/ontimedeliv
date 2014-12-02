@@ -6,25 +6,31 @@
 
     <EditText
         android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="230dp"
+        android:layout_height="45dp"
         android:layout_below="@+id/login"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
         android:ems="10"
+        android:hint="@string/phonenum"
+        android:paddingLeft="50dp"
+        android:textColor="#ffffff"
+        android:background="@drawable/phonebg"
         android:inputType="phone" >
-
-        <requestFocus />
     </EditText>
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="230dp"
+        android:layout_height="45dp"
         android:layout_below="@+id/username"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
         android:ems="10"
+        android:textColor="#ffffff"
+        android:paddingLeft="50dp"
+        android:hint="@string/password"
+        android:background="@drawable/passwordbg"
         android:inputType="textPassword" />
 
     <CheckBox
@@ -38,32 +44,54 @@
         android:text="@string/keeploggedin" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/checkBox1"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="71dp"
-        android:src="@drawable/sublogologin" />
+        android:layout_alignRight="@+id/username"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/enlanguage" />
 
     <TextView
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
+        android:layout_below="@+id/imageView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="117dp"
+        android:layout_marginTop="23dp"
         android:text="@string/login"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ffffff" />
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/checkBox1"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/sublogologin" />
+
     <Button
         android:id="@+id/button1"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="26dp"
+        android:layout_toRightOf="@+id/login"
+        android:background="#1ea4aa"
+        android:text="@string/enter"
+        android:textColor="#234666" />
+
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/checkBox1"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@+id/checkBox1"
-        android:text="@string/enter" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textColor="#ffffff"
+        android:text="@string/forgotpass" />
 
 </RelativeLayout>
