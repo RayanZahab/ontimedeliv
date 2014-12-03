@@ -192,7 +192,7 @@ public class AddLocationDetails extends Activity implements
 		countrySp.setAdapter(counrytAdapter);
 		countrySp.setOnItemSelectedListener(this);
 	}
-
+/*
 	public void getCities(int CountryId) {
 		String serverURL = new myURL("cities", "countries", CountryId, 30)
 				.getURL();
@@ -213,14 +213,14 @@ public class AddLocationDetails extends Activity implements
 		citySp.setOnItemSelectedListener(this);
 
 	}
-
+*/
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
 
 		Object sp1 = arg0.getSelectedItem();
 		if (sp1 instanceof Country && type.equals("Area")) {
-			getCities(((Country) sp1).getId());
+			//getCities(((Country) sp1).getId());
 		}
 
 	}

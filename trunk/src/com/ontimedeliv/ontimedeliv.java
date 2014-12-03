@@ -23,7 +23,7 @@ public class ontimedeliv extends Application {
 	public static TextProgressDialog txtDialog;
 	private UncaughtExceptionHandler defaultUEH;
 	private static ArrayList<Country> countries ;
-	
+	private static ArrayList<Unit> units;
 	
 	public ontimedeliv() {
 		
@@ -175,7 +175,7 @@ public class ontimedeliv extends Application {
 		keepme = mykeepme;
 	}
 
-	public int getProductId() {
+	public static int getProductId() {
 		return productId;
 	}
 
@@ -221,5 +221,11 @@ public class ontimedeliv extends Application {
 
 	public void setLoader(TransparentProgressDialog loader) {
 		this.loader = loader;
+	}
+	public static ArrayList<Unit> getUnits() {
+		return units;
+	}
+	public static void setUnits(ArrayList<Unit> units) {
+		ontimedeliv.units = units;
 	}
 }

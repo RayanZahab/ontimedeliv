@@ -31,13 +31,9 @@ public class NavigationActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_navigation);
-		ontimedeliv
-				.clear("listing");
-		if (ontimedeliv
-				.getCountries() == null)
-			getCountries();
+		ontimedeliv.clear("listing");
 	}
-
+	
 	@Override
 	public void onBackPressed() {
 		new AlertDialog.Builder(this)
@@ -67,7 +63,7 @@ public class NavigationActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+/*
 	public void getCountries() {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
 		Log.d("ray", "count: " + serverURL);
@@ -144,7 +140,7 @@ public class NavigationActivity extends Activity {
 			last = false;
 		}
 	}
-
+*/
 	public void select(View v) {
 
 		Intent i;
