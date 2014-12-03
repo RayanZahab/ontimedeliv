@@ -13,6 +13,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,8 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		Item cat = tmpList.get(position);
+		Log.d("ray ","pos: "+position+" -> "+cat.isSelected());
+		
 		if (convertView == null) {
 
 			LayoutInflater vi = (LayoutInflater) context
@@ -109,35 +112,44 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 						.findViewById(R.id.checkBox1);
 				holder.chTxt = (TextView) convertView
 						.findViewById(R.id.checkBox1_txt);
+				setList(cat, holder);
 			} else {
 				convertView = vi.inflate(R.layout.categories_list, null);
 				holder.price = (TextView) convertView.findViewById(R.id.name);
+				holder.price.setText(cat.getTitle());
 			}
+			
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		if (!empty) {
+		if (!empty)
+		{
 			holder.chTxt.setText(cat.getTitle());
+			holder.name.setTag(position);
+			
 			holder.name.setChecked(cat.isSelected());
+		
 			if (cat.isSelected())
-				selectedList.add(cat);
+				if (selectedList.indexOf(cat) < 0)
+					selectedList.add(cat);
 			else
-				unselectedList.add(cat);
-			holder.chTxt.setTag(cat);
-			setLis(cat, holder);
-
-		} else {
-			holder.price.setText(cat.getTitle());
+				if (unselectedList.indexOf(cat) < 0)
+					unselectedList.add(cat);
 		}
 		return convertView;
 	}
 
-	public void setLis(final Item cat, ViewHolder holder) {
+	public void setList(final Item cat, ViewHolder holder) {
 		holder.name.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				if (arg1) {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				int getPosition = (Integer) buttonView.getTag();  // Here we get the position that we have set for the checkbox using setTag.
+				tmpList.get(getPosition).setSelected(buttonView.isChecked()); // Set the value of checkbox to maintain its state.
+ 
+				Log.d("ray ","set: "+tmpList.indexOf(cat)+" -> "+cat.isSelected());
+				
+				if (isChecked) {
 					if (unselectedList.indexOf(cat) >= 0)
 						unselectedList.remove(cat);
 					if (selectedList.indexOf(cat) < 0)
@@ -149,7 +161,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 						unselectedList.add(cat);
 				}
 			}
-		});
+		});		
 	}
 
 	public ArrayList<Integer> getSelectedList() {
