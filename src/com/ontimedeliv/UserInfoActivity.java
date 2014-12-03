@@ -38,10 +38,10 @@ public class UserInfoActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_info);
 		ActionBar actionBar = getActionBar();
-		shopId = ontimedeliv.getInstance().getShopId();
+		shopId = ontimedeliv.getShopId();
 		
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		ontimedeliv.getInstance().clear("user");
+		ontimedeliv.clear("user");
 		if (getIntent().hasExtra("id")) {
 			Bundle extras = getIntent().getExtras();
 			try {
@@ -85,7 +85,7 @@ public class UserInfoActivity extends Activity implements
 	public void getCurrentUser(int userId) {
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
-		//new MyJs("setUserInfo", this, ontimedeliv.getInstance(),
+		//new MyJs("setUserInfo", this, ontimedeliv,
 			//	"GET", true, false).execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setUserInfo",false);
 		p.get();
@@ -114,7 +114,7 @@ public class UserInfoActivity extends Activity implements
 
 	public void getBranches(boolean first) {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		//new MyJs("setBranches", this, ontimedeliv.getInstance(),
+		//new MyJs("setBranches", this, ontimedeliv,
 			//	"GET", first, true).execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setBranches",false);
 		p.get();
@@ -173,7 +173,7 @@ public class UserInfoActivity extends Activity implements
 		ValidationError valid = user.validate(false);
 		if(valid.isValid(this))
 		{
-			//new MyJs("setRoles", this, ontimedeliv.getInstance(),
+			//new MyJs("setRoles", this, ontimedeliv,
 			//	method, (Object) user, true, false).execute(serverURL);
 			RZHelper p = new RZHelper(serverURL,this,"setRoles",false);
 			if(method.equals("POST"))
@@ -208,7 +208,7 @@ public class UserInfoActivity extends Activity implements
 		ValidationError valid = role.validate(false);
 		if(valid.isValid(this))
 		{
-			//new MyJs("afterRoles", this, ontimedeliv.getInstance(),
+			//new MyJs("afterRoles", this, ontimedeliv,
 				//"POST", (Object) role, false, true)
 			//	.execute(makePreparerURL);
 			

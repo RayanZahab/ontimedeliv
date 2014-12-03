@@ -17,14 +17,12 @@ import android.widget.LinearLayout;
 
 public class TextProgressDialog extends Dialog {
 	private ImageView iv;
-	private ontimedeliv global;
 	Activity current;
 	String msg;
 	public TextProgressDialog(Activity mc, String msg) {
 		super( mc, R.style.TransparentProgressDialog);
 		this.msg=msg;
 		current = mc;
-		global = ontimedeliv.getInstance();
 		WindowManager.LayoutParams wlmp = getWindow().getAttributes();
 		wlmp.gravity = Gravity.CENTER_HORIZONTAL;
 		getWindow().setAttributes(wlmp);
@@ -62,19 +60,19 @@ public class TextProgressDialog extends Dialog {
 		Handler h;
 		Runnable r;
 		h = new Handler();
-		global.txtDialog = new TextProgressDialog(current, this.msg);
+		ontimedeliv.txtDialog = new TextProgressDialog(current, this.msg);
 		r = new Runnable() {
 			@Override
 			public void run() {
-				if (global.txtDialog.isShowing()) {
-					global.txtDialog.dismiss();
+				if (ontimedeliv.txtDialog.isShowing()) {
+					ontimedeliv.txtDialog.dismiss();
 					Intent i = new Intent(current, NavigationActivity.class);
 
 					current.startActivity(i);
 				}
 			}
 		};
-		global.txtDialog.show();
+		ontimedeliv.txtDialog.show();
 		h.postDelayed(r, 1000);
 	}
 }

@@ -61,7 +61,7 @@
             android:layout_marginTop="@dimen/vertical_margin"
             android:background="@drawable/mybutton"
             android:onClick="login"
-            android:text="@string/buttonlogin"
+            android:text="Login"
             android:textColor="#a2a2a2" />
 
         <CheckBox

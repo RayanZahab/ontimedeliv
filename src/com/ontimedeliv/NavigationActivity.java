@@ -31,9 +31,9 @@ public class NavigationActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_navigation);
-		ontimedeliv.getInstance()
+		ontimedeliv
 				.clear("listing");
-		if (ontimedeliv.getInstance()
+		if (ontimedeliv
 				.getCountries() == null)
 			getCountries();
 	}
@@ -119,7 +119,7 @@ public class NavigationActivity extends Activity {
 		CityId = cities.get(position).getId();
 		String serverURL = new myURL("areas", "cities", CityId, 30).getURL();
 		//MyJs mjs = new MyJs("setAreas", this,
-			//	ontimedeliv.getInstance(), "GET", false, false);
+			//	ontimedeliv, "GET", false, false);
 		//mjs.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setAreas",true);
 		p.get();
@@ -139,8 +139,8 @@ public class NavigationActivity extends Activity {
 		countries.get(countryP).setCities(cities);
 		if (last) {
 			Log.d("rayzzzz", "setting countr");
-			ontimedeliv.getInstance().setCountries(countries);
-			//ontimedeliv.getInstance().loader.dismiss();
+			ontimedeliv.setCountries(countries);
+			//ontimedeliv.loader.dismiss();
 			last = false;
 		}
 	}
@@ -194,7 +194,7 @@ public class NavigationActivity extends Activity {
 				i = new Intent(getBaseContext(), Class.forName(getPackageName()
 						+ "." + method + "Activity"));
 				if (status != null) {
-					ontimedeliv.getInstance()
+					ontimedeliv
 							.setOrderStatus(status);
 					if (status != null && !status.equals("opened")
 							&& !status.equals("assigned")) {

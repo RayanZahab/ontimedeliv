@@ -45,7 +45,7 @@ public class GlobalM {
 
 	public void bkToNav(Activity a, String msg) {
 
-		boolean admin = ontimedeliv.getInstance().isAdmin();
+		boolean admin = ontimedeliv.isAdmin();
 		Intent i;
 		if (admin)
 			i = new Intent(a, NavigationActivity.class);
@@ -58,7 +58,7 @@ public class GlobalM {
 			t.setGravity(Gravity.TOP, 0, 0);
 			t.show();
 		}
-		if (ontimedeliv.getInstance().getToken() != null)
+		if (ontimedeliv.getToken() != null)
 			a.startActivity(i);
 	}
 
@@ -73,7 +73,7 @@ public class GlobalM {
 			t.setGravity(Gravity.TOP, 0, 0);
 			t.show();
 		}
-		if (ontimedeliv.getInstance().getToken() != null)
+		if (ontimedeliv.getToken() != null)
 			from.startActivity(i);
 	}
 

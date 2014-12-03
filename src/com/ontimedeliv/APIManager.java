@@ -295,8 +295,7 @@ public class APIManager {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id;
-				String name, address, area_str;
-				ArrayList<Area> areas;
+				String name;
 				if (jsonResponse.has("elements")) {
 					JSONArray jsonMainNode = jsonResponse
 							.optJSONArray("elements");
@@ -307,11 +306,7 @@ public class APIManager {
 						id = Converter.toInt(jsonChildNode.optString("id")
 								.toString());
 						name = jsonChildNode.optString("name").toString();
-						address = jsonChildNode.optString("address").toString();
-						area_str = jsonChildNode.optString("area").toString();
-						areas = getAreasByCity(area_str);
-						gridArray.add(new Branch(id, name, areas.get(0),
-								address));
+						gridArray.add(new Branch(id, name,null,null));
 					}
 				}
 			}
@@ -499,20 +494,12 @@ public class APIManager {
 						}
 
 						name = jsonChildNode.optString("name").toString();
-						description = jsonChildNode.optString("description")
-								.toString();
 						photo_str = jsonChildNode.optString("photo").toString();
 						Photo p = getPhoto(photo_str);
-						unit_str = jsonChildNode.optString("unit").toString();
-						jsonUnit = new JSONObject(unit_str);
-						unit = new Unit(Converter.toInt(jsonUnit.optString(
-								"id").toString()), jsonUnit.optString("name")
-								.toString());
-
 						is_available = Boolean.valueOf(jsonChildNode.optString(
 								"is_available").toString());
-						Product pro = new Product(id, price, name, description,
-								p, new Category(0), unit, is_available, 0);
+						Product pro = new Product(id, price, name, null,
+								p, null, null, is_available, 0);
 						gridArray.add(pro);
 					}
 				} else {
@@ -786,15 +773,14 @@ public class APIManager {
 	}
 
 	public ArrayList<Customer> getCustomer(String cont) {
-		JSONObject jsonResponse, jsonRole;
+		JSONObject jsonResponse;
 		ArrayList<Customer> gridArray = new ArrayList<Customer>();
 
 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id;
-				boolean is_fired, admin, preparer, delivery;
-				String name, phone, password, username, mobile, roles_str;
+				String name, phone,  mobile;
 				if (jsonResponse.has("elements")) {
 					JSONArray jsonMainNode = jsonResponse
 							.optJSONArray("elements");
@@ -852,8 +838,8 @@ public class APIManager {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id, count;
-				boolean is_fired, admin, preparer, delivery, is_new;
-				String date, password, username, mobile, customer_str, status, customer_name_str;
+				boolean  is_new;
+				String date, customer_str, status, customer_name_str;
 				double total;
 				Customer customer = new Customer(0, null, null);
 				if (jsonResponse.has("elements")) {

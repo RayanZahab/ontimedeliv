@@ -36,7 +36,7 @@ public class LoginActivity extends Activity {
 
 		if (isChecked) {
 
-			ontimedeliv.getInstance().setGlobals();
+			((ontimedeliv) this.getApplication()).setGlobals();
 			//new TextProgressDialog(this,"logging in ").showProg();	
 			Intent i = new Intent(this, NavigationActivity.class);
 
@@ -80,7 +80,7 @@ public class LoginActivity extends Activity {
 			Log.d("login",user.getToken());
 			editor.commit();
 
-			ontimedeliv.getInstance().setGlobals();
+			((ontimedeliv) this.getApplication()).setGlobals();
 			Intent i;
 			if (user.isIs_admin())
 				i = new Intent(this, NavigationActivity.class);

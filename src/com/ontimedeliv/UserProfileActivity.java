@@ -135,7 +135,7 @@ public class UserProfileActivity extends Activity {
 
 			editor.commit();
 
-			ontimedeliv.getInstance().setGlobals();
+			((ontimedeliv) this.getApplication()).setGlobals();
 			Locale locale = new Locale(lang_abv);
 			Locale.setDefault(locale);
 			Configuration config = new Configuration();

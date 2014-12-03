@@ -11,51 +11,47 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 public class ontimedeliv extends Application {
-	private String token, orderStatus;
-	private int shopId = 0, branchId = 0, categoryId = 0, productId = 0,
+	private static String token;
+	private static String orderStatus;
+	private static int shopId = 0, branchId = 0, categoryId = 0, productId = 0,
 			orderId = 0, userId = 0;
-	private boolean admin, prep, delivery, keepme;
+	private static boolean admin;
+	private static boolean prep;
+	private static boolean delivery;
+	private static boolean keepme;
 	public TransparentProgressDialog loader;
-	public TextProgressDialog txtDialog;
+	public static TextProgressDialog txtDialog;
 	private UncaughtExceptionHandler defaultUEH;
-	private ArrayList<Country> countries ;
+	private static ArrayList<Country> countries ;
 	
-	private static ontimedeliv mInstance= null;
 	
-	public ontimedeliv(){
-		mInstance=this;
+	public ontimedeliv() {
+		
+		//defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
+
+		// setup handler for uncaught exception
+		//Thread.setDefaultUncaughtExceptionHandler(_unCaughtExceptionHandler);
 	}
-
-    public static synchronized ontimedeliv getInstance(){
-    	if(null == mInstance){
-    		mInstance = new ontimedeliv();
-    		//defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
-
-    		// setup handler for uncaught exception
-    		//Thread.setDefaultUncaughtExceptionHandler(_unCaughtExceptionHandler);
-    	}
-    	return mInstance;
-    }
-	public ArrayList<Country> getCountries() {
+	public static ArrayList<Country> getCountries() {
 		return countries;
 	}
-	public void setCountries(ArrayList<Country> countries) {
-		this.countries = countries;
+	public static void setCountries(ArrayList<Country> mycountries) {
+		countries = mycountries;
 	}
-	public String getToken() {
+	public static String getToken() {
 		return token;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public void setToken(String mytoken) {
+		token = mytoken;
 	}
 
-	public int getShopId() {
+	public static int getShopId() {
 		return shopId;
 	}
 
-	public void setShopId(int shopId) {
-		this.shopId = shopId;
+	public void setShopId(int myshopId) {
+		shopId = myshopId;
 	}
 
 	// handler listener
@@ -81,18 +77,17 @@ public class ontimedeliv extends Application {
 		}
 	};
 
-	public void setGlobals() {
-
+	public void setGlobals() {		
 		SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
-		this.token = settings.getString("token", null);
-		this.shopId = settings.getInt("shopId", 0);
-		this.admin = settings.getBoolean("admin", false);
-		this.prep = settings.getBoolean("preparer", false);
-		this.delivery = settings.getBoolean("delivery", false);
-		this.keepme = settings.getBoolean("isChecked", false);
+		token = settings.getString("token", null);
+		shopId = settings.getInt("shopId", 0);
+		admin = settings.getBoolean("admin", false);
+		prep = settings.getBoolean("preparer", false);
+		delivery = settings.getBoolean("delivery", false);
+		keepme = settings.getBoolean("isChecked", false);
 	}
 
-	public void clear(String current) {
+	public static void clear(String current) {
 		if (current.equals("listing")) {
 			branchId = 0;
 			categoryId = 0;
@@ -140,84 +135,84 @@ public class ontimedeliv extends Application {
 		}
 	}
 
-	public int getBranchId() {
+	public static int getBranchId() {
 		return branchId;
 	}
 
-	public void setBranchId(int branchId) {
-		this.branchId = branchId;
+	public static void setBranchId(int mybranchId) {
+		branchId = mybranchId;
 	}
 
-	public boolean isDelivery() {
+	public static boolean isDelivery() {
 		return delivery;
 	}
 
-	public void setDelivery(boolean delivery) {
-		this.delivery = delivery;
+	public void setDelivery(boolean mydelivery) {
+		delivery = mydelivery;
 	}
 
-	public boolean isAdmin() {
+	public static boolean isAdmin() {
 		return admin;
 	}
 
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
+	public static void setAdmin(boolean myadmin) {
+		admin = myadmin;
 	}
 
-	public boolean isPrep() {
+	public static boolean isPrep() {
 		return prep;
 	}
 
-	public void setPrep(boolean prep) {
-		this.prep = prep;
+	public void setPrep(boolean myprep) {
+		prep = myprep;
 	}
 
 	public boolean isKeepme() {
 		return keepme;
 	}
 
-	public void setKeepme(boolean keepme) {
-		this.keepme = keepme;
+	public void setKeepme(boolean mykeepme) {
+		keepme = mykeepme;
 	}
 
 	public int getProductId() {
 		return productId;
 	}
 
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public static void setProductId(int myproductId) {
+		productId = myproductId;
 	}
 
-	public int getCategoryId() {
+	public static int getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
+	public static void setCategoryId(int mycategoryId) {
+		categoryId = mycategoryId;
 	}
 
-	public int getOrderId() {
+	public static int getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public static void setOrderId(int myorderId) {
+		orderId = myorderId;
 	}
 
-	public String getOrderStatus() {
+	public static String getOrderStatus() {
 		return orderStatus;
 	}
 
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
+	public static void setOrderStatus(String myorderStatus) {
+		orderStatus = myorderStatus;
 	}
 
 	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUserId(int myuserId) {
+		userId = myuserId;
 	}
 
 	public TransparentProgressDialog getLoader() {
