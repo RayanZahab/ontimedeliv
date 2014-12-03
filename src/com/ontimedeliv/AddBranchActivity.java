@@ -77,6 +77,8 @@ public class AddBranchActivity extends Activity implements
 		}
 
 	}
+	
+
 
 	public void populateExp(Branch b) {
 		expListView = (ExpandableListView) findViewById(R.id.lvExp);
@@ -254,16 +256,29 @@ public class AddBranchActivity extends Activity implements
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	public void getCountriesFromDB() {
+		String serverURL = new myURL(null,"countries","get_all_cities_areas", 0).getURL();
+		RZHelper p = new RZHelper(serverURL, this, "setCountries",false);
+		p.get();
+	}
+	public void setCountries(String s,String error)
+	{
+		countries = new APIManager().getCountries(s);
+		ontimedeliv.setCountries(countries);
+		updateList("country");
+	}
 
 	public void getCountries() {
 		countries = ontimedeliv.getCountries();
-		updateList("country");
+		if (ontimedeliv.getCountries() == null)
+			getCountriesFromDB();
+		else
+			updateList("country");
 	}
 
 	public void getCities(int CountryId) {
 		cities = countries.get(CountryId).getCities();
-		Log.d("ray", "country: " + CountryId + "->" + cities.size() + "-"
-				+ citySp.getCount());
 		updateList("city");
 	}
 

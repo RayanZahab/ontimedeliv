@@ -64,6 +64,7 @@ public class APIManager {
 			if (!errorCheck(jsonResponse)) {
 				int id;
 				String name;
+				ArrayList<City> cities;
 				if (jsonResponse.has("elements")) {
 					JSONArray jsonMainNode = jsonResponse
 							.optJSONArray("elements");
@@ -74,8 +75,11 @@ public class APIManager {
 
 						id = Converter.toInt(jsonChildNode.optString("id")
 								.toString());
-						name = jsonChildNode.optString("name").toString();
-						gridArray.add(new Country(id, name));
+						name = jsonChildNode.optString("name").toString();						
+						Country c= new Country(id, name);
+						cities = getCitiesByCountry(jsonChildNode);
+						c.setCities(cities);
+						gridArray.add(c);
 					}
 				} else {
 					id = Converter.toInt(jsonResponse.optString("id")
@@ -95,31 +99,33 @@ public class APIManager {
 
 	}
 
-	public ArrayList<City> getCitiesByCountry(String cont) {
-		JSONObject jsonResponse;
+	public ArrayList<City> getCitiesByCountry(JSONObject jsonResponse) {
+		
+		JSONArray jsonItemsNode = jsonResponse.optJSONArray("cities");
+		int lengthJsonArr = jsonItemsNode.length();
 		ArrayList<City> gridArray = new ArrayList<City>();
 		gridArray.add(new City(0, "Select"));
 		try {
-			jsonResponse = new JSONObject(cont);
+			
 			if (!errorCheck(jsonResponse)) {
 				int id;
-				String name;
-				if (jsonResponse.has("elements")) {
-					JSONArray jsonMainNode = jsonResponse
-							.optJSONArray("elements");
-					int lengthJsonArr = jsonMainNode.length();
-
-					for (int i = 0; i < lengthJsonArr; i++) {
-						JSONObject jsonChildNode = jsonMainNode
-								.getJSONObject(i);
-
-						id = Converter.toInt(jsonChildNode.optString("id")
-								.toString());
-						name = jsonChildNode.optString("name").toString();
-						gridArray.add(new City(id, name));
-					}
+				String name,area_str;
+				ArrayList<Area> areas;
+				for (int i = 0; i < lengthJsonArr; i++) {
+					JSONObject jsonChildNode = jsonItemsNode
+							.getJSONObject(i);
+		
+					id = Converter.toInt(jsonChildNode.optString("id")
+							.toString());
+					name = jsonChildNode.optString("name").toString();
+					City c= new City(id, name);
+					
+					area_str = jsonChildNode.optString("areas").toString();
+					areas = getAreasByCity(jsonChildNode);
+					c.setAreas(areas);
+					gridArray.add(c);
 				}
-			}
+			}				
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -127,44 +133,29 @@ public class APIManager {
 		return gridArray;
 	}
 
-	public ArrayList<Area> getAreasByCity(String cont) {
-		JSONObject jsonResponse;
+	public ArrayList<Area> getAreasByCity(JSONObject jsonResponse) {		
+		JSONArray jsonItemsNode = jsonResponse.optJSONArray("areas");
+		int lengthJsonArr = jsonItemsNode.length();
 		ArrayList<Area> gridArray = new ArrayList<Area>();
-		try {
-			jsonResponse = new JSONObject(cont);
+		gridArray.add(new Area(0, "Select"));
+		try {			
 			if (!errorCheck(jsonResponse)) {
-
 				int id, country_id, city_id;
 				String name;
-				if (jsonResponse.has("elements")) {
-					gridArray.add(new Area(0, "Select"));
-					JSONArray jsonMainNode = jsonResponse
-							.optJSONArray("elements");
-					int lengthJsonArr = jsonMainNode.length();
-					for (int i = 0; i < lengthJsonArr; i++) {
-						JSONObject jsonChildNode = jsonMainNode
-								.getJSONObject(i);
+				for (int i = 0; i < lengthJsonArr; i++) {
+					JSONObject jsonChildNode = jsonItemsNode
+							.getJSONObject(i);
 
-						id = Converter.toInt(jsonChildNode.optString("id")
-								.toString());
-						country_id = Converter.toInt(jsonChildNode.optString(
-								"country_id").toString());
-						city_id = Converter.toInt(jsonChildNode.optString(
-								"city_id").toString());
-						name = jsonChildNode.optString("name").toString();
-						gridArray.add(new Area(id, city_id, country_id, name));
-					}
-				} else {
-					id = Converter.toInt(jsonResponse.optString("id")
+					id = Converter.toInt(jsonChildNode.optString("id")
 							.toString());
-					name = jsonResponse.optString("name").toString();
-					country_id = Converter.toInt(jsonResponse.optString(
+					country_id = Converter.toInt(jsonChildNode.optString(
 							"country_id").toString());
-					city_id = Converter.toInt(jsonResponse
-							.optString("city_id").toString());
+					city_id = Converter.toInt(jsonChildNode.optString(
+							"city_id").toString());
+					name = jsonChildNode.optString("name").toString();
 					gridArray.add(new Area(id, city_id, country_id, name));
 				}
-			}
+			}		
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -333,8 +324,7 @@ public class APIManager {
 				estimation_time = jsonResponse.optString("estimation_time")
 						.toString();
 
-				area_str = jsonResponse.optString("area");
-				areas = getAreasByCity(area_str);
+				areas = getAreasByCity(jsonResponse);
 				area = areas.get(0);
 
 				open_hours = new JSONObject(jsonResponse.optString(
@@ -953,7 +943,8 @@ public class APIManager {
 				date = jsonResponse.optString("created_at").toString();
 				order.setStatus(status);
 				add_str = jsonResponse.optString("address").toString();
-				if (add_str != null && !add_str.isEmpty()
+				
+				if (!add_str.equals("null") && add_str != null && !add_str.isEmpty()
 						&& !jsonResponse.isNull("customer")) {
 
 					jsonAdd = new JSONObject(add_str);

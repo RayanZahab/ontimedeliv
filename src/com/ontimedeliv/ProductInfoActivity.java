@@ -3,8 +3,6 @@ package com.ontimedeliv;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -51,11 +49,11 @@ public class ProductInfoActivity extends Activity {
 		StrictMode.setThreadPolicy(policy);
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		((ontimedeliv) this.getApplication()).clear("product");
-		branchId = ((ontimedeliv) this.getApplication()).getBranchId();
-		categoryId = ((ontimedeliv) this.getApplication()).getCategoryId();
-		productId = ((ontimedeliv) this.getApplication()).getProductId();
-		shopId = ((ontimedeliv) this.getApplication()).getShopId();
+		ontimedeliv.clear("product");
+		branchId = ontimedeliv.getBranchId();
+		categoryId = ontimedeliv.getCategoryId();
+		productId = ontimedeliv.getProductId();
+		shopId = ontimedeliv.getShopId();
 		if (productId != 0) {
 			getProduct(productId);
 		} else {
@@ -77,9 +75,9 @@ public class ProductInfoActivity extends Activity {
 
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
-		// new MyJs("setProduct", this, ((ontimedeliv) this.getApplication()),
+		// new MyJs("setProduct", this, ontimedeliv,
 		// "GET", true, false).execute(serverURL);
-		RZHelper p = new RZHelper(serverURL, this, "setProduct",false);
+		RZHelper p = new RZHelper(serverURL, this, "setProduct", false);
 		p.get();
 	}
 
@@ -129,12 +127,11 @@ public class ProductInfoActivity extends Activity {
 					.getURL();
 		}
 
-		 new MyJs("afterCreation", this, ((ontimedeliv)
-		 this.getApplication()),
-		 "Upload", (Object) prod).execute(serverURL);
+		new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
+				"Upload", (Object) prod).execute(serverURL);
 
-		//RZHelper p = new RZHelper(serverURL, this, "afterCreation");
-		//p.aync_multipart(prod);
+		// RZHelper p = new RZHelper(serverURL, this, "afterCreation");
+		// p.aync_multipart(prod);
 	}
 
 	public void afterCreation(String s, String error) {
@@ -169,8 +166,28 @@ public class ProductInfoActivity extends Activity {
 		}
 	}
 
+	public void getUnits(boolean first) 
+	{
+		units = ontimedeliv.getUnits();
+		if (units == null)
+			getUnitsFromDB();
+		else
+			populateUnits();
+	}
+
+	public void getUnitsFromDB() 
+	{
+		String serverURL = new myURL("units", null, 0, 30).getURL();
+		RZHelper p = new RZHelper(serverURL, this, "setUnits", true);
+		p.get();
+	}
+
 	public void setUnits(String s, String error) {
-		units = new APIManager().getUnits(s);
+		units = new APIManager().getUnits(s);		
+		populateUnits();
+	}
+	public void populateUnits()
+	{
 		ArrayAdapter<Unit> dataAdapter = new ArrayAdapter<Unit>(this,
 				android.R.layout.simple_spinner_item, units);
 		dataAdapter
@@ -181,15 +198,6 @@ public class ProductInfoActivity extends Activity {
 			Log.d("ray", "selecting" + currentProduct.getUnit().getId());
 			glob.setSelected(unitsSP, dataAdapter, currentProduct.getUnit());
 		}
-	}
-
-	public void getUnits(boolean first) {
-		// getUnits
-		String serverURL = new myURL("units", null, 0, 30).getURL();
-		// new MyJs("setUnits", this, ((ontimedeliv) this.getApplication()),
-		// "GET", first, true).execute(serverURL);
-		RZHelper p = new RZHelper(serverURL, this, "setUnits",true);
-		p.get();
 	}
 
 	@Override
