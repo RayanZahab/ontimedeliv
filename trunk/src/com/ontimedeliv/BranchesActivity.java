@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -34,8 +35,9 @@ public class BranchesActivity extends Activity {
 
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		ontimedeliv.getInstance().clear("listing");
-		shopId = ontimedeliv.getInstance().getShopId();
+		ontimedeliv.clear("listing");
+		shopId = ((ontimedeliv) this.getApplication()).getShopId();
+		Log.d("ray","shopid: "+shopId);
 		getBranches();
 
 	}
@@ -46,6 +48,7 @@ public class BranchesActivity extends Activity {
 
 	public void getBranches() {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
+		Log.d("ray","url: "+serverURL);
 		// MyJs mjs = new MyJs("setBranches", this,
 		// ((ontimedeliv) this.getApplication()), "GET");
 		// mjs.execute(serverURL);
@@ -54,7 +57,7 @@ public class BranchesActivity extends Activity {
 	}
 
 	public void setBranches(String s, String error) {
-
+		Log.d("ray","reply: "+s);
 		branches = new APIManager().getBranchesByShop(s);
 		branchesItem = new ArrayList<Item>();
 		ListView listView = (ListView) findViewById(R.id.list);
@@ -64,7 +67,7 @@ public class BranchesActivity extends Activity {
 		if (branches.size() == 0) {
 			branchesItem.add(new Item(0, "", getString(R.string.empty_list)));
 		} else if (branches.size() == 1) {
-			ontimedeliv.getInstance().setBranchId(branchesItem.get(0).getId());
+			ontimedeliv.setBranchId(branchesItem.get(0).getId());
 			Intent i = new Intent(getBaseContext(), CategoriesActivity.class);
 			startActivity(i);
 			return;
@@ -89,7 +92,7 @@ public class BranchesActivity extends Activity {
 						i = new Intent(getBaseContext(), Class
 								.forName(getPackageName() + "."
 										+ "CategoriesActivity"));
-						ontimedeliv.getInstance().setBranchId(branchesItem.get(position).getId());
+						ontimedeliv.setBranchId(branchesItem.get(position).getId());
 						startActivity(i);
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -158,8 +161,7 @@ public class BranchesActivity extends Activity {
 
 	public void Edit(Item item) {
 		Intent i = new Intent(BranchesActivity.this, AddBranchActivity.class);
-		ontimedeliv.getInstance().setBranchId(item
-				.getId());
+		ontimedeliv.setBranchId(item.getId());
 		startActivity(i);
 	}
 

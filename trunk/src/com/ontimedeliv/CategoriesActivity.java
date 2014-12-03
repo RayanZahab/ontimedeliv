@@ -54,9 +54,9 @@ public class CategoriesActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		ontimedeliv.getInstance().clear("categories");
-		this.branchId = ontimedeliv.getInstance().getBranchId();
-		this.shopId = ontimedeliv.getInstance().getShopId();
+		ontimedeliv.clear("categories");
+		this.branchId = ontimedeliv.getBranchId();
+		this.shopId = ontimedeliv.getShopId();
 		url = new myURL("categories", "branches", branchId, 30).getURL();
 
 		getCategories();
@@ -79,7 +79,7 @@ public class CategoriesActivity extends Activity {
 			String serverURL = new myURL("deactivate_categories", "branches",
 					branchId, 0).getURL();
 			// new MyJs("afterDeactivate", this,
-			// ontimedeliv.getInstance(), "PUT",
+			// ontimedeliv, "PUT",
 			// (Object) myCat, true, false).execute(serverURL);
 
 			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate",false);
@@ -97,7 +97,7 @@ public class CategoriesActivity extends Activity {
 					branchId, 0).getURL();
 
 			// MyJs mjs = new MyJs("afterActivate", this,
-			// ontimedeliv.getInstance(), "PUT",
+			// ontimedeliv, "PUT",
 			// (Object) myCat, false, true);
 			// mjs.execute(serverURL);
 

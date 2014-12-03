@@ -54,16 +54,16 @@ public class AddBranchActivity extends Activity implements
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		shopId = ontimedeliv.getInstance().getShopId();
+		shopId = ontimedeliv.getShopId();
 		countrySp = (Spinner) findViewById(R.id.countriesSP);
 		citySp = (Spinner) findViewById(R.id.citiesSP);
 		areasSp = (Spinner) findViewById(R.id.areasSP);
 
 		Dialog = new ProgressDialog(this);
 		Dialog.setCancelable(false);
-		ontimedeliv.getInstance().clear("branch");
-		branchId = ontimedeliv.getInstance().getBranchId();
-		ontimedeliv.getInstance().clear("listing");
+		ontimedeliv.clear("branch");
+		branchId = ontimedeliv.getBranchId();
+		ontimedeliv.clear("listing");
 		if (branchId != 0) {
 			getCurrentBranch(branchId);
 			Button submit = (Button) findViewById(R.id.submit);
@@ -256,7 +256,7 @@ public class AddBranchActivity extends Activity implements
 	}
 
 	public void getCountries() {
-		countries = ontimedeliv.getInstance().getCountries();
+		countries = ontimedeliv.getCountries();
 		updateList("country");
 	}
 

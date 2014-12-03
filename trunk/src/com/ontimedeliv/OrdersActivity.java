@@ -34,24 +34,24 @@ public class OrdersActivity extends Activity {
 		setContentView(R.layout.activity_orders);
 		ActionBar actionBar = getActionBar();
 
-		ontimedeliv.getInstance().clear("orders");
+		ontimedeliv.clear("orders");
 		if (getIntent().hasExtra("old")
 				&& getIntent().getBooleanExtra("old", false)) {
 			old = getIntent().getBooleanExtra("old", false);
 		}
-		admin = ontimedeliv.getInstance().isAdmin();
-		isPreparer = ontimedeliv.getInstance().isPrep();
+		admin = ontimedeliv.isAdmin();
+		isPreparer = ontimedeliv.isPrep();
 		if (admin) {
 			actionBar.setDisplayHomeAsUpEnabled(true); 
 		} else if (isPreparer) {
-			ontimedeliv.getInstance()
+			ontimedeliv
 					.setOrderStatus("assigned");
 			actionBar.setDisplayHomeAsUpEnabled(false);
 		} else {
-			ontimedeliv.getInstance().setOrderStatus("prepared");
+			ontimedeliv.setOrderStatus("prepared");
 			actionBar.setDisplayHomeAsUpEnabled(false);
 		}
-		status = ontimedeliv.getInstance().getOrderStatus();
+		status = ontimedeliv.getOrderStatus();
 		int status_id = glob.getStatus(status);
 		actionBar.setTitle(getString(status_id));
 		getOrders();
@@ -60,7 +60,7 @@ public class OrdersActivity extends Activity {
 	public void getOrders() {
 		String serverURL;
 		serverURL = new myURL(null, "orders", status, 30).getURL();
-		//new MyJs("setOrders", this, ontimedeliv.getInstance(),
+		//new MyJs("setOrders", this, ontimedeliv,
 			//	"GET").execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setOrders",false);
 		p.get();
@@ -115,7 +115,7 @@ public class OrdersActivity extends Activity {
 						i = new Intent(getBaseContext(),
 								OrderInfoActivity.class);
 					}
-					ontimedeliv.getInstance().setOrderId(orderItems.get(position).getId());
+					ontimedeliv.setOrderId(orderItems.get(position).getId());
 					startActivity(i);
 				}
 			}
