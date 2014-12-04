@@ -26,7 +26,7 @@ public class NavigationActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.copy_activity_navigation);
+		setContentView(R.layout.activity_navigation);
 		getActionBar().hide();
 		ontimedeliv.clear("listing");
 	}
@@ -60,84 +60,7 @@ public class NavigationActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-/*
-	public void getCountries() {
-		String serverURL = new myURL("countries", null, 0, 30).getURL();
-		Log.d("ray", "count: " + serverURL);
-		//MyJs mjs = new MyJs("setCountries", this,
-			//	((ontimedeliv) getApplication()), "GET", true, false);
-		//mjs.execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setCountries",true);
-		p.get();
-	}
 
-	public void setCountries(String s, String error) {
-		countries = new APIManager().getCountries(s);
-		if (countries.size() > 1) {
-			for (int j = 1; j < countries.size(); j++) {
-				Log.d("ray", "Country: " + j + "->" + countries.get(j).getId());
-				currentName = countries.get(j).getName();
-				getCities(j);
-			}
-		}
-	}
-
-	public void getCities(int position) {
-		countryP = position;
-		int countryId = countries.get(position).getId();
-		Log.d("ray", "City for: " + position + "->" + countryId);
-		String serverURL = new myURL("cities", "countries", countryId, 30)
-				.getURL();
-		//new MyJs("setCities", this, ((ontimedeliv) getApplication()), "GET",
-			//	false, false).execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setCities",true);
-		p.get();
-	}
-
-	public void setCities(String s, String error) {
-		cities = new APIManager().getCitiesByCountry(s);
-		String currentCountry = currentName;
-		if (cities.size() > 1) {
-			for (int j = 1; j < cities.size(); j++) {
-				if (j == cities.size() - 1)
-					last = true;
-				currentName = currentCountry + "," + cities.get(j).getName();
-				getAreas(j);
-			}
-		}
-	}
-
-	public void getAreas(int position) {
-		cityP = position;
-		CityId = cities.get(position).getId();
-		String serverURL = new myURL("areas", "cities", CityId, 30).getURL();
-		//MyJs mjs = new MyJs("setAreas", this,
-			//	ontimedeliv, "GET", false, false);
-		//mjs.execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setAreas",true);
-		p.get();
-	}
-
-	public void setAreas(String s, String error) {
-		areas = new APIManager().getAreasByCity(s);
-		String currentCity = currentName;
-		if (areas.size() > 1) {
-			for (int j = 1; j < cities.size(); j++) {
-				currentName = currentCity + "," + areas.get(j).getName();
-				areas.get(j).setDisplayName("lala: "+currentName);
-				Log.d("rayzzzz", "Area : " + areas.get(j).getDisplayName());
-			}
-		}
-		cities.get(cityP).setAreas(areas);
-		countries.get(countryP).setCities(cities);
-		if (last) {
-			Log.d("rayzzzz", "setting countr");
-			ontimedeliv.setCountries(countries);
-			//ontimedeliv.loader.dismiss();
-			last = false;
-		}
-	}
-*/
 	public void select(View v) {
 
 		Intent i;

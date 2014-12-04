@@ -89,8 +89,6 @@ public class UserProfileActivity extends Activity {
 			ValidationError valid = user.validate(true);
 			if(valid.isValid(this))
 			{
-				//new MyJs("done", this, ((ontimedeliv) this.getApplication()),
-				//		method, (Object) user, true, true).execute(serverURL);
 				RZHelper p = new RZHelper(serverURL,this,"done",false);
 				p.put(user);
 			}
@@ -103,9 +101,6 @@ public class UserProfileActivity extends Activity {
 		User user = new User(phone, null);
 		user.setEncPassword(passTxt
 				.getText().toString());
-		//MyJs mjs = new MyJs("getLoggedIn", this,
-			//	((ontimedeliv) this.getApplication()), "POST", (Object) user);
-		//mjs.execute(serverURL);
 				
 		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn",false);
 		p.post(user);			

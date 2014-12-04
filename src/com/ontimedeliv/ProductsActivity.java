@@ -89,9 +89,6 @@ public class ProductsActivity extends Activity {
 
 			String serverURL = new myURL("deactivate_items", "branches",
 					branchId, 0).getURL();
-			// new MyJs("afterDeactivate", this,
-			// ontimedeliv, "PUT",
-			// (Object) myProd, true, false).execute(serverURL);
 
 			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate",false);
 			p.put(myProd);
@@ -109,11 +106,7 @@ public class ProductsActivity extends Activity {
 			String serverURL = new myURL("activate_items", "branches",
 					branchId, 0).getURL();
 
-			// new MyJs("afterActivate", this,
-			// ontimedeliv, "PUT",
-			// (Object) myProd, false, true).execute(serverURL);
-
-			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate",false);
+			RZHelper p = new RZHelper(serverURL, this, "afterActivate",false);
 			p.put(myProd);
 		} else {
 			afterActivate("DONE", null);
@@ -158,12 +151,6 @@ public class ProductsActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "items",
 										productId, 0).getURL();
-								// new MyJs("afterDelete",
-								// ProductsActivity.this,
-								// ((ontimedeliv) ProductsActivity.this
-								// .getApplication()), "DELETE",
-								// true, true).execute(serverURL);
-
 								RZHelper p = new RZHelper(serverURL,
 										ProductsActivity.this, "afterDelete",true);
 								p.delete();
@@ -195,8 +182,6 @@ public class ProductsActivity extends Activity {
 
 	public void getProducts() {
 		String serverURL = this.url;
-		// new MyJs("setProducts", this, ontimedeliv,
-		// "GET").execute(serverURL);
 		RZHelper p = new RZHelper(serverURL, this, "setProducts",false);
 		p.get();
 	}

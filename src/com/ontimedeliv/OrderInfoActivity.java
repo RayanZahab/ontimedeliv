@@ -66,8 +66,7 @@ public class OrderInfoActivity extends Activity {
 			submit.setText("Update");
 		}
 
-		String orderStatus = ((ontimedeliv) OrderInfoActivity.this
-				.getApplication()).getOrderStatus(this);
+		String orderStatus = ontimedeliv.getOrderStatus(this);
 		actionBar.setTitle(orderStatus);
 		if (!isAdmin) {
 			disable(false);
@@ -110,10 +109,6 @@ public class OrderInfoActivity extends Activity {
 							order.setCancel(true);
 							String serverURL = new myURL("cancel", "orders",
 									orderId, 0).getURL();
-							//new MyJs("cancelOrder", OrderInfoActivity.this,
-							//		((ontimedeliv) OrderInfoActivity.this
-							//				.getApplication()), "PUT",
-							//		(Object) order).execute(serverURL);
 
 							RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"cancelOrder",false);
 							p.put(order);
@@ -142,8 +137,6 @@ public class OrderInfoActivity extends Activity {
 
 	public void getPreparers() {
 		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
-		//new MyJs("setPreparers", this, ontimedeliv,
-			//	"GET", false, true).execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setPreparers",false);
 		p.get();
 	}
@@ -167,8 +160,6 @@ public class OrderInfoActivity extends Activity {
 
 	public void getDelivery() {
 		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
-		//new MyJs("setDeivery", this, ontimedeliv,
-			//	"GET", false, false).execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setDeivery",false);
 		p.get();
 	}
@@ -209,9 +200,6 @@ public class OrderInfoActivity extends Activity {
 
 	public void getCurrentOrder(int orderId) {
 		String serverURL = new myURL(null, "orders", orderId, 0).getURL();
-		//MyJs mjs = new MyJs("setOrderInfo", this,
-			//	ontimedeliv, "GET", true, false);
-		//mjs.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setOrderInfo",false);
 		p.get();
 	}
@@ -294,10 +282,6 @@ public class OrderInfoActivity extends Activity {
 			newOrder.setTotal(total);
 			if (!newOrder.equals(currentOrder))
 			{
-				//new MyJs("updateStatus", this,
-				//		ontimedeliv, "PUT", newOrder,
-				//		true, false).execute(serverURL);
-				
 				RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"updateStatus",false);
 				p.put(newOrder);
 			}
@@ -315,10 +299,6 @@ public class OrderInfoActivity extends Activity {
 			newOrder.setStatus(stat.get(2));
 		String serverURL = new myURL("change_status", "orders", orderId + "", 0)
 				.getURL();
-
-		//new MyJs("done", this, ontimedeliv, "PUT",
-		//		newOrder, true, true).execute(serverURL);
-		
 		RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"done",false);
 		p.put(newOrder);
 	}
@@ -334,10 +314,6 @@ public class OrderInfoActivity extends Activity {
 		newOrder.setStatus(stat.get(status.getSelectedItemPosition()));
 		String serverURL = new myURL("assign", "orders", orderId + "", 0)
 				.getURL();
-
-		//new MyJs("done", this, ontimedeliv, "PUT",
-		//		newOrder, true, true).execute(serverURL);
-		
 		RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"done",false);
 		p.put(newOrder);
 	}

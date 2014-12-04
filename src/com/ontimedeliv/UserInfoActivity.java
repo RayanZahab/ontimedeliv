@@ -1,14 +1,10 @@
 package com.ontimedeliv;
 
 import java.util.ArrayList;
-
-
-
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +35,7 @@ public class UserInfoActivity extends Activity implements
 		setContentView(R.layout.activity_user_info);
 		ActionBar actionBar = getActionBar();
 		shopId = ontimedeliv.getShopId(this);
-		
+
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		ontimedeliv.clear("user");
 		if (getIntent().hasExtra("id")) {
@@ -62,7 +58,7 @@ public class UserInfoActivity extends Activity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.user_info, menu);
-		SharedMenu.onCreateOptionsMenu(this,menu, getApplicationContext());
+		SharedMenu.onCreateOptionsMenu(this, menu, getApplicationContext());
 		return true;
 	}
 
@@ -85,9 +81,7 @@ public class UserInfoActivity extends Activity implements
 	public void getCurrentUser(int userId) {
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
-		//new MyJs("setUserInfo", this, ontimedeliv,
-			//	"GET", true, false).execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setUserInfo",false);
+		RZHelper p = new RZHelper(serverURL, this, "setUserInfo", false);
 		p.get();
 	}
 
@@ -108,15 +102,13 @@ public class UserInfoActivity extends Activity implements
 		admin.setChecked(currentUser.isIs_admin());
 		preparer.setChecked(currentUser.isIs_preparer());
 		delivery.setChecked(currentUser.isIs_delivery());
-		getActionBar().setTitle(currentUser.getName());  
+		getActionBar().setTitle(currentUser.getName());
 		getBranches(false);
 	}
 
 	public void getBranches(boolean first) {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		//new MyJs("setBranches", this, ontimedeliv,
-			//	"GET", first, true).execute(serverURL);
-		RZHelper p = new RZHelper(serverURL,this,"setBranches",false);
+		RZHelper p = new RZHelper(serverURL, this, "setBranches", false);
 		p.get();
 	}
 
@@ -146,11 +138,10 @@ public class UserInfoActivity extends Activity implements
 		User user = null;
 		String serverURL = "";
 		String method = "POST";
-		branchId = ((Branch)branchesSP.getSelectedItem()).getId();
+		branchId = ((Branch) branchesSP.getSelectedItem()).getId();
 		if (userId > 0) {
-			serverURL = new myURL(null, "users", userId, 0).getURL(); 
-			user = new User(userId, 
-					username.getText().toString(),// name
+			serverURL = new myURL(null, "users", userId, 0).getURL();
+			user = new User(userId, username.getText().toString(),// name
 					null,// password
 					inputphone.getText().toString(),// phone
 					0,// is fired
@@ -161,27 +152,19 @@ public class UserInfoActivity extends Activity implements
 			method = "PUT";
 		} else {
 			serverURL = new myURL("users", null, 0, 0).getURL();
-			user = new User(0,
-					username.getText().toString(), 
-					null,
-					inputphone.getText().toString(), 0, null, branchId,
+			user = new User(0, username.getText().toString(), null, inputphone
+					.getText().toString(), 0, null, branchId,
 					admin.isChecked(), preparer.isChecked(),
 					delivery.isChecked());
-			
+
 			user.setEncPassword(inputphone.getText().toString());
 		}
 		ValidationError valid = user.validate(false);
-		if(valid.isValid(this))
-		{
-			//new MyJs("setRoles", this, ontimedeliv,
-			//	method, (Object) user, true, false).execute(serverURL);
-			RZHelper p = new RZHelper(serverURL,this,"setRoles",false);
-			if(method.equals("POST"))
-			{
+		if (valid.isValid(this)) {
+			RZHelper p = new RZHelper(serverURL, this, "setRoles", false);
+			if (method.equals("POST")) {
 				p.post(user);
-			}
-			else
-			{
+			} else {
 				p.put(user);
 			}
 		}
@@ -189,13 +172,12 @@ public class UserInfoActivity extends Activity implements
 	}
 
 	public void setRoles(String s, String error) {
-		int id = 0 ;
-		if(currentUser!=null)
-		 id = currentUser.getId();
-		Log.d("rays","role: "+s+" , "+error);
+		int id = 0;
+		if (currentUser != null)
+			id = currentUser.getId();
 		if (id < 1) {
 			id = new APIManager().getUserId(s);
-		} 
+		}
 		String makePreparerURL = new myURL("set_roles", "users", id, 0)
 				.getURL();
 		admin = (CheckBox) findViewById(R.id.admin);
@@ -206,16 +188,12 @@ public class UserInfoActivity extends Activity implements
 		role.setAdmin(admin.isChecked());
 		role.setDelivery(delivery.isChecked());
 		ValidationError valid = role.validate(false);
-		if(valid.isValid(this))
-		{
-			//new MyJs("afterRoles", this, ontimedeliv,
-				//"POST", (Object) role, false, true)
-			//	.execute(makePreparerURL);
-			
-			RZHelper p = new RZHelper(makePreparerURL,this,"afterRoles",false);
+		if (valid.isValid(this)) {
+			RZHelper p = new RZHelper(makePreparerURL, this, "afterRoles",
+					false);
 			p.post(role);
 		}
-		
+
 	}
 
 	public void afterRoles(String s, String error) {

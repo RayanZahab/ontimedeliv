@@ -36,7 +36,7 @@ public class BranchesActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		ontimedeliv.clear("listing");
-		shopId = ((ontimedeliv) this.getApplication()).getShopId(this);
+		shopId = ontimedeliv.getShopId(this);
 		Log.d("ray","shopid: "+shopId);
 		getBranches();
 
@@ -48,10 +48,6 @@ public class BranchesActivity extends Activity {
 
 	public void getBranches() {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		Log.d("ray","url: "+serverURL);
-		// MyJs mjs = new MyJs("setBranches", this,
-		// ((ontimedeliv) this.getApplication()), "GET");
-		// mjs.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL, this, "setBranches",false);
 		p.get();
 	}
@@ -139,11 +135,6 @@ public class BranchesActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "branches",
 										branchId, 0).getURL();
-								// MyJs mjs = new MyJs("afterDelete",
-								// BranchesActivity.this,
-								// ((ontimedeliv) BranchesActivity.this
-								// .getApplication()), "DELETE");
-								// mjs.execute(serverURL);
 								RZHelper p = new RZHelper(serverURL,
 										BranchesActivity.this, "afterDelete",true);
 								p.delete();

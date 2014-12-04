@@ -27,10 +27,7 @@ public class BlockUser extends Activity {
 	}
 
 	public void getCurrentCustomer(int orderId) {
-		String serverURL = new myURL(null, "orders", orderId, 0).getURL();
-		//MyJs mjs = new MyJs("setCustomerInfo", this,
-		//		ontimedeliv, "GET", true, true);
-		//mjs.execute(serverURL);
+		String serverURL = new myURL(null, "orders", orderId, 0).getURL();		
 		RZHelper p = new RZHelper(serverURL,this,"setCustomerInfo",false);
 		p.get();
 	}
@@ -49,9 +46,6 @@ public class BlockUser extends Activity {
 	{
 		String serverURL;
 		serverURL = new myURL("deny", "customers", currentCustomer.getId(), 0).getURL();
-		//new MyJs("back", this,
-		//		ontimedeliv, "POST")
-		//		.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"back",false);
 		p.post(currentCustomer);
 	}
