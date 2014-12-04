@@ -50,10 +50,10 @@ public class ProductInfoActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		ontimedeliv.clear("product");
-		branchId = ontimedeliv.getBranchId();
-		categoryId = ontimedeliv.getCategoryId();
-		productId = ontimedeliv.getProductId();
-		shopId = ontimedeliv.getShopId();
+		branchId = ontimedeliv.getBranchId(this);
+		categoryId = ontimedeliv.getCategoryId(this);
+		productId = ontimedeliv.getProductId(this);
+		shopId = ontimedeliv.getShopId(this);
 		if (productId != 0) {
 			getProduct(productId);
 		} else {

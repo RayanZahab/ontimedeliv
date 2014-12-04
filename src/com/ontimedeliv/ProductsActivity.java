@@ -44,10 +44,10 @@ public class ProductsActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		ontimedeliv.clear("products");
-		categoryId = ontimedeliv.getCategoryId();
+		categoryId = ontimedeliv.getCategoryId(this);
 		if (categoryId != 0) {
-			branchId = ontimedeliv.getBranchId();
-			shopId = ontimedeliv.getShopId();
+			branchId = ontimedeliv.getBranchId(this);
+			shopId = ontimedeliv.getShopId(this);
 
 			url = new myURL("items", "branches/" + branchId + "/categories",
 					categoryId, 30).getURL();

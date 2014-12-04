@@ -51,14 +51,14 @@ public class OrderInfoActivity extends Activity {
 		stat.add(0, "Opened");
 		stat.add(1, "Prepared");
 		stat.add(2, "Closed");
-		isAdmin = ontimedeliv.isAdmin();
-		isPreparer = ontimedeliv.isPrep();
+		isAdmin = ontimedeliv.isAdmin(this);
+		isPreparer = ontimedeliv.isPrep(this);
 
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		ontimedeliv.clear("order");
-		this.orderId = ontimedeliv.getOrderId();
+		this.orderId = ontimedeliv.getOrderId(this);
 
 		if (orderId != 0) {
 			getCurrentOrder(orderId);
@@ -67,7 +67,7 @@ public class OrderInfoActivity extends Activity {
 		}
 
 		String orderStatus = ((ontimedeliv) OrderInfoActivity.this
-				.getApplication()).getOrderStatus();
+				.getApplication()).getOrderStatus(this);
 		actionBar.setTitle(orderStatus);
 		if (!isAdmin) {
 			disable(false);

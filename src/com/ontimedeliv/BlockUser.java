@@ -20,7 +20,7 @@ public class BlockUser extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_block_user);
-		this.orderId = ontimedeliv.getOrderId();
+		this.orderId = ontimedeliv.getOrderId(this);
 		getCurrentCustomer(orderId);
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);

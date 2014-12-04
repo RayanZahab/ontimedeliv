@@ -36,7 +36,7 @@ public class BranchesActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		ontimedeliv.clear("listing");
-		shopId = ((ontimedeliv) this.getApplication()).getShopId();
+		shopId = ((ontimedeliv) this.getApplication()).getShopId(this);
 		Log.d("ray","shopid: "+shopId);
 		getBranches();
 

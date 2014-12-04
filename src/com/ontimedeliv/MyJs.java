@@ -53,14 +53,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 	TransparentProgressDialog pd;
 	GlobalM glob = new GlobalM();
 
-	private void MyJs() {
-		try {
-			token = global.getToken();
-		} catch (Exception exp) {
-			Log.d("exep", "excep" + exp.toString());
-		}
-	}
-
 	private boolean isNetworkAvailable() {
 		ConnectivityManager connectivityManager = (ConnectivityManager) mc
 				.getApplicationContext().getSystemService(
@@ -80,7 +72,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		this.objectToAdd = o;
 		this.last = true;
 		this.first = true;
-		MyJs();
+		token = global.getToken(m);
 	}
 
 	protected void onPreExecute() {
