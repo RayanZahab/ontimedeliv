@@ -19,7 +19,7 @@ public class APIManager {
 	public User getLogedInUser(String cont) {
 		JSONObject jsonResponse, jsonRole;
 
-		try {
+		try { 
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id = Converter.toInt(jsonResponse.optString("id")
