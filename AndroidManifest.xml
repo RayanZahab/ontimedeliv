@@ -46,7 +46,8 @@
             android:icon="@drawable/moto"
             android:label="@string/title_activity_navigation"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" >
+            android:windowSoftInputMode="adjustResize"
+            android:windowActionBar="false" >
             <category android:name="android.intent.category.LAUNCHER" />
         </activity>
         <activity
