@@ -55,8 +55,8 @@ public class CategoriesActivity extends Activity {
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		ontimedeliv.clear("categories");
-		this.branchId = ontimedeliv.getBranchId();
-		this.shopId = ontimedeliv.getShopId();
+		this.branchId = ontimedeliv.getBranchId(this);
+		this.shopId = ontimedeliv.getShopId(this);
 		url = new myURL("categories", "branches", branchId, 30).getURL();
 
 		getCategories();

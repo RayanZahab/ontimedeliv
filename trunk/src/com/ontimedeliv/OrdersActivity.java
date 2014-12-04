@@ -39,8 +39,8 @@ public class OrdersActivity extends Activity {
 				&& getIntent().getBooleanExtra("old", false)) {
 			old = getIntent().getBooleanExtra("old", false);
 		}
-		admin = ontimedeliv.isAdmin();
-		isPreparer = ontimedeliv.isPrep();
+		admin = ontimedeliv.isAdmin(this);
+		isPreparer = ontimedeliv.isPrep(this);
 		if (admin) {
 			actionBar.setDisplayHomeAsUpEnabled(true); 
 		} else if (isPreparer) {
@@ -51,7 +51,7 @@ public class OrdersActivity extends Activity {
 			ontimedeliv.setOrderStatus("prepared");
 			actionBar.setDisplayHomeAsUpEnabled(false);
 		}
-		status = ontimedeliv.getOrderStatus();
+		status = ontimedeliv.getOrderStatus(this);
 		int status_id = glob.getStatus(status);
 		actionBar.setTitle(getString(status_id));
 		getOrders();

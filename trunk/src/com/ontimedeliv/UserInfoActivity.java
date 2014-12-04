@@ -38,7 +38,7 @@ public class UserInfoActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_info);
 		ActionBar actionBar = getActionBar();
-		shopId = ontimedeliv.getShopId();
+		shopId = ontimedeliv.getShopId(this);
 		
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		ontimedeliv.clear("user");
