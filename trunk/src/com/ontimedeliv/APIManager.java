@@ -109,7 +109,7 @@ public class APIManager {
 			
 			if (!errorCheck(jsonResponse)) {
 				int id;
-				String name,area_str;
+				String name;
 				ArrayList<Area> areas;
 				for (int i = 0; i < lengthJsonArr; i++) {
 					JSONObject jsonChildNode = jsonItemsNode
@@ -120,7 +120,6 @@ public class APIManager {
 					name = jsonChildNode.optString("name").toString();
 					City c= new City(id, name);
 					
-					area_str = jsonChildNode.optString("areas").toString();
 					areas = getAreasByCity(jsonChildNode);
 					c.setAreas(areas);
 					gridArray.add(c);
@@ -313,7 +312,7 @@ public class APIManager {
 			JSONObject jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id;
-				String name, address, estimation_time, description, area_str;
+				String name, address, estimation_time, description;
 				JSONObject open_hours;
 				Area area;
 				ArrayList<Area> areas;

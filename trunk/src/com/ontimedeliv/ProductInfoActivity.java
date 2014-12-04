@@ -75,8 +75,6 @@ public class ProductInfoActivity extends Activity {
 
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
-		// new MyJs("setProduct", this, ontimedeliv,
-		// "GET", true, false).execute(serverURL);
 		RZHelper p = new RZHelper(serverURL, this, "setProduct", false);
 		p.get();
 	}
@@ -129,16 +127,12 @@ public class ProductInfoActivity extends Activity {
 
 		new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
 				"Upload", (Object) prod).execute(serverURL);
-
-		// RZHelper p = new RZHelper(serverURL, this, "afterCreation");
-		// p.aync_multipart(prod);
 	}
 
 	public void afterCreation(String s, String error) {
 
 		Intent i = new Intent(this, ProductsActivity.class);
-		((ontimedeliv) ProductInfoActivity.this.getApplication())
-				.setProductId(0);
+		ontimedeliv.setProductId(0);
 		startActivity(i);
 	}
 
@@ -216,8 +210,7 @@ public class ProductInfoActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		((ontimedeliv) ProductInfoActivity.this.getApplication())
-				.setProductId(0);
+		ontimedeliv.setProductId(0);
 		Intent i = new Intent(ProductInfoActivity.this, ProductsActivity.class);
 		startActivity(i);
 	}

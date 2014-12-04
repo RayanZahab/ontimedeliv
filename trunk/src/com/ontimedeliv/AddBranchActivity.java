@@ -144,9 +144,6 @@ public class AddBranchActivity extends Activity implements
 
 	public void getCurrentBranch(int branchId) {
 		String url = new myURL(null, "branches", branchId, 1).getURL();
-		// new MyJs("setBranchInfo", this, ((ontimedeliv)
-		// this.getApplication()),
-		// "GET", true, true).execute(serverURL);
 		RZHelper p = new RZHelper(url, this, "setBranchInfo",false);
 		p.get();
 	}
@@ -208,9 +205,6 @@ public class AddBranchActivity extends Activity implements
 		ValidationError valid = currentBranch.validate();
 
 		if (valid.isValid(this)) {
-			// new MyJs("openHours", this, ((ontimedeliv)
-			// this.getApplication()),
-			// method, (Object) currentBranch).execute(serverURL);
 			RZHelper p = new RZHelper(serverURL, this, "openHours",false);
 			if (branchId == 0) {
 				p.post(currentBranch);

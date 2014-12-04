@@ -1,9 +1,6 @@
 package com.ontimedeliv;
 
 import java.util.ArrayList;
-
-
-
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -15,7 +12,6 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,7 +22,6 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -78,10 +73,6 @@ public class CategoriesActivity extends Activity {
 
 			String serverURL = new myURL("deactivate_categories", "branches",
 					branchId, 0).getURL();
-			// new MyJs("afterDeactivate", this,
-			// ontimedeliv, "PUT",
-			// (Object) myCat, true, false).execute(serverURL);
-
 			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate",false);
 			p.put(myCat);
 		} else {
@@ -96,11 +87,6 @@ public class CategoriesActivity extends Activity {
 			String serverURL = new myURL("activate_categories", "branches",
 					branchId, 0).getURL();
 
-			// MyJs mjs = new MyJs("afterActivate", this,
-			// ontimedeliv, "PUT",
-			// (Object) myCat, false, true);
-			// mjs.execute(serverURL);
-
 			RZHelper p = new RZHelper(serverURL, this, "afterActivate",false);
 			p.put(myCat);
 		} else {
@@ -114,11 +100,6 @@ public class CategoriesActivity extends Activity {
 
 	public void getCategories() {
 		String serverURL = this.url;
-		/*
-		 * MyJs mjs = new MyJs("setCategories", this, ((ontimedeliv)
-		 * CategoriesActivity.this.getApplication()), "GET");
-		 * mjs.execute(serverURL);
-		 */
 		RZHelper p = new RZHelper(serverURL, this, "setCategories",false);
 		p.get();
 	}
@@ -171,15 +152,11 @@ public class CategoriesActivity extends Activity {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// if (categories.size() > 0)
-				{
-					Log.d("rays", "clicked");
 					Intent i = new Intent(getBaseContext(),
 							ProductsActivity.class);
-					((ontimedeliv) CategoriesActivity.this.getApplication())
-							.setCategoryId(categoryItems.get(position).getId());
+					ontimedeliv.setCategoryId(categoryItems.get(position).getId());
 					startActivity(i);
-				}
+				
 			}
 		});
 
@@ -324,8 +301,7 @@ public class CategoriesActivity extends Activity {
 		} else {
 			Intent i = new Intent(CategoriesActivity.this,
 					BranchesActivity.class);
-			((ontimedeliv) CategoriesActivity.this.getApplication())
-					.setBranchId(0);
+			ontimedeliv.setBranchId(0);
 			startActivity(i);
 		}
 	}
@@ -333,10 +309,6 @@ public class CategoriesActivity extends Activity {
 	public void addCategory(String categoryName, int shopId) {
 		String serverURL = new myURL("categories", null, 0, 0).getURL();
 		Category newCategory = new Category(0, categoryName, true, shopId);
-		// new MyJs("afterCreation", this, ((ontimedeliv)
-		// this.getApplication()),
-		// "POST", (Object) newCategory).execute(serverURL);
-
 		RZHelper p = new RZHelper(serverURL, this, "afterCreation",true);
 		p.post(newCategory);
 	}
@@ -346,9 +318,6 @@ public class CategoriesActivity extends Activity {
 				.getURL();
 		Category newCategory = new Category(categoryId, categoryName, true,
 				shopId);
-		// new MyJs("afterCreation", this, ((ontimedeliv)
-		// this.getApplication()),
-		// "PUT", (Object) newCategory).execute(serverURL);
 		newName = categoryName;
 		RZHelper p = new RZHelper(serverURL, this, "afterCreation",true);
 		p.put(newCategory);
@@ -389,11 +358,6 @@ public class CategoriesActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null,
 										"categories", catId, 0).getURL();
-								// MyJs mjs = new MyJs("afterDelete",
-								// CategoriesActivity.this,
-								// ((ontimedeliv) CategoriesActivity.this
-								// .getApplication()), "DELETE");
-								// mjs.execute(serverURL);
 								categoryItems.remove(position);
 
 								RZHelper p = new RZHelper(serverURL,

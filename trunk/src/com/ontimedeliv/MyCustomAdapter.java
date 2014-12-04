@@ -1,9 +1,6 @@
 package com.ontimedeliv;
 
 import java.util.ArrayList;
-
-
-
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -13,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Filterable;
 import android.widget.Filter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {

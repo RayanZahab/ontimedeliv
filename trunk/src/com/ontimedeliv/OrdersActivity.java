@@ -60,8 +60,6 @@ public class OrdersActivity extends Activity {
 	public void getOrders() {
 		String serverURL;
 		serverURL = new myURL(null, "orders", status, 30).getURL();
-		//new MyJs("setOrders", this, ontimedeliv,
-			//	"GET").execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setOrders",false);
 		p.get();
 	}

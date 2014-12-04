@@ -116,11 +116,7 @@ public class AddLocationDetails extends Activity implements
 
 	public void addCountry(String countryName) {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
-		//http://107.170.86.46/api/v1/countries
 		Country newCountry = new Country(0, countryName);
-		//new MyJs("backToSelection", this,
-			//	((ontimedeliv) this.getApplication()), "POST",
-				//(Object) newCountry).execute(serverURL);
 		
 		RZHelper p = new RZHelper(serverURL,this,"backToSelection",false);
 		p.post(newCountry);
@@ -129,9 +125,6 @@ public class AddLocationDetails extends Activity implements
 	public void addBusiness(String businessName) {
 		String serverURL = new myURL("businesses", null, 0, 30).getURL();
 		Business newBusiness = new Business(0, businessName);
-		//new MyJs("backToSelection", this,
-			//	((ontimedeliv) this.getApplication()), "POST",
-			//	(Object) newBusiness).execute(serverURL);
 		
 		RZHelper p = new RZHelper(serverURL,this,"backToSelection",false);
 		p.post(newBusiness);
@@ -140,9 +133,6 @@ public class AddLocationDetails extends Activity implements
 	public void addCity(String cityName, int countryId) {
 		String serverURL = new myURL("cities", null, 0, 30).getURL();
 		City newCity = new City(0, countryId, cityName);
-		//new MyJs("backToSelection", this,
-		//		((ontimedeliv) this.getApplication()), "POST", (Object) newCity)
-			//	.execute(serverURL);
 		
 		RZHelper p = new RZHelper(serverURL,this,"backToSelection",false);
 		p.post(newCity);
@@ -151,9 +141,6 @@ public class AddLocationDetails extends Activity implements
 	public void addArea(String areaName, int cityId) {
 		String serverURL = new myURL("areas", null, 0, 30).getURL();
 		Area newArea = new Area(0, cityId, areaName);
-		//new MyJs("backToSelection", this,
-		//		((ontimedeliv) this.getApplication()), "POST", (Object) newArea)
-		//		.execute(serverURL);
 		
 		RZHelper p = new RZHelper(serverURL,this,"backToSelection",false);
 		p.post(newArea);
@@ -172,10 +159,7 @@ public class AddLocationDetails extends Activity implements
 	}
 
 	public void getCountries() {
-		String serverURL = new myURL("countries", null, 0, 30).getURL();// "http://enigmatic-springs-5176.herokuapp.com/api/v1/countries?limit=30";
-
-		//new MyJs("setCountries", this, ((ontimedeliv) this.getApplication()),
-		//		"GET").execute(serverURL);
+		String serverURL = new myURL("countries", null, 0, 30).getURL();
 		RZHelper p = new RZHelper(serverURL,this,"setCountries",false);
 		p.get();
 	}
@@ -188,7 +172,6 @@ public class AddLocationDetails extends Activity implements
 		counrytAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		counrytAdapter.notifyDataSetChanged();
-		// s4.setAdapter(null);
 		countrySp.setAdapter(counrytAdapter);
 		countrySp.setOnItemSelectedListener(this);
 	}
@@ -196,8 +179,7 @@ public class AddLocationDetails extends Activity implements
 	public void getCities(int CountryId) {
 		String serverURL = new myURL("cities", "countries", CountryId, 30)
 				.getURL();
-		//new MyJs("setCities", this, ((ontimedeliv) this.getApplication()),
-		//		"GET").execute(serverURL);
+		
 		RZHelper p = new RZHelper(serverURL,this,"setCities",false);
 		p.get();
 	}

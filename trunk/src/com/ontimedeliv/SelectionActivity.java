@@ -66,8 +66,6 @@ public class SelectionActivity extends Activity implements
 
 	public void getCountries() {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
-		//new MyJs("setCountries", SelectionActivity.this, ((ontimedeliv) SelectionActivity.this.getApplication()),"GET")
-		//		.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setCountries",false);
 		p.get();
 	}
@@ -89,8 +87,6 @@ public class SelectionActivity extends Activity implements
 		String serverURL = new myURL("cities", "countries", CountryId, 30)
 				.getURL();
 
-		//new MyJs("setCities", SelectionActivity.this,((ontimedeliv) SelectionActivity.this.getApplication()), "GET")
-		//		.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setCities",false);
 		p.get();
 	}
@@ -110,8 +106,6 @@ public class SelectionActivity extends Activity implements
 
 	public void getAreas(int CityId) {
 		String serverURL = new myURL("areas", "cities", CityId, 30).getURL();
-		//new MyJs("setAreas", SelectionActivity.this,((ontimedeliv) SelectionActivity.this.getApplication()), "GET")
-		//		.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setAreas",false);
 		p.get();
 	}
@@ -131,8 +125,6 @@ public class SelectionActivity extends Activity implements
 	public void getBusinesses() {
 		String serverURL = new myURL("businesses", null, 0, 30).getURL();
 
-		//new MyJs("setBusiness", SelectionActivity.this,((ontimedeliv) SelectionActivity.this.getApplication()), "GET")
-		//		.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setBusiness",false);
 		p.get();
 	}

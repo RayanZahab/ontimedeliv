@@ -1,9 +1,6 @@
 package com.ontimedeliv;
 
 import java.util.ArrayList;
-
-
-
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -40,8 +37,6 @@ public class UsersActivity extends Activity {
 
 	public void getUsers() {
 		String serverURL = new myURL("users", null, 0, 30).getURL();
-		//new MyJs("setUsers", this, ontimedeliv, "GET")
-			//	.execute(serverURL);
 		RZHelper p = new RZHelper(serverURL,this,"setUsers",false);
 		p.get();
 	}
@@ -158,12 +153,6 @@ public class UsersActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "users",
 										catId, 0).getURL();
-								//MyJs mjs = new MyJs("afterDelete",
-								//		UsersActivity.this,
-								//		((ontimedeliv) UsersActivity.this
-								//				.getApplication()), "DELETE");
-								//mjs.execute(serverURL);
-								
 								RZHelper p = new RZHelper(serverURL,UsersActivity.this,"afterDelete",false);
 								p.delete();
 								usersItem.remove(position);

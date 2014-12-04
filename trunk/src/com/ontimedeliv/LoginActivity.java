@@ -26,7 +26,7 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getActionBar().hide();
-		setContentView(R.layout.copy_activity_login);
+		setContentView(R.layout.activity_login);
 
 		username = (EditText) findViewById(R.id.user_name);
 		password = (EditText) findViewById(R.id.password);
@@ -37,7 +37,6 @@ public class LoginActivity extends Activity {
 		if (isChecked) {
 
 			((ontimedeliv) this.getApplication()).setGlobals();
-			//new TextProgressDialog(this,"logging in ").showProg();	
 			Intent i = new Intent(this, NavigationActivity.class);
 
 			startActivity(i);
@@ -49,14 +48,9 @@ public class LoginActivity extends Activity {
 		String serverURL = new myURL(null, "users", "login", 0).getURL();
 		User user = new User(username.getText().toString(), null);
 		user.setEncPassword(password.getText().toString());
-		//MyJs mjs = new MyJs("getLoggedIn", this,
-		//		((ontimedeliv) this.getApplication()), "POST", (Object) user);
-		//mjs.execute(serverURL);
 		
 		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn",false);
 		p.post(user);
-		//Activity a,final String m, String url,JSONObject params){
-
 	}
 	
 	public  void getLoggedIn(String s, String error) {

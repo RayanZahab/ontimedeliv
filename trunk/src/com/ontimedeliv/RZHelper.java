@@ -1,4 +1,4 @@
- package com.ontimedeliv;
+package com.ontimedeliv;
 
 import java.io.FileInputStream;
 import java.lang.reflect.Method;
@@ -9,12 +9,13 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.os.Handler;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
-import com.androidquery.AbstractAQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 
@@ -27,15 +28,26 @@ public class RZHelper {
 	GlobalM glob = new GlobalM();
 	protected TransparentProgressDialog loader;
 	private boolean silent = false;
+	private boolean progress = false;
 
-	RZHelper(String myurl, Activity a, String method,boolean isSilent) {
+	RZHelper(String myurl, Activity a, String method, boolean isSilent) {
 		url = myurl;
 		currentActivity = a;
 		returnMethod = method;
 		silent = isSilent;
 		myAQuery = new AQuery(currentActivity);
-		if(!silent)
-			showProg();
+		if(!isNetworkAvailable())
+		{
+			Toast t = Toast.makeText(myAQuery.getContext(), "Error: " + currentActivity.getString(R.string.no_net),
+					Toast.LENGTH_LONG);
+			t.setGravity(Gravity.TOP, 0, 0);
+			t.show();
+		}
+		if (!silent) {
+			loader = new TransparentProgressDialog(currentActivity,
+					R.drawable.spinner);
+		}
+
 		callBack = new AjaxCallback<JSONObject>() {
 
 			@Override
@@ -45,22 +57,19 @@ public class RZHelper {
 					reply = html.toString();
 				if (status != null)
 					error = status.getError();
-				if(!silent && loader!=null)
-					loader.dismiss();
-				if(error!=null)
-				{
-					Toast.makeText(myAQuery.getContext(), "Error: "+error,
+
+				if (error != null) {
+					Toast.makeText(myAQuery.getContext(), "Error: " + error,
 							Toast.LENGTH_LONG).show();
-				}
-				else
-				{
+				} else {
 					Method returnFunction;
 					try {
 						returnFunction = currentActivity.getClass().getMethod(
 								returnMethod, stringType.getClass(),
 								stringType.getClass());
 						returnFunction.invoke(currentActivity, reply, error);
-						Log.d("ray callback",url+ ": "+"error: "+error+" => reply: "+reply);
+						Log.d("ray callback", url + ": " + "error: " + error
+								+ " => reply: " + reply);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -78,58 +87,59 @@ public class RZHelper {
 		String token = settings1.getString("token", "");
 		if (!token.isEmpty()) {
 			callBack.header("auth_token", token);
-			Log.d("ray token: ","token: "+token);
+			Log.d("ray token: ", "token: " + token);
 		}
 	}
 
 	public void post(Object obj) {
 		JSONObject params = (new APIManager()).objToCreate(obj);
-		myAQuery.post(url, params, JSONObject.class, callBack);
+		if (!silent) {
+			myAQuery.progress(loader).post(url, params, JSONObject.class,
+					callBack);
+		} else {
+			myAQuery.post(url, params, JSONObject.class, callBack);
+		}
 	}
 
 	public void get() {
-		myAQuery.ajax(url, JSONObject.class, callBack);
+		if (!silent) {
+			myAQuery.progress(loader).ajax(url, JSONObject.class, callBack);
+		} else {
+			myAQuery.ajax(url, JSONObject.class, callBack);
+		}
 
 	}
 
 	public void put(Object obj) {
 		JSONObject params = (new APIManager()).objToCreate((Object) obj);
-		myAQuery.put(url, params, JSONObject.class, callBack);
+		if (!silent) {
+			myAQuery.progress(loader).put(url, params, JSONObject.class,
+					callBack);
+		} else {
+			myAQuery.put(url, params, JSONObject.class, callBack);
+		}
 
 	}
 
 	public void delete() {
-		myAQuery.delete(url, JSONObject.class, callBack);
+		if (!silent) {
+			myAQuery.progress(loader).delete(url, JSONObject.class, callBack);
+		} else {
+			myAQuery.delete(url, JSONObject.class, callBack);
+		}
 
 	}
-	public void showProg() {
-		Handler h;
-		Runnable r;
-		h = new Handler();
-		loader = new TransparentProgressDialog(
-				currentActivity, R.drawable.spinner);
-		
-		r = new Runnable() {
-			@Override
-			public void run() {
-				if (loader.isShowing()) {
-					loader.dismiss();
-				}
-			}
-		};
-		loader.show();
-		h.postDelayed(r, 10000);
-	}
+
 	public void aync_multipart(Object obj) {
 		String USER_AGENT = "Mozilla/5.0";
 		String boundary = "*****";
 		callBack.header("User-Agent", USER_AGENT);
-		callBack.header("Accept-Charset", "utf-8"); 		
+		callBack.header("Accept-Charset", "utf-8");
 		callBack.header("Accept-Language", "en-us;q=0.9");
 		callBack.header("Connection", "Keep-Alive");
-		callBack.header("Content-Type", "multipart/form-data; charset=utf-8;boundary="
-				+ boundary);
-		
+		callBack.header("Content-Type",
+				"multipart/form-data; charset=utf-8;boundary=" + boundary);
+
 		Product p = (Product) obj;
 		Map<String, Object> paramsVal = new HashMap<String, Object>();
 		paramsVal.put("name", "" + p.getName());
@@ -137,45 +147,53 @@ public class RZHelper {
 		paramsVal.put("shop_id", "" + p.getShop_id());
 		paramsVal.put("price", "" + p.getPrice());
 		paramsVal.put("unit_id", "" + p.getUnit().getId());
-		String fileUrl = "",iFileName = "";
+		String fileUrl = "", iFileName = "";
 		paramsVal.put("description", "" + p.getDescription());
-		if (p.getPhoto() != null){
+		if (p.getPhoto() != null) {
 			paramsVal.put("photo_name", "" + iFileName);
 			iFileName = p.getPhoto().getName();
-			fileUrl = p.getPhoto().getUrl();		
-			
+			fileUrl = p.getPhoto().getUrl();
+
 			FileInputStream fileInputStream;
 			try {
 				fileInputStream = new FileInputStream(fileUrl);
-			
+
 				int bufferSize = fileInputStream.available();
-	
-				
+
 				byte[] buffer = new byte[bufferSize];
 				int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 				paramsVal.put("photo", buffer);
-				
-				
+
 				fileInputStream.close();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				Log.d("ray error ","ERROR");
+				Log.d("ray error ", "ERROR");
 			}
 		}
-		//Map<String, Object> params = new HashMap<String, Object>();
-		//params.put("message", "Message");
+		// Map<String, Object> params = new HashMap<String, Object>();
+		// params.put("message", "Message");
 
 		// Simply put a byte[] to the params, AQuery will detect it and treat it
 		// as a multi-part post
-		//byte[] data = getImageData();
+		// byte[] data = getImageData();
 
 		// Alternatively, put a File or InputStream instead of byte[]
 		// File file = getImageFile();
 		// params.put("source", file);
 
-		myAQuery.ajax(url, paramsVal, JSONObject.class,callBack); 
+		myAQuery.ajax(url, paramsVal, JSONObject.class, callBack);
 
+	}
+
+	private boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager = (ConnectivityManager) currentActivity
+				.getApplicationContext()
+				.getSystemService(
+						currentActivity.getApplicationContext().CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager
+				.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 
 	public boolean isSilent() {
@@ -184,5 +202,13 @@ public class RZHelper {
 
 	public void setSilent(boolean silent) {
 		this.silent = silent;
+	}
+
+	public boolean isProgress() {
+		return progress;
+	}
+
+	public void setProgress(boolean progress) {
+		this.progress = progress;
 	}
 }
