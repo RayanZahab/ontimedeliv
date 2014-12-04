@@ -55,7 +55,7 @@
     				android:orientation="vertical">
         	        
         	        <ImageView
-        	            android:id="@+id/user"
+        	            android:id="@+id/users"
             			android:layout_width="75dp"
             			android:layout_height="75dp"
             			android:onClick="select"
@@ -106,7 +106,7 @@
     				android:orientation="vertical">
         	        
         	        <ImageView
-        	            android:id="@+id/assignedoerders"
+        	            android:id="@+id/assigned"
             			android:layout_width="75dp"
             			android:layout_height="75dp"
             			android:layout_gravity="center"
