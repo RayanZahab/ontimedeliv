@@ -28,7 +28,6 @@ public class RZHelper {
 	GlobalM glob = new GlobalM();
 	protected TransparentProgressDialog loader;
 	private boolean silent = false;
-	private boolean progress = false;
 
 	RZHelper(String myurl, Activity a, String method, boolean isSilent) {
 		url = myurl;
@@ -36,58 +35,63 @@ public class RZHelper {
 		returnMethod = method;
 		silent = isSilent;
 		myAQuery = new AQuery(currentActivity);
+		Log.d("RZ","URL: "+url+"->"+returnMethod);
 		if(!isNetworkAvailable())
 		{
-			Toast t = Toast.makeText(myAQuery.getContext(), "Error: " + currentActivity.getString(R.string.no_net),
+			Toast t = Toast.makeText(myAQuery.getContext(), "Errorss: " + currentActivity.getString(R.string.no_net),
 					Toast.LENGTH_LONG);
 			t.setGravity(Gravity.TOP, 0, 0);
 			t.show();
 		}
-		if (!silent) {
-			loader = new TransparentProgressDialog(currentActivity,
-					R.drawable.spinner);
-		}
-
-		callBack = new AjaxCallback<JSONObject>() {
-
-			@Override
-			public void callback(String url, JSONObject html, AjaxStatus status) {
-				String reply = "", error = null, stringType = "";
-				if (html != null)
-					reply = html.toString();
-				if (status != null)
-					error = status.getError();
-
-				if (error != null) {
-					Toast.makeText(myAQuery.getContext(), "Error: " + error,
-							Toast.LENGTH_LONG).show();
-				} else {
-					Method returnFunction;
-					try {
-						returnFunction = currentActivity.getClass().getMethod(
-								returnMethod, stringType.getClass(),
-								stringType.getClass());
-						returnFunction.invoke(currentActivity, reply, error);
-						Log.d("ray callback", url + ": " + "error: " + error
-								+ " => reply: " + reply);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+		else
+		{
+			if (!silent) {
+				loader = new TransparentProgressDialog(currentActivity,
+						R.drawable.spinner);
+			}
+	
+			callBack = new AjaxCallback<JSONObject>() {
+	
+				@Override
+				public void callback(String url, JSONObject html, AjaxStatus status) {
+					String reply = "", error = null, stringType = "";
+					if (html != null)
+						reply = html.toString();
+					if (status != null)
+						error = status.getError();
+					Log.d("RZ","REPLY: "+reply+"->Error: "+error);
+					if (error != null) {
+						Toast.makeText(myAQuery.getContext(), "Error2: " + error,
+								Toast.LENGTH_LONG).show();
+						
+					} else {
+						Method returnFunction;
+						try {
+							returnFunction = currentActivity.getClass().getMethod(
+									returnMethod, stringType.getClass(),
+									stringType.getClass());
+							returnFunction.invoke(currentActivity, reply, error);
+							Log.d("ray callback", url + ": " + "error: " + error
+									+ " => reply: " + reply);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
+			};
+			callBack.header("Accept", "application/json");
+			callBack.header("Accept-Encoding", "gzip");
+			callBack.header("Cache-Control", "max-stale=0,max-age=60");
+			callBack.header("Content-Type", "application/json; charset=utf-8");
+	
+			SharedPreferences settings1 = currentActivity.getSharedPreferences(
+					"PREFS_NAME", 0);
+			String token = settings1.getString("token", "");
+			if (!token.isEmpty()) {
+				callBack.header("auth_token", token);
+				Log.d("ray token: ", "token: " + token);
 			}
-		};
-		callBack.header("Accept", "application/json");
-		callBack.header("Accept-Encoding", "gzip");
-		callBack.header("Cache-Control", "max-stale=0,max-age=60");
-		callBack.header("Content-Type", "application/json; charset=utf-8");
-
-		SharedPreferences settings1 = currentActivity.getSharedPreferences(
-				"PREFS_NAME", 0);
-		String token = settings1.getString("token", "");
-		if (!token.isEmpty()) {
-			callBack.header("auth_token", token);
-			Log.d("ray token: ", "token: " + token);
 		}
 	}
 
@@ -202,13 +206,5 @@ public class RZHelper {
 
 	public void setSilent(boolean silent) {
 		this.silent = silent;
-	}
-
-	public boolean isProgress() {
-		return progress;
-	}
-
-	public void setProgress(boolean progress) {
-		this.progress = progress;
 	}
 }
