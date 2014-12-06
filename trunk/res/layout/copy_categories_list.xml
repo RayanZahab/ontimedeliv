@@ -1,0 +1,39 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"    
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="70dp"
+    android:background="@drawable/itembg" >
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="60dp"
+        android:layout_height="27dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        style="@style/toggleButton"
+        android:background="@drawable/ic_toggle_bg" />
+
+    <ImageView
+        android:id="@+id/catlogo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:contentDescription="@string/catlogo"
+        android:layout_toRightOf="@+id/toggleButton"
+        android:src="@drawable/fruits" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:textColor="#3c5a99"
+        android:layout_toRightOf="@+id/catlogo"
+        android:text="@string/categoryname"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+ </RelativeLayout>
