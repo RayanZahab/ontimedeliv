@@ -80,6 +80,7 @@
     <string name="ordercanceled">Order Canceled</string>
     <string name="forgotpass">Forgot Password</string>
     <string name="enter">Enter</string>
+    <string name="catlogo">Category Logo</string>
     <string name="passchanged">Password successfully changed</string>
     
     <string-array name="acc_type">
@@ -164,5 +165,7 @@
     <string name="order_updated">Order updated successfully</string>
     <string name="title_activity_block_user">BlockUser</string>
     <string name="block">Block</string>
+    <string name="branchlogo">Branch Logo</string>
+    <string name="businesscat">Business Category</string>
     
 </resources>
