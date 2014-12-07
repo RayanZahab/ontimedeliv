@@ -1,46 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="6dip" >
+    android:layout_height="70dp"
+    android:background="@drawable/itembg" >
 
-    <CheckBox
-        android:id="@+id/checkBox1"
-        style="@style/mytextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/mycheckbox"
-        	    android:layout_alignParentLeft="true"
-        
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:text=""
-        android:textColor="#6f6f71" />
-
-    <TextView
-        android:id="@+id/checkBox1_txt"
-        style="@style/mytextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/checkBox1"
-        android:layout_alignTop="@+id/checkBox1"
-        android:layout_toRightOf="@+id/checkBox1"
-        android:gravity="center"
-        android:text="text"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/price"
-        style="@style/mytextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/checkBox1"
-        android:layout_alignBottom="@+id/checkBox1"
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        style="@style/toggleButton"
+        android:layout_width="60dp"
+        android:layout_height="27dp"
         android:layout_alignParentRight="true"
-        android:background="@drawable/bar"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/ic_toggle_bg"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
+
+
+     <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/checkBox1_txt"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:textColor="#3c5a99"
         android:gravity="center"
         android:paddingLeft="5dp"
         android:text="@string/total" />
+
+    <TextView
+        android:id="@+id/checkBox1_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/toggleButton"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentLeft="true"
+        android:text="@string/categoryname"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#3c5a99" />
 
 </RelativeLayout>

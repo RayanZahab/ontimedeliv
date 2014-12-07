@@ -205,7 +205,7 @@ public class ProductsActivity extends Activity {
 			}
 			registerForContextMenu(listView);
 		}
-		dataAdapter = new CheckboxAdapter(this, R.layout.category_info,
+		dataAdapter = new CheckboxAdapter(this, R.layout.product_info,
 				productItems, false);
 		if (products.size() == 0) {
 			dataAdapter.empty = true;
