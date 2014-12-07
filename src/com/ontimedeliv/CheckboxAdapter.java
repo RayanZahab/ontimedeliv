@@ -13,6 +13,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,7 +74,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 	}
 
 	private class ViewHolder {
-		CheckBox name;
+		ToggleButton name;
 		TextView chTxt;
 		String picture;
 		TextView price;
@@ -108,8 +109,10 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 					holder.price.setText(cat.getPrice()
 							+ context.getString(R.string.lira));
 				}
-				holder.name = (CheckBox) convertView
-						.findViewById(R.id.checkBox1);
+				//holder.name = (CheckBox) convertView
+					//	.findViewById(R.id.checkBox1);
+				holder.name = (ToggleButton) convertView
+					.findViewById(R.id.toggleButton);
 				holder.chTxt = (TextView) convertView
 						.findViewById(R.id.checkBox1_txt);
 				setList(cat, holder);

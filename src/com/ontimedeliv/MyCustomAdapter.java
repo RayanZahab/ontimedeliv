@@ -18,6 +18,7 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 	Context context;
 	private ItemsFilter mFilter;
 	private int layout = R.layout.categories_list;
+	public boolean empty;
 
 	public MyCustomAdapter(Context context, int textViewResourceId,
 			ArrayList<Item> navList) {
