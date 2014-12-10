@@ -38,6 +38,8 @@ public class ProductInfoActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		productId = ontimedeliv.getProductId(this);
+		
 		setContentView(R.layout.activity_add_product);
 		name = (TextView) findViewById(R.id.productName);
 		desc = (TextView) findViewById(R.id.description);
@@ -47,12 +49,14 @@ public class ProductInfoActivity extends Activity {
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
 				.permitAll().build();
 		StrictMode.setThreadPolicy(policy);
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		if (productId == 0) {
+			//ActionBar actionBar = getActionBar();
+			//actionBar.setDisplayHomeAsUpEnabled(true);
+		}
+		
 		ontimedeliv.clear("product");
 		branchId = ontimedeliv.getBranchId(this);
 		categoryId = ontimedeliv.getCategoryId(this);
-		productId = ontimedeliv.getProductId(this);
 		shopId = ontimedeliv.getShopId(this);
 		if (productId != 0) {
 			getProduct(productId);
@@ -89,7 +93,7 @@ public class ProductInfoActivity extends Activity {
 			name.setText(n);
 			desc.setText(currentProduct.getDescription());
 			price.setText("" + currentProduct.getPrice());
-			getActionBar().setTitle(currentProduct.getName());
+			//getActionBar().setTitle(currentProduct.getName());
 			new ImageTask((ImageView) findViewById(R.id.preview),
 					ProductInfoActivity.this).execute(currentProduct.getPhoto()
 					.getUrl());
@@ -212,7 +216,8 @@ public class ProductInfoActivity extends Activity {
 	public void onBackPressed() {
 		ontimedeliv.setProductId(0);
 		Intent i = new Intent(ProductInfoActivity.this, ProductsActivity.class);
-		startActivity(i);
+		super.onBackPressed();
+		//startActivity(i);
 	}
 
 }
