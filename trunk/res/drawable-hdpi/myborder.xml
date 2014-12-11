@@ -2,11 +2,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item><layer-list>
-            <item android:left="10dp" android:top="10dp"><shape>
-                    <corners android:radius="5dp" />
-
-                    <gradient android:angle="90" android:endColor="#FF0000" android:startColor="#a2a20000" />
-                </shape></item>
             <item android:bottom="5dp" android:right="5dp"><shape>
                     <solid android:color="#FFFFFF"></solid>
 
