@@ -106,14 +106,14 @@ public class OrdersActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				if (morders.size() > 0) {
-					Intent i;
-					if (orderItems.get(position).isNew) {
+					Intent i;					
+					
+					if (morders.get(position).isNewCustomer()) {
 						i = new Intent(getBaseContext(), BlockUser.class);
 					} else {
-						i = new Intent(getBaseContext(),
-								OrderInfoActivity.class);
+						i = new Intent(getBaseContext(), OrderInfoActivity.class);
 					}
-					ontimedeliv.setOrderId(orderItems.get(position).getId());
+					ontimedeliv.setOrderId(morders.get(position).getId());
 					startActivity(i);
 				}
 			}

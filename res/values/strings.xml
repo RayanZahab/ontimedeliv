@@ -13,6 +13,7 @@
     <string name="categories">Categories</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
+    <string name="allow">Allow</string>   
     <string name="title_activity_navigation">Menu</string>
     <string name="title_activity_categories">Categories</string>
     <string name="title_activity_branches">Branches</string>

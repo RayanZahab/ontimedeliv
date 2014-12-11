@@ -37,7 +37,7 @@ public class OrdersAdapter extends ArrayAdapter<Item> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		ViewHolder holder = null;
-
+		Item orderitem = orderList.get(position);
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -46,7 +46,7 @@ public class OrdersAdapter extends ArrayAdapter<Item> {
 			{
 				convertView = vi.inflate(R.layout.row_order, null);
 	
-				if (!this.orderList.get(position).isNew) {
+				if (!orderitem.isNew) {
 					RelativeLayout main = (RelativeLayout) convertView
 							.findViewById(R.id.roworder);
 					main.findViewById(R.id.newImg).setVisibility(View.GONE);
@@ -54,6 +54,8 @@ public class OrdersAdapter extends ArrayAdapter<Item> {
 	
 				holder.address = (TextView) convertView
 						.findViewById(R.id.useraddress);
+				holder.address.setText(orderitem.getTitle());
+				
 				holder.numbofitems = (TextView) convertView
 						.findViewById(R.id.numbofitems);
 				holder.totalamount = (TextView) convertView
@@ -72,12 +74,9 @@ public class OrdersAdapter extends ArrayAdapter<Item> {
 			this.convertView = convertView;
 		}
 		if(!empty)
-		{
-			Item orderitem = orderList.get(position);
-	
-			holder.address.setText(orderitem.getTitle());
+		{					
 			holder.address.setTag(orderitem);
-	
+
 			holder.numbofitems.setText(new GlobalM().getago(orderitem.getDate()));
 			holder.numbofitems.setTag(orderitem);
 	
