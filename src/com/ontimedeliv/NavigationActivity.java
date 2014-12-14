@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,7 +62,7 @@ public class NavigationActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void select(View v) {
+	public void select(View v) throws NameNotFoundException {
 
 		Intent i;
 		String method = "", status = null;
@@ -97,7 +98,8 @@ public class NavigationActivity extends Activity {
 			status = null;
 			method = null;
 			Toast.makeText(getApplicationContext(),
-					"Developed With Passion", Toast.LENGTH_SHORT).show();
+					"version" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName
+					, Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.settings:
 			method = "UserProfile";
