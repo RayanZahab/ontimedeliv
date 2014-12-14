@@ -84,7 +84,7 @@ public class UsersActivity extends Activity {
 						i = new Intent(getBaseContext(), Class
 								.forName(getPackageName() + "."
 										+ "UserInfoActivity"));
-						i.putExtra("id", "" + usersItem.get(position).getId());
+						i.putExtra("id", "" + dataAdapter.tmpList.get(position).getId());
 						startActivity(i);
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -142,7 +142,7 @@ public class UsersActivity extends Activity {
 	}
 
 	public void Delete(final int position) {
-		final int catId = (usersItem.get(position)).getId();
+		final int catId = (dataAdapter.tmpList.get(position)).getId();
 		new AlertDialog.Builder(this)
 				.setTitle(R.string.deletethisuser)
 				.setIcon(R.drawable.users)
