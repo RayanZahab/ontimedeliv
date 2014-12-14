@@ -145,7 +145,7 @@
             android:label="@string/title_activity_add_product"
             android:parentActivityName="ProductsActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Dialog"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity

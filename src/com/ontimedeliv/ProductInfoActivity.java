@@ -53,6 +53,7 @@ public class ProductInfoActivity extends Activity {
 			//ActionBar actionBar = getActionBar();
 			//actionBar.setDisplayHomeAsUpEnabled(true);
 		}
+		//setTheme(android.R.style.Theme_Holo_Light_Dialog_NoActionBar);
 		
 		ontimedeliv.clear("product");
 		branchId = ontimedeliv.getBranchId(this);
