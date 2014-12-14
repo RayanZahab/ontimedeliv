@@ -27,14 +27,4 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#3c5a99" />
 
-    <TextView
-        android:id="@+id/shopadd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/name"
-        android:layout_below="@+id/name"
-        android:singleLine="true"
-        android:text="@string/address"
-        android:textColor="#3c5a99" />
-
 </RelativeLayout>

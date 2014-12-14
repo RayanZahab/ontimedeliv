@@ -48,7 +48,7 @@ public class UserProfileActivity extends Activity {
 		name = settings1.getString("name", "");
 		pass = settings1.getString("pass", "");
 		phone = settings1.getString("phone", "");
-		lang = settings1.getString("lang", null);
+		lang = settings1.getString("lang", "");
 		id = settings1.getInt("id", 0);
 		branchId = settings1.getInt("branchId", 0);
 

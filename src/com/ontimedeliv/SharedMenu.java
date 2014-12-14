@@ -113,7 +113,7 @@ public class SharedMenu extends Activity {
 			SharedPreferences.Editor editor = sharedPref.edit();
 			editor.clear();
 			editor.commit();
-			intent = new Intent(caller, SelectLanguageActivity.class);
+			intent = new Intent(caller, LoginActivity.class);
 			caller.startActivity(intent);
 			return true;
 		default:

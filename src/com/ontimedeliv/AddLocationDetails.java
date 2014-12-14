@@ -28,7 +28,7 @@ public class AddLocationDetails extends Activity implements
 	ArrayList<Country> countries = new ArrayList<Country>();
 	ArrayList<City> cities = new ArrayList<City>();
 	String type = "Country";
-	Button addButton;
+	Button addButton; 
  
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
