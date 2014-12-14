@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    android:background="#e7e7e7"
     android:padding="10dp" >
 
     <TextView
@@ -11,13 +12,14 @@
         style="@style/mytextview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Category Name: "
+        android:text="@string/categoryname"
+        android:textColor="#234666"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
         android:id="@+id/editTextDialogUserInput"
         android:layout_width="match_parent"
-        android:background="@drawable/mypromptedittext"
+        android:background="@drawable/edittextbg"
         android:layout_height="wrap_content"
         android:textColor="#000000" >
 

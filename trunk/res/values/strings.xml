@@ -79,7 +79,7 @@
     <string name="exitquest">Are you sure you want to exit?</string>
     <string name="cancelreason">Please enter a reason</string>
     <string name="ordercanceled">Order Canceled</string>
-    <string name="forgotpass">Forgot Password</string>
+    <string name="forgotpass"><u>Forgot Password?</u></string>
     <string name="enter">Enter</string>
     <string name="catlogo">Category Logo</string>
     <string name="passchanged">Password successfully changed</string>
