@@ -44,6 +44,7 @@ public class BranchesActivity extends Activity {
 
 	public MyCustomAdapter getAdapter() {
 		return dataAdapter;
+		
 	}
 
 	public void getBranches() {
@@ -82,13 +83,13 @@ public class BranchesActivity extends Activity {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (branches.size() > 0) {
+				if (dataAdapter.tmpList.size() > 0) {
 					Intent i;
 					try {
 						i = new Intent(getBaseContext(), Class
 								.forName(getPackageName() + "."
 										+ "CategoriesActivity"));
-						ontimedeliv.setBranchId(branchesItem.get(position).getId());
+						ontimedeliv.setBranchId(dataAdapter.tmpList.get(position).getId());
 						startActivity(i);
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -111,7 +112,7 @@ public class BranchesActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.edit:
-			Edit(branchesItem.get((int) info.id));
+			Edit(dataAdapter.tmpList.get((int) info.id));
 			break;
 		case R.id.delete:
 			Delete((int) info.id);
@@ -124,9 +125,9 @@ public class BranchesActivity extends Activity {
 	}
 
 	public void Delete(final int position) {
-		final int branchId = branchesItem.get(position).getId();
+		final int branchId = dataAdapter.tmpList.get(position).getId();
 		new AlertDialog.Builder(this)
-				.setTitle("Delete this branch?: " + branchId)
+				.setTitle("Delete this branch: " + dataAdapter.tmpList.get(position).toString() +" ?")
 				.setIcon(R.drawable.branches)
 				.setPositiveButton(android.R.string.yes,
 						new DialogInterface.OnClickListener() {
@@ -186,8 +187,6 @@ public class BranchesActivity extends Activity {
 		if (SharedMenu.onOptionsItemSelected(item, this) == false) {
 			// handle local menu items here or leave blank
 
-			Toast.makeText(getApplicationContext(), "shi: " + item.getItemId(),
-					Toast.LENGTH_SHORT).show();
 			switch (item.getItemId()) {
 
 			case R.id.action_search:

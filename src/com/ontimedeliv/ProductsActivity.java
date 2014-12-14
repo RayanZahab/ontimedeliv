@@ -127,7 +127,7 @@ public class ProductsActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.edit:
-			Edit(productItems.get((int) info.id));
+			Edit(dataAdapter.tmpList.get((int) info.id));
 			break;
 		case R.id.delete:
 			Delete((int) info.id);
@@ -140,7 +140,7 @@ public class ProductsActivity extends Activity {
 	}
 
 	public void Delete(final int position) {
-		final int productId = productItems.get(position).getId();
+		final int productId = dataAdapter.tmpList.get(position).getId();
 		new AlertDialog.Builder(this)
 				.setTitle(R.string.deletethisprod)
 				.setIcon(R.drawable.branches)
@@ -217,10 +217,10 @@ public class ProductsActivity extends Activity {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (products.size() > 0) {
+				if (dataAdapter.tmpList.size() > 0) {
 					Intent intent = new Intent(ProductsActivity.this,
 							ProductInfoActivity.class);
-					ontimedeliv.setProductId(productItems.get(position).getId());
+					ontimedeliv.setProductId(dataAdapter.tmpList.get(position).getId());
 					startActivity(intent);
 				}
 			}

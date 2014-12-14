@@ -154,7 +154,7 @@ public class CategoriesActivity extends Activity {
 					int position, long id) {
 					Intent i = new Intent(getBaseContext(),
 							ProductsActivity.class);
-					ontimedeliv.setCategoryId(categoryItems.get(position).getId());
+					ontimedeliv.setCategoryId(dataAdapter.tmpList.get(position).getId());
 					startActivity(i);
 				
 			}
@@ -182,7 +182,7 @@ public class CategoriesActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.edit:
-			Edit(categoryItems.get((int) info.id));
+			Edit(dataAdapter.tmpList.get((int) info.id));
 			break;
 		case R.id.delete:
 			Delete((int) info.id);
@@ -347,9 +347,9 @@ public class CategoriesActivity extends Activity {
 	}
 
 	public void Delete(final int position) {
-		final int catId = categoryItems.get(position).getId();
+		final int catId = dataAdapter.tmpList.get(position).getId();
 		new AlertDialog.Builder(this)
-				.setTitle(R.string.deletethiscat)
+				.setTitle(R.string.deletethiscat+" : "+dataAdapter.tmpList.get(position).toString()+"?")
 				.setIcon(R.drawable.categories)
 				.setPositiveButton(android.R.string.yes,
 						new DialogInterface.OnClickListener() {
