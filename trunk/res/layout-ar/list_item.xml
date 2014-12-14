@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/mystyle"
+    android:orientation="horizontal" >
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <CheckBox
+        android:id="@+id/weekCheck"
+        style="@style/mytextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true" />
+      <TextView
+        android:id="@+id/weekCheckTxt"
+        style="@style/mytextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/weekCheck"
+        android:layout_alignBottom="@+id/weekCheck"
+        android:layout_toRightOf="@+id/weekCheck"
+        android:gravity="right"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/fromBtnn"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/mybutton"
+        android:onClick="from"
+        android:text="@string/from"
+        android:textColor="#000000" />
+
+    <Button
+        android:id="@+id/toBtn"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/fromBtnn"
+        android:background="@drawable/mybutton"
+        android:onClick="to"
+        android:text="@string/to"
+        android:textColor="#000000" />
+
+    </RelativeLayout>
+
+</LinearLayout>

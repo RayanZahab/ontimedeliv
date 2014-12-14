@@ -123,7 +123,7 @@ public class OrdersActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		if(status!=null)
+		if(!admin)
 		{
 			new AlertDialog.Builder(this)
 			.setIcon(android.R.drawable.ic_dialog_alert)
@@ -137,6 +137,9 @@ public class OrdersActivity extends Activity {
 							OrdersActivity.this.finishAffinity();
 						}
 					}).setNegativeButton(android.R.string.no, null).show();
+		}else
+		{
+			super.onBackPressed();
 		}
 	}
 
