@@ -160,6 +160,31 @@ public class APIManager {
 		}
 		return gridArray;
 	}
+	public Area getBranchArea(JSONObject jsonResponse) {		
+		JSONObject jsonChildNode;
+		Area area =null;
+		try {
+			jsonChildNode = jsonResponse.getJSONObject("area");
+			if (!errorCheck(jsonResponse)) {
+				int id, country_id, city_id;
+				String name;
+				
+				id = Converter.toInt(jsonChildNode.optString("id")
+						.toString());
+				country_id = Converter.toInt(jsonChildNode.optString(
+						"country_id").toString());
+				city_id = Converter.toInt(jsonChildNode.optString(
+						"city_id").toString());
+				name = jsonChildNode.optString("name").toString();
+				area = new Area(id, city_id, country_id, name);		
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		return area;
+	}
 
 	public ArrayList<Business> getBusinesses(String cont) {
 		JSONObject jsonResponse;
@@ -314,8 +339,7 @@ public class APIManager {
 				int id;
 				String name, address, estimation_time, description;
 				JSONObject open_hours;
-				Area area;
-				ArrayList<Area> areas;
+				Area area = null;
 				id = Converter.toInt(jsonResponse.optString("id").toString());
 				name = jsonResponse.optString("name").toString();
 				description = jsonResponse.optString("description").toString();
@@ -323,8 +347,7 @@ public class APIManager {
 				estimation_time = jsonResponse.optString("estimation_time")
 						.toString();
 
-				areas = getAreasByCity(jsonResponse);
-				area = areas.get(0);
+				area = getBranchArea(jsonResponse);
 
 				open_hours = new JSONObject(jsonResponse.optString(
 						"opening_hours").toString());

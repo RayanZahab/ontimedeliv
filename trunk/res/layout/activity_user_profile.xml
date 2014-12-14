@@ -100,9 +100,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vertical_margin"
                 android:layout_weight="0.70"
-                android:paddingRight="22dp"
                 android:background="@drawable/myspinner"
-                android:entries="@array/languages" />
+                android:entries="@array/languages"
+                android:paddingRight="22dp"
+                android:spinnerMode="dialog" />
         </LinearLayout>
 
         <Button

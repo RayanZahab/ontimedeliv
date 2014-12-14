@@ -65,12 +65,14 @@
                 android:ellipsize="marquee"
                 android:gravity="center_vertical"
                 android:paddingRight="22dp"
-                android:singleLine="false" />
+                android:singleLine="false"
+                android:spinnerMode="dialog" />
 
             <Spinner
                 android:id="@+id/citiesSP"
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
+                android:spinnerMode="dialog"
                 android:layout_below="@+id/citiesLabel"
                 android:background="@drawable/myspinner"
                 android:paddingRight="22dp" />
@@ -80,6 +82,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
                 android:layout_below="@+id/areaLabel"
+                android:spinnerMode="dialog"
                 android:background="@drawable/myspinner"
                 android:paddingRight="22dp" />
 
