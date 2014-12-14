@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e7e7e7"
     android:orientation="vertical" >
 
     <TextView
@@ -18,7 +19,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:textColor="#6f6f71"
-        android:background="@drawable/mypromptedittext"
+        android:background="@drawable/edittextbg"
         android:hint="@string/reason" />
 
 </LinearLayout>

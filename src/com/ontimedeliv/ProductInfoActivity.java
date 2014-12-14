@@ -24,7 +24,7 @@ import android.widget.TextView;
 public class ProductInfoActivity extends Activity {
 	ArrayList<Unit> units;
 	int categoryId, branchId, shopId, productId;
-	Button upload;
+	View upload;
 	int RESULT_LOAD_IMAGE = 1;
 	String picturePath, picName;
 	Product currentProduct = null;
@@ -64,7 +64,7 @@ public class ProductInfoActivity extends Activity {
 			getUnits(true);
 		}
 
-		upload = (Button) findViewById(R.id.uploadimage);
+		upload = findViewById(R.id.preview);
 		upload.setOnClickListener(new View.OnClickListener() {
 
 			@Override
