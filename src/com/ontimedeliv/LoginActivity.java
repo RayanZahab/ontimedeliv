@@ -2,6 +2,8 @@
 
 
 
+import java.util.Locale;
+
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -51,6 +54,33 @@ public class LoginActivity extends Activity {
 		
 		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn",false);
 		p.post(user);
+	}
+	public void changeLang(View view){
+		String lang_ab = "en";
+		
+		switch (view.getId()) {
+		case R.id.english:
+			lang_ab = "en";
+			break;
+		case R.id.arabic:
+			lang_ab = "ar";
+			break;
+		}
+	
+		Locale locale = new Locale(lang_ab);
+		Locale.setDefault(locale);
+		Configuration config = new Configuration();
+		config.locale = locale;
+
+		getBaseContext().getResources().updateConfiguration(config,
+				getBaseContext().getResources().getDisplayMetrics());
+
+		SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString("lang", lang_ab);
+		editor.commit();
+		Intent i = new Intent(LoginActivity.this, LoginActivity.class);
+		startActivity(i);
 	}
 	
 	public  void getLoggedIn(String s, String error) {

@@ -55,20 +55,20 @@
         android:text="@string/keeploggedin" />
 
     <ImageView
-        android:id="@+id/arabic"
+        android:id="@+id/english"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/user_name"
         android:layout_below="@+id/imageView1"
         android:layout_marginTop="32dp"
         android:onClick="changeLang"
-        android:src="@drawable/arlanguage" />
+        android:src="@drawable/enlanguage" />
 
     <TextView
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/arabic"
+        android:layout_below="@+id/english"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp"
         android:text="@string/login"
