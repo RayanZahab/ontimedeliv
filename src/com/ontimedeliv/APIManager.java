@@ -415,13 +415,13 @@ public class APIManager {
 	public ArrayList<Category> getCategories(String cont) {
 		JSONObject jsonResponse;
 		ArrayList<Category> gridArray = new ArrayList<Category>();
-
+		Log.d("ry","cats:"+cont);
 		try {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id;
 				String name;
-				boolean is_active;
+				boolean is_active; 
 				if (jsonResponse.has("elements")) {
 					JSONArray jsonMainNode = jsonResponse
 							.optJSONArray("elements");
@@ -506,8 +506,8 @@ public class APIManager {
 						}
 
 						name = jsonChildNode.optString("name").toString();
-						photo_str = jsonChildNode.optString("photo").toString();
-						Photo p = getPhoto(photo_str);
+						//photo_str = jsonChildNode.optString("photo").toString();
+						Photo p = null;//getPhoto(photo_str);
 						is_available = Boolean.valueOf(jsonChildNode.optString(
 								"is_available").toString());
 						Product pro = new Product(id, price, name, null,

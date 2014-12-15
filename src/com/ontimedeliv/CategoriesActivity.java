@@ -25,32 +25,40 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class CategoriesActivity extends Activity {
 
 	CheckboxAdapter dataAdapter = null;
-	int branchId, shopId;
+	static int branchId;
+	int shopId;
 	ArrayList<Category> categories;
 	ArrayList<Item> categoryItems;
 	String url = new myURL("categories", null, 0, 30).getURL();
 	DialogInterface dialog;
 	ArrayList<Integer> selectedIds = new ArrayList<Integer>();
 	ArrayList<Integer> unselectedIds = new ArrayList<Integer>();
-	Activate myCat;
+	static Activate myCat;
 	AlertDialog alertDialog;
 	int editing = -1;
 	String newName;
+	static RZHelper activate;
+	static RZHelper deactivate;
+	String serverURL ;
 
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
 		super.onCreate(savedInstancecat);
 		setContentView(R.layout.activity_categories);
 		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
-
+		actionBar.setDisplayHomeAsUpEnabled(true);		
+		
+		branchId = ontimedeliv.getBranchId(this);
+		
+		
 		ontimedeliv.clear("categories");
-		this.branchId = ontimedeliv.getBranchId(this);
+		
 		this.shopId = ontimedeliv.getShopId(this);
 		url = new myURL("categories", "branches", branchId, 30).getURL();
 
@@ -66,41 +74,28 @@ public class CategoriesActivity extends Activity {
 		this.dialog = dialog;
 	}
 
-	public void submit(View v) {
-		unselectedIds = dataAdapter.getUnselectedList();
-		if (unselectedIds.size() > 0) {
-			myCat = new Activate("categories", unselectedIds);
-
-			String serverURL = new myURL("deactivate_categories", "branches",
-					branchId, 0).getURL();
-			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate",false);
-			p.put(myCat);
-		} else {
-			afterDeactivate("", null);
-		}
-	}
-
-	public void afterDeactivate(String s, String error) {
-		selectedIds = dataAdapter.getSelectedList();
+	
+	public static void activate(ArrayList<Integer> selectedIds){
 		if (selectedIds.size() > 0) {
 			myCat = new Activate("categories", selectedIds);
-			String serverURL = new myURL("activate_categories", "branches",
-					branchId, 0).getURL();
-
-			RZHelper p = new RZHelper(serverURL, this, "afterActivate",false);
-			p.put(myCat);
-		} else {
-			afterActivate("DONE", null);
-		}
+			activate.put(myCat);
+		} 
+	}
+	public static void deActivate(ArrayList<Integer> unselectedIds){
+		if (unselectedIds.size() > 0) {
+			myCat = new Activate("categories", unselectedIds);
+			deactivate.put(myCat);
+		} 
 	}
 
 	public void afterActivate(String s, String error) {
-		onBackPressed();
+		Toast.makeText(getApplicationContext(), "DONE",
+				Toast.LENGTH_SHORT).show();
 	}
 
 	public void getCategories() {
 		String serverURL = this.url;
-		RZHelper p = new RZHelper(serverURL, this, "setCategories",false);
+		RZHelper p = new RZHelper(serverURL, this, "setCategories", false);
 		p.get();
 	}
 
@@ -123,6 +118,7 @@ public class CategoriesActivity extends Activity {
 	public void setCategories(String s, String error) {
 		categories = new APIManager().getCategories(s);
 		categoryItems = new ArrayList<Item>();
+		
 		ListView listView = (ListView) findViewById(R.id.categorylist);
 
 		listView.setTextFilterEnabled(true);
@@ -152,14 +148,22 @@ public class CategoriesActivity extends Activity {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-					Intent i = new Intent(getBaseContext(),
-							ProductsActivity.class);
-					ontimedeliv.setCategoryId(dataAdapter.tmpList.get(position).getId());
-					startActivity(i);
-				
+				Intent i = new Intent(getBaseContext(), ProductsActivity.class);
+				ontimedeliv.setCategoryId(dataAdapter.tmpList.get(position)
+						.getId());
+				startActivity(i);
+
 			}
 		});
-
+		serverURL = new myURL("activate_categories", "branches",
+				branchId, 0).getURL();
+		activate = new RZHelper(serverURL, this, "afterActivate", true);
+		
+		
+		serverURL = new myURL("deactivate_categories", "branches",
+				branchId, 0).getURL();
+		deactivate = new RZHelper(serverURL, this, "afterActivate", true);
+		 
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -309,7 +313,7 @@ public class CategoriesActivity extends Activity {
 	public void addCategory(String categoryName, int shopId) {
 		String serverURL = new myURL("categories", null, 0, 0).getURL();
 		Category newCategory = new Category(0, categoryName, true, shopId);
-		RZHelper p = new RZHelper(serverURL, this, "afterCreation",true);
+		RZHelper p = new RZHelper(serverURL, this, "afterCreation", true);
 		p.post(newCategory);
 	}
 
@@ -319,7 +323,7 @@ public class CategoriesActivity extends Activity {
 		Category newCategory = new Category(categoryId, categoryName, true,
 				shopId);
 		newName = categoryName;
-		RZHelper p = new RZHelper(serverURL, this, "afterCreation",true);
+		RZHelper p = new RZHelper(serverURL, this, "afterCreation", true);
 		p.put(newCategory);
 	}
 
@@ -349,7 +353,10 @@ public class CategoriesActivity extends Activity {
 	public void Delete(final int position) {
 		final int catId = dataAdapter.tmpList.get(position).getId();
 		new AlertDialog.Builder(this)
-				.setTitle(R.string.deletethiscat+" : "+dataAdapter.tmpList.get(position).toString()+"?")
+				.setTitle(
+						R.string.deletethiscat + " : "
+								+ dataAdapter.tmpList.get(position).toString()
+								+ "?")
 				.setIcon(R.drawable.categories)
 				.setPositiveButton(android.R.string.yes,
 						new DialogInterface.OnClickListener() {
@@ -361,7 +368,8 @@ public class CategoriesActivity extends Activity {
 								categoryItems.remove(position);
 
 								RZHelper p = new RZHelper(serverURL,
-										CategoriesActivity.this, "afterDelete",true);
+										CategoriesActivity.this, "afterDelete",
+										true);
 								p.delete();
 							}
 						}).setNegativeButton(android.R.string.no, null).show();
