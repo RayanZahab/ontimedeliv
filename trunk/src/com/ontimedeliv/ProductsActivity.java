@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -31,12 +32,14 @@ public class ProductsActivity extends Activity {
 	int categoryId, branchId, shopId;
 	ArrayList<Product> products;
 	ArrayList<Item> productItems;
-	String url;
+	String url,serverURL;
 	DialogInterface dialog;
 	ArrayList<Integer> selectedIds = new ArrayList<Integer>();
 	ArrayList<Integer> unselectedIds = new ArrayList<Integer>();
-	Activate myProd;
-
+	static Activate myProd;
+	static RZHelper activate;
+	static RZHelper deactivate;
+	
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
 		super.onCreate(savedInstancecat);
@@ -80,22 +83,6 @@ public class ProductsActivity extends Activity {
 			ontimedeliv.setCategoryId(0);
 			startActivity(i);
 		}
-	}
-
-	public void submit(View v) {
-		unselectedIds = dataAdapter.getUnselectedList();
-		if (unselectedIds.size() > 0) {
-			myProd = new Activate("items", unselectedIds);
-
-			String serverURL = new myURL("deactivate_items", "branches",
-					branchId, 0).getURL();
-
-			RZHelper p = new RZHelper(serverURL, this, "afterDeactivate",false);
-			p.put(myProd);
-		} else {
-			afterDeactivate("", null);
-		}
-
 	}
 
 	public void afterDeactivate(String s, String error) {
@@ -176,9 +163,6 @@ public class ProductsActivity extends Activity {
 		startActivity(i);
 	}
 
-	public void afterActivate(String s, String error) {
-		onBackPressed();
-	}
 
 	public void getProducts() {
 		String serverURL = this.url;
@@ -212,7 +196,15 @@ public class ProductsActivity extends Activity {
 		}
 		SharedMenu.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);
-
+		serverURL = new myURL("activate_items", "branches",
+				branchId, 0).getURL();
+		activate = new RZHelper(serverURL, this, "afterActivate", true);
+		
+		
+		serverURL = new myURL("deactivate_items", "branches",
+				branchId, 0).getURL();
+		deactivate = new RZHelper(serverURL, this, "afterActivate", true);
+		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -226,8 +218,28 @@ public class ProductsActivity extends Activity {
 			}
 
 		});
+		
+		
+	}
+	
+	public static void activate(ArrayList<Integer> selectedIds){
+		if (selectedIds.size() > 0) {
+			myProd = new Activate("items", selectedIds);
+			activate.put(myProd);
+		} 
+	}
+	public static void deActivate(ArrayList<Integer> unselectedIds){
+		if (unselectedIds.size() > 0) {
+			myProd = new Activate("items", unselectedIds);
+			deactivate.put(myProd);
+		} 
 	}
 
+	public void afterActivate(String s, String error) {
+		Toast.makeText(getApplicationContext(), "DONE",
+				Toast.LENGTH_SHORT).show();
+	}
+	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.categories, menu);

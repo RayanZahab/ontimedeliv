@@ -17,6 +17,7 @@ import android.widget.ToggleButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
@@ -27,7 +28,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 	private ArrayList<Item> unselectedList = new ArrayList<Item>();
 	private Context context;
 	boolean icon;
-	public boolean empty = false;
+	public boolean empty = false,isNew = true;
 
 	public CheckboxAdapter(Context context, int textViewResourceId,
 
@@ -84,7 +85,6 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		Item cat = tmpList.get(position);
-		Log.d("ray ","pos: "+position+" -> "+cat.isSelected());
 		
 		if (convertView == null) {
 
@@ -144,27 +144,38 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 	}
 
 	public void setList(final Item cat, ViewHolder holder) {
-		holder.name.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				int getPosition = (Integer) buttonView.getTag();  // Here we get the position that we have set for the checkbox using setTag.
-				tmpList.get(getPosition).setSelected(buttonView.isChecked()); // Set the value of checkbox to maintain its state.
- 
-				Log.d("ray ","set: "+tmpList.indexOf(cat)+" -> "+cat.isSelected());
-				
+					
+		holder.name.setOnClickListener(new OnClickListener()
+		{
+		    @Override
+		    public void onClick(View v)
+		    {
+		    	boolean isChecked = ((ToggleButton) v).isChecked();
+		    	int getPosition = (Integer) v.getTag();  // Here we get the position that we have set for the checkbox using setTag.
+				tmpList.get(getPosition).setSelected(isChecked); // Set the value of checkbox to maintain its state.
 				if (isChecked) {
-					if (unselectedList.indexOf(cat) >= 0)
-						unselectedList.remove(cat);
-					if (selectedList.indexOf(cat) < 0)
-						selectedList.add(cat);
+					selectedList.clear();
+					selectedList.add(cat);
+					ArrayList<Integer> ids = new ArrayList<Integer>();
+					ids.add(cat.getId());
+					Log.d("ray","activate: "+cat.getId());
+					if(icon)
+						CategoriesActivity.activate(ids);
+					else
+						ProductsActivity.activate(ids);
 				} else {
-					if (selectedList.indexOf(cat) >= 0)
-						selectedList.remove(cat);
-					if (unselectedList.indexOf(cat) < 0)
-						unselectedList.add(cat);
+					unselectedList.clear();
+					unselectedList.add(cat);
+					ArrayList<Integer> ids = new ArrayList<Integer>();
+					ids.add(cat.getId());
+					Log.d("ray","deactivate: "+cat.getId());
+					if(icon)
+						CategoriesActivity.deActivate(ids);
+					else
+						ProductsActivity.deActivate(ids);
 				}
-			}
-		});		
+		    }
+		});
 	}
 
 	public ArrayList<Integer> getSelectedList() {

@@ -59,7 +59,7 @@ public class RZHelper {
 						reply = html.toString();
 					if (status != null)
 						error = status.getError();
-					Log.d("RZ","REPLY: "+reply+"->Error: "+error);
+					Log.d("RZ","UR:"+url+" REPLY: "+reply+"->Error: "+error);
 					if (error != null) {
 						Toast.makeText(myAQuery.getContext(), "Error2: " + error,
 								Toast.LENGTH_LONG).show();

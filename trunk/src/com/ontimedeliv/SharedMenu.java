@@ -1,6 +1,4 @@
- package com.ontimedeliv;
-
-
+package com.ontimedeliv;
 
 import android.R.color;
 import android.app.Activity;
@@ -23,6 +21,7 @@ public class SharedMenu extends Activity {
 	public static final int ABOUT = 1000;
 	public static final int settings = 1001;
 	public static final int LogOut = 1002;
+	public static final int home = 1003;
 	public static Context context;
 	public static Menu menu;
 	public static Activity activity;
@@ -35,36 +34,42 @@ public class SharedMenu extends Activity {
 
 	public static void onCreateOptionsMenu(Activity a, Menu menu, Context ctx) {
 		menu.add(Menu.NONE, ABOUT, Menu.NONE, ctx.getString(R.string.About));
-		menu.add(Menu.NONE, settings, Menu.NONE,
-				ctx.getString(R.string.settings));
+		menu.add(Menu.NONE, settings, Menu.NONE,ctx.getString(R.string.settings));
 		menu.add(Menu.NONE, LogOut, Menu.NONE, ctx.getString(R.string.Logout));
+		if(!a.getClass().equals(NavigationActivity.class))
+			menu.add(Menu.NONE, home, Menu.NONE, ctx.getString(R.string.home));
 		context = ctx;
 		activity = a;
 	}
 
-	public static void onCreateOptionsMenu(Activity a, Menu menu, Context ctx,ArrayAdapter<Item> adpt) {
-		
-		onCreateOptionsMenu(a,  menu, ctx);
+	public static void onCreateOptionsMenu(Activity a, Menu menu, Context ctx,
+			ArrayAdapter<Item> adpt) {
+
+		onCreateOptionsMenu(a, menu, ctx);
 		context = ctx;
 		activity = a;
 		adapter = adpt;
 		setSearch(a, menu);
-	}	
-	public static void setSearch(Activity a,Menu mymenu)
-	{
-		menu = mymenu;
-		SearchManager searchManager = (SearchManager) a.getSystemService(Context.SEARCH_SERVICE);
-		SearchView searchView = (SearchView) mymenu.findItem(R.id.action_search)
-				.getActionView();
-		searchView.setSearchableInfo(searchManager
-				.getSearchableInfo(a.getComponentName()));
-		
-		int  searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-        EditText inputSearch = (EditText) searchView.findViewById(searchPlateId);
-        
+	}
 
-		inputSearch.setHintTextColor(searchView.getContext().getResources().getColor(color.darker_gray));
-		inputSearch.setTextColor(searchView.getContext().getResources().getColor(color.darker_gray));
+	public static void setSearch(Activity a, Menu mymenu) {
+		menu = mymenu;
+		SearchManager searchManager = (SearchManager) a
+				.getSystemService(Context.SEARCH_SERVICE);
+		SearchView searchView = (SearchView) mymenu
+				.findItem(R.id.action_search).getActionView();
+		searchView.setSearchableInfo(searchManager.getSearchableInfo(a
+				.getComponentName()));
+
+		int searchPlateId = searchView.getContext().getResources()
+				.getIdentifier("android:id/search_src_text", null, null);
+		EditText inputSearch = (EditText) searchView
+				.findViewById(searchPlateId);
+
+		inputSearch.setHintTextColor(searchView.getContext().getResources()
+				.getColor(color.darker_gray));
+		inputSearch.setTextColor(searchView.getContext().getResources()
+				.getColor(color.darker_gray));
 		inputSearch.addTextChangedListener(new TextWatcher() {
 
 			@Override
@@ -95,8 +100,16 @@ public class SharedMenu extends Activity {
 
 			Toast msg = null;
 			try {
-				msg = Toast.makeText(context,"version" + context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName,
-						Toast.LENGTH_LONG);
+				msg = Toast
+						.makeText(
+								context,
+								"version"
+										+ context
+												.getPackageManager()
+												.getPackageInfo(
+														context.getPackageName(),
+														0).versionName,
+								Toast.LENGTH_LONG);
 			} catch (NameNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -105,6 +118,10 @@ public class SharedMenu extends Activity {
 			return true;
 		case SharedMenu.settings:
 			intent = new Intent(caller, UserProfileActivity.class);
+			caller.startActivity(intent);
+			return true;
+		case SharedMenu.home:
+			intent = new Intent(caller, NavigationActivity.class);
 			caller.startActivity(intent);
 			return true;
 		case SharedMenu.LogOut:

@@ -51,6 +51,7 @@
     <string name="checkbox">CheckBox</string>
     <string name="estimation">Estimated Time</string>
     <string name="About">About us</string>
+    <string name="home">Home</string>
     <string name="navigation">Navigation Menu</string>
     <string name="Logout">Logout</string>
     <string name="search_hint">Search Here</string>
