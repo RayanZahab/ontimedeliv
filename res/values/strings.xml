@@ -170,4 +170,12 @@
     <string name="branchlogo">Branch Logo</string>
     <string name="businesscat">Business Category</string>
     
+    
+<string-array name="CountryCodes" >
+	<item>+961,Lebanon</item>
+	<item>+961,لبنان</item>
+	<item>+962,Jordan</item>
+	<item>+962,الاردن</item>
+</string-array>
+
 </resources>
