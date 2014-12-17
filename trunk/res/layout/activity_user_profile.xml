@@ -19,6 +19,15 @@
             android:paddingRight="@dimen/activity_right_margin"
             android:paddingTop="@dimen/activity_vertical_margin" >
 
+            <TextView
+                android:id="@+id/phonenum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="start"
+                android:ems="10"
+                android:text="@string/phonenum"
+                android:textColor="#234666" />
+            
             <EditText
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
@@ -34,12 +43,21 @@
                 android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd"
                 android:textSize="16sp" />
+            
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="start"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:ems="10"
+                android:text="@string/name"
+                android:textColor="#234666" />
 
             <EditText
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/vertical_margin"
                 android:background="@drawable/edittextbg"
                 android:ellipsize="start"
                 android:ems="10"
@@ -50,12 +68,21 @@
                 android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd"
                 android:textSize="16sp" />
+            
+            <TextView
+                android:id="@+id/passwordtext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="start"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:ems="10"
+                android:text="@string/password"
+                android:textColor="#234666" />
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/vertical_margin"
                 android:background="@drawable/edittextbg"
                 android:ellipsize="start"
                 android:ems="10"
@@ -66,12 +93,21 @@
                 android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd"
                 android:textSize="16sp" />
+            
+            <TextView
+                android:id="@+id/passwordconfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="start"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:ems="10"
+                android:text="@string/confirm_password"
+                android:textColor="#234666" />
 
             <EditText
                 android:id="@+id/password2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/vertical_margin"
                 android:background="@drawable/edittextbg"
                 android:ellipsize="start"
                 android:ems="10"

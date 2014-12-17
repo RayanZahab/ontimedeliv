@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,19 +17,21 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class UserInfoActivity extends Activity implements
 		OnItemSelectedListener {
 
 	Button addButton;
-	EditText username, inputphone;
+	EditText username, inputphone,code;
 	CheckBox admin, preparer, delivery;
-	Spinner branchesSP;
+	Spinner branchesSP, countriesSP;
 	User currentUser;
 	int branchId, userId = 0;
 	ArrayList<Branch> branches;
 	GlobalM glob = new GlobalM();
 	int shopId;
+	ArrayList<Country> countries = new ArrayList<Country>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,9 @@ public class UserInfoActivity extends Activity implements
 		setContentView(R.layout.activity_user_info);
 		ActionBar actionBar = getActionBar();
 		shopId = ontimedeliv.getShopId(this);
-
+		countriesSP = (Spinner) findViewById(R.id.countriesSP);
+		code = (EditText) findViewById(R.id.countrycode);
+		
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		ontimedeliv.clear("user");
 		if (getIntent().hasExtra("id")) {
@@ -52,6 +58,39 @@ public class UserInfoActivity extends Activity implements
 			getBranches(true);
 		}
 
+		getCountries();
+
+	}
+
+	public void getCountriesFromDB() {
+		String serverURL = new myURL(null, "countries", "get_all_cities_areas",
+				0).getURL();
+		RZHelper p = new RZHelper(serverURL, this, "setCountries", false);
+		p.get();
+	}
+
+	public void setCountries(String s, String error) {
+		countries = new APIManager().getCountries(s);
+		ontimedeliv.setCountries(countries);
+		updateList();
+	}
+
+	public void getCountries() {
+		countries = ontimedeliv.getCountries();
+		if (ontimedeliv.getCountries() == null)
+			getCountriesFromDB();
+		else
+			updateList();
+	}
+
+	public void updateList() {
+		ArrayAdapter<Country> counrytAdapter = new ArrayAdapter<Country>(this,
+				android.R.layout.simple_spinner_item, countries);
+		counrytAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		counrytAdapter.notifyDataSetChanged();
+		countriesSP.setAdapter(counrytAdapter);
+		countriesSP.setOnItemSelectedListener(this);
 	}
 
 	@Override
@@ -72,10 +111,36 @@ public class UserInfoActivity extends Activity implements
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
-		branchesSP = (Spinner) findViewById(R.id.branchesSP);
-		Branch branch = (Branch) arg0.getSelectedItem();
-		this.branchId = branch.getId();
+		Object sp1 = arg0.getSelectedItem();
+		if (sp1 instanceof Country) {
+			Country currentCountry = (Country) arg0.getSelectedItem();
+			String countryCode = GetCountryZipCode(currentCountry.getName());			
+			code.setText(""+countryCode);
+			
+		} else if (sp1 instanceof Branch) {
+			branchesSP = (Spinner) findViewById(R.id.branchesSP);
+			Branch branch = (Branch) arg0.getSelectedItem();
+			this.branchId = branch.getId();
 
+		}
+
+	}
+
+	public String GetCountryZipCode(String CountryID) {
+		
+		String CountryZipCode = "";
+
+		String[] rl = this.getResources().getStringArray(R.array.CountryCodes);
+		for (int i = 0; i < rl.length; i++) {
+			String[] g = rl[i].split(",");
+			if (g[1].trim().equals(CountryID.trim())) {
+				CountryZipCode = g[0];
+				break;
+			}
+		}
+		return CountryZipCode;
+		
+		
 	}
 
 	public void getCurrentUser(int userId) {
@@ -135,6 +200,8 @@ public class UserInfoActivity extends Activity implements
 		admin = (CheckBox) findViewById(R.id.admin);
 		preparer = (CheckBox) findViewById(R.id.preparer);
 		delivery = (CheckBox) findViewById(R.id.delivery);
+		code = (EditText) findViewById(R.id.countrycode);
+		
 		User user = null;
 		String serverURL = "";
 		String method = "POST";
