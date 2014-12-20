@@ -1,17 +1,11 @@
 package com.ontimedeliv;
 
 import java.util.ArrayList;
-
-
-
 import android.content.Context;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.util.Log;
@@ -85,13 +79,21 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		Item cat = tmpList.get(position);
+		Log.d("ray", "gettingView : " + position+ "->"+cat.isEmpty());
 		
 		if (convertView == null) {
 
 			LayoutInflater vi = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			holder = new ViewHolder();
-			if (!empty) {
+			if (empty || (position==0 && cat.isEmpty())) {
+				convertView = vi.inflate(R.layout.categories_list, null);
+				holder.price = (TextView) convertView.findViewById(R.id.name);
+				holder.price.setText(cat.getTitle());
+				convertView.findViewById(R.id.picture).setVisibility(View.GONE);
+			}
+			else
+			{
 				if (this.icon) {
 					convertView = vi.inflate(R.layout.category_info, null);
 					ImageTask img = new ImageTask(
@@ -109,22 +111,21 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 					holder.price.setText(cat.getPrice()
 							+ context.getString(R.string.lira));
 				}
-				//holder.name = (CheckBox) convertView
-					//	.findViewById(R.id.checkBox1);
 				holder.name = (ToggleButton) convertView
 					.findViewById(R.id.toggleButton);
 				holder.chTxt = (TextView) convertView
 						.findViewById(R.id.checkBox1_txt);
 				setList(cat, holder);
-			} else {
-				convertView = vi.inflate(R.layout.categories_list, null);
-				holder.price = (TextView) convertView.findViewById(R.id.name);
-				holder.price.setText(cat.getTitle());
 			}
 			
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
+			if(position==0 && cat.isEmpty()) {				
+				holder.price = (TextView) convertView.findViewById(R.id.name);
+				holder.price.setText(cat.getTitle());
+				convertView.findViewById(R.id.picture).setVisibility(View.GONE);
+			}
 		}
 		if (!empty)
 		{

@@ -1,5 +1,6 @@
 package com.ontimedeliv;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -27,52 +28,55 @@ public class RZHelper {
 	private AQuery myAQuery;
 	GlobalM glob = new GlobalM();
 	protected TransparentProgressDialog loader;
-	private boolean silent = false;
+	private boolean show = false;
+	private boolean first = true, last = true;
 
-	RZHelper(String myurl, Activity a, String method, boolean isSilent) {
+	RZHelper(String myurl, Activity a, String method, boolean isshow) {
 		url = myurl;
 		currentActivity = a;
 		returnMethod = method;
-		silent = isSilent;
+		show = isshow;
 		myAQuery = new AQuery(currentActivity);
-		Log.d("RZ","URL: "+url+"->"+returnMethod);
-		if(!isNetworkAvailable())
-		{
-			Toast t = Toast.makeText(myAQuery.getContext(), "Errorss: " + currentActivity.getString(R.string.no_net),
+		Log.d("RZ", "URL: " + url + "->" + returnMethod);
+		if (!isNetworkAvailable()) {
+			Toast t = Toast.makeText(myAQuery.getContext(), "Errorss: "
+					+ currentActivity.getString(R.string.no_net),
 					Toast.LENGTH_LONG);
 			t.setGravity(Gravity.TOP, 0, 0);
 			t.show();
-		}
-		else
-		{
-			if (!silent) {
+		} else {
+			if (show) {
 				loader = new TransparentProgressDialog(currentActivity,
 						R.drawable.spinner);
 			}
-	
+
 			callBack = new AjaxCallback<JSONObject>() {
-	
+
 				@Override
-				public void callback(String url, JSONObject html, AjaxStatus status) {
+				public void callback(String url, JSONObject html,
+						AjaxStatus status) {
 					String reply = "", error = null, stringType = "";
 					if (html != null)
 						reply = html.toString();
 					if (status != null)
 						error = status.getError();
-					Log.d("RZ","UR:"+url+" REPLY: "+reply+"->Error: "+error);
+					Log.d("RZ", "UR:" + url + " REPLY: " + reply + "->Error: "
+							+ error);
 					if (error != null) {
-						Toast.makeText(myAQuery.getContext(), "Error2: " + error,
-								Toast.LENGTH_LONG).show();
-						
+						Toast.makeText(myAQuery.getContext(),
+								"Error2: " + error, Toast.LENGTH_LONG).show();
+
 					} else {
 						Method returnFunction;
 						try {
-							returnFunction = currentActivity.getClass().getMethod(
-									returnMethod, stringType.getClass(),
-									stringType.getClass());
-							returnFunction.invoke(currentActivity, reply, error);
-							Log.d("ray callback", url + ": " + "error: " + error
-									+ " => reply: " + reply);
+							returnFunction = currentActivity.getClass()
+									.getMethod(returnMethod,
+											stringType.getClass(),
+											stringType.getClass());
+							returnFunction
+									.invoke(currentActivity, reply, error);
+							Log.d("ray callback", url + ": " + "error: "
+									+ error + " => reply: " + reply);
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -84,7 +88,70 @@ public class RZHelper {
 			callBack.header("Accept-Encoding", "gzip");
 			callBack.header("Cache-Control", "max-stale=0,max-age=60");
 			callBack.header("Content-Type", "application/json; charset=utf-8");
-	
+
+			SharedPreferences settings1 = currentActivity.getSharedPreferences(
+					"PREFS_NAME", 0);
+			String token = settings1.getString("token", "");
+			if (!token.isEmpty()) {
+				callBack.header("auth_token", token);
+				Log.d("ray token: ", "token: " + token);
+			}
+		}
+	}
+	RZHelper(String myurl, Activity a, String method) {
+		url = myurl;
+		currentActivity = a;
+		returnMethod = method;
+		show = true;
+		myAQuery = new AQuery(currentActivity);
+		Log.d("RZ", "URL: " + url + "->" + returnMethod);
+		if (!isNetworkAvailable()) {
+			Toast t = Toast.makeText(myAQuery.getContext(), "Errorss: "
+					+ currentActivity.getString(R.string.no_net),
+					Toast.LENGTH_LONG);
+			t.setGravity(Gravity.TOP, 0, 0);
+			t.show();
+		} else {
+			if (show) {
+				loader = new TransparentProgressDialog(currentActivity,
+						R.drawable.spinner);
+			}
+
+			callBack = new AjaxCallback<JSONObject>() {
+
+				@Override
+				public void callback(String url, JSONObject html,
+						AjaxStatus status) {
+					String reply = "", error = null, stringType = "";
+					if (html != null)
+						reply = html.toString();
+					if (status != null)
+						error = status.getError();
+					Log.d("RZ", "UR:" + url + " REPLY: " + reply + "->Error: "
+							+ error);
+					if (error != null) {
+						Toast.makeText(myAQuery.getContext(),
+								"Error2: " + error, Toast.LENGTH_LONG).show();
+
+					} else {
+						Method returnFunction;
+						try {
+							returnFunction = currentActivity.getClass()
+									.getMethod(returnMethod,
+											stringType.getClass(),
+											stringType.getClass());
+							returnFunction
+									.invoke(currentActivity, reply, error);
+							Log.d("ray callback", url + ": " + "error: "
+									+ error + " => reply: " + reply);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			};
+			
 			SharedPreferences settings1 = currentActivity.getSharedPreferences(
 					"PREFS_NAME", 0);
 			String token = settings1.getString("token", "");
@@ -97,7 +164,7 @@ public class RZHelper {
 
 	public void post(Object obj) {
 		JSONObject params = (new APIManager()).objToCreate(obj);
-		if (!silent) {
+		if (loader != null) {
 			myAQuery.progress(loader).post(url, params, JSONObject.class,
 					callBack);
 		} else {
@@ -106,7 +173,7 @@ public class RZHelper {
 	}
 
 	public void get() {
-		if (!silent) {
+		if (loader != null) {
 			myAQuery.progress(loader).ajax(url, JSONObject.class, callBack);
 		} else {
 			myAQuery.ajax(url, JSONObject.class, callBack);
@@ -116,7 +183,7 @@ public class RZHelper {
 
 	public void put(Object obj) {
 		JSONObject params = (new APIManager()).objToCreate((Object) obj);
-		if (!silent) {
+		if (loader != null) {
 			myAQuery.progress(loader).put(url, params, JSONObject.class,
 					callBack);
 		} else {
@@ -126,7 +193,7 @@ public class RZHelper {
 	}
 
 	public void delete() {
-		if (!silent) {
+		if (loader != null) {
 			myAQuery.progress(loader).delete(url, JSONObject.class, callBack);
 		} else {
 			myAQuery.delete(url, JSONObject.class, callBack);
@@ -134,7 +201,7 @@ public class RZHelper {
 
 	}
 
-	public void aync_multipart(Object obj) {
+	public void async_multipart(Object obj) {
 		String USER_AGENT = "Mozilla/5.0";
 		String boundary = "*****";
 		callBack.header("User-Agent", USER_AGENT);
@@ -153,6 +220,10 @@ public class RZHelper {
 		paramsVal.put("unit_id", "" + p.getUnit().getId());
 		String fileUrl = "", iFileName = "";
 		paramsVal.put("description", "" + p.getDescription());
+		File file = new File("cheese.png");
+		paramsVal.put("photo", file);
+		Log.d("rays", "putting ph:" + file.getName());
+
 		if (p.getPhoto() != null) {
 			paramsVal.put("photo_name", "" + iFileName);
 			iFileName = p.getPhoto().getName();
@@ -160,15 +231,18 @@ public class RZHelper {
 
 			FileInputStream fileInputStream;
 			try {
-				fileInputStream = new FileInputStream(fileUrl);
-
-				int bufferSize = fileInputStream.available();
-
-				byte[] buffer = new byte[bufferSize];
-				int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-				paramsVal.put("photo", buffer);
-
-				fileInputStream.close();
+				/*
+				 * fileInputStream = new FileInputStream(fileUrl);
+				 * 
+				 * int bufferSize = fileInputStream.available();
+				 * 
+				 * byte[] buffer = new byte[bufferSize]; int bytesRead =
+				 * fileInputStream.read(buffer, 0, bufferSize);
+				 * paramsVal.put("photo", buffer);
+				 */
+				// File file = new File("cheese.png");
+				// paramsVal.put("photo", file);
+				// fileInputStream.close();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -186,7 +260,8 @@ public class RZHelper {
 		// File file = getImageFile();
 		// params.put("source", file);
 
-		myAQuery.ajax(url, paramsVal, JSONObject.class, callBack);
+		myAQuery.progress(loader).ajax(url, paramsVal, JSONObject.class,
+				callBack);
 
 	}
 
@@ -200,11 +275,11 @@ public class RZHelper {
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 
-	public boolean isSilent() {
-		return silent;
+	public boolean isshow() {
+		return show;
 	}
 
-	public void setSilent(boolean silent) {
-		this.silent = silent;
+	public void setshow(boolean show) {
+		this.show = show;
 	}
 }

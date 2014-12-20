@@ -20,8 +20,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
 
-// Class with extends AsyncTask class
-
 public class MyJs extends AsyncTask<String, Void, Void> {
 
 	private String Content;
@@ -160,10 +158,10 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", USER_AGENT);
 		con.setRequestProperty("auth_token", token);
-		con.setRequestProperty("Accept-Charset", "utf-8"); 		
-		con.setRequestProperty("Accept-Language", "en-us;q=0.9");
+		con.setRequestProperty("Accept-Charset", "UTF-8"); 		
+		con.setRequestProperty("Accept-Language", "en-us;q=0.8");
 		con.setRequestProperty("Connection", "Keep-Alive");
-		con.setRequestProperty("Content-Type", "multipart/form-data; charset=utf-8;boundary="
+		con.setRequestProperty("Content-Type", "multipart/form-data; charset=UTF-8;boundary="
 				+ boundary);
 		//con.setCharacterEncoding("UTF-8");
 		

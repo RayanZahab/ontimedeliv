@@ -2,8 +2,6 @@ package com.ontimedeliv;
 
 import java.util.ArrayList;
 
-
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -28,8 +26,8 @@ public class AddLocationDetails extends Activity implements
 	ArrayList<Country> countries = new ArrayList<Country>();
 	ArrayList<City> cities = new ArrayList<City>();
 	String type = "Country";
-	Button addButton; 
- 
+	Button addButton;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -117,32 +115,32 @@ public class AddLocationDetails extends Activity implements
 	public void addCountry(String countryName) {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
 		Country newCountry = new Country(0, countryName);
-		
-		RZHelper p = new RZHelper(serverURL,this,"backToSelection",false);
+
+		RZHelper p = new RZHelper(serverURL, this, "backToSelection", true);
 		p.post(newCountry);
 	}
 
 	public void addBusiness(String businessName) {
 		String serverURL = new myURL("businesses", null, 0, 30).getURL();
 		Business newBusiness = new Business(0, businessName);
-		
-		RZHelper p = new RZHelper(serverURL,this,"backToSelection",false);
+
+		RZHelper p = new RZHelper(serverURL, this, "backToSelection", true);
 		p.post(newBusiness);
 	}
 
 	public void addCity(String cityName, int countryId) {
 		String serverURL = new myURL("cities", null, 0, 30).getURL();
 		City newCity = new City(0, countryId, cityName);
-		
-		RZHelper p = new RZHelper(serverURL,this,"backToSelection",false);
+
+		RZHelper p = new RZHelper(serverURL, this, "backToSelection", true);
 		p.post(newCity);
 	}
 
 	public void addArea(String areaName, int cityId) {
 		String serverURL = new myURL("areas", null, 0, 30).getURL();
 		Area newArea = new Area(0, cityId, areaName);
-		
-		RZHelper p = new RZHelper(serverURL,this,"backToSelection",false);
+
+		RZHelper p = new RZHelper(serverURL, this, "backToSelection", true);
 		p.post(newArea);
 	}
 
@@ -160,7 +158,7 @@ public class AddLocationDetails extends Activity implements
 
 	public void getCountries() {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
-		RZHelper p = new RZHelper(serverURL,this,"setCountries",false);
+		RZHelper p = new RZHelper(serverURL, this, "setCountries", true);
 		p.get();
 	}
 
@@ -175,34 +173,14 @@ public class AddLocationDetails extends Activity implements
 		countrySp.setAdapter(counrytAdapter);
 		countrySp.setOnItemSelectedListener(this);
 	}
-/*
-	public void getCities(int CountryId) {
-		String serverURL = new myURL("cities", "countries", CountryId, 30)
-				.getURL();
-		
-		RZHelper p = new RZHelper(serverURL,this,"setCities",false);
-		p.get();
-	}
 
-	public void setCities(String s) {
-		cities = new APIManager().getCitiesByCountry(s);
-		ArrayAdapter<City> cityAdapter = new ArrayAdapter<City>(this,
-				android.R.layout.simple_spinner_item, cities);
-		cityAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		cityAdapter.notifyDataSetChanged();
-		citySp.setAdapter(cityAdapter);
-		citySp.setOnItemSelectedListener(this);
-
-	}
-*/
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
 
 		Object sp1 = arg0.getSelectedItem();
 		if (sp1 instanceof Country && type.equals("Area")) {
-			//getCities(((Country) sp1).getId());
+			// getCities(((Country) sp1).getId());
 		}
 
 	}

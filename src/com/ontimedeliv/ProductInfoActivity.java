@@ -80,7 +80,7 @@ public class ProductInfoActivity extends Activity {
 
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setProduct", false);
+		RZHelper p = new RZHelper(serverURL, this, "setProduct", true);
 		p.get();
 	}
 
@@ -177,7 +177,7 @@ public class ProductInfoActivity extends Activity {
 	public void getUnitsFromDB() 
 	{
 		String serverURL = new myURL("units", null, 0, 30).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setUnits", true);
+		RZHelper p = new RZHelper(serverURL, this, "setUnits", false);
 		p.get();
 	}
 
@@ -217,8 +217,8 @@ public class ProductInfoActivity extends Activity {
 	public void onBackPressed() {
 		ontimedeliv.setProductId(0);
 		Intent i = new Intent(ProductInfoActivity.this, ProductsActivity.class);
-		super.onBackPressed();
-		//startActivity(i);
+		//super.onBackPressed();
+		startActivity(i);
 	}
 
 }

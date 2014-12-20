@@ -37,7 +37,7 @@ public class UsersActivity extends Activity {
 
 	public void getUsers() {
 		String serverURL = new myURL("users", null, 0, 30).getURL();
-		RZHelper p = new RZHelper(serverURL,this,"setUsers",false);
+		RZHelper p = new RZHelper(serverURL,this,"setUsers",true);
 		p.get();
 	}
 
@@ -153,7 +153,7 @@ public class UsersActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "users",
 										catId, 0).getURL();
-								RZHelper p = new RZHelper(serverURL,UsersActivity.this,"afterDelete",false);
+								RZHelper p = new RZHelper(serverURL,UsersActivity.this,"afterDelete",true);
 								p.delete();
 								usersItem.remove(position);
 							}
