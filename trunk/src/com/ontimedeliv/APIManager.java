@@ -544,8 +544,8 @@ public class APIManager {
 				return gridArray;
 			}
 		} catch (Exception e) {
-
 			e.printStackTrace();
+			return gridArray;
 		}
 		return gridArray;
 	}

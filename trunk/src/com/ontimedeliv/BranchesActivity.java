@@ -49,7 +49,7 @@ public class BranchesActivity extends Activity {
 
 	public void getBranches() {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setBranches",false);
+		RZHelper p = new RZHelper(serverURL, this, "setBranches",true);
 		p.get();
 	}
 
@@ -137,7 +137,7 @@ public class BranchesActivity extends Activity {
 								String serverURL = new myURL(null, "branches",
 										branchId, 0).getURL();
 								RZHelper p = new RZHelper(serverURL,
-										BranchesActivity.this, "afterDelete",true);
+										BranchesActivity.this, "afterDelete",false);
 								p.delete();
 								branchesItem.remove(position);
 

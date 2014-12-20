@@ -2,8 +2,6 @@ package com.ontimedeliv;
 
 import java.util.ArrayList;
 
-
-
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -32,14 +30,14 @@ public class ProductsActivity extends Activity {
 	int categoryId, branchId, shopId;
 	ArrayList<Product> products;
 	ArrayList<Item> productItems;
-	String url,serverURL;
+	String url, serverURL;
 	DialogInterface dialog;
 	ArrayList<Integer> selectedIds = new ArrayList<Integer>();
 	ArrayList<Integer> unselectedIds = new ArrayList<Integer>();
 	static Activate myProd;
 	static RZHelper activate;
 	static RZHelper deactivate;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
 		super.onCreate(savedInstancecat);
@@ -93,7 +91,7 @@ public class ProductsActivity extends Activity {
 			String serverURL = new myURL("activate_items", "branches",
 					branchId, 0).getURL();
 
-			RZHelper p = new RZHelper(serverURL, this, "afterActivate",false);
+			RZHelper p = new RZHelper(serverURL, this, "afterActivate", false);
 			p.put(myProd);
 		} else {
 			afterActivate("DONE", null);
@@ -139,7 +137,8 @@ public class ProductsActivity extends Activity {
 								String serverURL = new myURL(null, "items",
 										productId, 0).getURL();
 								RZHelper p = new RZHelper(serverURL,
-										ProductsActivity.this, "afterDelete",true);
+										ProductsActivity.this, "afterDelete",
+										false);
 								p.delete();
 								productItems.remove(position);
 							}
@@ -163,24 +162,21 @@ public class ProductsActivity extends Activity {
 		startActivity(i);
 	}
 
-
 	public void getProducts() {
 		String serverURL = this.url;
-		RZHelper p = new RZHelper(serverURL, this, "setProducts",false);
+		RZHelper p = new RZHelper(serverURL, this, "setProducts", true);
 		p.get();
 	}
 
 	public void setProducts(String s, String error) {
-		Button submit = (Button) findViewById(R.id.submit);
+		Boolean empty = false;
 
-		Bitmap picture = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.user);
 		ListView listView = (ListView) findViewById(R.id.categorylist);
 		products = new APIManager().getItemsByCategoryAndBranch(s);
 		productItems = new ArrayList<Item>();
 		if (products.size() == 0) {
 			productItems.add(new Item(0, "", getString(R.string.empty_list)));
-			submit.setEnabled(false);
+			empty = true;
 		} else {
 			for (int i = 0; i < products.size(); i++) {
 				productItems.add(new Item(products.get(i).getId(), products
@@ -191,20 +187,19 @@ public class ProductsActivity extends Activity {
 		}
 		dataAdapter = new CheckboxAdapter(this, R.layout.product_info,
 				productItems, false);
-		if (products.size() == 0) {
-			dataAdapter.empty = true;
-		}
+		dataAdapter.empty = empty;
+
 		SharedMenu.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);
-		serverURL = new myURL("activate_items", "branches",
-				branchId, 0).getURL();
-		activate = new RZHelper(serverURL, this, "afterActivate", true);
-		
-		
-		serverURL = new myURL("deactivate_items", "branches",
-				branchId, 0).getURL();
-		deactivate = new RZHelper(serverURL, this, "afterActivate", true);
-		
+
+		serverURL = new myURL("activate_items", "branches", branchId, 0)
+				.getURL();
+		activate = new RZHelper(serverURL, this, "afterActivate", false);
+
+		serverURL = new myURL("deactivate_items", "branches", branchId, 0)
+				.getURL();
+		deactivate = new RZHelper(serverURL, this, "afterActivate", false);
+
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -212,34 +207,34 @@ public class ProductsActivity extends Activity {
 				if (dataAdapter.tmpList.size() > 0) {
 					Intent intent = new Intent(ProductsActivity.this,
 							ProductInfoActivity.class);
-					ontimedeliv.setProductId(dataAdapter.tmpList.get(position).getId());
+					ontimedeliv.setProductId(dataAdapter.tmpList.get(position)
+							.getId());
 					startActivity(intent);
 				}
 			}
 
 		});
-		
-		
 	}
-	
-	public static void activate(ArrayList<Integer> selectedIds){
+
+	public static void activate(ArrayList<Integer> selectedIds) {
 		if (selectedIds.size() > 0) {
 			myProd = new Activate("items", selectedIds);
 			activate.put(myProd);
-		} 
+		}
 	}
-	public static void deActivate(ArrayList<Integer> unselectedIds){
+
+	public static void deActivate(ArrayList<Integer> unselectedIds) {
 		if (unselectedIds.size() > 0) {
 			myProd = new Activate("items", unselectedIds);
 			deactivate.put(myProd);
-		} 
+		}
 	}
 
 	public void afterActivate(String s, String error) {
-		Toast.makeText(getApplicationContext(), "DONE",
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "DONE", Toast.LENGTH_SHORT)
+				.show();
 	}
-	
+
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.categories, menu);

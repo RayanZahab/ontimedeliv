@@ -56,15 +56,12 @@ public class CategoriesActivity extends Activity {
 		actionBar.setDisplayHomeAsUpEnabled(true);		
 		
 		branchId = ontimedeliv.getBranchId(this);
-		
-		
 		ontimedeliv.clear("categories");
 		
 		this.shopId = ontimedeliv.getShopId(this);
 		url = new myURL("categories", "branches", branchId, 30).getURL();
 
 		getCategories();
-
 	}
 
 	public DialogInterface getDialog() {
@@ -96,7 +93,7 @@ public class CategoriesActivity extends Activity {
 
 	public void getCategories() {
 		String serverURL = this.url;
-		RZHelper p = new RZHelper(serverURL, this, "setCategories", false);
+		RZHelper p = new RZHelper(serverURL, this, "setCategories", true);
 		p.get();
 	}
 
@@ -156,14 +153,13 @@ public class CategoriesActivity extends Activity {
 
 			}
 		});
-		serverURL = new myURL("activate_categories", "branches",
-				branchId, 0).getURL();
-		activate = new RZHelper(serverURL, this, "afterActivate", true);
+		serverURL = new myURL("activate_categories", "branches", branchId, 0).getURL();
+		activate = new RZHelper(serverURL, this, "afterActivate", false);
 		
 		
 		serverURL = new myURL("deactivate_categories", "branches",
 				branchId, 0).getURL();
-		deactivate = new RZHelper(serverURL, this, "afterActivate", true);
+		deactivate = new RZHelper(serverURL, this, "afterActivate", false);
 		 
 	}
 
@@ -327,7 +323,7 @@ public class CategoriesActivity extends Activity {
 	public void addCategory(String categoryName, int shopId) {
 		String serverURL = new myURL("categories", null, 0, 0).getURL();
 		Category newCategory = new Category(0, categoryName, true, shopId);
-		RZHelper p = new RZHelper(serverURL, this, "afterCreation", true);
+		RZHelper p = new RZHelper(serverURL, this, "afterCreation", false);
 		p.post(newCategory);
 	}
 
@@ -337,7 +333,7 @@ public class CategoriesActivity extends Activity {
 		Category newCategory = new Category(categoryId, categoryName, true,
 				shopId);
 		newName = categoryName;
-		RZHelper p = new RZHelper(serverURL, this, "afterCreation", true);
+		RZHelper p = new RZHelper(serverURL, this, "afterCreation", false);
 		p.put(newCategory);
 	}
 
@@ -383,7 +379,7 @@ public class CategoriesActivity extends Activity {
 
 								RZHelper p = new RZHelper(serverURL,
 										CategoriesActivity.this, "afterDelete",
-										true);
+										false);
 								p.delete();
 							}
 						}).setNegativeButton(android.R.string.no, null).show();

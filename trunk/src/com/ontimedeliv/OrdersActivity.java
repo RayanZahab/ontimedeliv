@@ -60,7 +60,7 @@ public class OrdersActivity extends Activity {
 	public void getOrders() {
 		String serverURL;
 		serverURL = new myURL(null, "orders", status, 30).getURL();
-		RZHelper p = new RZHelper(serverURL,this,"setOrders",false);
+		RZHelper p = new RZHelper(serverURL,this,"setOrders",true);
 		p.get();
 	}
 

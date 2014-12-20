@@ -65,7 +65,7 @@ public class UserInfoActivity extends Activity implements
 	public void getCountriesFromDB() {
 		String serverURL = new myURL(null, "countries", "get_all_cities_areas",
 				0).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setCountries", false);
+		RZHelper p = new RZHelper(serverURL, this, "setCountries", true);
 		p.get();
 	}
 
@@ -146,7 +146,7 @@ public class UserInfoActivity extends Activity implements
 	public void getCurrentUser(int userId) {
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
-		RZHelper p = new RZHelper(serverURL, this, "setUserInfo", false);
+		RZHelper p = new RZHelper(serverURL, this, "setUserInfo", true);
 		p.get();
 	}
 
@@ -173,7 +173,7 @@ public class UserInfoActivity extends Activity implements
 
 	public void getBranches(boolean first) {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setBranches", false);
+		RZHelper p = new RZHelper(serverURL, this, "setBranches", true);
 		p.get();
 	}
 
@@ -228,7 +228,7 @@ public class UserInfoActivity extends Activity implements
 		}
 		ValidationError valid = user.validate(false);
 		if (valid.isValid(this)) {
-			RZHelper p = new RZHelper(serverURL, this, "setRoles", false);
+			RZHelper p = new RZHelper(serverURL, this, "setRoles", true);
 			if (method.equals("POST")) {
 				p.post(user);
 			} else {
@@ -257,7 +257,7 @@ public class UserInfoActivity extends Activity implements
 		ValidationError valid = role.validate(false);
 		if (valid.isValid(this)) {
 			RZHelper p = new RZHelper(makePreparerURL, this, "afterRoles",
-					false);
+					true);
 			p.post(role);
 		}
 

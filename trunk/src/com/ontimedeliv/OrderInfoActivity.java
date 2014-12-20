@@ -113,7 +113,7 @@ public class OrderInfoActivity extends Activity {
 							String serverURL = new myURL("cancel", "orders",
 									orderId, 0).getURL();
 
-							RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"cancelOrder",false);
+							RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"cancelOrder",true);
 							p.put(order);
 							
 						} else {
@@ -140,7 +140,7 @@ public class OrderInfoActivity extends Activity {
 
 	public void getPreparers() {
 		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
-		RZHelper p = new RZHelper(serverURL,this,"setPreparers",false);
+		RZHelper p = new RZHelper(serverURL,this,"setPreparers",true);
 		p.get();
 	}
 
@@ -163,7 +163,7 @@ public class OrderInfoActivity extends Activity {
 
 	public void getDelivery() {
 		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
-		RZHelper p = new RZHelper(serverURL,this,"setDeivery",false);
+		RZHelper p = new RZHelper(serverURL,this,"setDeivery",true);
 		p.get();
 	}
 
@@ -203,7 +203,7 @@ public class OrderInfoActivity extends Activity {
 
 	public void getCurrentOrder(int orderId) {
 		String serverURL = new myURL(null, "orders", orderId, 0).getURL();
-		RZHelper p = new RZHelper(serverURL,this,"setOrderInfo",false);
+		RZHelper p = new RZHelper(serverURL,this,"setOrderInfo",true);
 		p.get();
 	}
 
@@ -285,7 +285,7 @@ public class OrderInfoActivity extends Activity {
 			newOrder.setTotal(total);
 			if (!newOrder.equals(currentOrder))
 			{
-				RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"updateStatus",false);
+				RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"updateStatus",true);
 				p.put(newOrder);
 			}
 			else
@@ -302,7 +302,7 @@ public class OrderInfoActivity extends Activity {
 			newOrder.setStatus(stat.get(2));
 		String serverURL = new myURL("change_status", "orders", orderId + "", 0)
 				.getURL();
-		RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"done",false);
+		RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"done",true);
 		p.put(newOrder);
 	}
 
@@ -317,7 +317,7 @@ public class OrderInfoActivity extends Activity {
 		newOrder.setStatus(stat.get(status.getSelectedItemPosition()));
 		String serverURL = new myURL("assign", "orders", orderId + "", 0)
 				.getURL();
-		RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"done",false);
+		RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"done",true);
 		p.put(newOrder);
 	}
 

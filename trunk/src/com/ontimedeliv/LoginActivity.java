@@ -1,5 +1,4 @@
  package com.ontimedeliv;
-
 import java.util.Locale;
 
 import android.os.Bundle;
@@ -42,6 +41,7 @@ public class LoginActivity extends Activity {
 
 			startActivity(i);
 		}
+
 	}
 
 	public void login(View view) {
@@ -49,13 +49,14 @@ public class LoginActivity extends Activity {
 		String serverURL = new myURL(null, "users", "login", 0).getURL();
 		User user = new User(username.getText().toString(), null);
 		user.setEncPassword(password.getText().toString());
-		
-		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn",false);
+
+		RZHelper p = new RZHelper(serverURL, this, "getLoggedIn", true);
 		p.post(user);
 	}
-	public void changeLang(View view){
+
+	public void changeLang(View view) {
 		String lang_ab = "en";
-		
+
 		switch (view.getId()) {
 		case R.id.english:
 			lang_ab = "en";
@@ -64,7 +65,7 @@ public class LoginActivity extends Activity {
 			lang_ab = "ar";
 			break;
 		}
-	
+
 		Locale locale = new Locale(lang_ab);
 		Locale.setDefault(locale);
 		Configuration config = new Configuration();
@@ -80,8 +81,8 @@ public class LoginActivity extends Activity {
 		Intent i = new Intent(LoginActivity.this, LoginActivity.class);
 		startActivity(i);
 	}
-	
-	public  void getLoggedIn(String s, String error) {
+
+	public void getLoggedIn(String s, String error) {
 		if (error == null) {
 			User user = new APIManager().getLogedInUser(s);
 			CheckBox keeplog = (CheckBox) findViewById(R.id.keeploggedin);
@@ -99,7 +100,7 @@ public class LoginActivity extends Activity {
 			editor.putInt("shopId", user.getShop_id());
 			editor.putInt("branchId", user.getBranch_id());
 			editor.putInt("id", user.getId());
-			Log.d("login",user.getToken());
+			Log.d("login", user.getToken());
 			editor.commit();
 
 			((ontimedeliv) this.getApplication()).setGlobals();
@@ -144,5 +145,3 @@ public class LoginActivity extends Activity {
 	}
 
 }
-
-
