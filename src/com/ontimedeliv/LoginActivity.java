@@ -1,7 +1,5 @@
  package com.ontimedeliv;
 
-
-
 import java.util.Locale;
 
 import android.os.Bundle;

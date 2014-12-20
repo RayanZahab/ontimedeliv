@@ -2,10 +2,8 @@ package com.ontimedeliv;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -97,7 +95,12 @@ public class OrderInfoActivity extends Activity {
 			@Override
 			public void onShow(DialogInterface dialog) {
 
+				Button cancel_btn = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+				cancel_btn.setBackgroundColor(getResources().getColor(R.color.turquoise));
+				cancel_btn.setTextColor(getResources().getColor(R.color.textview));
 				Button b = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+				b.setBackgroundColor(getResources().getColor(R.color.turquoise));
+				b.setTextColor(getResources().getColor(R.color.textview));
 				b.setOnClickListener(new View.OnClickListener() {
 
 					@Override

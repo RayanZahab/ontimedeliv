@@ -3,8 +3,8 @@
     android:id="@+id/roworder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    
-        android:layout_marginLeft="8dp" >
+    android:background="@color/gris"
+    android:paddingLeft="8dp" >
 
     <TextView
         android:id="@+id/numbofitems"
@@ -54,6 +54,6 @@
         android:text="@string/address"
         android:textAlignment="gravity"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#ed1c24" />
+        android:textColor="@color/textview" />
 
 </RelativeLayout>

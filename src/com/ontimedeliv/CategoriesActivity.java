@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -287,7 +288,20 @@ public class CategoriesActivity extends Activity {
 									}
 								});
 
-				AlertDialog alertDialog = alertDialogBuilder.create();
+				final AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+					@Override
+					public void onShow(DialogInterface dialog) {
+
+						Button cancel_btn = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+						cancel_btn.setBackgroundColor(getResources().getColor(R.color.turquoise));
+						cancel_btn.setTextColor(getResources().getColor(R.color.textview));
+						Button b = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+						b.setBackgroundColor(getResources().getColor(R.color.turquoise));
+						b.setTextColor(getResources().getColor(R.color.textview));
+					}
+				});
 				alertDialog.show();
 			}
 		}
