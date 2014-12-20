@@ -1,5 +1,7 @@
 package com.ontimedeliv;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -101,13 +103,29 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		final Button from = (Button) convertView.findViewById(R.id.fromBtnn);
 		from.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+				
 				TimePickerDialog tpd = new TimePickerDialog(_context,
 						new TimePickerDialog.OnTimeSetListener() {
 							@Override
 							public void onTimeSet(TimePicker view,
 									int hourOfDay, int minute) {
-								from.setText(hourOfDay + ":" + minute);
-								froms.put(childPosition, hourOfDay + "."
+								int hour= hourOfDay;
+								NumberFormat f = new DecimalFormat("00");
+								String format = "";
+								if (hourOfDay == 0) {
+									hourOfDay += 12;
+							         format = "AM";
+							      } else if (hourOfDay == 12) {
+							         format = "PM";
+							      } else if (hourOfDay > 12) {
+							    	  hourOfDay -= 12;
+							         format = "PM";
+							      } else {
+							         format = "AM";
+							      }
+								
+								from.setText(f.format(hourOfDay) + ":" + f.format(minute) + " " +format);
+								froms.put(childPosition, hour + "."
 										+ minute);
 							}
 						}, 0, 0, false);
@@ -124,8 +142,22 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 							@Override
 							public void onTimeSet(TimePicker view,
 									int hourOfDay, int minute) {
-								to.setText(hourOfDay + ":" + minute);
-								tos.put(childPosition, hourOfDay + "." + minute);
+								int hour= hourOfDay;
+								NumberFormat f = new DecimalFormat("00");
+								String format = "";
+								if (hourOfDay == 0) {
+									hourOfDay += 12;
+							         format = "AM";
+							      } else if (hourOfDay == 12) {
+							         format = "PM";
+							      } else if (hourOfDay > 12) {
+							    	  hourOfDay -= 12;
+							         format = "PM";
+							      } else {
+							         format = "AM";
+							      }
+								to.setText(f.format(hourOfDay) + ":" + f.format(minute) + " " +format);
+								tos.put(childPosition, hour + "" + minute);
 							}
 						}, 0, 0, false);
 				tpd.show();
