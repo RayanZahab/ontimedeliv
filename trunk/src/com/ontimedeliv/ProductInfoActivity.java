@@ -132,6 +132,9 @@ public class ProductInfoActivity extends Activity {
 
 		new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
 				"Upload", (Object) prod).execute(serverURL);
+		//RZHelper p = new RZHelper(serverURL, this, "afterCreation");
+		//p.async_multipart((Object) prod);
+		
 	}
 
 	public void afterCreation(String s, String error) {
