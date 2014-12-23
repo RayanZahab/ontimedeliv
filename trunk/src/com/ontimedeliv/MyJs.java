@@ -171,27 +171,31 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		DataOutputStream dos = new DataOutputStream(con.getOutputStream());
 
 		Map<String, String> paramsVal = new HashMap<String, String>();
-		paramsVal.put("name", "" + p.getName());
 		paramsVal.put("category_id", "" + p.getCategory().getId());
+		paramsVal.put("name", p.getName());
+		paramsVal.put("description", p.getDescription());
 		paramsVal.put("shop_id", "" + p.getShop_id());
 		paramsVal.put("price", "" + p.getPrice());
 		paramsVal.put("unit_id", "" + p.getUnit().getId());
 		if (p.getPhoto() != null)
 			paramsVal.put("photo_name", "" + iFileName);
-		paramsVal.put("description", "" + p.getDescription());
 		Iterator iterator = paramsVal.entrySet().iterator();
 		while (iterator.hasNext()) {
 			Map.Entry mapEntry = (Map.Entry) iterator.next();
 			dos.writeBytes(twoHyphens + boundary + lineEnd);
 			dos.writeBytes("Content-Disposition: form-data; name=\""
 					+ mapEntry.getKey() + "\"" + lineEnd);
-			System.out.println("\n Content-Disposition: form-data; name=\""
-					+ mapEntry.getKey() + "\"" + lineEnd);
 			dos.writeBytes(lineEnd);
-			dos.writeBytes(mapEntry.getValue().toString());
-			System.out.println("\n :" + mapEntry.getValue().toString());
+			if(mapEntry.getKey().equals("name")||mapEntry.getKey().equals("description"))
+			{
+				dos.writeUTF(mapEntry.getValue().toString());
+			}
+			else
+				dos.writeBytes(mapEntry.getValue().toString());
+				
 			dos.writeBytes(lineEnd);
 		}
+		System.out.println("sending: "+dos.toString());
 
 		if (p.getPhoto() != null) {
 			dos.writeBytes(twoHyphens + boundary + lineEnd);

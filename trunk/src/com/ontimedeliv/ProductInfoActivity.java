@@ -86,22 +86,14 @@ public class ProductInfoActivity extends Activity {
 
 	public void setProduct(String s, String error) {
 		currentProduct = new APIManager().getItemsByCategoryAndBranch(s).get(0);
-		String n;
-		try {
-			n = new String((currentProduct.getName()).getBytes("iso-8859-1"),
-					"UTF-8");
-
-			name.setText(n);
-			desc.setText(currentProduct.getDescription());
-			price.setText("" + currentProduct.getPrice());
-			//getActionBar().setTitle(currentProduct.getName());
-			new ImageTask((ImageView) findViewById(R.id.preview),
-					ProductInfoActivity.this).execute(currentProduct.getPhoto()
-					.getUrl());
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		name.setText(currentProduct.getName());
+		desc.setText(currentProduct.getDescription());
+		price.setText("" + currentProduct.getPrice());
+		//getActionBar().setTitle(currentProduct.getName());
+		new ImageTask((ImageView) findViewById(R.id.preview),
+				ProductInfoActivity.this).execute(currentProduct.getPhoto()
+				.getUrl());
+		
 		getUnits(false);
 	}
 
@@ -141,7 +133,7 @@ public class ProductInfoActivity extends Activity {
 
 		Intent i = new Intent(this, ProductsActivity.class);
 		ontimedeliv.setProductId(0);
-		startActivity(i);
+		//startActivity(i);
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
