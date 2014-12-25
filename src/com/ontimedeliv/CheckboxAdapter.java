@@ -1,6 +1,8 @@
 package com.ontimedeliv;
 
 import java.util.ArrayList;
+
+import android.app.Activity;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
@@ -96,14 +98,11 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 			{
 				if (this.icon) {
 					convertView = vi.inflate(R.layout.category_info, null);
-					ImageTask img = new ImageTask(
-							(ImageView) convertView
-									.findViewById(R.id.item_image),
-							context);
-					img.isCat = true;
+					
 					String image_name = (cat.getImage()).replace(" ", "_")
 							+ ".png";
-					img.execute(image_name);
+					new RZHelper((ImageView) convertView
+							.findViewById(R.id.item_image), image_name, (Activity) context);
 				} else {
 					convertView = vi.inflate(R.layout.product_info, null);
 					holder.price = (TextView) convertView

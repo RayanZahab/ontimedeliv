@@ -80,7 +80,7 @@ public class ProductInfoActivity extends Activity {
 
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setProduct", true,false);
+		RZHelper p = new RZHelper(serverURL, this, "setProduct", true, false);
 		p.get();
 	}
 
@@ -89,11 +89,9 @@ public class ProductInfoActivity extends Activity {
 		name.setText(currentProduct.getName());
 		desc.setText(currentProduct.getDescription());
 		price.setText("" + currentProduct.getPrice());
-		// getActionBar().setTitle(currentProduct.getName());
-		new ImageTask((ImageView) findViewById(R.id.preview),
-				ProductInfoActivity.this).execute(currentProduct.getPhoto()
-				.getUrl());
-
+		// getActionBar().setTitle(currentProduct.getName());		
+		new RZHelper((ImageView) findViewById(R.id.preview), currentProduct
+				.getPhoto().getUrl(), ProductInfoActivity.this);
 		getUnits(false);
 	}
 
@@ -134,30 +132,6 @@ public class ProductInfoActivity extends Activity {
 		startActivity(i);
 	}
 
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK
-				&& null != data) {
-			Uri selectedImage = data.getData();
-			String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
-			Cursor cursor = getContentResolver().query(selectedImage,
-					filePathColumn, null, null, null);
-			cursor.moveToFirst();
-
-			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-			picturePath = cursor.getString(columnIndex);
-			picName = cursor.getString(columnIndex);
-			uploaded = new Photo(picturePath, picName);
-			cursor.close();
-			if (uploaded.validate().isValid(this)) {
-				new ImageTask((ImageView) findViewById(R.id.preview),
-						ProductInfoActivity.this).execute(picturePath);
-			}
-		}
-	}
-
 	public void getUnits(boolean first) {
 		units = ontimedeliv.getUnits();
 		if (units == null)
@@ -168,7 +142,7 @@ public class ProductInfoActivity extends Activity {
 
 	public void getUnitsFromDB() {
 		String serverURL = new myURL("units", null, 0, 30).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setUnits", false,true);
+		RZHelper p = new RZHelper(serverURL, this, "setUnits", false, true);
 		p.get();
 	}
 
@@ -207,9 +181,10 @@ public class ProductInfoActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		ontimedeliv.setProductId(0);
-		//Intent i = new Intent(ProductInfoActivity.this, ProductsActivity.class);
-		 super.onBackPressed();
-		//startActivity(i);
+		// Intent i = new Intent(ProductInfoActivity.this,
+		// ProductsActivity.class);
+		super.onBackPressed();
+		// startActivity(i);
 	}
 
 }
