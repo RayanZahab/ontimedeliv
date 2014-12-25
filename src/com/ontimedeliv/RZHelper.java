@@ -98,11 +98,13 @@ public class RZHelper {
 			}
 		}
 	}
-	RZHelper(String myurl, Activity a, String method) {
+	RZHelper(String myurl, Activity a, String method, boolean isfirst, boolean islast) {
 		url = myurl;
 		currentActivity = a;
 		returnMethod = method;
-		show = true;
+		first = isfirst;
+		last = islast;
+		show = false;
 		myAQuery = new AQuery(currentActivity);
 		Log.d("RZ", "URL: " + url + "->" + returnMethod);
 		if (!isNetworkAvailable()) {
@@ -112,9 +114,10 @@ public class RZHelper {
 			t.setGravity(Gravity.TOP, 0, 0);
 			t.show();
 		} else {
-			if (show) {
-				loader = new TransparentProgressDialog(currentActivity,
-						R.drawable.spinner);
+			if (first) {
+				loader = new TransparentProgressDialog(currentActivity,R.drawable.spinner);
+				ontimedeliv.loader = loader;
+				loader.show();
 			}
 
 			callBack = new AjaxCallback<JSONObject>() {
@@ -122,6 +125,7 @@ public class RZHelper {
 				@Override
 				public void callback(String url, JSONObject html,
 						AjaxStatus status) {
+					
 					String reply = "", error = null, stringType = "";
 					if (html != null)
 						reply = html.toString();
@@ -149,6 +153,10 @@ public class RZHelper {
 							e.printStackTrace();
 						}
 					}
+					if(last && ontimedeliv.loader!=null)
+					{
+						ontimedeliv.loader.dismiss();
+					}
 				}
 			};
 			
@@ -164,7 +172,7 @@ public class RZHelper {
 
 	public void post(Object obj) {
 		JSONObject params = (new APIManager()).objToCreate(obj);
-		if (loader != null) {
+		if (loader != null && show) {
 			myAQuery.progress(loader).post(url, params, JSONObject.class,
 					callBack);
 		} else {
@@ -173,7 +181,7 @@ public class RZHelper {
 	}
 
 	public void get() {
-		if (loader != null) {
+		if (loader != null && show) {
 			myAQuery.progress(loader).ajax(url, JSONObject.class, callBack);
 		} else {
 			myAQuery.ajax(url, JSONObject.class, callBack);
@@ -183,7 +191,7 @@ public class RZHelper {
 
 	public void put(Object obj) {
 		JSONObject params = (new APIManager()).objToCreate((Object) obj);
-		if (loader != null) {
+		if (loader != null&& show) {
 			myAQuery.progress(loader).put(url, params, JSONObject.class,
 					callBack);
 		} else {
@@ -193,75 +201,11 @@ public class RZHelper {
 	}
 
 	public void delete() {
-		if (loader != null) {
+		if (loader != null && show) {
 			myAQuery.progress(loader).delete(url, JSONObject.class, callBack);
 		} else {
 			myAQuery.delete(url, JSONObject.class, callBack);
 		}
-
-	}
-
-	public void async_multipart(Object obj) {
-		String USER_AGENT = "Mozilla/5.0";
-		String boundary = "*****";
-		callBack.header("User-Agent", USER_AGENT);
-		callBack.header("Accept-Charset", "utf-8");
-		callBack.header("Accept-Language", "en-us;q=0.9");
-		callBack.header("Connection", "Keep-Alive");
-		callBack.header("Content-Type",
-				"multipart/form-data; charset=utf-8;boundary=" + boundary);
-
-		Product p = (Product) obj;
-		Map<String, Object> paramsVal = new HashMap<String, Object>();
-		paramsVal.put("name", "" + p.getName());
-		paramsVal.put("category_id", "" + p.getCategory().getId());
-		paramsVal.put("shop_id", "" + p.getShop_id());
-		paramsVal.put("price", "" + p.getPrice());
-		paramsVal.put("unit_id", "" + p.getUnit().getId());
-		String fileUrl = "", iFileName = "";
-		paramsVal.put("description", "" + p.getDescription());
-		File file = new File("cheese.png");
-		paramsVal.put("photo", file);
-		Log.d("rays", "putting ph:" + file.getName());
-
-		if (p.getPhoto() != null) {
-			paramsVal.put("photo_name", "" + iFileName);
-			iFileName = p.getPhoto().getName();
-			fileUrl = p.getPhoto().getUrl();
-
-			FileInputStream fileInputStream;
-			try {
-				/*
-				 * fileInputStream = new FileInputStream(fileUrl);
-				 * 
-				 * int bufferSize = fileInputStream.available();
-				 * 
-				 * byte[] buffer = new byte[bufferSize]; int bytesRead =
-				 * fileInputStream.read(buffer, 0, bufferSize);
-				 * paramsVal.put("photo", buffer);
-				 */
-				// File file = new File("cheese.png");
-				// paramsVal.put("photo", file);
-				// fileInputStream.close();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				Log.d("ray error ", "ERROR");
-			}
-		}
-		// Map<String, Object> params = new HashMap<String, Object>();
-		// params.put("message", "Message");
-
-		// Simply put a byte[] to the params, AQuery will detect it and treat it
-		// as a multi-part post
-		// byte[] data = getImageData();
-
-		// Alternatively, put a File or InputStream instead of byte[]
-		// File file = getImageFile();
-		// params.put("source", file);
-
-		myAQuery.progress(loader).ajax(url, paramsVal, JSONObject.class,
-				callBack);
 
 	}
 

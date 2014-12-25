@@ -54,7 +54,7 @@ public class OrderInfoActivity extends Activity {
 
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		
+
 		ontimedeliv.clear("order");
 		this.orderId = ontimedeliv.getOrderId(this);
 
@@ -69,7 +69,7 @@ public class OrderInfoActivity extends Activity {
 		if (!isAdmin) {
 			disable(false);
 		} else {
-			
+
 			if (orderStatus.equals("closed") || orderStatus.equals("cancelled"))
 				disable(true);
 		}
@@ -95,9 +95,12 @@ public class OrderInfoActivity extends Activity {
 			@Override
 			public void onShow(DialogInterface dialog) {
 
-				Button cancel_btn = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-				cancel_btn.setBackgroundColor(getResources().getColor(R.color.turquoise));
-				cancel_btn.setTextColor(getResources().getColor(R.color.textview));
+				Button cancel_btn = alertDialog
+						.getButton(AlertDialog.BUTTON_NEGATIVE);
+				cancel_btn.setBackgroundColor(getResources().getColor(
+						R.color.turquoise));
+				cancel_btn.setTextColor(getResources().getColor(
+						R.color.textview));
 				Button b = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
 				b.setBackgroundColor(getResources().getColor(R.color.turquoise));
 				b.setTextColor(getResources().getColor(R.color.textview));
@@ -113,9 +116,10 @@ public class OrderInfoActivity extends Activity {
 							String serverURL = new myURL("cancel", "orders",
 									orderId, 0).getURL();
 
-							RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"cancelOrder",true);
+							RZHelper p = new RZHelper(serverURL,
+									OrderInfoActivity.this, "cancelOrder", true);
 							p.put(order);
-							
+
 						} else {
 							Toast.makeText(getApplicationContext(),
 									R.string.cancelreason, Toast.LENGTH_SHORT)
@@ -140,7 +144,7 @@ public class OrderInfoActivity extends Activity {
 
 	public void getPreparers() {
 		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
-		RZHelper p = new RZHelper(serverURL,this,"setPreparers",true);
+		RZHelper p = new RZHelper(serverURL, this, "setPreparers", false, true);
 		p.get();
 	}
 
@@ -163,7 +167,7 @@ public class OrderInfoActivity extends Activity {
 
 	public void getDelivery() {
 		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
-		RZHelper p = new RZHelper(serverURL,this,"setDeivery",true);
+		RZHelper p = new RZHelper(serverURL, this, "setDeivery", false, false);
 		p.get();
 	}
 
@@ -203,7 +207,7 @@ public class OrderInfoActivity extends Activity {
 
 	public void getCurrentOrder(int orderId) {
 		String serverURL = new myURL(null, "orders", orderId, 0).getURL();
-		RZHelper p = new RZHelper(serverURL,this,"setOrderInfo",true);
+		RZHelper p = new RZHelper(serverURL, this, "setOrderInfo", true, false);
 		p.get();
 	}
 
@@ -283,12 +287,11 @@ public class OrderInfoActivity extends Activity {
 					.parseDouble(((TextView) findViewById(R.id.allTotal))
 							.getText().toString());
 			newOrder.setTotal(total);
-			if (!newOrder.equals(currentOrder))
-			{
-				RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"updateStatus",true);
+			if (!newOrder.equals(currentOrder)) {
+				RZHelper p = new RZHelper(serverURL, OrderInfoActivity.this,
+						"updateStatus", true);
 				p.put(newOrder);
-			}
-			else
+			} else
 				updateStatus(null, null);
 		} else
 			assign();
@@ -302,7 +305,8 @@ public class OrderInfoActivity extends Activity {
 			newOrder.setStatus(stat.get(2));
 		String serverURL = new myURL("change_status", "orders", orderId + "", 0)
 				.getURL();
-		RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"done",true);
+		RZHelper p = new RZHelper(serverURL, OrderInfoActivity.this, "done",
+				true);
 		p.put(newOrder);
 	}
 
@@ -317,7 +321,8 @@ public class OrderInfoActivity extends Activity {
 		newOrder.setStatus(stat.get(status.getSelectedItemPosition()));
 		String serverURL = new myURL("assign", "orders", orderId + "", 0)
 				.getURL();
-		RZHelper p = new RZHelper(serverURL,OrderInfoActivity.this,"done",true);
+		RZHelper p = new RZHelper(serverURL, OrderInfoActivity.this, "done",
+				true);
 		p.put(newOrder);
 	}
 

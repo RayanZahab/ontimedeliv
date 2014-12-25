@@ -23,7 +23,7 @@ public class UserInfoActivity extends Activity implements
 		OnItemSelectedListener {
 
 	Button addButton;
-	EditText username, inputphone,code;
+	EditText username, inputphone, code;
 	CheckBox admin, preparer, delivery;
 	Spinner branchesSP, countriesSP;
 	User currentUser;
@@ -41,7 +41,7 @@ public class UserInfoActivity extends Activity implements
 		shopId = ontimedeliv.getShopId(this);
 		countriesSP = (Spinner) findViewById(R.id.countriesSP);
 		code = (EditText) findViewById(R.id.countrycode);
-		
+
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		ontimedeliv.clear("user");
 		if (getIntent().hasExtra("id")) {
@@ -57,15 +57,12 @@ public class UserInfoActivity extends Activity implements
 		} else {
 			getBranches(true);
 		}
-
-		getCountries();
-
 	}
 
 	public void getCountriesFromDB() {
 		String serverURL = new myURL(null, "countries", "get_all_cities_areas",
 				0).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setCountries", true);
+		RZHelper p  = new RZHelper(serverURL, this, "setCountries", false, true);
 		p.get();
 	}
 
@@ -114,9 +111,9 @@ public class UserInfoActivity extends Activity implements
 		Object sp1 = arg0.getSelectedItem();
 		if (sp1 instanceof Country) {
 			Country currentCountry = (Country) arg0.getSelectedItem();
-			String countryCode = GetCountryZipCode(currentCountry.getName());			
-			code.setText(""+countryCode);
-			
+			String countryCode = GetCountryZipCode(currentCountry.getName());
+			code.setText("" + countryCode);
+
 		} else if (sp1 instanceof Branch) {
 			branchesSP = (Spinner) findViewById(R.id.branchesSP);
 			Branch branch = (Branch) arg0.getSelectedItem();
@@ -127,7 +124,7 @@ public class UserInfoActivity extends Activity implements
 	}
 
 	public String GetCountryZipCode(String CountryID) {
-		
+
 		String CountryZipCode = "";
 
 		String[] rl = this.getResources().getStringArray(R.array.CountryCodes);
@@ -139,14 +136,13 @@ public class UserInfoActivity extends Activity implements
 			}
 		}
 		return CountryZipCode;
-		
-		
+
 	}
 
 	public void getCurrentUser(int userId) {
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
-		RZHelper p = new RZHelper(serverURL, this, "setUserInfo", true);
+		RZHelper p = new RZHelper(serverURL, this, "setUserInfo", true, false);
 		p.get();
 	}
 
@@ -173,10 +169,13 @@ public class UserInfoActivity extends Activity implements
 
 	public void getBranches(boolean first) {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setBranches", true);
+		boolean last = true;
+		if (ontimedeliv.getCountries() == null)
+			last = false;
+		RZHelper p = new RZHelper(serverURL, this, "setBranches", first, last);
 		p.get();
 	}
-
+ 
 	public void setBranches(String s, String error) {
 		this.branches = new APIManager().getBranchesByShop(s);
 		branchesSP = (Spinner) findViewById(R.id.branchesSP);
@@ -190,7 +189,7 @@ public class UserInfoActivity extends Activity implements
 		if (currentUser != null)
 			glob.setSelected(branchesSP, branchAdapter,
 					new Branch(currentUser.getBranch_id()));
-
+		getCountries();
 	}
 
 	public void addUser(View view) {
@@ -201,7 +200,7 @@ public class UserInfoActivity extends Activity implements
 		preparer = (CheckBox) findViewById(R.id.preparer);
 		delivery = (CheckBox) findViewById(R.id.delivery);
 		code = (EditText) findViewById(R.id.countrycode);
-		
+
 		User user = null;
 		String serverURL = "";
 		String method = "POST";
@@ -228,7 +227,7 @@ public class UserInfoActivity extends Activity implements
 		}
 		ValidationError valid = user.validate(false);
 		if (valid.isValid(this)) {
-			RZHelper p = new RZHelper(serverURL, this, "setRoles", true);
+			RZHelper p = new RZHelper(serverURL, this, "setRoles", true, false);
 			if (method.equals("POST")) {
 				p.post(user);
 			} else {
@@ -257,7 +256,7 @@ public class UserInfoActivity extends Activity implements
 		ValidationError valid = role.validate(false);
 		if (valid.isValid(this)) {
 			RZHelper p = new RZHelper(makePreparerURL, this, "afterRoles",
-					true);
+					false, true);
 			p.post(role);
 		}
 
