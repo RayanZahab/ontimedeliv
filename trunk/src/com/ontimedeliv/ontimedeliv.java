@@ -19,7 +19,7 @@ public class ontimedeliv extends Application {
 	private static boolean prep;
 	private static boolean delivery;
 	private static boolean keepme;
-	public TransparentProgressDialog loader;
+	public static TransparentProgressDialog loader;
 	public static TextProgressDialog txtDialog;
 	private UncaughtExceptionHandler defaultUEH;
 	private static ArrayList<Country> countries;

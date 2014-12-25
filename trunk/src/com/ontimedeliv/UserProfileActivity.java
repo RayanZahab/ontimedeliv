@@ -89,7 +89,7 @@ public class UserProfileActivity extends Activity {
 			ValidationError valid = user.validate(true);
 			if(valid.isValid(this))
 			{
-				RZHelper p = new RZHelper(serverURL,this,"done",true);
+				RZHelper p = new RZHelper(serverURL,this,"done",true,false);
 				p.put(user);
 			}
 			
@@ -102,7 +102,7 @@ public class UserProfileActivity extends Activity {
 		user.setEncPassword(passTxt
 				.getText().toString());
 				
-		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn",true);
+		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn",false,true);
 		p.post(user);			
 	}
 

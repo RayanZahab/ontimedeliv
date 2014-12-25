@@ -144,7 +144,11 @@ public class AddBranchActivity extends Activity implements
 
 	public void getCurrentBranch(int branchId) {
 		String url = new myURL(null, "branches", branchId, 1).getURL();
-		RZHelper p = new RZHelper(url, this, "setBranchInfo",true);
+		RZHelper p;
+		if(branchId!=0 && ontimedeliv.getCountries() == null)
+			p = new RZHelper(url, this, "setBranchInfo",true,false);
+		else
+			p = new RZHelper(url, this, "setBranchInfo",true);
 		p.get();
 	}
 
@@ -205,7 +209,7 @@ public class AddBranchActivity extends Activity implements
 		ValidationError valid = currentBranch.validate();
 
 		if (valid.isValid(this)) {
-			RZHelper p = new RZHelper(serverURL, this, "openHours",true);
+			RZHelper p = new RZHelper(serverURL, this, "openHours",true,false);
 			if (branchId == 0) {
 				p.post(currentBranch);
 			} else {
@@ -221,11 +225,11 @@ public class AddBranchActivity extends Activity implements
 		if (error == null) {
 			String ourl = new myURL(openMethod, "branches", branchId, 0)
 					.getURL();
-			RZHelper p = new RZHelper(ourl, this, "backToSelection",true);
+			RZHelper p = new RZHelper(ourl, this, "backToSelection",false,true);
 			if (branchId == 0) {
-				p.post(currentBranch);
+				p.post(new OpenHours(currentBranch));
 			} else {
-				p.put(currentBranch);
+				p.put(new OpenHours(currentBranch));
 			}
 
 		}
@@ -253,7 +257,11 @@ public class AddBranchActivity extends Activity implements
 	
 	public void getCountriesFromDB() {
 		String serverURL = new myURL(null,"countries","get_all_cities_areas", 0).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setCountries",false);
+		RZHelper p ;
+		if(branchId!=0)
+			p = new RZHelper(serverURL, this, "setCountries",false,true);
+		else
+			p = new RZHelper(serverURL, this, "setCountries",false);
 		p.get();
 	}
 	public void setCountries(String s,String error)

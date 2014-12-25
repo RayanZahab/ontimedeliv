@@ -39,7 +39,7 @@ public class ProductInfoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		productId = ontimedeliv.getProductId(this);
-		
+
 		setContentView(R.layout.activity_add_product);
 		name = (TextView) findViewById(R.id.productName);
 		desc = (TextView) findViewById(R.id.description);
@@ -50,11 +50,11 @@ public class ProductInfoActivity extends Activity {
 				.permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		if (productId == 0) {
-			//ActionBar actionBar = getActionBar();
-			//actionBar.setDisplayHomeAsUpEnabled(true);
+			// ActionBar actionBar = getActionBar();
+			// actionBar.setDisplayHomeAsUpEnabled(true);
 		}
-		//setTheme(android.R.style.Theme_Holo_Light_Dialog_NoActionBar);
-		
+		// setTheme(android.R.style.Theme_Holo_Light_Dialog_NoActionBar);
+
 		ontimedeliv.clear("product");
 		branchId = ontimedeliv.getBranchId(this);
 		categoryId = ontimedeliv.getCategoryId(this);
@@ -80,7 +80,7 @@ public class ProductInfoActivity extends Activity {
 
 	public void getProduct(int id) {
 		String serverURL = new myURL(null, "items", id, 1).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setProduct", true);
+		RZHelper p = new RZHelper(serverURL, this, "setProduct", true,false);
 		p.get();
 	}
 
@@ -89,11 +89,11 @@ public class ProductInfoActivity extends Activity {
 		name.setText(currentProduct.getName());
 		desc.setText(currentProduct.getDescription());
 		price.setText("" + currentProduct.getPrice());
-		//getActionBar().setTitle(currentProduct.getName());
+		// getActionBar().setTitle(currentProduct.getName());
 		new ImageTask((ImageView) findViewById(R.id.preview),
 				ProductInfoActivity.this).execute(currentProduct.getPhoto()
 				.getUrl());
-		
+
 		getUnits(false);
 	}
 
@@ -124,16 +124,14 @@ public class ProductInfoActivity extends Activity {
 
 		new MyJs("afterCreation", this, ((ontimedeliv) this.getApplication()),
 				"Upload", (Object) prod).execute(serverURL);
-		//RZHelper p = new RZHelper(serverURL, this, "afterCreation");
-		//p.async_multipart((Object) prod);
-		
+
 	}
 
 	public void afterCreation(String s, String error) {
 
 		Intent i = new Intent(this, ProductsActivity.class);
 		ontimedeliv.setProductId(0);
-		//startActivity(i);
+		startActivity(i);
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -160,8 +158,7 @@ public class ProductInfoActivity extends Activity {
 		}
 	}
 
-	public void getUnits(boolean first) 
-	{
+	public void getUnits(boolean first) {
 		units = ontimedeliv.getUnits();
 		if (units == null)
 			getUnitsFromDB();
@@ -169,19 +166,18 @@ public class ProductInfoActivity extends Activity {
 			populateUnits();
 	}
 
-	public void getUnitsFromDB() 
-	{
+	public void getUnitsFromDB() {
 		String serverURL = new myURL("units", null, 0, 30).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setUnits", false);
+		RZHelper p = new RZHelper(serverURL, this, "setUnits", false,true);
 		p.get();
 	}
 
 	public void setUnits(String s, String error) {
-		units = new APIManager().getUnits(s);		
+		units = new APIManager().getUnits(s);
 		populateUnits();
 	}
-	public void populateUnits()
-	{
+
+	public void populateUnits() {
 		ArrayAdapter<Unit> dataAdapter = new ArrayAdapter<Unit>(this,
 				android.R.layout.simple_spinner_item, units);
 		dataAdapter
@@ -211,9 +207,9 @@ public class ProductInfoActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		ontimedeliv.setProductId(0);
-		Intent i = new Intent(ProductInfoActivity.this, ProductsActivity.class);
-		//super.onBackPressed();
-		startActivity(i);
+		//Intent i = new Intent(ProductInfoActivity.this, ProductsActivity.class);
+		 super.onBackPressed();
+		//startActivity(i);
 	}
 
 }
