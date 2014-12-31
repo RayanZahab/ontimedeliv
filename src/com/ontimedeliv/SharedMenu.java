@@ -33,11 +33,13 @@ public class SharedMenu extends Activity {
 	}
 
 	public static void onCreateOptionsMenu(Activity a, Menu menu, Context ctx) {
-		menu.add(Menu.NONE, ABOUT, Menu.NONE, ctx.getString(R.string.About));
-		menu.add(Menu.NONE, settings, Menu.NONE,ctx.getString(R.string.settings));
-		menu.add(Menu.NONE, LogOut, Menu.NONE, ctx.getString(R.string.Logout));
-		if(!a.getClass().equals(NavigationActivity.class))
+
+		boolean admin = ontimedeliv.isAdmin(a);
+		if(!a.getClass().equals(NavigationActivity.class) && admin)
 			menu.add(Menu.NONE, home, Menu.NONE, ctx.getString(R.string.home));
+		menu.add(Menu.NONE, settings, Menu.NONE,ctx.getString(R.string.settings));
+		menu.add(Menu.NONE, ABOUT, Menu.NONE, ctx.getString(R.string.About));
+		menu.add(Menu.NONE, LogOut, Menu.NONE, ctx.getString(R.string.Logout));
 		context = ctx;
 		activity = a;
 	}

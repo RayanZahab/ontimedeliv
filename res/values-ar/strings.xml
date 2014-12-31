@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Delivery</string>
     <string name="action_settings">إعدادات</string>
-    <string name="username">اسم المستخدم:</string>
-    <string name="password">كلمة السر:</string>
+    <string name="forgotpass">نسيت كلمة المرور؟</string>
+    <string name="enter">إرسال</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="password">كلمة السر</string>
     <string name="submit">إرسال</string>
     <string name="categories">الأصناف</string>
     <string name="from">من:</string>
@@ -38,6 +40,7 @@
     <string name="productname">اسم المنتج:</string>
     <string name="selectlanguage">اختر اللغة</string>
     <string name="buttonlogin">تسجيل الدخول</string>
+    <string name="login">تسجيل الدخول</string>
     <string name="products">المنتجات</string>
     <string name="reason">السبب:</string>
     <string name="item">المادة</string>
