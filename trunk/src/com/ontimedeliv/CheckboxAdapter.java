@@ -102,7 +102,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 					String image_name = (cat.getImage()).replace(" ", "_")
 							+ ".png";
 					new RZHelper((ImageView) convertView
-							.findViewById(R.id.item_image), image_name, (Activity) context);
+							.findViewById(R.id.item_image), image_name,(Activity) context);
 				} else {
 					convertView = vi.inflate(R.layout.product_info, null);
 					holder.price = (TextView) convertView

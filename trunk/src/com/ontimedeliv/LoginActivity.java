@@ -1,4 +1,5 @@
- package com.ontimedeliv;
+package com.ontimedeliv;
+
 import java.util.Locale;
 
 import android.os.Bundle;
@@ -12,15 +13,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 
 	private EditText username;
 	private EditText password;
+	private TextView forgotpassword, loginTxt;
 	boolean isChecked = false;
+	private CheckBox keeploggedin;
+	private Button submit;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +37,10 @@ public class LoginActivity extends Activity {
 
 		username = (EditText) findViewById(R.id.user_name);
 		password = (EditText) findViewById(R.id.password);
-
+		forgotpassword = (TextView) findViewById(R.id.forgotpassword);
+		loginTxt = (TextView) findViewById(R.id.login); 
+		keeploggedin = (CheckBox) findViewById(R.id.keeploggedin);
+		submit = (Button) findViewById(R.id.submit);
 		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
 		isChecked = settings1.getBoolean("isChecked", false);
 
@@ -54,7 +64,8 @@ public class LoginActivity extends Activity {
 		p.post(user);
 	}
 
-	public void changeLang(View view) {
+	@SuppressWarnings("deprecation")
+	@SuppressLint("NewApi") public void changeLang(View view) {
 		String lang_ab = "en";
 
 		switch (view.getId()) {
@@ -78,8 +89,38 @@ public class LoginActivity extends Activity {
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putString("lang", lang_ab);
 		editor.commit();
-		Intent i = new Intent(LoginActivity.this, LoginActivity.class);
-		startActivity(i);
+
+		
+		int bgId = 0;
+		ImageView img = (ImageView) findViewById(view.getId());
+		switch (view.getId()) {
+		case R.id.english:
+			img.setImageResource(R.drawable.arlanguage);
+			bgId = R.drawable.phonebg;
+			img.setId(R.id.arabic);
+			break;
+		case R.id.arabic:
+			img.setImageResource(R.drawable.enlanguage);
+			img.setId(R.id.english);
+			bgId = R.drawable.phonebgar;
+			break;
+		}
+		int sdk = android.os.Build.VERSION.SDK_INT;
+		if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+			username.setBackgroundDrawable(getResources().getDrawable(bgId));
+
+			//password.setBackgroundDrawable(getResources().getDrawable(R.drawable.passwordbgar));
+		} else {
+			username.setBackground(getResources().getDrawable(bgId));
+			//password.setBackground(getResources().getDrawable(R.drawable.passwordbgar));
+		}
+		username.setText(null);
+		username.setHint(getString(R.string.username));
+		password.setHint(getString(R.string.password));
+		forgotpassword.setText(getString(R.string.forgotpass));
+		keeploggedin.setText(getString(R.string.keeploggedin));
+		loginTxt.setText(getString(R.string.login));
+		submit.setText(getString(R.string.enter));
 	}
 
 	public void getLoggedIn(String s, String error) {

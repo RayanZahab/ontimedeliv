@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -34,7 +35,7 @@ public class UserProfileActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_profile);
-
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		usernameTxt = (EditText) findViewById(R.id.user_name);
 		nameTxt = (EditText) findViewById(R.id.name);
 		passTxt = (EditText) findViewById(R.id.password);
@@ -151,6 +152,16 @@ public class UserProfileActivity extends Activity {
 		getMenuInflater().inflate(R.menu.user_profile, menu);
 
 		return true;
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem menuItem) {
+		switch (menuItem.getItemId()) {
+	    case android.R.id.home:
+	      // ProjectsActivity is my 'home' activity
+	    	onBackPressed();
+	      return true;
+		}
+	  return (super.onOptionsItemSelected(menuItem));
 	}
 
 	@Override
