@@ -38,12 +38,19 @@ public class LoginActivity extends Activity {
 		username = (EditText) findViewById(R.id.user_name);
 		password = (EditText) findViewById(R.id.password);
 		forgotpassword = (TextView) findViewById(R.id.forgotpassword);
-		loginTxt = (TextView) findViewById(R.id.login); 
+		loginTxt = (TextView) findViewById(R.id.login);
 		keeploggedin = (CheckBox) findViewById(R.id.keeploggedin);
 		submit = (Button) findViewById(R.id.submit);
 		SharedPreferences settings1 = getSharedPreferences("PREFS_NAME", 0);
 		isChecked = settings1.getBoolean("isChecked", false);
-
+		String lang = settings1.getString("lang", null);
+		if (lang != null) {
+			if (lang.equals("en")) {
+				changeLangById(R.id.english);
+			} else {
+				changeLangById(R.id.arabic);
+			}
+		}
 		if (isChecked) {
 
 			((ontimedeliv) this.getApplication()).setGlobals();
@@ -64,11 +71,15 @@ public class LoginActivity extends Activity {
 		p.post(user);
 	}
 
-	@SuppressWarnings("deprecation")
-	@SuppressLint("NewApi") public void changeLang(View view) {
-		String lang_ab = "en";
+	public void changeLang(View view) {
+		int viewId = view.getId();
+		changeLangById(viewId);
+	}
 
-		switch (view.getId()) {
+	@SuppressLint("NewApi")
+	public void changeLangById(int viewId) {
+		String lang_ab = "en";
+		switch (viewId) {
 		case R.id.english:
 			lang_ab = "en";
 			break;
@@ -76,6 +87,12 @@ public class LoginActivity extends Activity {
 			lang_ab = "ar";
 			break;
 		}
+		username = (EditText) findViewById(R.id.user_name);
+		password = (EditText) findViewById(R.id.password);
+		forgotpassword = (TextView) findViewById(R.id.forgotpassword);
+		loginTxt = (TextView) findViewById(R.id.login);
+		keeploggedin = (CheckBox) findViewById(R.id.keeploggedin);
+		submit = (Button) findViewById(R.id.submit);
 
 		Locale locale = new Locale(lang_ab);
 		Locale.setDefault(locale);
@@ -90,16 +107,19 @@ public class LoginActivity extends Activity {
 		editor.putString("lang", lang_ab);
 		editor.commit();
 
-		
 		int bgId = 0;
-		ImageView img = (ImageView) findViewById(view.getId());
-		switch (view.getId()) {
+		ImageView img = (ImageView) findViewById(viewId);
+		switch (viewId) {
 		case R.id.english:
-			img.setImageResource(R.drawable.arlanguage);
+			img = (ImageView) findViewById(R.id.english);
+			if (img != null) {
+				img.setImageResource(R.drawable.arlanguage);
+				img.setId(R.id.arabic);
+			}
 			bgId = R.drawable.phonebg;
-			img.setId(R.id.arabic);
 			break;
 		case R.id.arabic:
+			img = (ImageView) findViewById(R.id.arabic);
 			img.setImageResource(R.drawable.enlanguage);
 			img.setId(R.id.english);
 			bgId = R.drawable.phonebgar;
@@ -109,10 +129,10 @@ public class LoginActivity extends Activity {
 		if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
 			username.setBackgroundDrawable(getResources().getDrawable(bgId));
 
-			//password.setBackgroundDrawable(getResources().getDrawable(R.drawable.passwordbgar));
+			// password.setBackgroundDrawable(getResources().getDrawable(R.drawable.passwordbgar));
 		} else {
 			username.setBackground(getResources().getDrawable(bgId));
-			//password.setBackground(getResources().getDrawable(R.drawable.passwordbgar));
+			// password.setBackground(getResources().getDrawable(R.drawable.passwordbgar));
 		}
 		username.setText(null);
 		username.setHint(getString(R.string.username));
