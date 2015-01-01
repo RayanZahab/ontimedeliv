@@ -1,15 +1,9 @@
 package com.ontimedeliv;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;

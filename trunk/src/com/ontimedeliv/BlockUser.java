@@ -1,7 +1,6 @@
 package com.ontimedeliv;
 
 import android.os.Bundle;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -63,8 +62,8 @@ public class BlockUser extends Activity {
 	}
 	public void allow(View v)
 	{
-		String serverURL;
-		/*serverURL = new myURL("allow", "customers", currentCustomer.getId(), 0)
+		/*String serverURL;
+		serverURL = new myURL("allow", "customers", currentCustomer.getId(), 0)
 				.getURL();
 		RZHelper p = new RZHelper(serverURL, this, "gotoOrder", false);
 		p.post(currentCustomer);		*/

@@ -927,7 +927,7 @@ public class APIManager {
 	}
 
 	public Order getOrder(String cont) {
-		JSONObject jsonResponse, jsonCustomer, jsonAdd, jsonItem;
+		JSONObject jsonResponse, jsonCustomer, jsonAdd;
 		Order order = new Order();
 
 		try {
@@ -1009,7 +1009,6 @@ public class APIManager {
 
 				JSONArray jsonItemsNode = jsonResponse.optJSONArray("items");
 				int lengthJsonArr = jsonItemsNode.length();
-
 				for (int i = 0; i < lengthJsonArr; i++) {
 					JSONObject jsonItemChildNode = jsonItemsNode
 							.getJSONObject(i);
@@ -1019,7 +1018,6 @@ public class APIManager {
 					item_str = jsonItemChildNode.optString("item").toString();
 					if (item_str != null && !item_str.isEmpty()
 							&& !jsonItemChildNode.isNull("item")) {
-						jsonItem = new JSONObject(item_str);
 						product = getItemsByCategoryAndBranch(item_str).get(0);
 						orderItem = new OrderItem(product, quantity);
 
