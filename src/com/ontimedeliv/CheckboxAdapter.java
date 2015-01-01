@@ -88,43 +88,32 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 			LayoutInflater vi = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			holder = new ViewHolder();
-			if (empty || (position==0 && cat.isEmpty())) {
-				convertView = vi.inflate(R.layout.categories_list, null);
-				holder.price = (TextView) convertView.findViewById(R.id.name);
-				holder.price.setText(cat.getTitle());
-				convertView.findViewById(R.id.picture).setVisibility(View.GONE);
+			
+			if (this.icon) {
+				convertView = vi.inflate(R.layout.category_info, null);
+				
+				String image_name = (cat.getImage()).replace(" ", "_")
+						+ ".png";
+				new RZHelper((ImageView) convertView
+						.findViewById(R.id.item_image), image_name,(Activity) context);
+			} else {
+				convertView = vi.inflate(R.layout.product_info, null);
+				holder.price = (TextView) convertView
+						.findViewById(R.id.price);
+				holder.price.setText(cat.getPrice()
+						+ context.getString(R.string.lira));
 			}
-			else
-			{
-				if (this.icon) {
-					convertView = vi.inflate(R.layout.category_info, null);
-					
-					String image_name = (cat.getImage()).replace(" ", "_")
-							+ ".png";
-					new RZHelper((ImageView) convertView
-							.findViewById(R.id.item_image), image_name,(Activity) context);
-				} else {
-					convertView = vi.inflate(R.layout.product_info, null);
-					holder.price = (TextView) convertView
-							.findViewById(R.id.price);
-					holder.price.setText(cat.getPrice()
-							+ context.getString(R.string.lira));
-				}
-				holder.name = (ToggleButton) convertView
-					.findViewById(R.id.toggleButton);
-				holder.chTxt = (TextView) convertView
-						.findViewById(R.id.checkBox1_txt);
-				setList(cat, holder);
-			}
+			holder.name = (ToggleButton) convertView
+				.findViewById(R.id.toggleButton);
+			holder.chTxt = (TextView) convertView
+					.findViewById(R.id.checkBox1_txt);
+			setList(cat, holder);
+			
 			
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
-			if(position==0 && cat.isEmpty()) {				
-				holder.price = (TextView) convertView.findViewById(R.id.name);
-				holder.price.setText(cat.getTitle());
-				convertView.findViewById(R.id.picture).setVisibility(View.GONE);
-			}
+			
 		}
 		if (!empty)
 		{
