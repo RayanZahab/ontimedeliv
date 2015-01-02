@@ -53,6 +53,8 @@
     <string name="search_hint">ابحث هنا</string>
     <string name="settings">اعدادات</string>
     <string name="keeploggedin">تسجيل دخول تلقائي</string>
+    <string name="allow">السماح</string>
+    <string name="block">اعتراض</string>
 
     <string-array name="acc_type">
         <item>Income</item>

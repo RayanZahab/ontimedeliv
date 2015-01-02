@@ -13,7 +13,7 @@
         style="@style/mytextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentRight="true" />
       <TextView
         android:id="@+id/weekCheckTxt"
         style="@style/mytextview"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/weekCheck"
         android:layout_alignBottom="@+id/weekCheck"
-        android:layout_toRightOf="@+id/weekCheck"
+        android:layout_toLeftOf="@+id/weekCheck"
         android:gravity="right"
         android:textSize="16sp" />
 
@@ -29,8 +29,7 @@
         android:id="@+id/fromBtnn"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/mybutton"
         android:onClick="from"
@@ -41,8 +40,7 @@
         android:id="@+id/toBtn"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/fromBtnn"
         android:background="@drawable/mybutton"
         android:onClick="to"
