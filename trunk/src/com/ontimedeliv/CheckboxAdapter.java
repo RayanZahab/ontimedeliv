@@ -24,7 +24,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 	private ArrayList<Item> unselectedList = new ArrayList<Item>();
 	private Context context;
 	boolean icon;
-	public boolean empty = false,isNew = true;
+	public boolean empty = false, isNew = true;
 
 	public CheckboxAdapter(Context context, int textViewResourceId,
 
@@ -73,7 +73,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 	private class ViewHolder {
 		ToggleButton name;
 		TextView chTxt;
-		String picture;
+		ImageView picture;
 		TextView price;
 	}
 
@@ -81,89 +81,115 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		Item cat = tmpList.get(position);
-		Log.d("ray", "gettingView : " + position+ "->"+cat.isEmpty());
-		
+		Log.d("ray", "gettingView : " + position + "->" + cat.isEmpty());
+
 		if (convertView == null) {
 
 			LayoutInflater vi = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			holder = new ViewHolder();
-			
+
 			if (this.icon) {
 				convertView = vi.inflate(R.layout.category_info, null);
-				
-				String image_name = (cat.getImage()).replace(" ", "_")
-						+ ".png";
-				new RZHelper((ImageView) convertView
-						.findViewById(R.id.item_image), image_name,(Activity) context);
+				holder.picture = (ImageView) convertView
+						.findViewById(R.id.item_image);
+				String image_name = (cat.getImage()).replace(" ", "_") + ".png";
+				new RZHelper(holder.picture, image_name, (Activity) context);
 			} else {
 				convertView = vi.inflate(R.layout.product_info, null);
-				holder.price = (TextView) convertView
-						.findViewById(R.id.price);
+				holder.price = (TextView) convertView.findViewById(R.id.price);
 				holder.price.setText(cat.getPrice()
 						+ context.getString(R.string.lira));
 			}
 			holder.name = (ToggleButton) convertView
-				.findViewById(R.id.toggleButton);
+					.findViewById(R.id.toggleButton);
 			holder.chTxt = (TextView) convertView
 					.findViewById(R.id.checkBox1_txt);
 			setList(cat, holder);
-			
-			
+
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
-			
 		}
-		if (!empty)
-		{
+		
+		if (!empty) {
 			holder.chTxt.setText(cat.getTitle());
 			holder.name.setTag(position);
-			
 			holder.name.setChecked(cat.isSelected());
-		
-			if (cat.isSelected())
-				if (selectedList.indexOf(cat) < 0)
+
+			if (cat.isSelected()) {
+				if (selectedList.indexOf(cat) < 0) {
 					selectedList.add(cat);
-			else
-				if (unselectedList.indexOf(cat) < 0)
+				} else if (unselectedList.indexOf(cat) < 0) {
 					unselectedList.add(cat);
+				}
+			}
+		} else {
+			holder.chTxt.setText(cat.getTitle());
+			if(holder.picture!=null)
+				holder.picture.setVisibility(View.GONE);
+			if(holder.name!=null)
+				holder.name.setVisibility(View.GONE);
+			if(holder.price!=null)
+				holder.price.setVisibility(View.GONE);
+		}
+		if(cat.isEmpty())
+		{
+			holder.chTxt.setText(context.getResources().getString(R.string.no_items));
+			if(holder.picture!=null)
+				holder.picture.setVisibility(View.GONE);
+			if(holder.name!=null)
+				holder.name.setVisibility(View.GONE);
+			if(holder.price!=null)
+				holder.price.setVisibility(View.GONE);
+		}else if(position == 0)
+		{
+			if(holder.picture!=null && holder.picture.getVisibility()==View.GONE)
+				holder.picture.setVisibility(View.VISIBLE);
+			if(holder.name!=null && holder.name.getVisibility()==View.GONE)
+				holder.name.setVisibility(View.VISIBLE);
+			if(holder.price!=null && holder.price.getVisibility()==View.GONE)
+				holder.price.setVisibility(View.VISIBLE);
 		}
 		return convertView;
 	}
 
 	public void setList(final Item cat, ViewHolder holder) {
-					
-		holder.name.setOnClickListener(new OnClickListener()
-		{
-		    @Override
-		    public void onClick(View v)
-		    {
-		    	boolean isChecked = ((ToggleButton) v).isChecked();
-		    	int getPosition = (Integer) v.getTag();  // Here we get the position that we have set for the checkbox using setTag.
-				tmpList.get(getPosition).setSelected(isChecked); // Set the value of checkbox to maintain its state.
+
+		holder.name.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				boolean isChecked = ((ToggleButton) v).isChecked();
+				int getPosition = (Integer) v.getTag(); 
+				// Here we get the  position that we have set for the checkbox using setTag.
+				tmpList.get(getPosition).setSelected(isChecked); 
+				// Set the value of  checkbox to maintain its state.
 				if (isChecked) {
 					selectedList.clear();
 					selectedList.add(cat);
 					ArrayList<Integer> ids = new ArrayList<Integer>();
 					ids.add(cat.getId());
-					Log.d("ray","activate: "+cat.getId());
-					if(icon)
+					Log.d("ray", "activate: " + cat.getId());
+					if (icon)
+					{
 						CategoriesActivity.activate(ids);
+					}
 					else
+					{
 						ProductsActivity.activate(ids);
+					}
 				} else {
 					unselectedList.clear();
 					unselectedList.add(cat);
 					ArrayList<Integer> ids = new ArrayList<Integer>();
 					ids.add(cat.getId());
-					Log.d("ray","deactivate: "+cat.getId());
-					if(icon)
+					Log.d("ray", "deactivate: " + cat.getId());
+					if (icon)
 						CategoriesActivity.deActivate(ids);
 					else
 						ProductsActivity.deActivate(ids);
 				}
-		    }
+			}
 		});
 	}
 

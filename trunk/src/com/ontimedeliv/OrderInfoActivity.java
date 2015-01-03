@@ -3,7 +3,6 @@ package com.ontimedeliv;
 import java.util.ArrayList;
 import java.util.List;
 import android.os.Bundle;
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
