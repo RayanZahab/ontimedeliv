@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuItem; 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -22,7 +22,7 @@ import android.widget.SearchView;
 public class BranchesActivity extends Activity {
 
 	public MyCustomAdapter dataAdapter = null;
-	ArrayList<Branch> branches; 
+	ArrayList<Branch> branches;
 	ArrayList<Item> branchesItem;
 	int shopId;
 	boolean opened = false;
@@ -36,24 +36,24 @@ public class BranchesActivity extends Activity {
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		ontimedeliv.clear("listing");
 		shopId = ontimedeliv.getShopId(this);
-		Log.d("ray","shopid: "+shopId);
+		Log.d("ray", "shopid: " + shopId);
 		getBranches();
 
 	}
 
 	public MyCustomAdapter getAdapter() {
 		return dataAdapter;
-		
+
 	}
 
 	public void getBranches() {
 		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setBranches",true);
+		RZHelper p = new RZHelper(serverURL, this, "setBranches", true);
 		p.get();
 	}
 
 	public void setBranches(String s, String error) {
-		Log.d("ray","reply: "+s);
+		Log.d("ray", "reply: " + s);
 		branches = new APIManager().getBranchesByShop(s);
 		branchesItem = new ArrayList<Item>();
 		ListView listView = (ListView) findViewById(R.id.list);
@@ -88,7 +88,8 @@ public class BranchesActivity extends Activity {
 						i = new Intent(getBaseContext(), Class
 								.forName(getPackageName() + "."
 										+ "CategoriesActivity"));
-						ontimedeliv.setBranchId(dataAdapter.tmpList.get(position).getId());
+						ontimedeliv.setBranchId(dataAdapter.tmpList.get(
+								position).getId());
 						startActivity(i);
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -126,7 +127,10 @@ public class BranchesActivity extends Activity {
 	public void Delete(final int position) {
 		final int branchId = dataAdapter.tmpList.get(position).getId();
 		new AlertDialog.Builder(this)
-				.setTitle("Delete this branch: " + dataAdapter.tmpList.get(position).toString() +" ?")
+				.setTitle(
+						"Delete this branch: "
+								+ dataAdapter.tmpList.get(position).toString()
+								+ " ?")
 				.setIcon(R.drawable.branches)
 				.setPositiveButton(android.R.string.yes,
 						new DialogInterface.OnClickListener() {
@@ -136,7 +140,8 @@ public class BranchesActivity extends Activity {
 								String serverURL = new myURL(null, "branches",
 										branchId, 0).getURL();
 								RZHelper p = new RZHelper(serverURL,
-										BranchesActivity.this, "afterDelete",false);
+										BranchesActivity.this, "afterDelete",
+										false);
 								p.delete();
 								branchesItem.remove(position);
 

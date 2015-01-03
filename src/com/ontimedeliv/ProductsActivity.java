@@ -8,8 +8,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -175,7 +172,9 @@ public class ProductsActivity extends Activity {
 		products = new APIManager().getItemsByCategoryAndBranch(s);
 		productItems = new ArrayList<Item>();
 		if (products.size() == 0) {
-			productItems.add(new Item(0, "", getString(R.string.empty_list)));
+			Item i =new Item("empty");
+			i.setEmpty(true);
+			productItems.add(i);
 			empty = true;
 		} else {
 			for (int i = 0; i < products.size(); i++) {

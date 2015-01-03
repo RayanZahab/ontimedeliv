@@ -12,6 +12,7 @@
     <string name="submit">Submit</string>
     <string name="categories">Categories</string>
     <string name="from">From:</string>
+    <string name="no_items">No items found</string>
     <string name="to">To:</string>
     <string name="allow">Allow</string>   
     <string name="title_activity_navigation">Menu</string>

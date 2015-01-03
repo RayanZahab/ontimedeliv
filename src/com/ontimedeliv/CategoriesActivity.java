@@ -123,7 +123,9 @@ public class CategoriesActivity extends Activity {
 
 		String catUrl = null;
 		if (categories.size() == 0) {
-			categoryItems.add(new Item(0, "", getString(R.string.empty_list)));
+			Item i =new Item("empty");
+			i.setEmpty(true);
+			categoryItems.add(i);
 		} else {
 			for (int i = 0; i < categories.size(); i++) {
 				catUrl = (new myURL(null, "cat_images", categories.get(i)
