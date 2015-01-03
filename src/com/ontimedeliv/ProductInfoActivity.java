@@ -2,10 +2,15 @@ package com.ontimedeliv;
 
 import java.util.ArrayList;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -132,6 +137,34 @@ public class ProductInfoActivity extends Activity {
 			getUnitsFromDB();
 		else
 			populateUnits();
+	}
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK
+				&& null != data) {
+			Uri selectedImage = data.getData();
+			String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+			Cursor cursor = getContentResolver().query(selectedImage,
+					filePathColumn, null, null, null);
+			cursor.moveToFirst();
+
+			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+			picturePath = cursor.getString(columnIndex);
+			picName = cursor.getString(columnIndex);
+			uploaded = new Photo(picturePath, picName);
+			cursor.close();
+			if (uploaded.validate().isValid(this)) {
+				//new RZHelper((ImageView) findViewById(R.id.preview), picturePath, ProductInfoActivity.this);
+				Bitmap myBitmap = BitmapFactory.decodeFile(picturePath);
+
+			    ImageView myImage = (ImageView) findViewById(R.id.preview);
+
+			    myImage.setImageBitmap(myBitmap);
+				
+			}
+		}
 	}
 
 	public void getUnitsFromDB() {
