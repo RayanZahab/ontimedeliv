@@ -61,7 +61,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/countryLabel"
-                android:background="@drawable/myspinner"
+                android:background="@drawable/spinnerbg"
                 android:ellipsize="marquee"
                 android:gravity="center_vertical"
                 android:paddingRight="22dp"
@@ -74,7 +74,7 @@
                 android:layout_height="45dp"
                 android:spinnerMode="dialog"
                 android:layout_below="@+id/citiesLabel"
-                android:background="@drawable/myspinner"
+                android:background="@drawable/spinnerbg"
                 android:paddingRight="22dp" />
 
             <Spinner
@@ -83,7 +83,7 @@
                 android:layout_height="45dp"
                 android:layout_below="@+id/areaLabel"
                 android:spinnerMode="dialog"
-                android:background="@drawable/myspinner"
+                android:background="@drawable/spinnerbg"
                 android:paddingRight="22dp" />
 
             <ExpandableListView

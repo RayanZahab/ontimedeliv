@@ -58,7 +58,7 @@
                 android:layout_toRightOf="@+id/textView5"
                 android:spinnerMode="dialog"
                 android:layout_toEndOf="@+id/textView5"
-                android:background="@drawable/myspinner"
+                android:background="@drawable/spinnerbg"
                 android:paddingRight="22dp" />
 
             <ImageView
