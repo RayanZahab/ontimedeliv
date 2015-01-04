@@ -266,7 +266,7 @@ public class OrderInfoActivity extends Activity {
 			View single;
 			for (int i = 0; i < listView.getAdapter().getCount(); i++) {
 				single = listView.getChildAt(i);
-				quantity = Converter.toInt(((EditText) single
+				quantity = Converter.toInt(((TextView) single
 						.findViewById(R.id.quantity)).getText().toString());
 				item = new OrderItem();
 				item.setQuantity(quantity);
