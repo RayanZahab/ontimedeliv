@@ -27,7 +27,7 @@ public class BlockUser extends Activity {
 		String serverURL = new myURL(null, "orders", orderId, 0).getURL();
 		RZHelper p = new RZHelper(serverURL, this, "setCustomerInfo", false);
 		p.get();
-	}
+	} 
 
 	public void setCustomerInfo(String s, String error) {
 		currentOrder = new APIManager().getOrder(s);
