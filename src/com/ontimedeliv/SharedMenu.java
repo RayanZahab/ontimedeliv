@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -63,11 +64,16 @@ public class SharedMenu extends Activity {
 				.findItem(R.id.action_search).getActionView();
 		searchView.setSearchableInfo(searchManager.getSearchableInfo(a
 				.getComponentName()));
+		
+		
+	    int searchImgId = context.getResources().getIdentifier("android:id/search_button", null, null);
+	    ImageView v = (ImageView) searchView.findViewById(searchImgId);
+	    v.setImageResource(R.drawable.search_icon); 
 
 		int searchPlateId = searchView.getContext().getResources()
 				.getIdentifier("android:id/search_src_text", null, null);
 		EditText inputSearch = (EditText) searchView
-				.findViewById(searchPlateId);
+	 			.findViewById(searchPlateId); 
 
 		inputSearch.setHintTextColor(searchView.getContext().getResources()
 				.getColor(color.darker_gray));
@@ -81,7 +87,7 @@ public class SharedMenu extends Activity {
 				// When user changed the Text
 				adapter.getFilter().filter(cs);
 			}
-
+ 
 			@Override
 			public void beforeTextChanged(CharSequence arg0, int arg1,
 					int arg2, int arg3) {
