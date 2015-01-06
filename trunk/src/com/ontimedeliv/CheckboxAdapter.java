@@ -94,8 +94,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 				holder.picture = (ImageView) convertView
 						.findViewById(R.id.item_image);
 				String image_name = "category_"+cat.getId() + ".png";
-				String test = "http://3.bp.blogspot.com/-Jwf-Upw6caA/TqE1WBjN4kI/AAAAAAAAACs/ATQR8XmdBWU/s1600/flower-icon_inline.jpg";
-				new RZHelper(holder.picture, test/*new myURL(image_name).getURL()*/, (Activity) context);
+				new RZHelper(holder.picture, new myURL(image_name).getURL(), (Activity) context);
 			} else {
 				convertView = vi.inflate(R.layout.product_info, null);
 				holder.price = (TextView) convertView.findViewById(R.id.price);
