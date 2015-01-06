@@ -170,7 +170,7 @@ public class RZHelper {
 		}
 	}
 
-	RZHelper(final ImageView imageView, String myurl, Activity a) {
+	RZHelper(final ImageView imageView, final String myurl, Activity a) {
 		url = myurl;
 		currentActivity = a;
 		show = false;
@@ -183,14 +183,7 @@ public class RZHelper {
 			t.setGravity(Gravity.TOP, 0, 0);
 			t.show();
 		} else {
-			myAQuery.ajax(myurl, Bitmap.class, new AjaxCallback<Bitmap>() {
-
-				@Override
-				public void callback(String url, Bitmap myImg, AjaxStatus status) {
-					if (exists(url))
-						imageView.setImageBitmap(myImg);
-				}
-			});
+			myAQuery.id(imageView.getId()).image(myurl, false,false);			
 		}
 	}
 
