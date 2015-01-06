@@ -44,6 +44,7 @@ public class OrderInfoActivity extends Activity {
 		deliv = (Spinner) findViewById(R.id.delivery_Spinner);
 		listView = (ListView) findViewById(R.id.listView);
 		notes = (EditText) findViewById(R.id.noteinput);
+		
 		stat = new ArrayList<String>();
 		stat.add(0, "Opened");
 		stat.add(1, "Prepared");
@@ -235,10 +236,12 @@ public class OrderInfoActivity extends Activity {
 		new Helper().getListViewSize(listView);
 		totalTxt.setText(total + "");
 		TextView customerName = (TextView) findViewById(R.id.customerName);
+		TextView customerphone = (TextView) findViewById(R.id.customerphone);
+		
 		customerName.setText(" " + currentOrder.getCustomer().toString());
 		TextView customerAdd = (TextView) findViewById(R.id.customerAdd);
 		customerAdd.setText(currentOrder.getAddress().toString());
-
+		customerphone.setText(currentOrder.getCustomer().getMobile());
 		notes.setText(currentOrder.getNote());
 
 	}

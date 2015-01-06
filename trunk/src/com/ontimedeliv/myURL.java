@@ -19,6 +19,7 @@ public class myURL {
 		this.setSvalue(svalue);
 		this.limit = limit;
 	}
+
 	public myURL(String imageName) {
 		this.api = null;
 		this.by = "categoryImgs";

@@ -190,8 +190,8 @@ public class RZHelper {
 				public void callback(String url, File file, AjaxStatus status) {
 
 					if (file != null) {
-						myAQuery.progress(loader).id(imageView.getId()).image(myurl, false,
-								false);
+						myAQuery.progress(loader).id(imageView.getId())
+								.image(myurl, false, false);
 					}
 				}
 
@@ -199,7 +199,6 @@ public class RZHelper {
 
 		}
 	}
-	
 
 	public void post(Object obj) {
 		JSONObject params = (new APIManager()).objToCreate(obj);
