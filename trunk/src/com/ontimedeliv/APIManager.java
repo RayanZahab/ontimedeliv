@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class APIManager {
 
-	public APIManager() {
+	public APIManager() { 
 
 	}
 
