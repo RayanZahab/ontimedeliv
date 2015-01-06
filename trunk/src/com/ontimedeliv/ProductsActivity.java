@@ -172,7 +172,7 @@ public class ProductsActivity extends Activity {
 		products = new APIManager().getItemsByCategoryAndBranch(s);
 		productItems = new ArrayList<Item>();
 		if (products.size() == 0) {
-			Item i =new Item("empty");
+			Item i = new Item("empty");
 			i.setEmpty(true);
 			productItems.add(i);
 			empty = true;

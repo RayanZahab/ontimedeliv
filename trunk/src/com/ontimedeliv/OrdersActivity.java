@@ -16,8 +16,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
-
 import com.ontimedeliv.PullToRefreshListView.OnRefreshListener;
+
 @SuppressLint("NewApi")
 public class OrdersActivity extends Activity {
 	OrdersAdapter dataAdapter;
@@ -42,10 +42,9 @@ public class OrdersActivity extends Activity {
 		admin = ontimedeliv.isAdmin(this);
 		isPreparer = ontimedeliv.isPrep(this);
 		if (admin) {
-			actionBar.setDisplayHomeAsUpEnabled(true); 
+			actionBar.setDisplayHomeAsUpEnabled(true);
 		} else if (isPreparer) {
-			ontimedeliv
-					.setOrderStatus("assigned");
+			ontimedeliv.setOrderStatus("assigned");
 			actionBar.setDisplayHomeAsUpEnabled(false);
 		} else {
 			ontimedeliv.setOrderStatus("prepared");
@@ -60,7 +59,7 @@ public class OrdersActivity extends Activity {
 	public void getOrders() {
 		String serverURL;
 		serverURL = new myURL(null, "orders", status, 30).getURL();
-		RZHelper p = new RZHelper(serverURL,this,"setOrders",true);
+		RZHelper p = new RZHelper(serverURL, this, "setOrders", true);
 		p.get();
 	}
 
@@ -90,7 +89,8 @@ public class OrdersActivity extends Activity {
 			for (int i = 0; i < morders.size(); i++) {
 				Item itm = new Item(morders.get(i).getId(), morders.get(i)
 						.toString(), morders.get(i).getCount(), morders.get(i)
-						.getTotal(), morders.get(i).isNewCustomer());
+						.getTotal(), old ? false : morders.get(i)
+						.isNewCustomer());
 				itm.setDate(morders.get(i).getDate());
 				orderItems.add(itm);
 			}
@@ -106,12 +106,13 @@ public class OrdersActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				if (morders.size() > 0) {
-					Intent i;					
-					
+					Intent i;
+
 					if (morders.get(position).isNewCustomer()) {
 						i = new Intent(getBaseContext(), BlockUser.class);
 					} else {
-						i = new Intent(getBaseContext(), OrderInfoActivity.class);
+						i = new Intent(getBaseContext(),
+								OrderInfoActivity.class);
 					}
 					ontimedeliv.setOrderId(morders.get(position).getId());
 					startActivity(i);
@@ -123,22 +124,21 @@ public class OrdersActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		if(!admin)
-		{
+		if (!admin) {
 			new AlertDialog.Builder(this)
-			.setIcon(android.R.drawable.ic_dialog_alert)
-			.setTitle(R.string.exit)
-			.setMessage(R.string.exitquest)
-			.setPositiveButton(android.R.string.yes,
-					new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog,
-								int which) {
-							OrdersActivity.this.finishAffinity();
-						}
-					}).setNegativeButton(android.R.string.no, null).show();
-		}else
-		{
+					.setIcon(android.R.drawable.ic_dialog_alert)
+					.setTitle(R.string.exit)
+					.setMessage(R.string.exitquest)
+					.setPositiveButton(android.R.string.yes,
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									OrdersActivity.this.finishAffinity();
+								}
+							}).setNegativeButton(android.R.string.no, null)
+					.show();
+		} else {
 			super.onBackPressed();
 		}
 	}

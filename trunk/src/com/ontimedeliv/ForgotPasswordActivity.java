@@ -22,27 +22,23 @@ public class ForgotPasswordActivity extends Activity {
 
 	public void reset(View view) {
 		username = (EditText) findViewById(R.id.user_name);
-		//sendSMS(username.getText().toString(), "Your password is now 123");
+		// sendSMS(username.getText().toString(), "Your password is now 123");
 
 	}
-/*
-	private void sendSMS(String phoneNumber, String message) {
-		TelephonyManager tMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-		String mPhoneNumber = tMgr.getLine1Number();
-		Toast.makeText(getApplicationContext(), "Phone: " + mPhoneNumber,
-				Toast.LENGTH_SHORT).show();
-		SmsManager sms = SmsManager.getDefault();
-		sms.sendTextMessage("+96170908498", null, message, null, null);
-	}
-	private void sendEmail()
-	{
-		username = (EditText) findViewById(R.id.user_name);
-		Intent email = new Intent(Intent.ACTION_SEND);
-		email.putExtra(Intent.EXTRA_EMAIL, new String[]{username.getText().toString()});		  
-		email.putExtra(Intent.EXTRA_SUBJECT, "Reset Passwod");
-		email.putExtra(Intent.EXTRA_TEXT, "message");
-		email.setType("message/rfc822");
-		startActivity(Intent.createChooser(email, "Choose an Email client :"));
-	}
-	*/
+	/*
+	 * private void sendSMS(String phoneNumber, String message) {
+	 * TelephonyManager tMgr = (TelephonyManager)
+	 * getSystemService(TELEPHONY_SERVICE); String mPhoneNumber =
+	 * tMgr.getLine1Number(); Toast.makeText(getApplicationContext(), "Phone: "
+	 * + mPhoneNumber, Toast.LENGTH_SHORT).show(); SmsManager sms =
+	 * SmsManager.getDefault(); sms.sendTextMessage("+96170908498", null,
+	 * message, null, null); } private void sendEmail() { username = (EditText)
+	 * findViewById(R.id.user_name); Intent email = new
+	 * Intent(Intent.ACTION_SEND); email.putExtra(Intent.EXTRA_EMAIL, new
+	 * String[]{username.getText().toString()});
+	 * email.putExtra(Intent.EXTRA_SUBJECT, "Reset Passwod");
+	 * email.putExtra(Intent.EXTRA_TEXT, "message");
+	 * email.setType("message/rfc822");
+	 * startActivity(Intent.createChooser(email, "Choose an Email client :")); }
+	 */
 }

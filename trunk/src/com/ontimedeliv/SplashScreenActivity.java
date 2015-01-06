@@ -16,7 +16,7 @@ public class SplashScreenActivity extends Activity {
 		getActionBar().hide();
 
 		setContentView(R.layout.activity_splash_screen);
-		//getCountries();
+		// getCountries();
 		timer();
 	}
 

@@ -1,7 +1,5 @@
 package com.ontimedeliv;
 
-
-
 public class Role {
 	private boolean admin, preparer, delivery;
 
@@ -31,7 +29,7 @@ public class Role {
 	public void setDelivery(boolean delivery) {
 		this.delivery = delivery;
 	}
-	
+
 	public ValidationError validate(boolean mine) {
 		boolean valid = false;
 		int msg = 0;

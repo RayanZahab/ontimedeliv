@@ -59,7 +59,7 @@ public class UserInfoActivity extends Activity implements
 	public void getCountriesFromDB() {
 		String serverURL = new myURL(null, "countries", "get_all_cities_areas",
 				0).getURL();
-		RZHelper p  = new RZHelper(serverURL, this, "setCountries", false, true);
+		RZHelper p = new RZHelper(serverURL, this, "setCountries", false, true);
 		p.get();
 	}
 
@@ -172,7 +172,7 @@ public class UserInfoActivity extends Activity implements
 		RZHelper p = new RZHelper(serverURL, this, "setBranches", first, last);
 		p.get();
 	}
- 
+
 	public void setBranches(String s, String error) {
 		this.branches = new APIManager().getBranchesByShop(s);
 		branchesSP = (Spinner) findViewById(R.id.branchesSP);

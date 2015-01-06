@@ -111,7 +111,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		
+
 		if (!empty) {
 			holder.chTxt.setText(cat.getTitle());
 			holder.name.setTag(position);
@@ -126,29 +126,30 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 			}
 		} else {
 			holder.chTxt.setText(cat.getTitle());
-			if(holder.picture!=null)
+			if (holder.picture != null)
 				holder.picture.setVisibility(View.GONE);
-			if(holder.name!=null)
+			if (holder.name != null)
 				holder.name.setVisibility(View.GONE);
-			if(holder.price!=null)
+			if (holder.price != null)
 				holder.price.setVisibility(View.GONE);
 		}
-		if(cat.isEmpty())
-		{
-			holder.chTxt.setText(context.getResources().getString(R.string.no_items));
-			if(holder.picture!=null)
+		if (cat.isEmpty()) {
+			holder.chTxt.setText(context.getResources().getString(
+					R.string.no_items));
+			if (holder.picture != null)
 				holder.picture.setVisibility(View.GONE);
-			if(holder.name!=null)
+			if (holder.name != null)
 				holder.name.setVisibility(View.GONE);
-			if(holder.price!=null)
+			if (holder.price != null)
 				holder.price.setVisibility(View.GONE);
-		}else if(position == 0)
-		{
-			if(holder.picture!=null && holder.picture.getVisibility()==View.GONE)
+		} else if (position == 0) {
+			if (holder.picture != null
+					&& holder.picture.getVisibility() == View.GONE)
 				holder.picture.setVisibility(View.VISIBLE);
-			if(holder.name!=null && holder.name.getVisibility()==View.GONE)
+			if (holder.name != null && holder.name.getVisibility() == View.GONE)
 				holder.name.setVisibility(View.VISIBLE);
-			if(holder.price!=null && holder.price.getVisibility()==View.GONE)
+			if (holder.price != null
+					&& holder.price.getVisibility() == View.GONE)
 				holder.price.setVisibility(View.VISIBLE);
 		}
 		return convertView;
@@ -160,22 +161,20 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 			@Override
 			public void onClick(View v) {
 				boolean isChecked = ((ToggleButton) v).isChecked();
-				int getPosition = (Integer) v.getTag(); 
-				// Here we get the  position that we have set for the checkbox using setTag.
-				tmpList.get(getPosition).setSelected(isChecked); 
-				// Set the value of  checkbox to maintain its state.
+				int getPosition = (Integer) v.getTag();
+				// Here we get the position that we have set for the checkbox
+				// using setTag.
+				tmpList.get(getPosition).setSelected(isChecked);
+				// Set the value of checkbox to maintain its state.
 				if (isChecked) {
 					selectedList.clear();
 					selectedList.add(cat);
 					ArrayList<Integer> ids = new ArrayList<Integer>();
 					ids.add(cat.getId());
 					Log.d("ray", "activate: " + cat.getId());
-					if (icon)
-					{
+					if (icon) {
 						CategoriesActivity.activate(ids);
-					}
-					else
-					{
+					} else {
 						ProductsActivity.activate(ids);
 					}
 				} else {

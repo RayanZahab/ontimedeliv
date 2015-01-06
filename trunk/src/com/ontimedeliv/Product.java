@@ -3,14 +3,13 @@ package com.ontimedeliv;
 import android.graphics.Bitmap;
 
 public class Product {
-	private int id, price,shop_id;
-	private String description,  name;
+	private int id, price, shop_id;
+	private String description, name;
 	private Photo photo;
 	private Category category;
 	private Unit unit;
 	private boolean available;
 	private Bitmap bmpPhoto;
-	
 
 	public Product(int id, int price, String name, String description,
 			Photo photo, Category category, Unit unit, boolean is_available,
@@ -26,27 +25,22 @@ public class Product {
 		this.setShop_id(shop_id);
 
 	}
-	public Product(int id)
-	{
-		this.id=id;
+
+	public Product(int id) {
+		this.id = id;
 	}
-	public ValidationError validate()
-	{
+
+	public ValidationError validate() {
 		boolean valid = false;
-		String msg="";
-		if(this.price==0 || this.price<1)
-		{
-			msg="Invalid price";
+		String msg = "";
+		if (this.price == 0 || this.price < 1) {
+			msg = "Invalid price";
+		} else if (this.name.isEmpty() || this.name.length() < 3) {
+			msg = "Invalid name";
+		} else {
+			valid = true;
 		}
-		else if(this.name.isEmpty() || this.name.length()<3)
-		{
-			msg="Invalid name";
-		}
-		else
-		{
-			valid =  true;
-		}
-		return new ValidationError(valid,msg);
+		return new ValidationError(valid, msg);
 	}
 
 	public String getDescription() {
@@ -125,11 +119,9 @@ public class Product {
 		this.shop_id = shop_id;
 	}
 
-
 	public Bitmap getBmpPhoto() {
 		return bmpPhoto;
 	}
-
 
 	public void setBmpPhoto(Bitmap bmpPhoto) {
 		this.bmpPhoto = bmpPhoto;

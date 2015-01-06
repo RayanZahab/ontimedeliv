@@ -2,8 +2,6 @@ package com.ontimedeliv;
 
 import java.util.ArrayList;
 
-
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,9 +51,9 @@ public class SelectionActivity extends Activity implements
 
 		Object sp1 = arg0.getSelectedItem();
 		if (sp1 instanceof Country) {
-			//getCities(((Country) sp1).getId());
+			// getCities(((Country) sp1).getId());
 		} else if (sp1 instanceof City) {
-			//getAreas(((City) sp1).getId());
+			// getAreas(((City) sp1).getId());
 		}
 	}
 
@@ -66,11 +64,11 @@ public class SelectionActivity extends Activity implements
 
 	public void getCountries() {
 		String serverURL = new myURL("countries", null, 0, 30).getURL();
-		RZHelper p = new RZHelper(serverURL,this,"setCountries",false);
+		RZHelper p = new RZHelper(serverURL, this, "setCountries", false);
 		p.get();
 	}
 
-	public void setCountries(String s,String error) {
+	public void setCountries(String s, String error) {
 
 		countries = new APIManager().getCountries(s);
 		ArrayAdapter<Country> counrytAdapter = new ArrayAdapter<Country>(this,
@@ -82,54 +80,45 @@ public class SelectionActivity extends Activity implements
 		s2.setAdapter(counrytAdapter);
 		s2.setOnItemSelectedListener(this);
 	}
+
 	/*
-	public void getCities(int CountryId) {
-		String serverURL = new myURL("cities", "countries", CountryId, 30)
-				.getURL();
-
-		RZHelper p = new RZHelper(serverURL,this,"setCities",false);
-		p.get();
-	}
-
-	public void setCities(String s,String error) {
-		cities = new APIManager().getCitiesByCountry(s);
-		ArrayAdapter<City> cityAdapter = new ArrayAdapter<City>(this,
-				android.R.layout.simple_spinner_item, cities);
-		cityAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		cityAdapter.notifyDataSetChanged();
-		s4.setAdapter(null);
-		s3.setAdapter(cityAdapter);
-		s3.setOnItemSelectedListener(this);
-
-	}
-
-	public void getAreas(int CityId) {
-		String serverURL = new myURL("areas", "cities", CityId, 30).getURL();
-		RZHelper p = new RZHelper(serverURL,this,"setAreas",false);
-		p.get();
-	}
-
-	public void setAreas(String s,String error) {
-		areas = new APIManager().getAreasByCity(s);
-		ArrayAdapter<Area> areaAdapter = new ArrayAdapter<Area>(this,
-				android.R.layout.simple_spinner_item, areas);
-		areaAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		areaAdapter.notifyDataSetChanged();
-		s4.setAdapter(areaAdapter);
-		s4.setOnItemSelectedListener(this);
-
-	}
-*/
+	 * public void getCities(int CountryId) { String serverURL = new
+	 * myURL("cities", "countries", CountryId, 30) .getURL();
+	 * 
+	 * RZHelper p = new RZHelper(serverURL,this,"setCities",false); p.get(); }
+	 * 
+	 * public void setCities(String s,String error) { cities = new
+	 * APIManager().getCitiesByCountry(s); ArrayAdapter<City> cityAdapter = new
+	 * ArrayAdapter<City>(this, android.R.layout.simple_spinner_item, cities);
+	 * cityAdapter
+	 * .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	 * cityAdapter.notifyDataSetChanged(); s4.setAdapter(null);
+	 * s3.setAdapter(cityAdapter); s3.setOnItemSelectedListener(this);
+	 * 
+	 * }
+	 * 
+	 * public void getAreas(int CityId) { String serverURL = new myURL("areas",
+	 * "cities", CityId, 30).getURL(); RZHelper p = new
+	 * RZHelper(serverURL,this,"setAreas",false); p.get(); }
+	 * 
+	 * public void setAreas(String s,String error) { areas = new
+	 * APIManager().getAreasByCity(s); ArrayAdapter<Area> areaAdapter = new
+	 * ArrayAdapter<Area>(this, android.R.layout.simple_spinner_item, areas);
+	 * areaAdapter
+	 * .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	 * areaAdapter.notifyDataSetChanged(); s4.setAdapter(areaAdapter);
+	 * s4.setOnItemSelectedListener(this);
+	 * 
+	 * }
+	 */
 	public void getBusinesses() {
 		String serverURL = new myURL("businesses", null, 0, 30).getURL();
 
-		RZHelper p = new RZHelper(serverURL,this,"setBusiness",false);
+		RZHelper p = new RZHelper(serverURL, this, "setBusiness", false);
 		p.get();
 	}
 
-	public void setBusiness(String s,String error) {
+	public void setBusiness(String s, String error) {
 
 		business = new APIManager().getBusinesses(s);
 

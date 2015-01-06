@@ -16,9 +16,9 @@ public class TransparentProgressDialog extends Dialog {
 
 	private ImageView iv;
 	Activity currentActivity;
-	
+
 	public TransparentProgressDialog(Context context, int resourceIdOfImage) {
-		super(context, R.style.TransparentProgressDialog);	
+		super(context, R.style.TransparentProgressDialog);
 		WindowManager.LayoutParams wlmp = getWindow().getAttributes();
 		wlmp.gravity = Gravity.CENTER_HORIZONTAL;
 		getWindow().setAttributes(wlmp);
@@ -28,11 +28,12 @@ public class TransparentProgressDialog extends Dialog {
 		LinearLayout layout = new LinearLayout(context);
 		layout.setOrientation(LinearLayout.VERTICAL);
 		DisplayMetrics dm = new DisplayMetrics();
-		((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
+		((Activity) context).getWindowManager().getDefaultDisplay()
+				.getMetrics(dm);
 		int w = dm.widthPixels;
 
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-				w / 2, w / 2);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w / 2,
+				w / 2);
 		iv = new ImageView(context);
 		iv.setImageResource(resourceIdOfImage);
 		layout.addView(iv, params);
@@ -44,8 +45,8 @@ public class TransparentProgressDialog extends Dialog {
 		super.show();
 
 		RotateAnimation anim = new RotateAnimation(360.0f, 0.0f,
-				Animation.RELATIVE_TO_SELF, .5f,
-				Animation.RELATIVE_TO_SELF, .5f);
+				Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF,
+				.5f);
 		anim.setInterpolator(new LinearInterpolator());
 		anim.setRepeatCount(Animation.INFINITE);
 		anim.setDuration(2000);

@@ -31,7 +31,7 @@ public class NavigationActivity extends Activity {
 		getActionBar().hide();
 		ontimedeliv.clear("listing");
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		new AlertDialog.Builder(this)
@@ -97,9 +97,12 @@ public class NavigationActivity extends Activity {
 		case R.id.about:
 			status = null;
 			method = null;
-			Toast.makeText(getApplicationContext(),
-					"version" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName
-					, Toast.LENGTH_SHORT).show();
+			Toast.makeText(
+					getApplicationContext(),
+					"version"
+							+ getPackageManager().getPackageInfo(
+									getPackageName(), 0).versionName,
+					Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.settings:
 			method = "UserProfile";
@@ -112,8 +115,7 @@ public class NavigationActivity extends Activity {
 				i = new Intent(getBaseContext(), Class.forName(getPackageName()
 						+ "." + method + "Activity"));
 				if (status != null) {
-					ontimedeliv
-							.setOrderStatus(status);
+					ontimedeliv.setOrderStatus(status);
 					if (status != null && !status.equals("opened")
 							&& !status.equals("assigned")) {
 						i.putExtra("old", true);

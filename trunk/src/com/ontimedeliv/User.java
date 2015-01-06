@@ -1,6 +1,5 @@
 package com.ontimedeliv;
 
-
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 
@@ -22,7 +21,7 @@ public class User {
 		this.setId(id);
 		this.setName(name);
 		this.setUsername(username);
-		
+
 		this.setPhone(phone);
 		this.setIs_fired(is_fired);
 		this.setAddress(address);
@@ -79,10 +78,10 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-			this.password=password;
+		this.password = password;
 	}
-	public void setEncPassword(String password)
-	{
+
+	public void setEncPassword(String password) {
 		this.password = Hashing.sha256().hashString(password, Charsets.UTF_8)
 				.toString();
 	}
@@ -176,9 +175,11 @@ public class User {
 		int msg = 0;
 		if (this.name.isEmpty() || this.name.length() < 3) {
 			msg = R.string.invalid_name;
-		} else if (this.phone==null || this.phone.isEmpty() || this.phone.length() < 6) {
+		} else if (this.phone == null || this.phone.isEmpty()
+				|| this.phone.length() < 6) {
 			msg = R.string.invalid_phone;
-		} else if (!mine && !this.is_admin && !this.is_delivery && !this.is_preparer) {
+		} else if (!mine && !this.is_admin && !this.is_delivery
+				&& !this.is_preparer) {
 			msg = R.string.select_role;
 		} else if (this.branch_id == 0) {
 			msg = R.string.invalid_branch;

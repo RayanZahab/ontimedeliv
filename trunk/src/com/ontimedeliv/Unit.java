@@ -28,10 +28,11 @@ public class Unit {
 	public String toString() {
 		return this.name;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
-		Unit u =(Unit) obj;
-		if (this.id ==u.id)
+		Unit u = (Unit) obj;
+		if (this.id == u.id)
 			return true;
 		return false;
 	}

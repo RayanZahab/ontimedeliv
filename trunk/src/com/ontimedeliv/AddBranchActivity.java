@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -77,8 +75,6 @@ public class AddBranchActivity extends Activity implements
 		}
 
 	}
-	
-
 
 	public void populateExp(Branch b) {
 		expListView = (ExpandableListView) findViewById(R.id.lvExp);
@@ -145,10 +141,10 @@ public class AddBranchActivity extends Activity implements
 	public void getCurrentBranch(int branchId) {
 		String url = new myURL(null, "branches", branchId, 1).getURL();
 		RZHelper p;
-		if(branchId!=0 && ontimedeliv.getCountries() == null)
-			p = new RZHelper(url, this, "setBranchInfo",true,false);
+		if (branchId != 0 && ontimedeliv.getCountries() == null)
+			p = new RZHelper(url, this, "setBranchInfo", true, false);
 		else
-			p = new RZHelper(url, this, "setBranchInfo",true);
+			p = new RZHelper(url, this, "setBranchInfo", true);
 		p.get();
 	}
 
@@ -209,7 +205,7 @@ public class AddBranchActivity extends Activity implements
 		ValidationError valid = currentBranch.validate();
 
 		if (valid.isValid(this)) {
-			RZHelper p = new RZHelper(serverURL, this, "openHours",true,false);
+			RZHelper p = new RZHelper(serverURL, this, "openHours", true, false);
 			if (branchId == 0) {
 				p.post(currentBranch);
 			} else {
@@ -225,7 +221,8 @@ public class AddBranchActivity extends Activity implements
 		if (error == null) {
 			String ourl = new myURL(openMethod, "branches", branchId, 0)
 					.getURL();
-			RZHelper p = new RZHelper(ourl, this, "backToSelection",false,true);
+			RZHelper p = new RZHelper(ourl, this, "backToSelection", false,
+					true);
 			if (branchId == 0) {
 				p.post(new OpenHours(currentBranch));
 			} else {
@@ -254,18 +251,19 @@ public class AddBranchActivity extends Activity implements
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	public void getCountriesFromDB() {
-		String serverURL = new myURL(null,"countries","get_all_cities_areas", 0).getURL();
-		RZHelper p ;
-		if(branchId!=0)
-			p = new RZHelper(serverURL, this, "setCountries",false,true);
+		String serverURL = new myURL(null, "countries", "get_all_cities_areas",
+				0).getURL();
+		RZHelper p;
+		if (branchId != 0)
+			p = new RZHelper(serverURL, this, "setCountries", false, true);
 		else
-			p = new RZHelper(serverURL, this, "setCountries",false);
+			p = new RZHelper(serverURL, this, "setCountries", false);
 		p.get();
 	}
-	public void setCountries(String s,String error)
-	{
+
+	public void setCountries(String s, String error) {
 		countries = new APIManager().getCountries(s);
 		ontimedeliv.setCountries(countries);
 		updateList("country");

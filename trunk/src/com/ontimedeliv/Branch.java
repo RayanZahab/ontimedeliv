@@ -2,8 +2,6 @@ package com.ontimedeliv;
 
 import java.util.HashMap;
 
-
-
 public class Branch {
 	private Integer id;
 	private String name;
@@ -20,17 +18,16 @@ public class Branch {
 	private HashMap<Integer, String> froms, tos;
 	private HashMap<Integer, Boolean> openDays;
 	private OpenHours openHours;
-	
-	public Branch(int id,String name, Area area, String address)
-	{
+
+	public Branch(int id, String name, Area area, String address) {
 		this.id = id;
 		this.name = name;
 		this.setArea(area);
 		this.address = address;
 	}
+
 	public Branch(int id, String name, String description, Area area,
-			String address,  Shop shop, 
-			String estimation_time) {
+			String address, Shop shop, String estimation_time) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -53,29 +50,27 @@ public class Branch {
 			Double from, to;
 			boolean error = true;
 			for (int i = 0; i < 7; i++) {
-				if (openDays.get(i) )
-				{
-					
-					if(froms==null || tos==null || froms.get(i)==null || tos.get(i)==null)
-					{
+				if (openDays.get(i)) {
+
+					if (froms == null || tos == null || froms.get(i) == null
+							|| tos.get(i) == null) {
 						msg = R.string.open_missing;
 						error = false;
 						break;
 					}
-					
-					if (froms.get(i) != null
-							&& tos.get(i) != null) {
+
+					if (froms.get(i) != null && tos.get(i) != null) {
 						from = Converter.toDouble(froms.get(i));
 						to = Converter.toDouble(tos.get(i));
-						if (from >= to || from<0 || to <0) {
+						if (from >= to || from < 0 || to < 0) {
 							msg = R.string.from_bigger;
 							error = false;
 							break;
 						}
 					}
-			
+
 				}
-				
+
 			}
 			valid = error;
 		}
@@ -171,7 +166,7 @@ public class Branch {
 	}
 
 	public void setEstimation_time(String estimation_time) {
-		this.estimation_time = estimation_time; 
+		this.estimation_time = estimation_time;
 	}
 
 	public Shop getShop() {
@@ -183,15 +178,17 @@ public class Branch {
 	}
 
 	public String toString() {
-		if(this.area!=null)
-			return this.name + "\n" + this.area.getName()+ " , "  + this.address;
+		if (this.area != null)
+			return this.name + "\n" + this.area.getName() + " , "
+					+ this.address;
 		else
 			return this.name;
 	}
 
 	public String displayName() {
-		if(this.area!=null)
-			return " <b> " +this.name + " </b> <BR>" + this.area.getName()+ " , "  + this.address;
+		if (this.area != null)
+			return " <b> " + this.name + " </b> <BR>" + this.area.getName()
+					+ " , " + this.address;
 		else
 			return this.name;
 	}

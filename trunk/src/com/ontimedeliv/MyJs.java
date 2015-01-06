@@ -46,7 +46,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 
-	
 	public MyJs(String returnFunction, Activity m, ontimedeliv mg,
 			String method, Object o) {
 		this.returnFunction = returnFunction;
@@ -83,7 +82,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 
 			if (this.method.equals("Upload")) {
 				conn.setRequestMethod("POST");
-			} 
+			}
 
 			if (this.method.equals("Upload")) {
 				Product p = (Product) this.objectToAdd;
@@ -93,10 +92,10 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			Error = ex.getLocalizedMessage();
 			ex.printStackTrace();
 			Log.d("ray", "ray err:" + Error);
-		} 
+		}
 		return null;
 	}
-	
+
 	protected void onPostExecute(Void unused) {
 		Log.d("raya", "post: " + returnFunction + ": " + last + ": "
 				+ global.loader.isShowing());
@@ -108,8 +107,8 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			if (Content == null)
 				Content = "";
 			if (Error != null) {
-				Log.d("ray","ray error: "+Error);
-				glob.bkToNav(mc, getError(Content,Error));
+				Log.d("ray", "ray error: " + Error);
+				glob.bkToNav(mc, getError(Content, Error));
 			}
 			Method returnFunction = this.mc.getClass()
 					.getMethod(this.returnFunction, Content.getClass(),
@@ -158,13 +157,13 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", USER_AGENT);
 		con.setRequestProperty("auth_token", token);
-		con.setRequestProperty("Accept-Charset", "UTF-8"); 		
+		con.setRequestProperty("Accept-Charset", "UTF-8");
 		con.setRequestProperty("Accept-Language", "en-us;q=0.8");
 		con.setRequestProperty("Connection", "Keep-Alive");
-		con.setRequestProperty("Content-Type", "multipart/form-data; charset=UTF-8;boundary="
-				+ boundary);
-		//con.setCharacterEncoding("UTF-8");
-		
+		con.setRequestProperty("Content-Type",
+				"multipart/form-data; charset=UTF-8;boundary=" + boundary);
+		// con.setCharacterEncoding("UTF-8");
+
 		con.setDoInput(true);
 		con.setDoOutput(true);
 		con.setUseCaches(false);
@@ -186,16 +185,15 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 			dos.writeBytes("Content-Disposition: form-data; name=\""
 					+ mapEntry.getKey() + "\"" + lineEnd);
 			dos.writeBytes(lineEnd);
-			if(mapEntry.getKey().equals("name")||mapEntry.getKey().equals("description"))
-			{
+			if (mapEntry.getKey().equals("name")
+					|| mapEntry.getKey().equals("description")) {
 				dos.writeUTF(mapEntry.getValue().toString());
-			}
-			else
+			} else
 				dos.writeBytes(mapEntry.getValue().toString());
-				
+
 			dos.writeBytes(lineEnd);
 		}
-		System.out.println("sending: "+dos.toString());
+		System.out.println("sending: " + dos.toString());
 
 		if (p.getPhoto() != null) {
 			dos.writeBytes(twoHyphens + boundary + lineEnd);
@@ -276,8 +274,6 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		if (last && global.loader != null)
 			global.loader.dismiss();
 	}
-
-	
 
 	public String getError(String cont, String Error) {
 		JSONObject jsonResponse;
