@@ -1,5 +1,6 @@
 package com.ontimedeliv;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -183,31 +184,22 @@ public class RZHelper {
 			t.setGravity(Gravity.TOP, 0, 0);
 			t.show();
 		} else {
-			myAQuery.id(imageView.getId()).image(myurl, false,false);			
+
+			myAQuery.ajax(url, File.class, new AjaxCallback<File>() {
+
+				public void callback(String url, File file, AjaxStatus status) {
+
+					if (file != null) {
+						myAQuery.progress(loader).id(imageView.getId()).image(myurl, false,
+								false);
+					}
+				}
+
+			});
+
 		}
 	}
-
-	public static boolean exists(String URLName) {
-		if (URLName != null && !URLName.equals("null")) {
-			try {
-				URL u = new URL(URLName); // this would check for the protocol
-				u.toURI();
-
-				HttpURLConnection.setFollowRedirects(false);
-				// note : you may also need
-				// HttpURLConnection.setInstanceFollowRedirects(false)
-				HttpURLConnection con = (HttpURLConnection) new URL(URLName)
-						.openConnection();
-				con.setRequestMethod("HEAD");
-				return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
-			} catch (Exception e) {
-				Log.d("Error", "Error URL:" + URLName + " , " + e.getMessage());
-				e.printStackTrace();
-				return false;
-			}
-		}
-		return false;
-	}
+	
 
 	public void post(Object obj) {
 		JSONObject params = (new APIManager()).objToCreate(obj);
