@@ -9,10 +9,12 @@ public class Country {
 	private String name;
 	private ArrayList<City> cities = new ArrayList<City>();
 	private String json;
+
 	public Country(Integer id, String name) {
 		this.setId(id);
 		this.setName(name);
 	}
+
 	public Country(Integer id) {
 		this.setId(id);
 	}
@@ -40,20 +42,24 @@ public class Country {
 	@Override
 	public boolean equals(Object obj) {
 		Country c = (Country) obj;
-		Log.d("ray","Cont: "+c.getId() +" == "+this.id);
-		if(this.id == c.getId())
+		Log.d("ray", "Cont: " + c.getId() + " == " + this.id);
+		if (this.id == c.getId())
 			return true;
 		return false;
 	}
+
 	public ArrayList<City> getCities() {
 		return cities;
 	}
+
 	public void setCities(ArrayList<City> cities) {
 		this.cities = cities;
 	}
+
 	public String getJson() {
 		return json;
 	}
+
 	public void setJson(String json) {
 		this.json = json;
 	}

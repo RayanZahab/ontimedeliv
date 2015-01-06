@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -28,7 +26,7 @@ public class UserProfileActivity extends Activity {
 	String name, phone, pass;
 	String lang, lang_abv;
 	int id;
-	int branchId; 
+	int branchId;
 	User user;
 	GlobalM glob = new GlobalM();
 
@@ -83,33 +81,31 @@ public class UserProfileActivity extends Activity {
 					Toast.LENGTH_SHORT).show();
 		} else {
 			String serverURL = new myURL(null, "users", id, 0).getURL();
-			User user = new User(nameTxt.getText().toString(), phone, null, branchId, 0);
+			User user = new User(nameTxt.getText().toString(), phone, null,
+					branchId, 0);
 			user.setId(id);
-			user.setEncPassword(passTxt
-					.getText().toString());
+			user.setEncPassword(passTxt.getText().toString());
 			ValidationError valid = user.validate(true);
-			if(valid.isValid(this))
-			{
-				RZHelper p = new RZHelper(serverURL,this,"done",true,false);
+			if (valid.isValid(this)) {
+				RZHelper p = new RZHelper(serverURL, this, "done", true, false);
 				p.put(user);
 			}
-			
+
 		}
 	}
 
-	public void done(String s, String error) {		
+	public void done(String s, String error) {
 		String serverURL = new myURL(null, "users", "login", 0).getURL();
 		User user = new User(phone, null);
-		user.setEncPassword(passTxt
-				.getText().toString());
-				
-		RZHelper p = new RZHelper(serverURL,this,"getLoggedIn",false,true);
-		p.post(user);			
+		user.setEncPassword(passTxt.getText().toString());
+
+		RZHelper p = new RZHelper(serverURL, this, "getLoggedIn", false, true);
+		p.post(user);
 	}
 
 	public void getLoggedIn(String s, String error) {
-		Toast.makeText(getApplicationContext(), getString(R.string.passchanged), Toast.LENGTH_SHORT)
-		.show();
+		Toast.makeText(getApplicationContext(),
+				getString(R.string.passchanged), Toast.LENGTH_SHORT).show();
 		if (error == null) {
 			User user = new APIManager().getLogedInUser(s);
 			CheckBox keeplog = (CheckBox) findViewById(R.id.keeploggedin);
@@ -119,7 +115,7 @@ public class UserProfileActivity extends Activity {
 			editor.putBoolean("isChecked", keeplog.isChecked());
 			editor.putString("token", user.getToken());
 			editor.putString("name", user.getName());
-			
+
 			if (langSp.getSelectedItem().equals(getString(R.string.english))) {
 				lang_abv = "en";
 			} else {
@@ -153,15 +149,16 @@ public class UserProfileActivity extends Activity {
 
 		return true;
 	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem menuItem) {
 		switch (menuItem.getItemId()) {
-	    case android.R.id.home:
-	      // ProjectsActivity is my 'home' activity
-	    	onBackPressed();
-	      return true;
+		case android.R.id.home:
+			// ProjectsActivity is my 'home' activity
+			onBackPressed();
+			return true;
 		}
-	  return (super.onOptionsItemSelected(menuItem));
+		return (super.onOptionsItemSelected(menuItem));
 	}
 
 	@Override

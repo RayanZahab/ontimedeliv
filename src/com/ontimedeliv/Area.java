@@ -10,7 +10,8 @@ public class Area {
 	public Area(int id) {
 		this.id = id;
 	}
-	public Area(int id,String name) {
+
+	public Area(int id, String name) {
 		this.id = id;
 		this.name = name;
 	}
@@ -21,12 +22,13 @@ public class Area {
 		this.city_id = city_id;
 	}
 
-	public Area(int id, int city_id,int country_id, String name) {
+	public Area(int id, int city_id, int country_id, String name) {
 		this.id = id;
 		this.name = name;
 		this.city_id = city_id;
 		this.country_id = country_id;
 	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -62,16 +64,19 @@ public class Area {
 	public void setCountry_id(int country_id) {
 		this.country_id = country_id;
 	}
+
 	public String getDisplayName() {
 		return displayName;
 	}
+
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		Area area = (Area) obj;
-		if(this.id == area.getId())
+		if (this.id == area.getId())
 			return true;
 		return false;
 	}

@@ -7,7 +7,7 @@ import android.widget.Toast;
 public class ValidationError {
 	private boolean valid = false;
 	private String errorMsg = "";
-	private int errorMsgId=0;
+	private int errorMsgId = 0;
 
 	public ValidationError(boolean is, String msg) {
 		setError(is);
@@ -20,7 +20,7 @@ public class ValidationError {
 	}
 
 	public boolean isValid(Activity mc) {
-		if(!valid && mc!=null)
+		if (!valid && mc != null)
 			showError(mc);
 		return valid;
 	}
@@ -34,8 +34,7 @@ public class ValidationError {
 	}
 
 	private void showError(Activity mc) {
-		if(errorMsgId!=0)
-		{
+		if (errorMsgId != 0) {
 			errorMsg = mc.getString(errorMsgId);
 		}
 		Toast ts = Toast.makeText(mc, errorMsg, Toast.LENGTH_LONG);

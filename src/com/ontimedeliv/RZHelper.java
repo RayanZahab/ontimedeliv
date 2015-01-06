@@ -187,7 +187,7 @@ public class RZHelper {
 
 				@Override
 				public void callback(String url, Bitmap myImg, AjaxStatus status) {
-					if(exists(url))
+					if (exists(url))
 						imageView.setImageBitmap(myImg);
 				}
 			});

@@ -13,7 +13,7 @@ public class OpenHours {
 
 	@SuppressLint("UseSparseArrays")
 	public OpenHours(Branch b) {
-		
+
 		this.froms = b.getFroms();
 		this.tos = b.getTos();
 		this.openDays = b.getOpenDays();
@@ -26,13 +26,13 @@ public class OpenHours {
 		days.put(5, "sat");
 		days.put(6, "sun");
 	}
-	public OpenHours(HashMap<Integer, String> froms, HashMap<Integer, String> tos,HashMap<Integer, Boolean> openDays)
-	{
-		this.froms=froms;
-		this.tos=tos;
-		this.openDays=openDays;							
+
+	public OpenHours(HashMap<Integer, String> froms,
+			HashMap<Integer, String> tos, HashMap<Integer, Boolean> openDays) {
+		this.froms = froms;
+		this.tos = tos;
+		this.openDays = openDays;
 	}
-	
 
 	public JSONArray getOpenHours() {
 		JSONArray jsonArray = new JSONArray();
@@ -40,7 +40,8 @@ public class OpenHours {
 
 			for (int i = 0; i < 7; i++) {
 				JSONObject day = new JSONObject();
-				if (openDays.get(i) && froms.get(i)!=null && tos.get(i)!=null) {					
+				if (openDays.get(i) && froms.get(i) != null
+						&& tos.get(i) != null) {
 					day.put("from", froms.get(i));
 					day.put("to", tos.get(i));
 				} else {

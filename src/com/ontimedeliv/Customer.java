@@ -30,7 +30,7 @@ public class Customer {
 		this.setPhoto(photo);
 	}
 
-	public Customer(int id, String name,String mobile) {
+	public Customer(int id, String name, String mobile) {
 		this.setId(id);
 		this.setName(name);
 		this.setMobile(mobile);
@@ -99,8 +99,8 @@ public class Customer {
 	public void setPhoto(Photo photo) {
 		this.photo = photo;
 	}
-	public String toString()
-	{
+
+	public String toString() {
 		return this.name;
 	}
 }

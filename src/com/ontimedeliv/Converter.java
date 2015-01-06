@@ -12,7 +12,7 @@ public class Converter {
 
 	}
 
-	public static boolean toBoolean(String word) {		
+	public static boolean toBoolean(String word) {
 		try {
 			return Boolean.parseBoolean(word);
 		} catch (Exception nfe) {
@@ -21,7 +21,7 @@ public class Converter {
 		}
 	}
 
-	public static Double toDouble(String word) {		
+	public static Double toDouble(String word) {
 		try {
 			return Double.parseDouble(word);
 		} catch (Exception nfe) {
@@ -29,5 +29,5 @@ public class Converter {
 
 		}
 	}
-	
+
 }

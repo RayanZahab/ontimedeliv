@@ -2,25 +2,27 @@ package com.ontimedeliv;
 
 public class Item {
 	private String image;
-	private String title,date;
-	private boolean selected = false,empty = false;
+	private String title, date;
+	private boolean selected = false, empty = false;
 	String code = null;
 	String address;
 	boolean isNew = false;
 	private int id, img;
 	private int quantity;
 	private double price;
-	private String method,orderStatus;
-	
-	public Item(){}
-	
-	public Item(int id,String title, Integer quantity, double price) {
+	private String method, orderStatus;
+
+	public Item() {
+	}
+
+	public Item(int id, String title, Integer quantity, double price) {
 		super();
-		this.id= id;
+		this.id = id;
 		this.title = title;
 		this.setQuantity(quantity);
 		this.setPrice(price);
 	}
+
 	public Item(int id, int img, String title) {
 		super();
 		this.setImg(img);
@@ -28,7 +30,8 @@ public class Item {
 		this.id = id;
 	}
 
-	public Item(int id, String title, Integer quantity, double price, boolean status) {
+	public Item(int id, String title, Integer quantity, double price,
+			boolean status) {
 		super();
 		this.title = title;
 		this.isNew = status;
@@ -132,21 +135,27 @@ public class Item {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+
 	public int getImg() {
 		return img;
 	}
+
 	public void setImg(int img) {
 		this.img = img;
 	}
+
 	public String getMethod() {
 		return method;
 	}
+
 	public void setMethod(String method) {
 		this.method = method;
 	}
+
 	public String getOrderStatus() {
 		return orderStatus;
 	}
+
 	public void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
 	}
@@ -158,8 +167,8 @@ public class Item {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String toString()
-	{
+
+	public String toString() {
 		return this.title;
 	}
 

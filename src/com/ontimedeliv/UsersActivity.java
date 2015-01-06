@@ -37,7 +37,7 @@ public class UsersActivity extends Activity {
 
 	public void getUsers() {
 		String serverURL = new myURL("users", null, 0, 30).getURL();
-		RZHelper p = new RZHelper(serverURL,this,"setUsers",true);
+		RZHelper p = new RZHelper(serverURL, this, "setUsers", true);
 		p.get();
 	}
 
@@ -84,7 +84,8 @@ public class UsersActivity extends Activity {
 						i = new Intent(getBaseContext(), Class
 								.forName(getPackageName() + "."
 										+ "UserInfoActivity"));
-						i.putExtra("id", "" + dataAdapter.tmpList.get(position).getId());
+						i.putExtra("id", ""
+								+ dataAdapter.tmpList.get(position).getId());
 						startActivity(i);
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -114,8 +115,8 @@ public class UsersActivity extends Activity {
 		if (!searchView.isIconified()) {
 			searchView.setIconified(true);
 		} else {
-		Intent i = new Intent(UsersActivity.this, NavigationActivity.class);
-		startActivity(i);
+			Intent i = new Intent(UsersActivity.this, NavigationActivity.class);
+			startActivity(i);
 		}
 	}
 
@@ -153,7 +154,8 @@ public class UsersActivity extends Activity {
 									int whichButton) {
 								String serverURL = new myURL(null, "users",
 										catId, 0).getURL();
-								RZHelper p = new RZHelper(serverURL,UsersActivity.this,"afterDelete",true);
+								RZHelper p = new RZHelper(serverURL,
+										UsersActivity.this, "afterDelete", true);
 								p.delete();
 								usersItem.remove(position);
 							}

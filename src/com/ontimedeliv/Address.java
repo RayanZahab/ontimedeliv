@@ -15,9 +15,10 @@ public class Address {
 	private String update_at;
 	private String created_at;
 
-	public Address(int id){
-		this.id=id;
+	public Address(int id) {
+		this.id = id;
 	}
+
 	public Address(int id, String country, String city, String area,
 			String building, String floor, String street, String details,
 			int customer_id, String longitude, String latitude,
@@ -37,9 +38,9 @@ public class Address {
 		this.setUpdate_at(update_at);
 
 	}
+
 	public Address(int id, String country, String city, String area,
-			String building, String floor, String street, String details)
-	{
+			String building, String floor, String street, String details) {
 		this.id = id;
 		this.country = country;
 		this.city = city;
@@ -49,6 +50,7 @@ public class Address {
 		this.street = street;
 		this.details = details;
 	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -154,7 +156,7 @@ public class Address {
 	}
 
 	public String toString() {
-		return this.building+" , "+this.floor+" , "+this.details;
+		return this.building + " , " + this.floor + " , " + this.details;
 	}
 
 }

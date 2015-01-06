@@ -1,8 +1,6 @@
- package com.ontimedeliv;
+package com.ontimedeliv;
 
 import java.util.Locale;
-
-
 
 import android.os.Bundle;
 import android.annotation.SuppressLint;
@@ -72,17 +70,16 @@ public class SelectLanguageActivity extends Activity {
 			break;
 		case R.id.about:
 			method = null;
-			Toast.makeText(getApplicationContext(),
-					"Developed With Passion", Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(getApplicationContext(), "Developed With Passion",
+					Toast.LENGTH_SHORT).show();
 			break;
 		}
 
 		try {
 			if (method != null) {
 				Intent i = new Intent(SelectLanguageActivity.this,
-						Class.forName(getPackageName()
-								+ "." +method + "Activity"));
+						Class.forName(getPackageName() + "." + method
+								+ "Activity"));
 				startActivity(i);
 			}
 		} catch (ClassNotFoundException e) {

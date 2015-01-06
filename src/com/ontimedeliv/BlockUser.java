@@ -19,8 +19,8 @@ public class BlockUser extends Activity {
 		setContentView(R.layout.activity_block_user);
 		this.orderId = ontimedeliv.getOrderId(this);
 		getCurrentCustomer(orderId);
-		//ActionBar actionBar = getActionBar();
-		//actionBar.setDisplayHomeAsUpEnabled(true);
+		// ActionBar actionBar = getActionBar();
+		// actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	public void getCurrentCustomer(int orderId) {
@@ -49,32 +49,34 @@ public class BlockUser extends Activity {
 	}
 
 	public void back(String s, String error) {
-		//Intent i = new Intent(getBaseContext(), OrderInfoActivity.class);
-		//startActivity(i);
+		// Intent i = new Intent(getBaseContext(), OrderInfoActivity.class);
+		// startActivity(i);
 		ontimedeliv.setOrderId(0);
 		Intent i = new Intent(getBaseContext(), OrdersActivity.class);
 		startActivity(i);
 	}
-	public void cancel(View v)
-	{
+
+	public void cancel(View v) {
 		ontimedeliv.setOrderId(0);
 		onBackPressed();
 	}
-	public void allow(View v)
-	{
-		/*String serverURL;
-		serverURL = new myURL("allow", "customers", currentCustomer.getId(), 0)
-				.getURL();
-		RZHelper p = new RZHelper(serverURL, this, "gotoOrder", false);
-		p.post(currentCustomer);		*/
+
+	public void allow(View v) {
+		/*
+		 * String serverURL; serverURL = new myURL("allow", "customers",
+		 * currentCustomer.getId(), 0) .getURL(); RZHelper p = new
+		 * RZHelper(serverURL, this, "gotoOrder", false);
+		 * p.post(currentCustomer);
+		 */
 		gotoOrder(v);
 	}
-	public void gotoOrder(View v)
-	{
+
+	public void gotoOrder(View v) {
 		Intent i = new Intent(getBaseContext(), OrderInfoActivity.class);
 		startActivity(i);
-		//ontimedeliv.setOrderId(0);
+		// ontimedeliv.setOrderId(0);
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

@@ -88,7 +88,7 @@ public class ProductInfoActivity extends Activity {
 		name.setText(currentProduct.getName());
 		desc.setText(currentProduct.getDescription());
 		price.setText("" + currentProduct.getPrice());
-		// getActionBar().setTitle(currentProduct.getName());		
+		// getActionBar().setTitle(currentProduct.getName());
 		new RZHelper((ImageView) findViewById(R.id.preview), currentProduct
 				.getPhoto().getUrl(), ProductInfoActivity.this);
 		getUnits(false);
@@ -138,6 +138,7 @@ public class ProductInfoActivity extends Activity {
 		else
 			populateUnits();
 	}
+
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
@@ -156,13 +157,14 @@ public class ProductInfoActivity extends Activity {
 			uploaded = new Photo(picturePath, picName);
 			cursor.close();
 			if (uploaded.validate().isValid(this)) {
-				//new RZHelper((ImageView) findViewById(R.id.preview), picturePath, ProductInfoActivity.this);
+				// new RZHelper((ImageView) findViewById(R.id.preview),
+				// picturePath, ProductInfoActivity.this);
 				Bitmap myBitmap = BitmapFactory.decodeFile(picturePath);
 
-			    ImageView myImage = (ImageView) findViewById(R.id.preview);
+				ImageView myImage = (ImageView) findViewById(R.id.preview);
 
-			    myImage.setImageBitmap(myBitmap);
-				
+				myImage.setImageBitmap(myBitmap);
+
 			}
 		}
 	}

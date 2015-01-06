@@ -46,18 +46,18 @@ public class CategoriesActivity extends Activity {
 	String newName;
 	static RZHelper activate;
 	static RZHelper deactivate;
-	String serverURL ;
+	String serverURL;
 
 	@Override
 	public void onCreate(Bundle savedInstancecat) {
 		super.onCreate(savedInstancecat);
 		setContentView(R.layout.activity_categories);
 		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);		
-		
+		actionBar.setDisplayHomeAsUpEnabled(true);
+
 		branchId = ontimedeliv.getBranchId(this);
 		ontimedeliv.clear("categories");
-		
+
 		this.shopId = ontimedeliv.getShopId(this);
 		url = new myURL("categories", "branches", branchId, 30).getURL();
 
@@ -72,23 +72,23 @@ public class CategoriesActivity extends Activity {
 		this.dialog = dialog;
 	}
 
-	
-	public static void activate(ArrayList<Integer> selectedIds){
+	public static void activate(ArrayList<Integer> selectedIds) {
 		if (selectedIds.size() > 0) {
 			myCat = new Activate("categories", selectedIds);
 			activate.put(myCat);
-		} 
+		}
 	}
-	public static void deActivate(ArrayList<Integer> unselectedIds){
+
+	public static void deActivate(ArrayList<Integer> unselectedIds) {
 		if (unselectedIds.size() > 0) {
 			myCat = new Activate("categories", unselectedIds);
 			deactivate.put(myCat);
-		} 
+		}
 	}
 
 	public void afterActivate(String s, String error) {
-		Toast.makeText(getApplicationContext(), "DONE",
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "DONE", Toast.LENGTH_SHORT)
+				.show();
 	}
 
 	public void getCategories() {
@@ -116,14 +116,14 @@ public class CategoriesActivity extends Activity {
 	public void setCategories(String s, String error) {
 		categories = new APIManager().getCategories(s);
 		categoryItems = new ArrayList<Item>();
-		
+
 		ListView listView = (ListView) findViewById(R.id.categorylist);
 
 		listView.setTextFilterEnabled(true);
 
 		String catUrl = null;
 		if (categories.size() == 0) {
-			Item i =new Item("empty");
+			Item i = new Item("empty");
 			i.setEmpty(true);
 			categoryItems.add(i);
 		} else {
@@ -155,14 +155,14 @@ public class CategoriesActivity extends Activity {
 
 			}
 		});
-		serverURL = new myURL("activate_categories", "branches", branchId, 0).getURL();
+		serverURL = new myURL("activate_categories", "branches", branchId, 0)
+				.getURL();
 		activate = new RZHelper(serverURL, this, "afterActivate", false);
-		
-		
-		serverURL = new myURL("deactivate_categories", "branches",
-				branchId, 0).getURL();
+
+		serverURL = new myURL("deactivate_categories", "branches", branchId, 0)
+				.getURL();
 		deactivate = new RZHelper(serverURL, this, "afterActivate", false);
-		 
+
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -287,19 +287,26 @@ public class CategoriesActivity extends Activity {
 								});
 
 				final AlertDialog alertDialog = alertDialogBuilder.create();
-				alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+				alertDialog
+						.setOnShowListener(new DialogInterface.OnShowListener() {
 
-					@Override
-					public void onShow(DialogInterface dialog) {
+							@Override
+							public void onShow(DialogInterface dialog) {
 
-						Button cancel_btn = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-						cancel_btn.setBackgroundColor(getResources().getColor(R.color.turquoise));
-						cancel_btn.setTextColor(getResources().getColor(R.color.textview));
-						Button b = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-						b.setBackgroundColor(getResources().getColor(R.color.turquoise));
-						b.setTextColor(getResources().getColor(R.color.textview));
-					}
-				});
+								Button cancel_btn = alertDialog
+										.getButton(AlertDialog.BUTTON_NEGATIVE);
+								cancel_btn.setBackgroundColor(getResources()
+										.getColor(R.color.turquoise));
+								cancel_btn.setTextColor(getResources()
+										.getColor(R.color.textview));
+								Button b = alertDialog
+										.getButton(AlertDialog.BUTTON_POSITIVE);
+								b.setBackgroundColor(getResources().getColor(
+										R.color.turquoise));
+								b.setTextColor(getResources().getColor(
+										R.color.textview));
+							}
+						});
 				alertDialog.show();
 			}
 		}
