@@ -52,6 +52,7 @@
                 android:layout_below="@+id/password"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
+                android:button="@drawable/mycheckbox"
                 android:text="@string/keeploggedin"
                 android:textColor="#ffffff" />
 

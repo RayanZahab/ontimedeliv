@@ -2,8 +2,11 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item><layer-list>
-            <item><bitmap android:gravity="center|right" android:src="@drawable/spinner_arrow" />
+            <item><bitmap android:gravity="center|right" android:src="@drawable/spinner_arrow"/>
             </item>
+            <item><shape>
+           <stroke android:width="2dp" android:color="#cdcccb" />
+           </shape></item>
         </layer-list></item>
 
 </selector>
