@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
     android:background="#e7e7e7" >
     
 	 <RelativeLayout
@@ -57,8 +58,9 @@
                 android:layout_marginTop="@dimen/vertical_margin"
                 android:layout_toRightOf="@+id/textView5"
                 android:spinnerMode="dialog"
+                android:gravity="center|center_vertical"
                 android:layout_toEndOf="@+id/textView5"
-                android:background="@drawable/spinnerbg"
+                android:background="@drawable/myspinner"
                 android:paddingRight="22dp" />
 
             <ImageView
