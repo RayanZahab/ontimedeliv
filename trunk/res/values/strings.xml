@@ -84,6 +84,8 @@
     <string name="forgotpass"><u>Forgot Password?</u></string>
     <string name="enter">Enter</string>
     <string name="catlogo">Category Logo</string>
+    <string name="minorder">Minimum Order Amount</string>
+    <string name="deliverycharge">Delivery Charge</string>
     <string name="passchanged">Password successfully changed</string>
     
     <string-array name="acc_type">
