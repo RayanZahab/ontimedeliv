@@ -163,11 +163,7 @@ public class UsersActivity extends Activity {
 	}
 
 	public void afterDelete(String s, String error) {
-		backToActivity(UsersActivity.class);
-	}
-
-	public void backToActivity(Class activity) {
-		Intent i = new Intent(UsersActivity.this, activity);
+		Intent i = new Intent(UsersActivity.this, UsersActivity.class);
 		startActivity(i);
 	}
 
