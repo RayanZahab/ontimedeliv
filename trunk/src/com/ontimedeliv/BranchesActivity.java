@@ -74,7 +74,7 @@ public class BranchesActivity extends Activity {
 			}
 			registerForContextMenu(listView);
 		}
-		dataAdapter = new MyCustomAdapter(this, R.layout.categories_list,
+		dataAdapter = new MyCustomAdapter(this, R.layout.branches_list,
 				branchesItem);
 		SharedMenu.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);
@@ -203,11 +203,6 @@ public class BranchesActivity extends Activity {
 			}
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	public void backToActivity(Class activity) {
-		Intent i = new Intent(BranchesActivity.this, activity);
-		startActivity(i);
 	}
 
 }

@@ -2,12 +2,10 @@ package com.ontimedeliv;
 
 import java.io.File;
 import java.lang.reflect.Method;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import org.json.JSONObject;
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
@@ -240,10 +238,11 @@ public class RZHelper {
 	}
 
 	private boolean isNetworkAvailable() {
+		currentActivity.getApplicationContext();
 		ConnectivityManager connectivityManager = (ConnectivityManager) currentActivity
 				.getApplicationContext()
 				.getSystemService(
-						currentActivity.getApplicationContext().CONNECTIVITY_SERVICE);
+						Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetworkInfo = connectivityManager
 				.getActiveNetworkInfo();
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();

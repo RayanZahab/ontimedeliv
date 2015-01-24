@@ -148,11 +148,6 @@ public class ProductsActivity extends Activity {
 		dataAdapter.notifyDataSetChanged();
 	}
 
-	public void backToActivity(Class activity) {
-		Intent i = new Intent(ProductsActivity.this, activity);
-		startActivity(i);
-	}
-
 	public void Edit(Item item) {
 		Intent i = new Intent(ProductsActivity.this, ProductInfoActivity.class);
 		ontimedeliv.setProductId(item.getId());

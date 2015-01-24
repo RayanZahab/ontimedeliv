@@ -399,9 +399,4 @@ public class CategoriesActivity extends Activity {
 		dataAdapter.tmpList = categoryItems;
 		dataAdapter.notifyDataSetChanged();
 	}
-
-	public void backToActivity(Class activity) {
-		Intent i = new Intent(CategoriesActivity.this, activity);
-		startActivity(i);
-	}
 }

@@ -84,7 +84,8 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 		holder.name.setText(Html.fromHtml(navitem.getTitle()));
 
 		holder.picture = (ImageView) convertView.findViewById(R.id.picture);
-		holder.picture.setImageResource(navitem.getImg());
+		if(holder.picture!=null)
+			holder.picture.setImageResource(navitem.getImg());
 		if (navitem.isEmpty()) {
 			holder.name.setText(context.getResources().getString(
 					R.string.no_items));
