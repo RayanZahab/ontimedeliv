@@ -2,7 +2,7 @@
 android:shape="line">
 
     <stroke
-       android:color="@color/textview"
-       android:dashWidth="5px"
-       android:dashGap="5px" />
+       android:color="#ffffff"
+       android:dashWidth="10px"
+       android:dashGap="10px" />
 </shape>
