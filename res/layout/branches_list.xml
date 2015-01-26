@@ -28,7 +28,7 @@
         android:layout_marginTop="5dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:src="@drawable/dividerbranch" />
+        android:src="@drawable/dotted" />
 
     <LinearLayout
         android:id="@+id/info"
@@ -50,7 +50,7 @@
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="15dp"
             android:layout_gravity="left"
             android:layout_weight="0.16"
             android:src="@drawable/estimatedtime" />
@@ -67,7 +67,7 @@
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="15dp"
             android:layout_gravity="left"
             android:layout_weight="0.16"
             android:src="@drawable/minorder" />
@@ -84,7 +84,7 @@
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="15dp"
             android:layout_gravity="left"
             android:layout_weight="0.16"
             android:src="@drawable/delivcharge" />
