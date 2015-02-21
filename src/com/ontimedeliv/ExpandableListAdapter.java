@@ -31,7 +31,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	public HashMap<Integer, Boolean> openDays;
 	private boolean populate = false;
 
-	@SuppressLint("UseSparseArrays")
 	public ExpandableListAdapter(Context context, List<String> listDataHeader,
 			HashMap<String, List<String>> listChildData) {
 		this._context = context;
@@ -45,7 +44,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		}
 	}
 
-	@SuppressLint("UseSparseArrays")
 	public ExpandableListAdapter(Context context, List<String> listDataHeader,
 			HashMap<String, List<String>> listChildData, OpenHours oh) {
 		this._context = context;

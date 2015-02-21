@@ -418,8 +418,9 @@ public class APIManager {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id;
-				String name;
+				String name,photoJson;
 				boolean is_active;
+				Photo p ;
 				if (jsonResponse.has("elements")) {
 					JSONArray jsonMainNode = jsonResponse
 							.optJSONArray("elements");
@@ -433,7 +434,9 @@ public class APIManager {
 						name = jsonChildNode.optString("name").toString();
 						is_active = Boolean.valueOf(jsonChildNode.optString(
 								"is_active").toString());
-						gridArray.add(new Category(id, name, is_active, 0));
+						photoJson = jsonChildNode.optString("photo").toString();
+						p = this.getPhoto(photoJson);
+						gridArray.add(new Category(id, name, is_active, 0,p));
 					}
 				} else {
 					id = Converter.toInt(jsonResponse.optString("id")
@@ -441,7 +444,9 @@ public class APIManager {
 					name = jsonResponse.optString("name").toString();
 					is_active = Boolean.valueOf(jsonResponse.optString(
 							"is_active").toString());
-					gridArray.add(new Category(id, name, is_active, 0));
+					photoJson = jsonResponse.optString("photo").toString();
+					p = this.getPhoto(photoJson);
+					gridArray.add(new Category(id, name, is_active, 0,p));
 				}
 			} else {
 				return gridArray;

@@ -128,9 +128,7 @@ public class CategoriesActivity extends Activity {
 			categoryItems.add(i);
 		} else {
 			for (int i = 0; i < categories.size(); i++) {
-				catUrl = (new myURL(null, "cat_images", categories.get(i)
-						.toString(), 0)).getURL();
-				categoryItems.add(new Item(categories.get(i).getId(), catUrl,
+				categoryItems.add(new Item(categories.get(i).getId(), categories.get(i).getPhoto().getThumb(),
 						categories.get(i).toString(), categories.get(i)
 								.isActive()));
 			}
@@ -331,7 +329,7 @@ public class CategoriesActivity extends Activity {
 
 	public void addCategory(String categoryName, int shopId) {
 		String serverURL = new myURL("categories", null, 0, 0).getURL();
-		Category newCategory = new Category(0, categoryName, true, shopId);
+		Category newCategory = new Category(0, categoryName, true, shopId,null);
 		RZHelper p = new RZHelper(serverURL, this, "afterCreation", false);
 		p.post(newCategory);
 	}
@@ -340,7 +338,7 @@ public class CategoriesActivity extends Activity {
 		String serverURL = new myURL(null, "categories", categoryId, 0)
 				.getURL();
 		Category newCategory = new Category(categoryId, categoryName, true,
-				shopId);
+				shopId,null);
 		newName = categoryName;
 		RZHelper p = new RZHelper(serverURL, this, "afterCreation", false);
 		p.put(newCategory);
