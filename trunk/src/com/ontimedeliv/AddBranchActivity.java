@@ -174,7 +174,11 @@ public class AddBranchActivity extends Activity implements
 		EditText desc = ((EditText) findViewById(R.id.addDesc));
 		EditText address = ((EditText) findViewById(R.id.editTextAddress));
 		EditText estimation = ((EditText) findViewById(R.id.estimation));
+		EditText delivery_charge = ((EditText) findViewById(R.id.deliverycharge));
+		EditText min_order = ((EditText) findViewById(R.id.minorder));
 
+		delivery_charge.setText(currentBranch.getDelivery_charge() +" "+getString(R.string.lira));
+		min_order.setText(currentBranch.getMin_amount()+" " +getString(R.string.lira));
 		name.setText(currentBranch.getName());
 		desc.setText(currentBranch.getDescription());
 		address.setText(currentBranch.getAddress());
@@ -197,9 +201,15 @@ public class AddBranchActivity extends Activity implements
 				.getText().toString();
 		String estimation = ((EditText) findViewById(R.id.estimation))
 				.getText().toString();
+		String deliverycharge = ((EditText) findViewById(R.id.deliverycharge))
+				.getText().toString();
+		String minorder = ((EditText) findViewById(R.id.minorder))
+				.getText().toString();
 
 		currentBranch = new Branch(branchId, name, desc,
 				new Area(selectedArea), address, new Shop(shopId), estimation);
+		currentBranch.setDelivery_charge(deliverycharge);
+		currentBranch.setMin_amount(minorder);		
 		currentBranch.setTosFroms(listAdapter.froms, listAdapter.tos,
 				listAdapter.openDays);
 		ValidationError valid = currentBranch.validate();

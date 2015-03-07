@@ -69,13 +69,18 @@ public class BranchesActivity extends Activity {
 			return;
 		} else {
 			for (int i = 1; i < branches.size(); i++) {
-				branchesItem.add(new Item(branches.get(i).getId(), "", branches
-						.get(i).displayName()));
+				Item myItem = new Item(branches.get(i).getId(), "", branches
+						.get(i).displayName());
+				myItem.setTime(branches.get(i).getEstimation_time());
+				myItem.setCharge(branches.get(i).getDelivery_charge());
+				myItem.setMinimum(branches.get(i).getMin_amount());
+				branchesItem.add(myItem);
 			}
 			registerForContextMenu(listView);
 		}
 		dataAdapter = new MyCustomAdapter(this, R.layout.branches_list,
 				branchesItem);
+		dataAdapter.setType("branch");
 		SharedMenu.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {

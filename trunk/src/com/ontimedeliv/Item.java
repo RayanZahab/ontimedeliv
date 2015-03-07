@@ -10,6 +10,7 @@ public class Item {
 	private int id, img;
 	private int quantity;
 	private double price;
+	private String time,charge, minimum;
 	private String method, orderStatus;
 
 	public Item() {
@@ -178,6 +179,30 @@ public class Item {
 
 	public void setEmpty(boolean empty) {
 		this.empty = empty;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getCharge() {
+		return charge;
+	}
+
+	public void setCharge(String charge) {
+		this.charge = charge;
+	}
+
+	public String getMinimum() {
+		return minimum;
+	}
+
+	public void setMinimum(String minimum) {
+		this.minimum = minimum;
 	}
 
 }

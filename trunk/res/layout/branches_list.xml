@@ -45,14 +45,23 @@
             android:layout_gravity="center"
             android:layout_weight="0.16"
             android:gravity="right"
-            android:text="20min"
+            android:text="20"
+            android:textColor="@color/turquoise" />
+        <TextView
+            android:id="@+id/estimatedtimelabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.10"
+            android:gravity="right"
+            android:text="min"
             android:textColor="@color/turquoise" />
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="15dp"
             android:layout_gravity="left"
-            android:layout_weight="0.16"
+            android:layout_weight="0.06"
             android:src="@drawable/estimatedtime" />
 
         <TextView
@@ -60,9 +69,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.16"
+            android:layout_weight="0.08"
             android:gravity="right"
-            android:text="15$"
+            android:text="15"
+            android:textColor="@color/turquoise" />
+        <TextView
+            android:id="@+id/minorderlabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.08"
+            android:gravity="right"
+            android:text="$"
             android:textColor="@color/turquoise" />
 
         <ImageView
@@ -77,9 +95,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.16"
+            android:layout_weight="0.08"
             android:gravity="right"
-            android:text="2$"
+            android:text="2"
+            android:textColor="@color/turquoise" />
+        <TextView
+            android:id="@+id/delivchargelabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.08"
+            android:gravity="right"
+            android:text="$"
             android:textColor="@color/turquoise" />
 
         <ImageView

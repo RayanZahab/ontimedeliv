@@ -45,8 +45,8 @@ public class OpenHours {
 					day.put("from", froms.get(i));
 					day.put("to", tos.get(i));
 				} else {
-					day.put("from", "null");
-					day.put("to", "null");
+					day.put("from", 0);
+					day.put("to", 0);
 				}
 				day.put("day", days.get(i));
 				jsonArray.put(day);

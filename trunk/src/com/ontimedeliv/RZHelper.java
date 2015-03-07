@@ -200,6 +200,7 @@ public class RZHelper {
 
 	public void post(Object obj) {
 		JSONObject params = (new APIManager()).objToCreate(obj);
+		Log.d("ray","obj: "+params.toString());
 		if (loader != null && show) {
 			myAQuery.progress(loader).post(url, params, JSONObject.class,
 					callBack);
@@ -219,6 +220,7 @@ public class RZHelper {
 
 	public void put(Object obj) {
 		JSONObject params = (new APIManager()).objToCreate((Object) obj);
+		Log.d("ray","obj: "+params.toString());
 		if (loader != null && show) {
 			myAQuery.progress(loader).put(url, params, JSONObject.class,
 					callBack);
