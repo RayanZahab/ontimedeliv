@@ -308,7 +308,7 @@ public class APIManager {
 			jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id;
-				String name;
+				String name,time,charge, minimum;
 				if (jsonResponse.has("elements")) {
 					JSONArray jsonMainNode = jsonResponse
 							.optJSONArray("elements");
@@ -319,7 +319,14 @@ public class APIManager {
 						id = Converter.toInt(jsonChildNode.optString("id")
 								.toString());
 						name = jsonChildNode.optString("name").toString();
-						gridArray.add(new Branch(id, name, null, null));
+						time = jsonChildNode.optString("delivery_expected_time").toString();
+						charge = jsonChildNode.optString("delivery_charge").toString();
+						minimum = jsonChildNode.optString("min_amount").toString();
+						Branch b = new Branch(id, name, null, null);
+						b.setMin_amount(minimum);
+						b.setEstimation_time(time);
+						b.setDelivery_charge(charge);
+						gridArray.add(b);
 					}
 				}
 			}
@@ -335,7 +342,7 @@ public class APIManager {
 			JSONObject jsonResponse = new JSONObject(cont);
 			if (!errorCheck(jsonResponse)) {
 				int id;
-				String name, address, estimation_time, description;
+				String name, address, estimation_time, min_amount, delivery_charge, description;
 				JSONObject open_hours;
 				Area area = null;
 				id = Converter.toInt(jsonResponse.optString("id").toString());
@@ -343,6 +350,10 @@ public class APIManager {
 				description = jsonResponse.optString("description").toString();
 				address = jsonResponse.optString("address").toString();
 				estimation_time = jsonResponse.optString("estimation_time")
+						.toString();
+				min_amount = jsonResponse.optString("min_amount")
+						.toString();
+				delivery_charge = jsonResponse.optString("delivery_charge")
 						.toString();
 
 				area = getBranchArea(jsonResponse);
@@ -352,6 +363,8 @@ public class APIManager {
 
 				Branch b = new Branch(id, name, description, area, address,
 						null, estimation_time);
+				b.setMin_amount(min_amount);
+				b.setDelivery_charge(delivery_charge);
 				b.setOpenHours(getOpenHours(open_hours));
 				return b;
 			}
@@ -1221,7 +1234,9 @@ public class APIManager {
 				body.put("area_id", c.getArea().getId());
 				body.put("long", c.getLongitude());
 				body.put("lat", c.getLatitude());
-				body.put("estimation_time", c.getEstimation_time());
+				body.put("estimation_time", ""+c.getEstimation_time());
+				body.put("min_amount", ""+c.getMin_amount());
+				body.put("delivery_charge",""+ c.getDelivery_charge());
 
 				jsonObjSend.put("branch", body);
 			} catch (JSONException e) {

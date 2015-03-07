@@ -19,6 +19,9 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 	private ItemsFilter mFilter;
 	private int layout = R.layout.categories_list;
 	public boolean empty;
+	private String type="";
+	
+	
 
 	public MyCustomAdapter(Context context, int textViewResourceId,
 			ArrayList<Item> navList) {
@@ -57,6 +60,7 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 	class ViewHolder {
 		TextView name;
 		ImageView picture;
+		TextView charge, minimum, time;
 	}
 
 	@Override
@@ -94,7 +98,17 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 		} else if (position == 0) {
 			if (holder.picture != null
 					&& holder.picture.getVisibility() == View.GONE)
-				holder.picture.setVisibility(View.VISIBLE);
+				holder.picture.setVisibility(View.VISIBLE);			
+		}
+		if(this.type.equals("branch"))
+		{
+
+			holder.time = (TextView) convertView.findViewById(R.id.estimatedtime);
+			holder.time.setText(Html.fromHtml(navitem.getTime()));
+			holder.minimum = (TextView) convertView.findViewById(R.id.minorder);
+			holder.minimum.setText(Html.fromHtml(navitem.getMinimum()));
+			holder.charge = (TextView) convertView.findViewById(R.id.delivcharge);
+			holder.charge.setText(Html.fromHtml(navitem.getCharge()));
 		}
 		holder.name.setTag(navitem);
 
@@ -120,6 +134,14 @@ class MyCustomAdapter extends ArrayAdapter<Item> implements Filterable {
 			mFilter = new ItemsFilter(this, currentList, tmpList);
 		}
 		return mFilter;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }
