@@ -96,6 +96,7 @@ public class BranchesActivity extends Activity {
 						ontimedeliv.setBranchId(dataAdapter.tmpList.get(
 								position).getId());
 						startActivity(i);
+						Log.d("ray","clicked ");
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
