@@ -177,8 +177,8 @@ public class AddBranchActivity extends Activity implements
 		EditText delivery_charge = ((EditText) findViewById(R.id.deliverycharge));
 		EditText min_order = ((EditText) findViewById(R.id.minorder));
 
-		delivery_charge.setText(currentBranch.getDelivery_charge() +" "+getString(R.string.lira));
-		min_order.setText(currentBranch.getMin_amount()+" " +getString(R.string.lira));
+		delivery_charge.setText(currentBranch.getDelivery_charge());
+		min_order.setText(currentBranch.getMin_amount());
 		name.setText(currentBranch.getName());
 		desc.setText(currentBranch.getDescription());
 		address.setText(currentBranch.getAddress());
