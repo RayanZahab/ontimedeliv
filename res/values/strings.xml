@@ -44,7 +44,7 @@
     <string name="slash">/</string>
     <string name="priceunit">Price/Unit</string>
     <string name="producticon">Product Icon:</string>
-    <string name="estimatedtime">Estimated Time:</string>
+    <string name="estimatedtime">Estimated Time / minute:</string>
     <string name="description">Description:</string>
     <string name="productname">Product Name:</string>
     <string name="selectlanguage">Select Language</string>
@@ -88,8 +88,8 @@
     <string name="forgotpass"><u>Forgot Password?</u></string>
     <string name="enter">Enter</string>
     <string name="catlogo">Category Logo</string>
-    <string name="minorder">Minimum Order Amount</string>
-    <string name="deliverycharge">Delivery Charge</string>
+    <string name="minorder">Minimum Order Amount / L.L</string>
+    <string name="deliverycharge">Delivery Charge / L.L</string>
     <string name="passchanged">Password successfully changed</string>
 
     <string-array name="acc_type">
