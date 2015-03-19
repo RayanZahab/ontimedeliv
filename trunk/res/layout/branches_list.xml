@@ -69,7 +69,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.08"
+            android:layout_weight="0.16"
             android:gravity="right"
             android:text="15"
             android:textColor="@color/turquoise" />
@@ -87,7 +87,7 @@
             android:layout_width="0dp"
             android:layout_height="15dp"
             android:layout_gravity="left"
-            android:layout_weight="0.16"
+            android:layout_weight="0.08"
             android:src="@drawable/minorder" />
 
         <TextView
@@ -95,7 +95,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.08"
+            android:layout_weight="0.16"
             android:gravity="right"
             android:text="2"
             android:textColor="@color/turquoise" />
@@ -113,7 +113,7 @@
             android:layout_width="0dp"
             android:layout_height="15dp"
             android:layout_gravity="left"
-            android:layout_weight="0.16"
+            android:layout_weight="0.08"
             android:src="@drawable/delivcharge" />
     </LinearLayout>
 
