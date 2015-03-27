@@ -7,6 +7,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -329,7 +330,8 @@ public class OrderInfoActivity extends Activity {
 	}
 
 	public void done(String s, String error) {
-		glob.bkToNav(this, getString(R.string.order_updated));
+		Intent i = new Intent(getBaseContext(),OrdersActivity.class);
+		startActivity(i);
 	}
 
 	public void disable(boolean closed) {

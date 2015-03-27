@@ -63,7 +63,7 @@ public class Photo {
 		try {
 			fileInputStream = new FileInputStream(url);
 			int bytesAvailable = fileInputStream.available();
-			if (bytesAvailable <= (50 * 1024)) {
+			if (bytesAvailable <= (200 * 8 * 1024)) {
 				valid = true;
 
 			} else
