@@ -1,7 +1,6 @@
 package com.ontimedeliv;
 
 import java.util.Locale;
-
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;

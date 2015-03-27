@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -130,19 +131,14 @@ public class UsersActivity extends Activity {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();
-
-		switch (item.getItemId()) {
-		case R.id.delete:
-			Delete((int) info.id);
-			break;
-		default:
-			break;
-
-		}
+		Log.d("ray","cont menu: "+item.getItemId());
+		Delete((int) info.id);
 		return true;
 	}
 
 	public void Delete(final int position) {
+		Log.d("ray","deleting user");
+		
 		final int catId = (dataAdapter.tmpList.get(position)).getId();
 		new AlertDialog.Builder(this)
 				.setTitle(R.string.deletethisuser)
@@ -152,19 +148,23 @@ public class UsersActivity extends Activity {
 
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
+								Log.d("ray","deleting user");
+								usersItem.remove(position);
 								String serverURL = new myURL(null, "users",
 										catId, 0).getURL();
 								RZHelper p = new RZHelper(serverURL,
-										UsersActivity.this, "afterDelete", true);
+										UsersActivity.this, "afterDelete", false);
 								p.delete();
-								usersItem.remove(position);
 							}
 						}).setNegativeButton(android.R.string.no, null).show();
 	}
 
 	public void afterDelete(String s, String error) {
-		Intent i = new Intent(UsersActivity.this, UsersActivity.class);
-		startActivity(i);
+		//Intent i = new Intent(UsersActivity.this, UsersActivity.class);
+		//startActivity(i);
+		dataAdapter.currentList = usersItem;
+		dataAdapter.tmpList = usersItem;
+		dataAdapter.notifyDataSetChanged();
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
