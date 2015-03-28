@@ -5,8 +5,10 @@
 
     <ImageView
         android:id="@+id/picture"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="47dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/user" />
