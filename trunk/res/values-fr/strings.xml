@@ -1,7 +1,7 @@
 <resources>
 
 
-    <string name="app_name">OnTimeDeliv_fr</string>
+    <string name="app_name">Delivery</string>
     <string name="action_settings">Settings_fr</string>
     <string name="hello_world">Hello world!_fr</string>
     <string name="username">User Name_fr</string>
