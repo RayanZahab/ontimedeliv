@@ -118,7 +118,6 @@ public class LoginActivity extends Activity {
 		ImageView img = (ImageView) findViewById(viewId);
 		switch (viewId) {
 		case R.id.english:
-			img = (ImageView) findViewById(R.id.english);
 			if (img != null) {
 				img.setImageResource(R.drawable.arlanguage);
 				img.setId(R.id.arabic);
