@@ -26,6 +26,7 @@ import com.mobilife.delivery.admin.adapter.MyCustomAdapter;
 import com.mobilife.delivery.admin.model.Item;
 import com.mobilife.delivery.admin.model.User;
 import com.mobilife.delivery.admin.utilities.APIManager;
+import com.mobilife.delivery.admin.utilities.PreferenecesManager;
 import com.mobilife.delivery.admin.utilities.RZHelper;
 import com.mobilife.delivery.admin.utilities.myURL;
 
@@ -47,7 +48,8 @@ public class UsersActivity extends Activity {
 	}
 
 	public void getUsers() {
-		String serverURL = new myURL("users", null, 0, 30).getURL();
+		User user = PreferenecesManager.getInstance().getUserFromPreferences(this);
+		String serverURL = new myURL("users?branch_id="+user.getBranch_id(), null, 0, 30).getURL();
 		RZHelper p = new RZHelper(serverURL, this, "setUsers", true);
 		p.get();
 	}
