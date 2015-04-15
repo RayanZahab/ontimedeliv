@@ -56,8 +56,10 @@ public class APIManager {
 						"preparer").toString());
 				boolean delivery = Converter.toBoolean(jsonRole.optString(
 						"deliverer").toString());
+				boolean isSuperAdmin = Converter.toBoolean(jsonRole.optString(
+						"super_admin").toString());
 				User u = new User(id, name, token, branch_id, admin, preparer,
-						delivery);
+						delivery,isSuperAdmin);
 				u.setShop_id(shop_id);
 				Log.d("rays shop", "shop: " + shop_id);
 				return u;
@@ -318,6 +320,29 @@ public class APIManager {
 		return id;
 	}
 
+	public ArrayList<Branch> getBranches(String cont) {
+		JSONObject jsonResponse;
+		ArrayList<Branch> gridArray = new ArrayList<Branch>();
+		try {
+			jsonResponse = new JSONObject(cont);
+			if (!errorCheck(jsonResponse)) {
+				if (jsonResponse.has("elements")) {
+					JSONArray jsonMainNode = jsonResponse
+							.optJSONArray("elements");
+					int lengthJsonArr = jsonMainNode.length();
+					for (int i = 0; i < lengthJsonArr; i++) {
+						JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+						Branch branch = getBranch(jsonChildNode.toString());
+						gridArray.add(branch);					
+					}
+				}
+			}
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+		return gridArray;
+	}
 	public ArrayList<Branch> getBranchesByShop(String cont) {
 		JSONObject jsonResponse;
 		ArrayList<Branch> gridArray = new ArrayList<Branch>();
@@ -891,33 +916,21 @@ public class APIManager {
 				double total;
 				Customer customer = new Customer(0, null, null);
 				if (jsonResponse.has("elements")) {
-					JSONArray jsonMainNode = jsonResponse
-							.optJSONArray("elements");
+					JSONArray jsonMainNode = jsonResponse.optJSONArray("elements");
 					int lengthJsonArr = jsonMainNode.length();
 					for (int i = 0; i < lengthJsonArr; i++) {
-						JSONObject jsonChildNode = jsonMainNode
-								.getJSONObject(i);
-
-						id = Converter.toInt(jsonChildNode.optString("id")
-								.toString());
+						JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+						id = Converter.toInt(jsonChildNode.optString("id").toString());
 						status = jsonChildNode.optString("status").toString();
 						date = jsonChildNode.optString("created_at").toString();
-						is_new = Converter.toBoolean(jsonChildNode.optString(
-								"is_new").toString());
-
-						customer_name_str = jsonChildNode.optString(
-								"customer_name").toString();
+						is_new = Converter.toBoolean(jsonChildNode.optString("is_new").toString());
+						customer_name_str = jsonChildNode.optString("customer_name").toString();
 						Log.d("rays", "cust: " + customer_name_str);
-						if (customer_name_str != null
-								&& !customer_name_str.isEmpty()
-								&& !jsonChildNode.isNull("customer_name")) {
+						if (customer_name_str != null && !customer_name_str.isEmpty() && !jsonChildNode.isNull("customer_name")) {
 							customer = new Customer(0, customer_name_str, null);
 						}
-
-						total = Converter.toDouble(jsonChildNode.optString(
-								"total").toString());
-						count = Converter.toInt(jsonChildNode
-								.optString("count").toString());
+						total = Converter.toDouble(jsonChildNode.optString("total").toString());
+						count = Converter.toInt(jsonChildNode.optString("count").toString());
 						Order c = new Order(id, customer, total, count);
 						c.setStatus(status);
 						c.setNewCustomer(is_new);

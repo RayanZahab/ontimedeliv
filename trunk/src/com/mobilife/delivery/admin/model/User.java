@@ -4,7 +4,6 @@ import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 import com.mobilife.delivery.admin.R;
 import com.mobilife.delivery.admin.ValidationError;
-import com.mobilife.delivery.admin.R.string;
 
 public class User {
 	private int id;
@@ -15,7 +14,7 @@ public class User {
 	private int is_fired;
 	private Address address;
 	private int branch_id, shop_id;
-	private boolean is_admin, is_preparer, is_delivery, login;
+	private boolean is_admin, is_preparer, is_delivery, login, isSuperAdmin;
 
 	public User(int id, String name, String password, String phone,
 			int is_fired, Address address, int branch_id, boolean is_admin,
@@ -43,7 +42,19 @@ public class User {
 	}
 
 	public User(int id, String name, String token, int branch_id,
-			boolean is_admin, boolean is_preparer, boolean is_delivery) {
+			boolean is_admin, boolean is_preparer, boolean is_delivery,boolean isSuperAdmin) {
+		this.setName(name);
+		this.setId(id);
+		this.setBranch_id(branch_id);
+		this.setIs_admin(is_admin);
+		this.setIs_preparer(is_preparer);
+		this.setIs_delivery(is_delivery);
+		this.setSuperAdmin(isSuperAdmin);
+		this.setToken(token);
+	}
+	
+	public User(int id, String name,String phone, String token, int branch_id,
+			boolean is_admin, boolean is_preparer, boolean is_delivery,boolean isSuperAdmin) {
 		this.setName(name);
 		this.setId(id);
 		this.setBranch_id(branch_id);
@@ -51,6 +62,8 @@ public class User {
 		this.setIs_preparer(is_preparer);
 		this.setIs_delivery(is_delivery);
 		this.setToken(token);
+		this.setPhone(phone);
+		this.setSuperAdmin(isSuperAdmin);
 	}
 
 	public User(String phone, String password) {
@@ -213,5 +226,13 @@ public class User {
 
 	public void setShop_id(int shop_id) {
 		this.shop_id = shop_id;
+	}
+
+	public boolean isSuperAdmin() {
+		return isSuperAdmin;
+	}
+
+	public void setSuperAdmin(boolean isSuperAdmin) {
+		this.isSuperAdmin = isSuperAdmin;
 	}
 }

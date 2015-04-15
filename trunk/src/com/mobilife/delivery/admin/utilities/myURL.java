@@ -43,9 +43,12 @@ public class myURL {
 			url += url + by + "/" + currentVal + "/" + api;
 		}
 
-		if (limit > 0) {
+		if (limit > 0 && url.contains("?")) {
+			url += "&limit=" + limit;
+		}else if (limit > 0) {
 			url += "?limit=" + limit;
 		}
+		
 		return urlPrefix + url;
 	}
 

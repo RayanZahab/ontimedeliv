@@ -25,7 +25,9 @@ import com.mobilife.delivery.admin.R;
 import com.mobilife.delivery.admin.adapter.MyCustomAdapter;
 import com.mobilife.delivery.admin.model.Branch;
 import com.mobilife.delivery.admin.model.Item;
+import com.mobilife.delivery.admin.model.User;
 import com.mobilife.delivery.admin.utilities.APIManager;
+import com.mobilife.delivery.admin.utilities.PreferenecesManager;
 import com.mobilife.delivery.admin.utilities.RZHelper;
 import com.mobilife.delivery.admin.utilities.myURL;
 
@@ -57,14 +59,22 @@ public class BranchesActivity extends Activity {
 	}
 
 	public void getBranches() {
-		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
+		User user = PreferenecesManager.getInstance().getUserFromPreferences(this);
+		String serverURL = new myURL(null, "branches", user.getBranch_id(), 0).getURL();
+		//String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
 		RZHelper p = new RZHelper(serverURL, this, "setBranches", true);
 		p.get();
 	}
 
 	public void setBranches(String s, String error) {
 		Log.d("ray", "reply: " + s);
-		branches = new APIManager().getBranchesByShop(s);
+		if(PreferenecesManager.getInstance().getUserFromPreferences(this).isSuperAdmin()){
+			branches = new APIManager().getBranches(s);
+		}else{
+			Branch branch= new APIManager().getBranch(s);
+			branches = new ArrayList<Branch>();
+			branches.add(branch);	
+		}
 		branchesItem = new ArrayList<Item>();
 		ListView listView = (ListView) findViewById(R.id.list);
 
@@ -72,13 +82,13 @@ public class BranchesActivity extends Activity {
 
 		if (branches.size() == 0) {
 			branchesItem.add(new Item(0, "", getString(R.string.empty_list)));
-		} else if (branches.size() == 1) {
+		} /*else if (branches.size() == 1) {
 			DeliveryAdminApplication.setBranchId(branchesItem.get(0).getId());
 			Intent i = new Intent(getBaseContext(), CategoriesActivity.class);
 			startActivity(i);
 			return;
-		} else {
-			for (int i = 1; i < branches.size(); i++) {
+		}*/ else {
+			for (int i = 0; i < branches.size(); i++) {
 				Item myItem = new Item(branches.get(i).getId(), "", branches
 						.get(i).displayName());
 				myItem.setTime(branches.get(i).getEstimation_time());

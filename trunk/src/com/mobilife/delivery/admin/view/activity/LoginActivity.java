@@ -164,6 +164,7 @@ public class LoginActivity extends Activity {
 			editor.putBoolean("admin", user.isIs_admin());
 			editor.putBoolean("preparer", user.isIs_preparer());
 			editor.putBoolean("delivery", user.isIs_delivery());
+			editor.putBoolean("superadmin", user.isSuperAdmin());
 			editor.putInt("shopId", user.getShop_id());
 			editor.putInt("branchId", user.getBranch_id());
 			editor.putInt("id", user.getId());
@@ -172,7 +173,7 @@ public class LoginActivity extends Activity {
 
 			((DeliveryAdminApplication) this.getApplication()).setGlobals();
 			Intent i;
-			if (user.isIs_admin())
+			if (user.isIs_admin() ||user.isSuperAdmin() )
 				i = new Intent(this, NavigationActivity.class);
 			else
 				i = new Intent(this, OrdersActivity.class);

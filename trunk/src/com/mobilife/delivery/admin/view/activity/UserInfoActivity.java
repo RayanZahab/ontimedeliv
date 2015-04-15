@@ -2,27 +2,10 @@ package com.mobilife.delivery.admin.view.activity;
 
 import java.util.ArrayList;
 
-import com.mobilife.delivery.admin.DeliveryAdminApplication;
-import com.mobilife.delivery.admin.R;
-import com.mobilife.delivery.admin.ValidationError;
-import com.mobilife.delivery.admin.R.array;
-import com.mobilife.delivery.admin.R.id;
-import com.mobilife.delivery.admin.R.layout;
-import com.mobilife.delivery.admin.R.menu;
-import com.mobilife.delivery.admin.model.Branch;
-import com.mobilife.delivery.admin.model.Country;
-import com.mobilife.delivery.admin.model.Role;
-import com.mobilife.delivery.admin.model.User;
-import com.mobilife.delivery.admin.utilities.APIManager;
-import com.mobilife.delivery.admin.utilities.Converter;
-import com.mobilife.delivery.admin.utilities.GlobalM;
-import com.mobilife.delivery.admin.utilities.RZHelper;
-import com.mobilife.delivery.admin.utilities.myURL;
-
-import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +16,20 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.mobilife.delivery.admin.DeliveryAdminApplication;
+import com.mobilife.delivery.admin.R;
+import com.mobilife.delivery.admin.ValidationError;
+import com.mobilife.delivery.admin.model.Branch;
+import com.mobilife.delivery.admin.model.Country;
+import com.mobilife.delivery.admin.model.Role;
+import com.mobilife.delivery.admin.model.User;
+import com.mobilife.delivery.admin.utilities.APIManager;
+import com.mobilife.delivery.admin.utilities.Converter;
+import com.mobilife.delivery.admin.utilities.GlobalM;
+import com.mobilife.delivery.admin.utilities.PreferenecesManager;
+import com.mobilife.delivery.admin.utilities.RZHelper;
+import com.mobilife.delivery.admin.utilities.myURL;
 
 public class UserInfoActivity extends Activity implements
 		OnItemSelectedListener {
@@ -55,6 +52,7 @@ public class UserInfoActivity extends Activity implements
 		ActionBar actionBar = getActionBar();
 		shopId = DeliveryAdminApplication.getShopId(this);
 		countriesSP = (Spinner) findViewById(R.id.countriesSP);
+		countriesSP.setVisibility(View.INVISIBLE);
 		code = (EditText) findViewById(R.id.countrycode);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		DeliveryAdminApplication.clear("user");
@@ -183,16 +181,15 @@ public class UserInfoActivity extends Activity implements
 	}
 
 	public void getBranches(boolean first) {
-		String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
-		boolean last = true;
-		if (DeliveryAdminApplication.getCountries() == null)
-			last = false;
-		RZHelper p = new RZHelper(serverURL, this, "setBranches", first, last);
+		User user = PreferenecesManager.getInstance().getUserFromPreferences(this);
+		String serverURL = new myURL(null, "branches", user.getBranch_id(), 0).getURL();
+		//String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
+		RZHelper p = new RZHelper(serverURL, this, "setBranches", true);
 		p.get();
 	}
 
 	public void setBranches(String s, String error) {
-		this.branches = new APIManager().getBranchesByShop(s);
+		this.branches = new APIManager().getBranches(s);
 		branchesSP = (Spinner) findViewById(R.id.branchesSP);
 		ArrayAdapter<Branch> branchAdapter = new ArrayAdapter<Branch>(this,
 				android.R.layout.simple_spinner_item, branches);
@@ -204,7 +201,7 @@ public class UserInfoActivity extends Activity implements
 		if (currentUser != null)
 			glob.setSelected(branchesSP, branchAdapter,
 					new Branch(currentUser.getBranch_id()));
-		getCountries();
+//		getCountries();
 	}
 
 	public void addUser(View view) {
