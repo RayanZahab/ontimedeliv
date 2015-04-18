@@ -12,6 +12,8 @@
     <string name="password">Password </string>
     <string name="confirm_password">Confirm Password </string>
     <string name="submit">Submit</string>
+    <string name="close">Close</string>
+    <string name="prepare">Prepare</string>
     <string name="categories">Categories</string>
     <string name="from">From:</string>
     <string name="no_items">No items found</string>
@@ -139,7 +141,7 @@
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="title_activity_search_results">Search Results</string>
     <string name="title_activity_user_profile">User Profile</string>
-    <string name="no_net">No net Connection</string>
+    <string name="no_net">No Internet Connection</string>
     <string name="loding">Loading please wait</string>
     <string name="restore_pass">Restore</string>
     <string name="new_orders">New Orders</string>
@@ -150,9 +152,10 @@
     <string name="branches">Branches</string>
     <string name="users">Users</string>
     <string name="empty_list">No items</string>
-    <string name="open_status">Open</string>
+    <string name="open_status">Opened</string>
     <string name="prepared_status">Prepared</string>
-    <string name="delivered_status">Closed</string>
+    <string name="closed_status">Closed</string>
+    <string name="cancelled_status">Cancelled</string>
     <string name="english">English</string>
     <string name="arabic">Arabic</string>
     <string name="pass_dnt_match">Passwords do not match </string>

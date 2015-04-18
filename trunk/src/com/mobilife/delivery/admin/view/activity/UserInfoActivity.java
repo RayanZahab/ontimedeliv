@@ -35,9 +35,9 @@ public class UserInfoActivity extends Activity implements
 		OnItemSelectedListener {
 
 	Button addButton;
-	EditText username, inputphone, code;
+	EditText username, inputphone;
 	CheckBox admin, preparer, delivery;
-	Spinner branchesSP, countriesSP;
+	Spinner branchesSP;
 	User currentUser;
 	int branchId, userId = 0;
 	ArrayList<Branch> branches;
@@ -51,9 +51,6 @@ public class UserInfoActivity extends Activity implements
 		setContentView(R.layout.activity_user_info);
 		ActionBar actionBar = getActionBar();
 		shopId = DeliveryAdminApplication.getShopId(this);
-		countriesSP = (Spinner) findViewById(R.id.countriesSP);
-		countriesSP.setVisibility(View.INVISIBLE);
-		code = (EditText) findViewById(R.id.countrycode);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		DeliveryAdminApplication.clear("user");
 		if (getIntent().hasExtra("id")) {
@@ -69,37 +66,6 @@ public class UserInfoActivity extends Activity implements
 		} else {
 			getBranches(true);
 		}
-	}
-
-	private void getCountriesFromDB() {
-		String serverURL = new myURL(null, "countries", "get_all_cities_areas",
-				0).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setCountries", false, true);
-		p.get();
-	}
-
-	public void setCountries(String s, String error) {
-		countries = new APIManager().getCountries(s);
-		DeliveryAdminApplication.setCountries(countries);
-		updateList();
-	}
-
-	private void getCountries() {
-		countries = DeliveryAdminApplication.getCountries();
-		if (DeliveryAdminApplication.getCountries() == null)
-			getCountriesFromDB();
-		else
-			updateList();
-	}
-
-	private void updateList() {
-		ArrayAdapter<Country> counrytAdapter = new ArrayAdapter<Country>(this,
-				android.R.layout.simple_spinner_item, countries);
-		counrytAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		counrytAdapter.notifyDataSetChanged();
-		countriesSP.setAdapter(counrytAdapter);
-		countriesSP.setOnItemSelectedListener(this);
 	}
 
 	@Override
@@ -122,35 +88,14 @@ public class UserInfoActivity extends Activity implements
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
 		Object sp1 = arg0.getSelectedItem();
-		if (sp1 instanceof Country) {
-			Country currentCountry = (Country) arg0.getSelectedItem();
-			String countryCode = GetCountryZipCode(currentCountry.getName());
-			code.setText("" + countryCode);
-
-		} else if (sp1 instanceof Branch) {
+		if (sp1 instanceof Branch) {
 			branchesSP = (Spinner) findViewById(R.id.branchesSP);
 			Branch branch = (Branch) arg0.getSelectedItem();
 			this.branchId = branch.getId();
-
 		}
 
 	}
 
-	private String GetCountryZipCode(String CountryID) {
-
-		String CountryZipCode = "";
-
-		String[] rl = this.getResources().getStringArray(R.array.CountryCodes);
-		for (int i = 0; i < rl.length; i++) {
-			String[] g = rl[i].split(",");
-			if (g[1].trim().equals(CountryID.trim())) {
-				CountryZipCode = g[0];
-				break;
-			}
-		}
-		return CountryZipCode;
-
-	}
 
 	public void getCurrentUser(int userId) {
 		String url = new myURL(null, "users", userId, 1).getURL();
@@ -191,10 +136,8 @@ public class UserInfoActivity extends Activity implements
 	public void setBranches(String s, String error) {
 		this.branches = new APIManager().getBranches(s);
 		branchesSP = (Spinner) findViewById(R.id.branchesSP);
-		ArrayAdapter<Branch> branchAdapter = new ArrayAdapter<Branch>(this,
-				android.R.layout.simple_spinner_item, branches);
-		branchAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		ArrayAdapter<Branch> branchAdapter = new ArrayAdapter<Branch>(this, android.R.layout.simple_spinner_item, branches);
+		branchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		branchAdapter.notifyDataSetChanged();
 		branchesSP.setAdapter(branchAdapter);
 		branchesSP.setOnItemSelectedListener(this);
@@ -211,7 +154,6 @@ public class UserInfoActivity extends Activity implements
 		admin = (CheckBox) findViewById(R.id.admin);
 		preparer = (CheckBox) findViewById(R.id.preparer);
 		delivery = (CheckBox) findViewById(R.id.delivery);
-		code = (EditText) findViewById(R.id.countrycode);
 
 		User user = null;
 		String serverURL = "";

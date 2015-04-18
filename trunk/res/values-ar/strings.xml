@@ -6,6 +6,8 @@
     <string name="username">اسم المستخدم</string>
     <string name="password">كلمة السر</string>
     <string name="submit">إرسال</string>
+    <string name="close">اتمام</string>
+    <string name="prepare">تحضير</string>
     <string name="categories">الأصناف</string>
     <string name="from">من:</string>
     <string name="to">إلى:</string>
@@ -25,6 +27,9 @@
     <string name="status">حالة</string>
     <string name="notes">ملاحظات:</string>
     <string name="cancel">إلغاء</string>
+    <string name="branch">الفرع</string>
+     <string name="phonenum">رقم الموبايل</string>
+    <string name="userrole">صلاحية المستخدم</string>
     <string name="deliveryguy">مسؤول التوصيل:</string>
     <string name="preparerguy">مسؤول التحضير:</string>
     <string name="admin">مسؤول :</string>
