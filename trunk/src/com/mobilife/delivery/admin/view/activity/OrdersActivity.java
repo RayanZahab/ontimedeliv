@@ -23,6 +23,7 @@ import com.mobilife.delivery.admin.model.Item;
 import com.mobilife.delivery.admin.model.Order;
 import com.mobilife.delivery.admin.utilities.APIManager;
 import com.mobilife.delivery.admin.utilities.GlobalM;
+import com.mobilife.delivery.admin.utilities.PreferenecesManager;
 import com.mobilife.delivery.admin.utilities.RZHelper;
 import com.mobilife.delivery.admin.utilities.myURL;
 import com.mobilife.delivery.admin.view.customcomponent.PullToRefreshListView;
@@ -37,6 +38,7 @@ public class OrdersActivity extends Activity {
 	String status;
 	PullToRefreshListView lvTweets;
 	GlobalM glob = new GlobalM();
+	private boolean isSuperAdmin;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,8 @@ public class OrdersActivity extends Activity {
 		}
 		admin = DeliveryAdminApplication.isAdmin(this);
 		isPreparer = DeliveryAdminApplication.isPrep(this);
-		if (admin) {
+		isSuperAdmin = PreferenecesManager.getInstance().getUserFromPreferences(this).isSuperAdmin();
+		if (admin || isSuperAdmin) {
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		} else if (isPreparer) {
 			DeliveryAdminApplication.setOrderStatus("assigned");
@@ -134,7 +137,7 @@ public class OrdersActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		if (!admin) {
+		if (!admin || !isSuperAdmin) {
 			new AlertDialog.Builder(this)
 					.setIcon(android.R.drawable.ic_dialog_alert)
 					.setTitle(R.string.exit)

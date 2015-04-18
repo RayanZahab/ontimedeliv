@@ -93,6 +93,29 @@
                 android:paddingRight="8dp" >
             </EditText>
 
+            <Spinner
+                android:id="@+id/branchesSP"
+                android:layout_width="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_height="45dp"
+                android:layout_alignLeft="@+id/textView1"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/textView1"
+                android:background="@drawable/myspinner"
+                android:paddingRight="22dp"
+                android:spinnerMode="dialog" />
+
+            <TextView
+                android:id="@+id/textView1"
+                style="@style/mytextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/inputPassword"
+                android:layout_below="@+id/inputPassword"
+                android:layout_marginTop="18dp"
+                android:text="@string/branch"
+                android:textColor="#234666" />
+
         </RelativeLayout>
 
         <Button

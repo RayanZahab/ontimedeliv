@@ -13,15 +13,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.mobilife.delivery.admin.DeliveryAdminApplication;
 import com.mobilife.delivery.admin.R;
 import com.mobilife.delivery.admin.ValidationError;
 import com.mobilife.delivery.admin.model.Branch;
-import com.mobilife.delivery.admin.model.Country;
 import com.mobilife.delivery.admin.model.Role;
 import com.mobilife.delivery.admin.model.User;
 import com.mobilife.delivery.admin.utilities.APIManager;
@@ -31,28 +30,30 @@ import com.mobilife.delivery.admin.utilities.PreferenecesManager;
 import com.mobilife.delivery.admin.utilities.RZHelper;
 import com.mobilife.delivery.admin.utilities.myURL;
 
-public class UserInfoActivity extends Activity implements
-		OnItemSelectedListener {
+public class UserInfoActivity extends Activity implements OnItemSelectedListener {
 
 	Button addButton;
 	EditText username, inputphone;
-	CheckBox admin, preparer, delivery;
 	Spinner branchesSP;
 	User currentUser;
 	int branchId, userId = 0;
 	ArrayList<Branch> branches;
 	GlobalM glob = new GlobalM();
-	int shopId;
-	ArrayList<Country> countries = new ArrayList<Country>();
+	private EditText password;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_user_info);
+		if(PreferenecesManager.getInstance().getUserFromPreferences(this).isSuperAdmin())
+			setContentView(R.layout.activity_super_user_info);
+		else
+			setContentView(R.layout.activity_user_info);
+
 		ActionBar actionBar = getActionBar();
-		shopId = DeliveryAdminApplication.getShopId(this);
+		
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		DeliveryAdminApplication.clear("user");
+
 		if (getIntent().hasExtra("id")) {
 			Bundle extras = getIntent().getExtras();
 			try {
@@ -70,7 +71,6 @@ public class UserInfoActivity extends Activity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.user_info, menu);
 		SharedMenuActivity.onCreateOptionsMenu(this, menu, getApplicationContext());
 		return true;
@@ -105,22 +105,13 @@ public class UserInfoActivity extends Activity implements
 	}
 
 	public void setUserInfo(String s, String error) {
-
 		currentUser = (new APIManager().getUsers(s)).get(0);
-
 		username = (EditText) findViewById(R.id.nameinput);
 		inputphone = (EditText) findViewById(R.id.inputphone);
-		branchesSP = (Spinner) findViewById(R.id.branchesSP);
-		admin = (CheckBox) findViewById(R.id.admin);
-		preparer = (CheckBox) findViewById(R.id.preparer);
-		delivery = (CheckBox) findViewById(R.id.delivery);
-
+		password = (EditText)findViewById(R.id.inputPassword);
 		username.setText(currentUser.getName());
 		inputphone.setText(currentUser.getPhone());
-
-		admin.setChecked(currentUser.isIs_admin());
-		preparer.setChecked(currentUser.isIs_preparer());
-		delivery.setChecked(currentUser.isIs_delivery());
+		password.setText(currentUser.getPassword());
 		getActionBar().setTitle(currentUser.getName());
 		getBranches(false);
 	}
@@ -128,7 +119,6 @@ public class UserInfoActivity extends Activity implements
 	public void getBranches(boolean first) {
 		User user = PreferenecesManager.getInstance().getUserFromPreferences(this);
 		String serverURL = new myURL(null, "branches", user.getBranch_id(), 0).getURL();
-		//String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
 		RZHelper p = new RZHelper(serverURL, this, "setBranches", true);
 		p.get();
 	}
@@ -142,46 +132,37 @@ public class UserInfoActivity extends Activity implements
 		branchesSP.setAdapter(branchAdapter);
 		branchesSP.setOnItemSelectedListener(this);
 		if (currentUser != null)
-			glob.setSelected(branchesSP, branchAdapter,
-					new Branch(currentUser.getBranch_id()));
-//		getCountries();
+			glob.setSelected(branchesSP, branchAdapter,new Branch(currentUser.getBranch_id()));
 	}
 
 	public void addUser(View view) {
+		password = (EditText)findViewById(R.id.inputPassword);
 		username = (EditText) findViewById(R.id.nameinput);
 		inputphone = (EditText) findViewById(R.id.inputphone);
-		branchesSP = (Spinner) findViewById(R.id.branchesSP);
-		admin = (CheckBox) findViewById(R.id.admin);
-		preparer = (CheckBox) findViewById(R.id.preparer);
-		delivery = (CheckBox) findViewById(R.id.delivery);
-
 		User user = null;
 		String serverURL = "";
 		String method = "POST";
-		branchId = ((Branch) branchesSP.getSelectedItem()).getId();
+		branchId = _getBranchId();
 		if (userId > 0) {
 			serverURL = new myURL(null, "users", userId, 0).getURL();
-			user = new User(userId, username.getText().toString(),// name
-					null,// password
+			user = new User(userId, username.getText().toString(),null,//pass
 					inputphone.getText().toString(),// phone
 					0,// is fired
 					currentUser.getAddress(),// address
 					branchId,// branch
-					admin.isChecked(), preparer.isChecked(),
-					delivery.isChecked()); // roles
+					true, false,
+					false); // roles
+			user.setEncPassword(password.getText().toString());
 			method = "PUT";
-		} else {
+		}else{
 			serverURL = new myURL("users", null, 0, 0).getURL();
 			user = new User(0, username.getText().toString(), null, inputphone
-					.getText().toString(), 0, null, branchId,
-					admin.isChecked(), preparer.isChecked(),
-					delivery.isChecked());
-
-			user.setEncPassword(inputphone.getText().toString());
+					.getText().toString(), 0, null, branchId,true, false,false);
+			user.setPassword(password.getText().toString());
 		}
 		ValidationError valid = user.validate(false);
 		if (valid.isValid(this)) {
-			RZHelper p = new RZHelper(serverURL, this, "setRoles", true, false);
+			RZHelper p = new RZHelper(serverURL, this, "setRoles", true);
 			if (method.equals("POST")) {
 				p.post(user);
 			} else {
@@ -191,27 +172,36 @@ public class UserInfoActivity extends Activity implements
 
 	}
 
-	public void setRoles(String s, String error) {
-		int id = 0;
-		if (currentUser != null)
-			id = currentUser.getId();
-		if (id < 1) {
-			id = new APIManager().getUserId(s);
+	private int _getBranchId() {
+		if(PreferenecesManager.getInstance().getUserFromPreferences(this).isSuperAdmin()){
+			branchesSP = (Spinner) findViewById(R.id.branchesSP);
+			return ((Branch) branchesSP.getSelectedItem()).getId();
+		}else{
+			return PreferenecesManager.getInstance().getUserFromPreferences(this).getBranch_id();
 		}
-		String makePreparerURL = new myURL("set_roles", "users", id, 0)
-				.getURL();
-		admin = (CheckBox) findViewById(R.id.admin);
-		preparer = (CheckBox) findViewById(R.id.preparer);
-		delivery = (CheckBox) findViewById(R.id.delivery);
-		Role role = new Role();
-		role.setPreparer(preparer.isChecked());
-		role.setAdmin(admin.isChecked());
-		role.setDelivery(delivery.isChecked());
-		ValidationError valid = role.validate(false);
-		if (valid.isValid(this)) {
-			RZHelper p = new RZHelper(makePreparerURL, this, "afterRoles",
-					false, true);
-			p.post(role);
+	}
+
+
+	public void setRoles(String s, String error) {
+		if(error==null){
+			int id = 0;
+			if (currentUser != null)
+				id = currentUser.getId();
+			if (id < 1) {
+				id = new APIManager().getUserId(s);
+			}
+			String makePreparerURL = new myURL("set_roles", "users", id, 0).getURL();
+			Role role = new Role();
+			role.setPreparer(false);
+			role.setAdmin(true);
+			role.setDelivery(false);
+			ValidationError valid = role.validate(false);
+			if (valid.isValid(this)) {
+				RZHelper p = new RZHelper(makePreparerURL, this, "afterRoles",true);
+				p.post(role);
+			}
+		}else{
+			Toast.makeText(getApplicationContext(),R.string.problemInUserCreate, Toast.LENGTH_SHORT).show();
 		}
 
 	}

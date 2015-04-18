@@ -341,6 +341,7 @@ public class CategoriesActivity extends Activity {
 	public void addCategory(String categoryName, int shopId) {
 		String serverURL = new myURL("categories", null, 0, 0).getURL();
 		Category newCategory = new Category(0, categoryName, true, shopId,null);
+		newCategory.setBranchId(DeliveryAdminApplication.getBranchId(this));
 		RZHelper p = new RZHelper(serverURL, this, "afterCreation", false);
 		p.post(newCategory);
 	}

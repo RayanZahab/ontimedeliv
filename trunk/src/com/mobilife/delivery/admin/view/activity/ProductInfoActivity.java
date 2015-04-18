@@ -118,6 +118,7 @@ public class ProductInfoActivity extends Activity {
 		Product p = new Product(0, price_val, name_str, desc_str, uploaded,
 				new Category(categoryId), (Unit) unitsSP.getSelectedItem(),
 				true, shopId);
+		p.setBranchId(DeliveryAdminApplication.getBranchId(getApplicationContext()));
 		ValidationError v = p.validate();
 		if (v.isValid(this)) {
 			addProduct(p);

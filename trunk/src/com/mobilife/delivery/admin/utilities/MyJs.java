@@ -14,13 +14,6 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.mobilife.delivery.admin.DeliveryAdminApplication;
-import com.mobilife.delivery.admin.R;
-import com.mobilife.delivery.admin.R.drawable;
-import com.mobilife.delivery.admin.R.string;
-import com.mobilife.delivery.admin.model.Product;
-import com.mobilife.delivery.admin.view.customcomponent.TransparentProgressDialog;
-
 import android.app.Activity;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -28,6 +21,11 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.mobilife.delivery.admin.DeliveryAdminApplication;
+import com.mobilife.delivery.admin.R;
+import com.mobilife.delivery.admin.model.Product;
+import com.mobilife.delivery.admin.view.customcomponent.TransparentProgressDialog;
 
 public class MyJs extends AsyncTask<String, Void, Void> {
 
@@ -182,7 +180,7 @@ public class MyJs extends AsyncTask<String, Void, Void> {
 		paramsVal.put("category_id", "" + p.getCategory().getId());
 		paramsVal.put("name", p.getName());
 		paramsVal.put("description", p.getDescription());
-		paramsVal.put("shop_id", "" + p.getShop_id());
+		paramsVal.put("branch_id", "" + p.getBranchId());
 		paramsVal.put("price", "" + p.getPrice());
 		paramsVal.put("unit_id", "" + p.getUnit().getId());
 		if (p.getPhoto() != null)

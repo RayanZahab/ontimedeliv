@@ -4,23 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.mobilife.delivery.admin.DeliveryAdminApplication;
-import com.mobilife.delivery.admin.R;
-import com.mobilife.delivery.admin.ValidationError;
-import com.mobilife.delivery.admin.R.id;
-import com.mobilife.delivery.admin.R.layout;
-import com.mobilife.delivery.admin.R.menu;
-import com.mobilife.delivery.admin.R.string;
-import com.mobilife.delivery.admin.model.User;
-import com.mobilife.delivery.admin.utilities.APIManager;
-import com.mobilife.delivery.admin.utilities.GlobalM;
-import com.mobilife.delivery.admin.utilities.RZHelper;
-import com.mobilife.delivery.admin.utilities.myURL;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +16,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.mobilife.delivery.admin.DeliveryAdminApplication;
+import com.mobilife.delivery.admin.R;
+import com.mobilife.delivery.admin.ValidationError;
+import com.mobilife.delivery.admin.model.User;
+import com.mobilife.delivery.admin.utilities.APIManager;
+import com.mobilife.delivery.admin.utilities.GlobalM;
+import com.mobilife.delivery.admin.utilities.RZHelper;
+import com.mobilife.delivery.admin.utilities.myURL;
 
 public class UserProfileActivity extends Activity {
 	EditText nameTxt, usernameTxt, passTxt;
@@ -74,12 +70,9 @@ public class UserProfileActivity extends Activity {
 			lang = getString(R.string.arabic);
 			lang_abv = "ar";
 		}
-		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, list);
-		dataAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
+		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		langSp.setAdapter(dataAdapter);
-
 		nameTxt.setText(name);
 		usernameTxt.setText(phone);
 		passTxt.setText(pass);
@@ -157,9 +150,7 @@ public class UserProfileActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.user_profile, menu);
-
 		return true;
 	}
 
@@ -167,7 +158,6 @@ public class UserProfileActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem menuItem) {
 		switch (menuItem.getItemId()) {
 		case android.R.id.home:
-			// ProjectsActivity is my 'home' activity
 			onBackPressed();
 			return true;
 		}

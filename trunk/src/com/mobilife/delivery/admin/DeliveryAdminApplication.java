@@ -3,18 +3,18 @@ package com.mobilife.delivery.admin;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
 
-import com.mobilife.delivery.admin.model.Country;
-import com.mobilife.delivery.admin.model.Unit;
-import com.mobilife.delivery.admin.view.activity.LoginActivity;
-import com.mobilife.delivery.admin.view.customcomponent.TextProgressDialog;
-import com.mobilife.delivery.admin.view.customcomponent.TransparentProgressDialog;
-
 import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
+import com.mobilife.delivery.admin.model.Country;
+import com.mobilife.delivery.admin.model.Unit;
+import com.mobilife.delivery.admin.view.activity.LoginActivity;
+import com.mobilife.delivery.admin.view.customcomponent.TextProgressDialog;
+import com.mobilife.delivery.admin.view.customcomponent.TransparentProgressDialog;
 
 public class DeliveryAdminApplication extends Application {
 	private static String token;

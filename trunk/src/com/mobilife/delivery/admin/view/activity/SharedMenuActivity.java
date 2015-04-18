@@ -113,16 +113,7 @@ public class SharedMenuActivity extends Activity {
 
 			Toast msg = null;
 			try {
-				msg = Toast
-						.makeText(
-								context,
-								"version"
-										+ context
-												.getPackageManager()
-												.getPackageInfo(
-														context.getPackageName(),
-														0).versionName,
-								Toast.LENGTH_LONG);
+				msg = Toast.makeText(context,"version"+ context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionName,Toast.LENGTH_LONG);
 			} catch (NameNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -138,8 +129,7 @@ public class SharedMenuActivity extends Activity {
 			caller.startActivity(intent);
 			return true;
 		case SharedMenuActivity.LogOut:
-			SharedPreferences sharedPref = context.getSharedPreferences(
-					"PREFS_NAME", 0);
+			SharedPreferences sharedPref = context.getSharedPreferences("PREFS_NAME", 0);
 			SharedPreferences.Editor editor = sharedPref.edit();
 			editor.clear();
 			editor.commit();

@@ -2,7 +2,7 @@ package com.mobilife.delivery.admin.model;
 
 
 public class Category {
-	private int id, shopId;
+	private int id, shopId,branchId;
 	private String name;
 	private boolean active;
 	private Photo photo;
@@ -61,6 +61,14 @@ public class Category {
 
 	public void setPhoto(Photo photo) {
 		this.photo = photo;
+	}
+
+	public int getBranchId() {
+		return branchId;
+	}
+
+	public void setBranchId(int branchId) {
+		this.branchId = branchId;
 	}
 
 }

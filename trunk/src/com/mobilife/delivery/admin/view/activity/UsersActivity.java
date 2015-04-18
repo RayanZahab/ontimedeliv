@@ -67,18 +67,16 @@ public class UsersActivity extends Activity {
 			for (int i = 0; i < users.size(); i++) {
 				if (users.get(i).isIs_admin()) {
 					icon = R.drawable.admin;
-				} else if (users.get(i).isIs_preparer()) {
+				}else if (users.get(i).isIs_preparer()) {
 					icon = R.drawable.preparer;
-				} else if (users.get(i).isIs_delivery()) {
+				}else if ((users.get(i).isIs_delivery())&& (users.get(i).isIs_preparer())) {
 					icon = R.drawable.delivery;
-				} else if ((users.get(i).isIs_delivery())
-						&& (users.get(i).isIs_preparer())) {
-					icon = R.drawable.delivery;
-				} else
+				}else
 					icon = R.drawable.user;
-				usersItem.add(new Item(users.get(i).getId(), icon, users.get(i)
-						.toString()));
+				
+				usersItem.add(new Item(users.get(i).getId(), icon, users.get(i).toString()));
 			}
+			
 			registerForContextMenu(listView);
 		}
 		// create an ArrayAdaptar from the String Array
@@ -94,14 +92,10 @@ public class UsersActivity extends Activity {
 				if (!empty) {
 					Intent i;
 					try {
-						i = new Intent(getBaseContext(), Class
-								.forName(getPackageName()+ ".view.activity."
-										+ "UserInfoActivity"));
-						i.putExtra("id", ""
-								+ dataAdapter.tmpList.get(position).getId());
+						i = new Intent(getBaseContext(), Class.forName(getPackageName()+ ".view.activity."+ "UserInfoActivity"));
+						i.putExtra("id", ""+ dataAdapter.tmpList.get(position).getId());
 						startActivity(i);
 					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -115,15 +109,13 @@ public class UsersActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.users, menu);
-		SharedMenuActivity.onCreateOptionsMenu(this, menu, getApplicationContext(),
-				dataAdapter);
+		SharedMenuActivity.onCreateOptionsMenu(this, menu, getApplicationContext(),dataAdapter);
 		return true;
 	}
 
 	@Override
 	public void onBackPressed() {
-		SearchView searchView = (SearchView) SharedMenuActivity.menu.findItem(
-				R.id.action_search).getActionView();
+		SearchView searchView = (SearchView) SharedMenuActivity.menu.findItem(R.id.action_search).getActionView();
 
 		if (!searchView.isIconified()) {
 			searchView.setIconified(true);
@@ -141,16 +133,12 @@ public class UsersActivity extends Activity {
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-				.getMenuInfo();
-		Log.d("ray","cont menu: "+item.getItemId());
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		Delete((int) info.id);
 		return true;
 	}
 
-	public void Delete(final int position) {
-		Log.d("ray","deleting user");
-		
+	public void Delete(final int position) {		
 		final int catId = (dataAdapter.tmpList.get(position)).getId();
 		new AlertDialog.Builder(this)
 				.setTitle(R.string.deletethisuser)
@@ -172,8 +160,6 @@ public class UsersActivity extends Activity {
 	}
 
 	public void afterDelete(String s, String error) {
-		//Intent i = new Intent(UsersActivity.this, UsersActivity.class);
-		//startActivity(i);
 		dataAdapter.currentList = usersItem;
 		dataAdapter.tmpList = usersItem;
 		dataAdapter.notifyDataSetChanged();
