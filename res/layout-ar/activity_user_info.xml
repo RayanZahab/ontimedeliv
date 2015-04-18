@@ -62,62 +62,22 @@
         android:hint="@string/name"
         android:paddingLeft="8dp"
         android:paddingRight="8dp" />
-    
-    <TextView
-        android:id="@+id/choosecountry"
-        style="@style/mytextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/nameinput"
-        android:layout_marginTop="12dp"
-        android:text="@string/select_country"
-        android:textColor="#234666" />
-
-    <Spinner
-        android:id="@+id/countriesSP"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/choosecountry"
-        android:background="@drawable/myspinner"
-        android:paddingRight="22dp"
-        android:spinnerMode="dialog" />
 
 		<TextView
-        android:id="@+id/phonenum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/countriesSP"
-        android:layout_marginTop="12dp"
-        android:text="@string/phonenum"
-        android:textColor="#234666" />
-		
-	<EditText
-	    android:id="@+id/countrycode"
-	    android:layout_width="60dp"
-	    android:layout_height="45dp"
-	    android:layout_alignParentLeft="true"
-	    android:layout_below="@+id/phonenum"
-	    android:background="@drawable/edittextbg"
-	    android:ems="10"
-	    android:gravity="center"
-	    android:inputType="none"
-	    android:enabled="false"
-	    android:paddingLeft="2dp"
-	    android:paddingRight="2dp" >
-
-    </EditText>
+		    android:id="@+id/phonenum"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:layout_alignParentRight="true"
+		    android:layout_below="@+id/nameinput"
+		    android:layout_marginTop="12dp"
+		    android:text="@string/phonenum"
+		    android:textColor="#234666" />
 
     <EditText
         android:id="@+id/inputphone"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_toRightOf="@+id/countrycode"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/phonenum"
         android:layout_marginLeft="5dp"
