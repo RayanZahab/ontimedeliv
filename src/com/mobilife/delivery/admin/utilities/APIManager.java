@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mobilife.delivery.admin.DeliveryAdminApplication;
 import com.mobilife.delivery.admin.model.Address;
 import com.mobilife.delivery.admin.model.Area;
 import com.mobilife.delivery.admin.model.Branch;
@@ -1200,6 +1201,7 @@ public class APIManager {
 			try {
 				body.put("name", c.getName());
 				body.put("shop_id", c.getShopId());
+				body.put("branch_id",c.getBranchId());
 				jsonObjSend.put("category", body);
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -1216,7 +1218,7 @@ public class APIManager {
 				} else {
 					if (c.getPassword() != null) {
 						if (c.getId() == 0) {
-							c.setEncPassword(c.getPhone());
+							c.setEncPassword(c.getPassword());
 							body.put("pass", c.getPassword());
 						} else
 							body.put("pass", c.getPassword());
@@ -1301,7 +1303,7 @@ public class APIManager {
 				body.put("is_admin", c.getAdmin() ? 1 : 0);
 				body.put("is_preparer", c.getPreparer() ? 1 : 0);
 				body.put("is_deliverer", c.getDelivery() ? 1 : 0);
-
+				body.put("is_super_admin", 0);
 				jsonObjSend.put("roles", body);
 			} catch (JSONException e) {
 				e.printStackTrace();

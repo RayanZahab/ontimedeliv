@@ -12,6 +12,7 @@ public class Product {
 	private Unit unit;
 	private boolean available;
 	private Bitmap bmpPhoto;
+	private int branchId;
 
 	public Product(int id, int price, String name, String description,
 			Photo photo, Category category, Unit unit, boolean is_available,
@@ -127,6 +128,14 @@ public class Product {
 
 	public void setBmpPhoto(Bitmap bmpPhoto) {
 		this.bmpPhoto = bmpPhoto;
+	}
+
+	public int getBranchId() {
+		return branchId;
+	}
+
+	public void setBranchId(int branchId) {
+		this.branchId = branchId;
 	}
 
 }

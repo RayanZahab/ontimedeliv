@@ -105,20 +105,14 @@ public class BranchesActivity extends Activity {
 		listView.setAdapter(dataAdapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
 				if (dataAdapter.tmpList.size() > 0) {
 					Intent i;
 					try {
-						i = new Intent(getBaseContext(), Class
-								.forName(getPackageName() + ".view.activity."
-										+ "CategoriesActivity"));
-						DeliveryAdminApplication.setBranchId(dataAdapter.tmpList.get(
-								position).getId());
+						i = new Intent(getBaseContext(), Class.forName(getPackageName() + ".view.activity."+ "CategoriesActivity"));
+						DeliveryAdminApplication.setBranchId(dataAdapter.tmpList.get(position).getId());
 						startActivity(i);
-						Log.d("ray","clicked ");
 					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}

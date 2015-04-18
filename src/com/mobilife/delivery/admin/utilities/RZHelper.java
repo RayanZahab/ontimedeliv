@@ -66,7 +66,7 @@ public class RZHelper {
 							+ error);
 					if (error != null) {
 						Toast.makeText(myAQuery.getContext(),
-								"Error2: " + error, Toast.LENGTH_LONG).show();
+								"Error: " + error, Toast.LENGTH_LONG).show();
 
 					} else {
 						Method returnFunction;
@@ -140,7 +140,7 @@ public class RZHelper {
 							+ error);
 					if (error != null) {
 						Toast.makeText(myAQuery.getContext(),
-								"Error2: " + error, Toast.LENGTH_LONG).show();
+								"Error: " + error, Toast.LENGTH_LONG).show();
 
 					} else {
 						Method returnFunction;

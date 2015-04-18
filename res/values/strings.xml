@@ -71,6 +71,7 @@
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
     <string name="invalednameentered">Invalid Name Entered</string>
+    <string name="problemInUserCreate">Problem in Create User</string>
     <string name="youselected">You selected: </string>
     <string name="areaselected">Area selected: </string>
     <string name="selected">Selected</string>
@@ -161,6 +162,7 @@
     <string name="pass_dnt_match">Passwords do not match </string>
     <string name="branch">Branch</string>
     <string name="phonenum">Phone number</string>
+    <string name="adminUserPass">Password</string>
     <string name="userrole">User Role</string>
     <string name="invalid_phone">Invalid Phone number</string>
     <string name="admin">Admin</string>
