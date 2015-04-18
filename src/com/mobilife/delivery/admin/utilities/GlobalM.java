@@ -3,12 +3,6 @@ package com.mobilife.delivery.admin.utilities;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
-import com.mobilife.delivery.admin.DeliveryAdminApplication;
-import com.mobilife.delivery.admin.R;
-import com.mobilife.delivery.admin.R.string;
-import com.mobilife.delivery.admin.view.activity.NavigationActivity;
-import com.mobilife.delivery.admin.view.activity.OrdersActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.text.format.DateUtils;
@@ -16,6 +10,11 @@ import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.mobilife.delivery.admin.DeliveryAdminApplication;
+import com.mobilife.delivery.admin.R;
+import com.mobilife.delivery.admin.view.activity.NavigationActivity;
+import com.mobilife.delivery.admin.view.activity.OrdersActivity;
 
 public class GlobalM {
 
@@ -31,22 +30,6 @@ public class GlobalM {
 				return;
 			}
 		}
-	}
-
-	public int getStatus(String status) {
-		int return_id = 0;
-		if (status.equals("assigned")) {
-			return_id = R.string.assigned_orders;
-		} else if (status.equals("closed")) {
-			return_id = R.string.closed_orders;
-		} else if (status.equals("opened")) {
-			return_id = R.string.new_orders;
-		} else if (status.equals("cancelled")) {
-			return_id = R.string.canceled_orders;
-		} else if (status.equals("prepared")) {
-			return_id = R.string.prepared_orders;
-		}
-		return return_id;
 	}
 
 	public void bkToNav(Activity a, String msg) {

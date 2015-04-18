@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import com.mobilife.delivery.admin.R;
 import com.mobilife.delivery.admin.ValidationError;
-import com.mobilife.delivery.admin.R.string;
 import com.mobilife.delivery.admin.utilities.Converter;
 
 public class Branch {

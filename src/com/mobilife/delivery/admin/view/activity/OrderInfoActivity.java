@@ -1,7 +1,6 @@
 package com.mobilife.delivery.admin.view.activity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -13,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,17 +28,19 @@ import com.mobilife.delivery.admin.adapter.OrderInfoAdapter;
 import com.mobilife.delivery.admin.model.Item;
 import com.mobilife.delivery.admin.model.Order;
 import com.mobilife.delivery.admin.model.OrderItem;
+import com.mobilife.delivery.admin.model.OrderStatus;
 import com.mobilife.delivery.admin.model.Product;
 import com.mobilife.delivery.admin.model.User;
 import com.mobilife.delivery.admin.utilities.APIManager;
 import com.mobilife.delivery.admin.utilities.Converter;
 import com.mobilife.delivery.admin.utilities.GlobalM;
 import com.mobilife.delivery.admin.utilities.Helper;
+import com.mobilife.delivery.admin.utilities.PreferenecesManager;
 import com.mobilife.delivery.admin.utilities.RZHelper;
 import com.mobilife.delivery.admin.utilities.myURL;
 
 public class OrderInfoActivity extends Activity {
-	Spinner prep, deliv, status;
+	Spinner status;
 	Button cancel, submit;
 	OrderInfoAdapter dataAdapter;
 	int orderId;
@@ -50,22 +52,26 @@ public class OrderInfoActivity extends Activity {
 	ListView listView;
 	EditText notes;
 	Boolean isAdmin = true, isPreparer = true, disabled = false;
-	ArrayList<String> stat;
+	ArrayList<String> statusValueList;
+	private TextView statusLbl;
+	private User currentUser;
+	private Button backBtn, prepareBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_info);
 		status = (Spinner) findViewById(R.id.order_status);
-		prep = (Spinner) findViewById(R.id.preparer_spinner);
-		deliv = (Spinner) findViewById(R.id.delivery_Spinner);
+		status.setVisibility(View.GONE);
+		statusLbl =  (TextView) findViewById(R.id.order_status_lable);
+		statusLbl.setVisibility(View.GONE);
 		listView = (ListView) findViewById(R.id.listView);
 		notes = (EditText) findViewById(R.id.noteinput);
 		
-		stat = new ArrayList<String>();
-		stat.add(0, "Opened");
-		stat.add(1, "Prepared");
-		stat.add(2, "Closed");
+		statusValueList = new ArrayList<String>();
+		statusValueList.add(0, OrderStatus.Opened.name());
+		statusValueList.add(1, OrderStatus.Prepared.name());
+		statusValueList.add(2, OrderStatus.Closed.name());
 		isAdmin = DeliveryAdminApplication.isAdmin(this);
 		isPreparer = DeliveryAdminApplication.isPrep(this);
 
@@ -77,20 +83,31 @@ public class OrderInfoActivity extends Activity {
 
 		if (orderId != 0) {
 			getCurrentOrder(orderId);
-			submit = (Button) findViewById(R.id.submit);
-			submit.setText("Update");
+			submit = (Button) findViewById(R.id.close);
+		//	submit.setText("Update");
 		}
 
 		String orderStatus = DeliveryAdminApplication.getOrderStatus(this);
 		actionBar.setTitle(orderStatus);
+		prepareBtn= (Button) findViewById(R.id.prepare);
+		
+		backBtn = (Button) findViewById(R.id.back);
+		backBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				finish();
+			}
+		});
+		
 		if (!isAdmin) {
 			disable(false);
 		} else {
 
-			if (orderStatus.equals("closed") || orderStatus.equals("cancelled"))
+			if (orderStatus.equalsIgnoreCase(OrderStatus.Closed.name()) || orderStatus.equalsIgnoreCase(OrderStatus.Cancelled.name()))
 				disable(true);
 		}
-
+		currentUser = PreferenecesManager.getInstance().getUserFromPreferences(this);
+		
 	}
 
 	public void cancel(View v) {
@@ -159,92 +176,43 @@ public class OrderInfoActivity extends Activity {
 		}
 	}
 
-	public void getPreparers() {
-		String serverURL = new myURL(null, "users", "preparers", 30).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setPreparers", false, true);
-		p.get();
-	}
-
-	public void setPreparers(String s, String error) {
-		User empty = new User(0, "Select");
-		ArrayList<User> userItems = new ArrayList<User>();
-		userItems.add(empty);
-		userItems.addAll(new APIManager().getUsers(s));
-
-		ArrayAdapter<User> dataAdapter = new ArrayAdapter<User>(this,
-				android.R.layout.simple_spinner_item, userItems);
-		dataAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		prep.setAdapter(dataAdapter);
-		if (currentOrder.getPreparer() != null)
-			glob.setSelected(prep, dataAdapter, currentOrder.getPreparer());
-		else
-			glob.setSelected(prep, dataAdapter, empty);
-	}
-
-	public void getDelivery() {
-		String serverURL = new myURL(null, "users", "deliverers", 30).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setDeivery", false, false);
-		p.get();
-	}
-
-	public void setDeivery(String s, String error) {
-		User empty = new User(0, "Select");
-		ArrayList<User> userItems = new ArrayList<User>();
-		userItems.add(empty);
-		userItems.addAll(new APIManager().getUsers(s));
-
-		ArrayAdapter<User> dataAdapter = new ArrayAdapter<User>(this,
-				android.R.layout.simple_spinner_item, userItems);
-		dataAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		deliv.setAdapter(dataAdapter);
-		getPreparers();
-
-		if (currentOrder.getDelivery() != null)
-			glob.setSelected(deliv, dataAdapter, currentOrder.getDelivery());
-		else
-			glob.setSelected(deliv, dataAdapter, empty);
-	}
-
 	public void addItemsOnStatus() {
-		List<String> list = new ArrayList<String>();
-		list.add(getString(R.string.open_status));
-		list.add(getString(R.string.prepared_status));
-		list.add(getString(R.string.delivered_status));
+//		List<String> list = new ArrayList<String>();
+//		list.add(getString(R.string.open_status));
+//		list.add(getString(R.string.prepared_status));
+//		list.add(getString(R.string.closed_status));
 
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, list);
+				android.R.layout.simple_spinner_item, statusValueList);
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		status.setAdapter(dataAdapter);
-		if (list.indexOf(currentOrder.getStatus()) > -1)
-			status.setSelection(list.indexOf(currentOrder.getStatus()));
+		if (statusValueList.indexOf(currentOrder.getStatus()) > -1)
+			status.setSelection(statusValueList.indexOf(currentOrder.getStatus()));
 	}
 
 	public void getCurrentOrder(int orderId) {
 		String serverURL = new myURL(null, "orders", orderId, 0).getURL();
-		RZHelper p = new RZHelper(serverURL, this, "setOrderInfo", true, false);
+		RZHelper p = new RZHelper(serverURL, this, "setOrderInfo", true);
 		p.get();
 	}
 
 	public void setOrderInfo(String s, String error) {
 		currentOrder = new APIManager().getOrder(s);
-		getDelivery();
 		addItemsOnStatus();
 		orderitem = currentOrder.getOrderItems();
 		SPitems = new ArrayList<Item>();
 		Item _Item;
 		double total = 0;
 		TextView totalTxt = (TextView) findViewById(R.id.allTotal);
-
-		for (int i = 0; i < orderitem.size(); i++) {
-			_Item = new Item(orderitem.get(i).getId(), orderitem.get(i)
-					.toString(), orderitem.get(i).getQuantity(), orderitem.get(
-					i).getUnitPrice());
-			SPitems.add(_Item);
-			total = total + orderitem.get(i).getTotalPrice();
-		}
+		if(orderitem!=null && orderitem.size()>0)
+			for (int i = 0; i < orderitem.size(); i++) {
+				_Item = new Item(orderitem.get(i).getId(), orderitem.get(i)
+						.toString(), orderitem.get(i).getQuantity(), orderitem.get(
+						i).getUnitPrice());
+				SPitems.add(_Item);
+				total = total + orderitem.get(i).getTotalPrice();
+			}
 		dataAdapter = new OrderInfoAdapter(OrderInfoActivity.this,
 				R.layout.row_order_info, SPitems, disabled);
 		dataAdapter.setTotal(totalTxt);
@@ -260,7 +228,10 @@ public class OrderInfoActivity extends Activity {
 		customerAdd.setText(currentOrder.getAddress().toString());
 		customerphone.setText(currentOrder.getCustomer().getMobile());
 		notes.setText(currentOrder.getNote());
-
+		if(currentOrder.getPreparer()!=null){
+			prepareBtn.setEnabled(false);
+			prepareBtn.setClickable(false);
+		}
 	}
 
 	@Override
@@ -278,7 +249,7 @@ public class OrderInfoActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void submit(View view) {
+	public void close(View view) {
 		if (isAdmin) {
 			ArrayList<OrderItem> newItems = new ArrayList<OrderItem>();
 			OrderItem item;
@@ -308,10 +279,10 @@ public class OrderInfoActivity extends Activity {
 			newOrder.setTotal(total);
 			if (!newOrder.equals(currentOrder)) {
 				RZHelper p = new RZHelper(serverURL, OrderInfoActivity.this,
-						"updateStatus", true);
+						"closeOrder", true);
 				p.put(newOrder);
 			} else
-				updateStatus(null, null);
+				closeOrder(null, null);
 		} else
 			assign();
 	}
@@ -319,25 +290,69 @@ public class OrderInfoActivity extends Activity {
 	public void assign() {
 		Order newOrder = new Order();
 		if (isPreparer)
-			newOrder.setStatus(stat.get(1));
+			newOrder.setStatus(statusValueList.get(1));
 		else
-			newOrder.setStatus(stat.get(2));
+			newOrder.setStatus(statusValueList.get(2));
 		String serverURL = new myURL("change_status", "orders", orderId + "", 0)
+				.getURL();
+		RZHelper p = new RZHelper(serverURL, OrderInfoActivity.this, "done", true);
+		p.put(newOrder);
+	}
+	
+	/**
+	 * Similar to close function since the user can update item list then click prepare. 
+	 */
+	public void prepare(View view) {
+		
+		ArrayList<OrderItem> newItems = new ArrayList<OrderItem>();
+		OrderItem item;
+		int quantity;
+		View single;
+		for (int i = 0; i < listView.getAdapter().getCount(); i++) {
+			single = listView.getChildAt(i);
+			quantity = Converter.toInt(((TextView) single
+					.findViewById(R.id.quantity)).getText().toString());
+			item = new OrderItem();
+			item.setQuantity(quantity);
+			item.setId(orderitem.get(i).getProduct().getId());
+			item.setProduct(new Product(orderitem.get(i).getProduct()
+					.getId()));
+			newItems.add(item);
+		}
+		String serverURL = new myURL(null, "orders", orderId, 0).getURL();
+
+		Order newOrder = new Order();
+		newOrder.setId(currentOrder.getId());
+		newOrder.setOrderItems(newItems);
+		newOrder.setAddress_id(currentOrder.getAddress().getId());
+		newOrder.setCustomer_id(currentOrder.getCustomer().getId());
+		double total = Double
+				.parseDouble(((TextView) findViewById(R.id.allTotal))
+						.getText().toString());
+		newOrder.setTotal(total);
+		newOrder.setPreparer(currentUser);
+		RZHelper p = new RZHelper(serverURL, OrderInfoActivity.this, "prepareOrder", true);
+		p.put(newOrder);
+	}
+	
+	public void prepareOrder(String s, String error) {
+		currentOrder.setPreparer(currentUser);
+		currentOrder.setDelivery(currentUser);
+		currentOrder.setNote(notes.getText().toString());
+		currentOrder.setStatus("assigned");
+		String serverURL = new myURL("assign", "orders", orderId + "", 0)
 				.getURL();
 		RZHelper p = new RZHelper(serverURL, OrderInfoActivity.this, "done",
 				true);
-		p.put(newOrder);
+		p.put(currentOrder);
 	}
-
-	public void updateStatus(String s, String error) {
+	
+	public void closeOrder(String s, String error) {
 		Order newOrder = new Order();
-
-		User preparer = ((User) prep.getSelectedItem());
-		User delivery = ((User) deliv.getSelectedItem());
-		newOrder.setPreparer(preparer);
-		newOrder.setDelivery(delivery);
+		newOrder.setPreparer(currentUser);
+		newOrder.setDelivery(currentUser);
 		newOrder.setNote(notes.getText().toString());
-		newOrder.setStatus(stat.get(status.getSelectedItemPosition()));
+		newOrder.setStatus(OrderStatus.Closed.name());
 		String serverURL = new myURL("assign", "orders", orderId + "", 0)
 				.getURL();
 		RZHelper p = new RZHelper(serverURL, OrderInfoActivity.this, "done",
@@ -351,12 +366,10 @@ public class OrderInfoActivity extends Activity {
 	}
 
 	public void disable(boolean closed) {
+		statusLbl.setVisibility(View.VISIBLE);
 		status.setEnabled(false);
+		status.setVisibility(View.VISIBLE);
 		status.setClickable(false);
-		prep.setEnabled(false);
-		prep.setClickable(false);
-		deliv.setEnabled(false);
-		deliv.setClickable(false);
 		listView.setEnabled(false);
 		listView.setClickable(false);
 		notes.setEnabled(false);
@@ -364,13 +377,16 @@ public class OrderInfoActivity extends Activity {
 		cancel = (Button) findViewById(R.id.cancel);
 		ViewGroup layout = (ViewGroup) cancel.getParent();
 		layout.removeView(cancel);
-		if (isPreparer)
-			submit.setText("Prepared");
-		else if (!isAdmin)
-			submit.setText("Delivered");
+//		if (isPreparer)
+//			submit.setText("Prepared");
+//		else if (!isAdmin)
+//			submit.setText("Delivered");
 		if (closed) {
 			((ViewGroup) submit.getParent()).removeView(submit);
+			((ViewGroup) prepareBtn.getParent()).removeView(prepareBtn);
+			((ViewGroup) backBtn.getParent()).removeView(backBtn);
 		}
 		disabled = true;
 	}
+	
 }

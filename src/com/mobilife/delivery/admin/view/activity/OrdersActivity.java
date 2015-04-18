@@ -21,6 +21,7 @@ import com.mobilife.delivery.admin.R;
 import com.mobilife.delivery.admin.adapter.OrdersAdapter;
 import com.mobilife.delivery.admin.model.Item;
 import com.mobilife.delivery.admin.model.Order;
+import com.mobilife.delivery.admin.model.OrderStatus;
 import com.mobilife.delivery.admin.utilities.APIManager;
 import com.mobilife.delivery.admin.utilities.GlobalM;
 import com.mobilife.delivery.admin.utilities.PreferenecesManager;
@@ -57,15 +58,17 @@ public class OrdersActivity extends Activity {
 		if (admin || isSuperAdmin) {
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		} else if (isPreparer) {
-			DeliveryAdminApplication.setOrderStatus("assigned");
+			DeliveryAdminApplication.setOrderStatus(OrderStatus.Assigned.name());
 			actionBar.setDisplayHomeAsUpEnabled(false);
 		} else {
-			DeliveryAdminApplication.setOrderStatus("prepared");
+			DeliveryAdminApplication.setOrderStatus(OrderStatus.Prepared.name());
 			actionBar.setDisplayHomeAsUpEnabled(false);
 		}
 		status = DeliveryAdminApplication.getOrderStatus(this);
-		int status_id = glob.getStatus(status);
-		actionBar.setTitle(getString(status_id));
+		if(status!=null){
+			int status_id = OrderStatus.valueOf(status).getId();
+			actionBar.setTitle(getString(status_id));
+		}
 		getOrders();
 	}
 
@@ -77,9 +80,8 @@ public class OrdersActivity extends Activity {
 	}
 
 	public void fetchTimelineAsync(int page) {
-		Toast.makeText(getApplicationContext(), "Refreshed", Toast.LENGTH_SHORT)
-				.show();
 		getOrders();
+		Toast.makeText(getApplicationContext(), "Refreshed", Toast.LENGTH_SHORT).show();
 	}
 
 	public void setOrders(String s, String error) {

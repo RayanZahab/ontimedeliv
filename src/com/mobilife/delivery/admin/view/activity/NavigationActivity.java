@@ -20,6 +20,7 @@ import com.mobilife.delivery.admin.adapter.MyCustomAdapter;
 import com.mobilife.delivery.admin.model.Area;
 import com.mobilife.delivery.admin.model.City;
 import com.mobilife.delivery.admin.model.Country;
+import com.mobilife.delivery.admin.model.OrderStatus;
 
 @SuppressLint("NewApi")
 public class NavigationActivity extends Activity {
@@ -77,12 +78,12 @@ public class NavigationActivity extends Activity {
 		switch (v.getId()) {
 		case R.id.orders:
 			method = "Orders";
-			status = "opened";
+			status = OrderStatus.Opened.name();
 			break;
 
 		case R.id.closed:
 			method = "Orders";
-			status = "closed";
+			status = OrderStatus.Closed.name();
 			break;
 
 		case R.id.users:
@@ -95,12 +96,12 @@ public class NavigationActivity extends Activity {
 
 		case R.id.canceled:
 			method = "Orders";
-			status = "cancelled";
+			status = OrderStatus.Cancelled.name();
 			break;
 
 		case R.id.assigned:
 			method = "Orders";
-			status = "assigned";
+			status = OrderStatus.Assigned.name();
 			break;
 		case R.id.about:
 			status = null;
@@ -123,8 +124,8 @@ public class NavigationActivity extends Activity {
 				i = new Intent(getBaseContext(), Class.forName(getPackageName()+ ".view.activity." + method + "Activity"));
 				if (status != null) {
 					DeliveryAdminApplication.setOrderStatus(status);
-					if (status != null && !status.equals("opened")
-							&& !status.equals("assigned")) {
+					if (status != null && !status.equals(OrderStatus.Opened.name())
+							&& !status.equals(OrderStatus.Assigned.name())) {
 						i.putExtra("old", true);
 					}
 				}

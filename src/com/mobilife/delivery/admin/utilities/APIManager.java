@@ -1319,7 +1319,8 @@ public class APIManager {
 						jsonObjSend.put("status", c.getStatus());
 						if (c.getPreparer() != null) {
 							jsonObjSend.put("p_id", c.getPreparer().getId());
-							jsonObjSend.put("d_id", c.getDelivery().getId());
+							if(c.getDelivery()!=null)
+								jsonObjSend.put("d_id", c.getDelivery().getId());
 							jsonObjSend.put("note", c.getNote());
 						}
 					} else {

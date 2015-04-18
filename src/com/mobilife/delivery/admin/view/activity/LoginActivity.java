@@ -151,33 +151,45 @@ public class LoginActivity extends Activity {
 
 	public void getLoggedIn(String s, String error) {
 		if (error == null) {
-			User user = new APIManager().getLogedInUser(s);
-			CheckBox keeplog = (CheckBox) findViewById(R.id.keeploggedin);
-			SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
-			SharedPreferences.Editor editor = settings.edit();
+			if (s != null) {
+				User user = new APIManager().getLogedInUser(s);
+				if (user != null) {
+					CheckBox keeplog = (CheckBox) findViewById(R.id.keeploggedin);
+					SharedPreferences settings = getSharedPreferences(
+							"PREFS_NAME", 0);
+					SharedPreferences.Editor editor = settings.edit();
 
-			editor.putBoolean("isChecked", keeplog.isChecked());
-			editor.putString("token", user.getToken());
-			editor.putString("name", user.getName());
-			editor.putString("pass", password.getText().toString());
-			editor.putString("phone", username.getText().toString());
-			editor.putBoolean("admin", user.isIs_admin());
-			editor.putBoolean("preparer", user.isIs_preparer());
-			editor.putBoolean("delivery", user.isIs_delivery());
-			editor.putBoolean("superadmin", user.isSuperAdmin());
-			editor.putInt("shopId", user.getShop_id());
-			editor.putInt("branchId", user.getBranch_id());
-			editor.putInt("id", user.getId());
-			Log.d("login", user.getToken());
-			editor.commit();
+					editor.putBoolean("isChecked", keeplog.isChecked());
+					editor.putString("token", user.getToken());
+					editor.putString("name", user.getName());
+					editor.putString("pass", password.getText().toString());
+					editor.putString("phone", username.getText().toString());
+					editor.putBoolean("admin", user.isIs_admin());
+					editor.putBoolean("preparer", user.isIs_preparer());
+					editor.putBoolean("delivery", user.isIs_delivery());
+					editor.putBoolean("superadmin", user.isSuperAdmin());
+					editor.putInt("shopId", user.getShop_id());
+					editor.putInt("branchId", user.getBranch_id());
+					editor.putInt("id", user.getId());
+					Log.d("login", user.getToken());
+					editor.commit();
 
-			((DeliveryAdminApplication) this.getApplication()).setGlobals();
-			Intent i;
-			if (user.isIs_admin() ||user.isSuperAdmin() )
-				i = new Intent(this, NavigationActivity.class);
-			else
-				i = new Intent(this, OrdersActivity.class);
-			startActivity(i);
+					((DeliveryAdminApplication) this.getApplication())
+							.setGlobals();
+					Intent i;
+					if (user.isIs_admin() || user.isSuperAdmin())
+						i = new Intent(this, NavigationActivity.class);
+					else
+						i = new Intent(this, OrdersActivity.class);
+					startActivity(i);
+				} else {
+					Toast.makeText(getApplicationContext(), R.string.no_net,
+							Toast.LENGTH_SHORT).show();
+				}
+			} else {
+				Toast.makeText(getApplicationContext(), R.string.no_net,
+						Toast.LENGTH_SHORT).show();
+			}
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.wrongcredentials,
 					Toast.LENGTH_SHORT).show();
