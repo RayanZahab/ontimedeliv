@@ -173,47 +173,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp" >
 
-                <TextView
-                    android:id="@+id/textView6"
-                    style="@style/mytextview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginRight="8dp"
-                    android:text="@string/deliveryguy" />
-
-                <Spinner
-                    android:id="@+id/delivery_Spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_below="@+id/textView6"
-                    android:background="@drawable/arspinnerbg"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:paddingLeft="8dp"
-                    android:spinnerMode="dialog" />
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/textView7"
-                style="@style/mytextview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:text="@string/preparer" />
-
-            <Spinner
-                android:id="@+id/preparer_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/arspinnerbg"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:paddingLeft="8dp"
-                android:spinnerMode="dialog" />
-
-            <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/order_status_lable"
                 style="@style/mytextview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -263,26 +226,56 @@
         android:layout_marginTop="10dp" >
 
         <Button
-            android:id="@+id/submit"
+            android:id="@+id/prepare"
             android:layout_width="110dp"
             android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
+             android:layout_alignParentRight="true"
             android:background="@color/turquoise"
-            android:onClick="submit"
-            android:text="@string/submit"
+            android:onClick="prepare"
+            android:text="@string/prepare"
             android:textColor="@color/textview"
             android:textSize="18sp" />
 
         <Button
+            android:id="@+id/close"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:background="@color/turquoise"
+            android:onClick="close"
+            android:text="@string/close"
+            android:textColor="@color/textview"
+            android:textSize="18sp" />
+    </RelativeLayout>
+         
+	<RelativeLayout
+        android:id="@+id/buttons2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginTop="10dp" >
+        <Button
             android:id="@+id/cancel"
             android:layout_width="110dp"
             android:layout_height="40dp"
-            android:layout_alignParentRight="true"
+             android:layout_alignParentLeft="true"
             android:background="@color/textview"
             android:onClick="cancel"
             android:text="@string/cancel"
             android:textColor="@color/turquoise"
             android:textSize="18sp" />
+        <Button
+            android:id="@+id/back"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/textview"
+            android:onClick="back"
+            android:text="@string/back"
+            android:textColor="@color/turquoise"
+            android:textSize="18sp" />
+
     </RelativeLayout>
 
 </LinearLayout>
