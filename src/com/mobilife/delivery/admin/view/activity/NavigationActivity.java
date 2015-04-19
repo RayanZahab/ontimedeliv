@@ -78,12 +78,12 @@ public class NavigationActivity extends Activity {
 		switch (v.getId()) {
 		case R.id.orders:
 			method = "Orders";
-			status = OrderStatus.Opened.name();
+			status = "opened";
 			break;
 
 		case R.id.closed:
 			method = "Orders";
-			status = OrderStatus.Closed.name();
+			status = "closed";
 			break;
 
 		case R.id.users:
@@ -96,12 +96,12 @@ public class NavigationActivity extends Activity {
 
 		case R.id.canceled:
 			method = "Orders";
-			status = OrderStatus.Cancelled.name();
+			status = "cancelled";
 			break;
 
 		case R.id.assigned:
 			method = "Orders";
-			status = OrderStatus.Assigned.name();
+			status = "assigned";
 			break;
 		case R.id.about:
 			status = null;

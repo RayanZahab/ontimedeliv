@@ -121,14 +121,12 @@ public class BranchesActivity extends Activity {
 
 	}
 
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
 		getMenuInflater().inflate(R.menu.cat_context_menu, menu);
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-				.getMenuInfo();
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
 		switch (item.getItemId()) {
 		case R.id.edit:

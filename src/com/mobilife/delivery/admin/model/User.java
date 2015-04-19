@@ -189,8 +189,10 @@ public class User {
 	public ValidationError validate(boolean mine) {
 		boolean valid = false;
 		int msg = 0;
-		if (this.name.isEmpty() || this.name.length() < 3) {
+		if ((this.name==null) || (this.name.isEmpty() || this.name.length() < 3)) {
 			msg = R.string.invalid_name;
+		}else if (this.password==null || (this.password.isEmpty() || this.password.length() < 3)) {
+			msg = R.string.invalid_password;
 		} else if (this.phone == null || this.phone.isEmpty()
 				|| this.phone.length() < 6) {
 			msg = R.string.invalid_phone;

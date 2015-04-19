@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -125,8 +124,7 @@ public class UsersActivity extends Activity {
 		}
 	}
 
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		menu.clearHeader();
 		menu.add(0, v.getId(), 0, "Delete");
@@ -140,23 +138,14 @@ public class UsersActivity extends Activity {
 
 	public void Delete(final int position) {		
 		final int catId = (dataAdapter.tmpList.get(position)).getId();
-		new AlertDialog.Builder(this)
-				.setTitle(R.string.deletethisuser)
-				.setIcon(R.drawable.users)
-				.setPositiveButton(android.R.string.yes,
-						new DialogInterface.OnClickListener() {
-
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								Log.d("ray","deleting user");
-								usersItem.remove(position);
-								String serverURL = new myURL(null, "users",
-										catId, 0).getURL();
-								RZHelper p = new RZHelper(serverURL,
-										UsersActivity.this, "afterDelete", false);
-								p.delete();
-							}
-						}).setNegativeButton(android.R.string.no, null).show();
+		new AlertDialog.Builder(this).setTitle(R.string.deletethisuser).setIcon(R.drawable.users).setPositiveButton(android.R.string.yes,new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,int whichButton) {
+				usersItem.remove(position);
+				String serverURL = new myURL(null, "users",catId, 0).getURL();
+				RZHelper p = new RZHelper(serverURL,UsersActivity.this, "afterDelete", false);
+				p.delete();
+			}
+		}).setNegativeButton(android.R.string.no, null).show();
 	}
 
 	public void afterDelete(String s, String error) {
