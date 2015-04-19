@@ -44,8 +44,10 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(PreferenecesManager.getInstance().getUserFromPreferences(this).isSuperAdmin())
+		if(PreferenecesManager.getInstance().getUserFromPreferences(this).isSuperAdmin()){
 			setContentView(R.layout.activity_super_user_info);
+			getBranches(true);
+		}
 		else
 			setContentView(R.layout.activity_user_info);
 
@@ -64,9 +66,10 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 			} catch (Exception e) {
 
 			}
-		} else {
-			getBranches(true);
 		}
+		
+			
+		
 	}
 
 	@Override
@@ -100,7 +103,7 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 	public void getCurrentUser(int userId) {
 		String url = new myURL(null, "users", userId, 1).getURL();
 		String serverURL = url;
-		RZHelper p = new RZHelper(serverURL, this, "setUserInfo", true, false);
+		RZHelper p = new RZHelper(serverURL, this, "setUserInfo", true);
 		p.get();
 	}
 
@@ -152,16 +155,21 @@ public class UserInfoActivity extends Activity implements OnItemSelectedListener
 					branchId,// branch
 					true, false,
 					false); // roles
-			user.setEncPassword(password.getText().toString());
 			method = "PUT";
 		}else{
 			serverURL = new myURL("users", null, 0, 0).getURL();
 			user = new User(0, username.getText().toString(), null, inputphone
 					.getText().toString(), 0, null, branchId,true, false,false);
-			user.setPassword(password.getText().toString());
 		}
+		user.setPassword(password.getText().toString());
+		
 		ValidationError valid = user.validate(false);
 		if (valid.isValid(this)) {
+			if(userId>0)
+				user.setEncPassword(password.getText().toString());
+			else
+				user.setPassword(password.getText().toString());
+				
 			RZHelper p = new RZHelper(serverURL, this, "setRoles", true);
 			if (method.equals("POST")) {
 				p.post(user);

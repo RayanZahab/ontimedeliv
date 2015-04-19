@@ -32,6 +32,23 @@ public class GlobalM {
 		}
 	}
 
+	public int getStatus(String status) {
+		int return_id = 0;
+		if (status.equals("assigned")) {
+			return_id = R.string.assigned_orders;
+		} else if (status.equals("closed")) {
+			return_id = R.string.closed_orders;
+		} else if (status.equals("opened")) {
+			return_id = R.string.new_orders;
+		} else if (status.equals("cancelled")) {
+			return_id = R.string.canceled_orders;
+		} else if (status.equals("prepared")) {
+			return_id = R.string.prepared_orders;
+		}
+		return return_id;
+	}
+
+	
 	public void bkToNav(Activity a, String msg) {
 
 		boolean admin = DeliveryAdminApplication.isAdmin(a);

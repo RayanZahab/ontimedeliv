@@ -66,7 +66,7 @@ public class OrdersActivity extends Activity {
 		}
 		status = DeliveryAdminApplication.getOrderStatus(this);
 		if(status!=null){
-			int status_id = OrderStatus.valueOf(status).getId();
+			int status_id = glob.getStatus(status);
 			actionBar.setTitle(getString(status_id));
 		}
 		getOrders();

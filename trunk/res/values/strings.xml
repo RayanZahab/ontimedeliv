@@ -171,6 +171,7 @@
     <string name="from_bigger">Make sure all from is less than to</string>
     <string name="open_missing">Please select FROM And TO</string>
     <string name="invalid_name">Invalid Name</string>
+    <string name="invalid_password">Invalid Password</string>
     <string name="invalid_add">Invalid Address</string>
     <string name="invalid_area">Invalid Area</string>
     <string name="invalid_time">Invalid Estimation time</string>
