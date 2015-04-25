@@ -5,11 +5,6 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
 
-import com.mobilife.delivery.admin.R;
-import com.mobilife.delivery.admin.R.id;
-import com.mobilife.delivery.admin.R.layout;
-import com.mobilife.delivery.admin.model.OpenHours;
-
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -24,6 +19,9 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.mobilife.delivery.admin.R;
+import com.mobilife.delivery.admin.model.OpenHours;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -50,19 +48,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 	public ExpandableListAdapter(Context context, List<String> listDataHeader,
 			HashMap<String, List<String>> listChildData, OpenHours oh) {
-		this._context = context;
-		this._listDataHeader = listDataHeader;
-		this._listDataChild = listChildData;
+		this(context, listDataHeader, listChildData);
 		if (oh != null) {
 			froms = oh.froms;
 			tos = oh.tos;
 			openDays = oh.openDays;
 			populate = true;
-		} else {
-			openDays = new HashMap<Integer, Boolean>();
-			for (int i = 0; i < 7; i++) {
-				openDays.put(i, false);
-			}
 		}
 	}
 
