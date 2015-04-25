@@ -1,6 +1,8 @@
 package com.mobilife.delivery.admin.view.activity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -213,13 +215,12 @@ public class CategoriesActivity extends Activity {
 				CategoriesActivity.this);
 
 		alertDialogBuilder.setView(promptsView);
-		final TextView title = (TextView) promptsView
-				.findViewById(R.id.textView1);
+		final TextView title = (TextView) promptsView.findViewById(R.id.textView1);
 		title.setText(R.string.categoryname);
 		final EditText userInput = (EditText) promptsView
 				.findViewById(R.id.editText1);
 		userInput.setHint(item.getTitle());
-
+		userInput.setText(item.getTitle());
 		final int itemId = item.getId();
 		editing = categoryItems.indexOf(item);
 
@@ -371,9 +372,15 @@ public class CategoriesActivity extends Activity {
 			catUrl = (new myURL(null, "cat_images", newCat.toString(), 0))
 					.getURL();
 		}
-		categoryItems.add(editing,
-				new Item(newCat.getId(), catUrl, newCat.toString(), true));
+		categoryItems.add(new Item(newCat.getId(), catUrl, newCat.toString(), true));
+		Collections.sort(categoryItems, new Comparator<Item>(){
 
+			@Override
+			public int compare(Item lhs, Item rhs) {
+				return lhs.getTitle().compareTo(rhs.getTitle());
+			}
+			
+		});
 		dataAdapter.currentList = categoryItems;
 		dataAdapter.tmpList = categoryItems;
 		dataAdapter.notifyDataSetChanged();
@@ -383,10 +390,10 @@ public class CategoriesActivity extends Activity {
 		final int catId = dataAdapter.tmpList.get(position).getId();
 		new AlertDialog.Builder(this)
 				.setTitle(
-						R.string.deletethiscat + " : "
-								+ dataAdapter.tmpList.get(position).toString()
+						getString(R.string.deletethiscat) + " : "
+								+ dataAdapter.tmpList.get(position).getTitle()
 								+ "?")
-				.setIcon(R.drawable.categories)
+//				.setIcon(R.drawable.categories)
 				.setPositiveButton(android.R.string.yes,
 						new DialogInterface.OnClickListener() {
 
@@ -405,6 +412,14 @@ public class CategoriesActivity extends Activity {
 	}
 
 	public void afterDelete(String s, String error) {
+		Collections.sort(categoryItems, new Comparator<Item>(){
+
+			@Override
+			public int compare(Item lhs, Item rhs) {
+				return lhs.getTitle().compareTo(rhs.getTitle());
+			}
+			
+		});
 		dataAdapter.currentList = categoryItems;
 		dataAdapter.tmpList = categoryItems;
 		dataAdapter.notifyDataSetChanged();
