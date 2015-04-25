@@ -80,7 +80,7 @@
     <string name="activate">Activate: </string>
     <string name="deactivate">Deactivate: </string>
     <string name="categoryname">Category Name</string>
-    <string name="deletethiscat">Delete this Category?</string>
+    <string name="deletethiscat">Delete this Category</string>
     <string name="deletethisuser">Delete this User?</string>
     <string name="deletethisprod">Delete this Product?</string>
     <string name="wrongcredentials">Wrong Credentialsss</string>
