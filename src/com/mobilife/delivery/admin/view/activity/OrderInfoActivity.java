@@ -148,6 +148,7 @@ public class OrderInfoActivity extends Activity {
 							Order order = new Order();
 							order.setId(orderId);
 							order.setCancel(true);
+							order.setCancelReason(userInput.getText().toString());
 							String serverURL = new myURL("cancel", "orders",
 									orderId, 0).getURL();
 
