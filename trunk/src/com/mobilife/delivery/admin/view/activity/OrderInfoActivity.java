@@ -67,7 +67,7 @@ public class OrderInfoActivity extends Activity {
 		statusLbl.setVisibility(View.GONE);
 		listView = (ListView) findViewById(R.id.listView);
 		notes = (EditText) findViewById(R.id.noteinput);
-		
+		notes.setEnabled(false);
 		statusValueList = new ArrayList<String>();
 		statusValueList.add(0, OrderStatus.Opened.name());
 		statusValueList.add(1, OrderStatus.Prepared.name());
@@ -99,14 +99,15 @@ public class OrderInfoActivity extends Activity {
 			}
 		});
 		
-		if (!isAdmin) {
-			disable(false);
-		} else {
-
+		currentUser = PreferenecesManager.getInstance().getUserFromPreferences(this);
+		if (isAdmin || currentUser.isSuperAdmin()) {
 			if (orderStatus.equalsIgnoreCase(OrderStatus.Closed.name()) || orderStatus.equalsIgnoreCase(OrderStatus.Cancelled.name()))
 				disable(true);
+			
+		} else {
+			disable(false);			
 		}
-		currentUser = PreferenecesManager.getInstance().getUserFromPreferences(this);
+		
 		
 	}
 

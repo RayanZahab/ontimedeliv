@@ -1,6 +1,5 @@
 package com.mobilife.delivery.admin.utilities;
 
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -34,15 +33,15 @@ public class Helper {
 			}
 			// set listAdapter in loop for getting final size
 			int totalHeight = 0;
-			Log.i("height of listItem:",
-					String.valueOf(myListAdapter.getCount()));
+//			Log.i("height of listItem:",
+//					String.valueOf(myListAdapter.getCount()));
 
 			for (int size = 0; size < myListAdapter.getCount(); size++) {
 				View listItem = myListAdapter.getView(size, null, myListView);
 				listItem.measure(0, 0);
 				totalHeight += listItem.getMeasuredHeight() + 80;
-				Log.i("height of listItem:",
-						String.valueOf(listItem.getMeasuredHeight()));
+//				Log.i("height of listItem:",
+//						String.valueOf(listItem.getMeasuredHeight()));
 			}
 			// setting listview item in adapter
 			ViewGroup.LayoutParams params = myListView.getLayoutParams();

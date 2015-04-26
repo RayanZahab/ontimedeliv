@@ -24,7 +24,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"
         android:contentDescription="@string/catlogo"
-        android:src="@drawable/fruits" />
+        android:src="@drawable/moto" />
     
 
     <TextView

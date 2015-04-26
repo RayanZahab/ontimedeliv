@@ -70,6 +70,8 @@ public class Item {
 	}
 
 	public String getImage() {
+		if("".equalsIgnoreCase(image) || "null".equalsIgnoreCase(image))
+			return null;
 		return image;
 	}
 
