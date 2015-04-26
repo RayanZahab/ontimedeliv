@@ -8,7 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.mobilife.delivery.admin.DeliveryAdminApplication;
+import android.util.Log;
+
 import com.mobilife.delivery.admin.model.Address;
 import com.mobilife.delivery.admin.model.Area;
 import com.mobilife.delivery.admin.model.Branch;
@@ -26,8 +27,6 @@ import com.mobilife.delivery.admin.model.Role;
 import com.mobilife.delivery.admin.model.Shop;
 import com.mobilife.delivery.admin.model.Unit;
 import com.mobilife.delivery.admin.model.User;
-
-import android.util.Log;
 
 public class APIManager {
 
@@ -281,20 +280,9 @@ public class APIManager {
 								business));
 					}
 				} else {
-					id = Converter.toInt(jsonResponse.optString("id")
-							.toString());
-					name = jsonResponse.optString("name").toString();
-					is_available = 1;// Converter.toInt(jsonResponse.optString("is").toString());
-					desc = jsonResponse.optString("name").toString();
-
-					// Getting business object
-					business_str = jsonResponse.optString("business")
-							.toString();
-					businesses = getBusinesses(business_str);
-					business = businesses.get(0);
-
-					gridArray.add(new Shop(id, name, desc, is_available,
-							business));
+					Shop shop = getShop(jsonResponse);
+					if(shop!=null)
+						gridArray.add(shop);
 				}
 			}
 		} catch (JSONException e) {
@@ -304,6 +292,26 @@ public class APIManager {
 		}
 
 		return gridArray;
+	}
+
+	private Shop getShop(JSONObject jsonResponse) {
+		if(jsonResponse!=null){
+			int id = Converter.toInt(jsonResponse.optString("id")
+					.toString());
+			String name = jsonResponse.optString("name").toString();
+			int is_available = 1;// Converter.toInt(jsonResponse.optString("is").toString());
+			String desc = jsonResponse.optString("name").toString();
+
+			// Getting business object
+			String business_str = jsonResponse.optString("business")
+					.toString();
+			ArrayList<Business> businesses = getBusinesses(business_str);
+			Business business = businesses.get(0);
+
+			return new Shop(id, name, desc, is_available,
+					business);
+		}
+		return null;
 	}
 
 	public int getBranchId(String cont) {
@@ -410,6 +418,12 @@ public class APIManager {
 				b.setMin_amount(min_amount);
 				b.setDelivery_charge(delivery_charge);
 				b.setOpenHours(getOpenHours(open_hours));
+				JSONObject jsonChildNode = jsonResponse.getJSONObject("shop");
+				if (!errorCheck(jsonChildNode)) {
+					Shop shop = getShop(jsonChildNode);
+					if(shop!=null)
+						b.setShop(shop);
+				}
 				return b;
 			}
 		} catch (JSONException e) {
