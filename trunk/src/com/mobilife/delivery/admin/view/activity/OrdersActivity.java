@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -135,27 +133,6 @@ public class OrdersActivity extends Activity {
 			}
 		});
 		lvTweets.onRefreshComplete();
-	}
-
-	@Override
-	public void onBackPressed() {
-		if (!admin || !isSuperAdmin) {
-			new AlertDialog.Builder(this)
-					.setIcon(android.R.drawable.ic_dialog_alert)
-					.setTitle(R.string.exit)
-					.setMessage(R.string.exitquest)
-					.setPositiveButton(android.R.string.yes,
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									OrdersActivity.this.finishAffinity();
-								}
-							}).setNegativeButton(android.R.string.no, null)
-					.show();
-		} else {
-			super.onBackPressed();
-		}
 	}
 
 	@Override
