@@ -2,29 +2,24 @@ package com.mobilife.delivery.admin.adapter;
 
 import java.util.ArrayList;
 
-import com.mobilife.delivery.admin.R;
-import com.mobilife.delivery.admin.R.id;
-import com.mobilife.delivery.admin.R.layout;
-import com.mobilife.delivery.admin.R.string;
-import com.mobilife.delivery.admin.model.Item;
-import com.mobilife.delivery.admin.utilities.RZHelper;
-import com.mobilife.delivery.admin.view.activity.CategoriesActivity;
-import com.mobilife.delivery.admin.view.activity.ProductsActivity;
-import com.mobilife.delivery.admin.view.customcomponent.ItemsFilter;
-
-import android.app.Activity;
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
+
+import com.mobilife.delivery.admin.R;
+import com.mobilife.delivery.admin.model.Item;
+import com.mobilife.delivery.admin.utilities.ImageTask;
+import com.mobilife.delivery.admin.view.activity.CategoriesActivity;
+import com.mobilife.delivery.admin.view.activity.ProductsActivity;
+import com.mobilife.delivery.admin.view.customcomponent.ItemsFilter;
 
 public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 
@@ -91,7 +86,6 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		Item cat = tmpList.get(position);
-		Log.d("ray", "gettingView : " + position + "->" + cat.isEmpty());
 
 		if (convertView == null) {
 
@@ -101,10 +95,10 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 
 			if (this.icon) {
 				convertView = vi.inflate(R.layout.category_info, null);
-				holder.picture = (ImageView) convertView
-						.findViewById(R.id.item_image);
-				new RZHelper(holder.picture, cat.getImage(),
-						(Activity) context);
+				if(cat.getImage()!=null){
+					ImageView picture = (ImageView) convertView.findViewById(R.id.item_image);
+					new ImageTask(picture,context).execute(cat.getImage());
+				}
 			} else {
 				convertView = vi.inflate(R.layout.product_info, null);
 				holder.price = (TextView) convertView.findViewById(R.id.price);
@@ -181,7 +175,6 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 					selectedList.add(cat);
 					ArrayList<Integer> ids = new ArrayList<Integer>();
 					ids.add(cat.getId());
-					Log.d("ray", "activate: " + cat.getId());
 					if (icon) {
 						CategoriesActivity.activate(ids);
 					} else {
@@ -192,7 +185,6 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 					unselectedList.add(cat);
 					ArrayList<Integer> ids = new ArrayList<Integer>();
 					ids.add(cat.getId());
-					Log.d("ray", "deactivate: " + cat.getId());
 					if (icon)
 						CategoriesActivity.deActivate(ids);
 					else

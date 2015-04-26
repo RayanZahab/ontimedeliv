@@ -117,10 +117,7 @@ public class AddBranchActivity extends Activity implements
 
 			@Override
 			public void onGroupExpand(int groupPosition) {
-				Toast.makeText(getApplicationContext(),
-						listDataHeader.get(groupPosition) + " Expanded",
-						Toast.LENGTH_SHORT).show();
-				new Helper(2350).getListViewSize(expListView);
+				new Helper().getListViewSize(expListView);
 			}
 		});
 
@@ -128,9 +125,6 @@ public class AddBranchActivity extends Activity implements
 
 			@Override
 			public void onGroupCollapse(int groupPosition) {
-				Toast.makeText(getApplicationContext(),
-						listDataHeader.get(groupPosition) + " Collapsed",
-						Toast.LENGTH_SHORT).show();
 				new Helper(100).getListViewSize(expListView);
 
 			}
@@ -354,7 +348,6 @@ public class AddBranchActivity extends Activity implements
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		Log.d("ray", "ray nothing");
 	}
 
 	@Override
