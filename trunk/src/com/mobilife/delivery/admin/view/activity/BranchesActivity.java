@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -48,7 +47,6 @@ public class BranchesActivity extends Activity {
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		DeliveryAdminApplication.clear("listing");
 		shopId = DeliveryAdminApplication.getShopId(this);
-		Log.d("ray", "shopid: " + shopId);
 		getBranches();
 
 	}
@@ -67,7 +65,6 @@ public class BranchesActivity extends Activity {
 	}
 
 	public void setBranches(String s, String error) {
-		Log.d("ray", "reply: " + s);
 		if(PreferenecesManager.getInstance().getUserFromPreferences(this).isSuperAdmin()){
 			branches = new APIManager().getBranches(s);
 		}else{
@@ -183,8 +180,12 @@ public class BranchesActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.branches, menu);
-		SharedMenuActivity.onCreateOptionsMenu(this, menu, getApplicationContext(),
-				dataAdapter);
+		
+		// remove add branch option for non super user
+		if(!PreferenecesManager.getInstance().getUserFromPreferences(this).isSuperAdmin())
+			menu.removeItem(menu.findItem(R.id.add).getItemId());
+		
+		SharedMenuActivity.onCreateOptionsMenu(this, menu, getApplicationContext(),	dataAdapter);
 		return true;
 
 	}

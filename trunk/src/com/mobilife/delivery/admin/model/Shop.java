@@ -59,5 +59,10 @@ public class Shop {
 	public void setBusiness(Business business) {
 		this.business = business;
 	}
+	
+	@Override
+	public String toString() {
+		return this.name;
+	}
 
 }
