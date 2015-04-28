@@ -58,7 +58,7 @@ public class ProductsActivity extends Activity {
 			shopId = DeliveryAdminApplication.getShopId(this);
 
 			url = new myURL("items", "branches/" + branchId + "/categories",
-					categoryId, 30).getURL();
+					categoryId, 300).getURL();
 
 			getProducts();
 		} else {
@@ -189,19 +189,16 @@ public class ProductsActivity extends Activity {
 			}
 			registerForContextMenu(listView);
 		}
-		dataAdapter = new CheckboxAdapter(this, R.layout.product_info,
-				productItems, false);
+		dataAdapter = new CheckboxAdapter(this, R.layout.product_info, productItems, false);
 		dataAdapter.empty = empty;
 
 		SharedMenuActivity.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);
 
-		serverURL = new myURL("activate_items", "branches", branchId, 0)
-				.getURL();
+		serverURL = new myURL("activate_items", "branches", branchId, 0).getURL();
 		activate = new RZHelper(serverURL, this, "afterActivate", false);
 
-		serverURL = new myURL("deactivate_items", "branches", branchId, 0)
-				.getURL();
+		serverURL = new myURL("deactivate_items", "branches", branchId, 0).getURL();
 		deactivate = new RZHelper(serverURL, this, "afterActivate", false);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {

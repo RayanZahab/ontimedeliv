@@ -23,7 +23,7 @@ import com.mobilife.delivery.admin.view.customcomponent.ItemsFilter;
 
 public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 
-	public ArrayList<Item> currentList, tmpList;
+	public ArrayList<Item> currentList, tmpList = new ArrayList<Item>();
 	private ItemsFilter mFilter;
 	private ArrayList<Item> selectedList = new ArrayList<Item>();
 	private ArrayList<Item> unselectedList = new ArrayList<Item>();
@@ -31,22 +31,16 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 	boolean icon;
 	public boolean empty = false, isNew = true;
 
-	public CheckboxAdapter(Context context, int textViewResourceId,
-
-	ArrayList<Item> currentList, boolean icon) {
+	public CheckboxAdapter(Context context, int textViewResourceId,	ArrayList<Item> currentList, boolean icon) {
 		super(context, textViewResourceId, currentList);
 		this.context = context;
-		this.tmpList = new ArrayList<Item>();
 		this.tmpList.addAll(currentList);
 		this.icon = icon;
 	}
 
-	public CheckboxAdapter(Context context, int textViewResourceId,
-
-	ArrayList<Item> currentList) {
+	public CheckboxAdapter(Context context, int textViewResourceId,	ArrayList<Item> currentList) {
 		super(context, textViewResourceId, currentList);
 		this.context = context;
-		this.tmpList = new ArrayList<Item>();
 		this.tmpList.addAll(currentList);
 		this.icon = true;
 	}
@@ -89,8 +83,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 
 		if (convertView == null) {
 
-			LayoutInflater vi = (LayoutInflater) context
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			holder = new ViewHolder();
 
 			if (this.icon) {
@@ -102,13 +95,10 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 			} else {
 				convertView = vi.inflate(R.layout.product_info, null);
 				holder.price = (TextView) convertView.findViewById(R.id.price);
-				holder.price.setText(cat.getPrice()
-						+ context.getString(R.string.lira));
+				holder.price.setText(cat.getPrice()+" "	+ context.getString(R.string.lira));
 			}
-			holder.name = (ToggleButton) convertView
-					.findViewById(R.id.toggleButton);
-			holder.chTxt = (TextView) convertView
-					.findViewById(R.id.checkBox1_txt);
+			holder.name = (ToggleButton) convertView.findViewById(R.id.toggleButton);
+			holder.chTxt = (TextView) convertView.findViewById(R.id.checkBox1_txt);
 			setList(cat, holder);
 
 			convertView.setTag(holder);
@@ -138,8 +128,7 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 				holder.price.setVisibility(View.GONE);
 		}
 		if (cat.isEmpty()) {
-			holder.chTxt.setText(context.getResources().getString(
-					R.string.no_items));
+			holder.chTxt.setText(context.getResources().getString(R.string.no_items));
 			if (holder.picture != null)
 				holder.picture.setVisibility(View.GONE);
 			if (holder.name != null)
@@ -147,13 +136,11 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 			if (holder.price != null)
 				holder.price.setVisibility(View.GONE);
 		} else if (position == 0) {
-			if (holder.picture != null
-					&& holder.picture.getVisibility() == View.GONE)
+			if (holder.picture != null && holder.picture.getVisibility() == View.GONE)
 				holder.picture.setVisibility(View.VISIBLE);
 			if (holder.name != null && holder.name.getVisibility() == View.GONE)
 				holder.name.setVisibility(View.VISIBLE);
-			if (holder.price != null
-					&& holder.price.getVisibility() == View.GONE)
+			if (holder.price != null && holder.price.getVisibility() == View.GONE)
 				holder.price.setVisibility(View.VISIBLE);
 		}
 		return convertView;
