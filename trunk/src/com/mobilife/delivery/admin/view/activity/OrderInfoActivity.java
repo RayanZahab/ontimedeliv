@@ -72,6 +72,7 @@ public class OrderInfoActivity extends Activity {
 		statusValueList.add(0, OrderStatus.Opened.name());
 		statusValueList.add(1, OrderStatus.Prepared.name());
 		statusValueList.add(2, OrderStatus.Closed.name());
+		statusValueList.add(3, OrderStatus.Cancelled.name());
 		isAdmin = DeliveryAdminApplication.isAdmin(this);
 		isPreparer = DeliveryAdminApplication.isPrep(this);
 
@@ -149,17 +150,13 @@ public class OrderInfoActivity extends Activity {
 							order.setId(orderId);
 							order.setCancel(true);
 							order.setCancelReason(userInput.getText().toString());
-							String serverURL = new myURL("cancel", "orders",
-									orderId, 0).getURL();
+							String serverURL = new myURL("cancel", "orders", orderId, 0).getURL();
 
-							RZHelper p = new RZHelper(serverURL,
-									OrderInfoActivity.this, "cancelOrder", true);
+							RZHelper p = new RZHelper(serverURL, OrderInfoActivity.this, "cancelOrder", true);
 							p.put(order);
 
 						} else {
-							Toast.makeText(getApplicationContext(),
-									R.string.cancelreason, Toast.LENGTH_SHORT)
-									.show();
+							Toast.makeText(getApplicationContext(),	R.string.cancelreason, Toast.LENGTH_SHORT).show();
 						}
 					}
 				});
@@ -173,8 +170,7 @@ public class OrderInfoActivity extends Activity {
 	public void cancelOrder(String s, String Error) {
 		alertDialog.dismiss();
 		if (Error == null) {
-			glob.bkToNav(OrderInfoActivity.this,
-					getString(R.string.ordercanceled));
+			glob.bkToNav(OrderInfoActivity.this, getString(R.string.ordercanceled));
 		}
 	}
 
@@ -229,7 +225,12 @@ public class OrderInfoActivity extends Activity {
 		TextView customerAdd = (TextView) findViewById(R.id.customerAdd);
 		customerAdd.setText(currentOrder.getAddress().toString());
 		customerphone.setText(currentOrder.getCustomer().getMobile());
-		notes.setText(currentOrder.getNote());
+		String cancelReason = currentOrder.getCancelReason();
+		if(cancelReason!=null && !"null".equals(cancelReason) && !cancelReason.isEmpty())
+			cancelReason = getString(R.string.ordercanceled)+":" + currentOrder.getCancelReason();
+		else
+			cancelReason="";
+		notes.setText(((currentOrder.getNote()==null || "null".equals(currentOrder.getNote()))?"": currentOrder.getNote())+ cancelReason);
 		if(currentOrder.getPreparer()!=null){
 			prepareBtn.setEnabled(false);
 			prepareBtn.setClickable(false);

@@ -118,4 +118,27 @@
     <string name="closed_orders">طلبات قديمة</string>
     <string name="branches">الفروع</string>
     <string name="users">الموظفين</string>
+    
+     <!--  Errors -->
+     <string name="blockedcustomer">مستخدم محظور</string>
+    <string name="customerNotFound">المستخدم ليس موجود</string>
+    <string name="areaNotFound">لم يتم العثورعلى المنطقة</string>
+    <string name="branchNotFound">لم يتم العثورعلى الفرع</string>
+    <string name="categoryNotFound">لم يتم العثورعلى الفئة</string>
+    <string name="businessNotFound">لم يتم العثورعلى فئة الأعمال</string>
+    <string name="countryNotFound">لم يتم العثورعلى البلد</string>
+    <string name="mobileTaken">رقم الهاتف مستعمل</string>
+    <string name="codeNotCorrect">الرمز غير صحيح</string>
+    <string name="maxRestPass">لقد نفذ عدد محاولات إعادة تعيين كلمة المرور</string>
+    <string name="deviceNotRegistered">لم يتم تسجيل الجهاز</string>
+    <string name="customerNotActivated">مستخدم غير مفعل أو غير مسجل</string>
+    <string name="itemNotFound">لم يتم العثورعلى المنتج</string>
+    <string name="orderNotFound">لم يتم العثورعلى الطلب</string>
+    <string name="shopNotFound">لم يتم العثورعلى المحل</string>
+    <string name="unitNotFound">لم يتم العثورعلى الوحدة</string>
+    <string name="userNotFound">لم يتم العثورعلى المستخدم</string>
+    <string name="cityNotFound">لم يتم العثورعلى المدينة</string>
+    <string name="defaultError">هذا مثير للإحراج! لقد حدث خطئ غير معروف أثناء استخدامك للموقع. يرجى إعادة المحاولة بوقت لاحق.</string>
+    <string name="enterUserAndPass">الرجاء إدخال اسم المستخدم وكلمة المرور</string>
+    <string name="checkYourMessages">الرجاء تفقد الرسائل لإستلام كلمة المرور</string>    
 </resources>
