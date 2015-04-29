@@ -405,17 +405,13 @@ public class APIManager {
 					name = jsonResponse.optString("name").toString();
 					description = jsonResponse.optString("description").toString();
 					address = jsonResponse.optString("address").toString();
-					estimation_time = jsonResponse.optString("estimation_time")
-							.toString();
-					min_amount = jsonResponse.optString("min_amount")
-							.toString();
-					delivery_charge = jsonResponse.optString("delivery_charge")
-							.toString();
+					estimation_time = jsonResponse.optString("estimation_time").toString();
+					min_amount = jsonResponse.optString("min_amount").toString();
+					delivery_charge = jsonResponse.optString("delivery_charge").toString();
 
 					area = getBranchArea(jsonResponse);
 
-					open_hours = new JSONObject(jsonResponse.optString(
-							"opening_hours").toString());
+					open_hours = new JSONObject(jsonResponse.optString("opening_hours").toString());
 
 					Branch b = new Branch(id, name, description, area, address,
 							null, estimation_time);
@@ -1047,6 +1043,8 @@ public class APIManager {
 					status = jsonResponse.optString("status").toString();
 					date = jsonResponse.optString("created_at").toString();
 					order.setStatus(status);
+					String cancelReason = jsonResponse.optString("cancel_reason");
+					order.setCancelReason(cancelReason);
 					add_str = jsonResponse.optString("address").toString();
 
 					if (!add_str.equals("null") && add_str != null

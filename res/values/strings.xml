@@ -189,5 +189,31 @@
         <item>+962,Jordan</item>
         <item>+962,الاردن</item>
     </string-array>
+    
+    
+     <!--  Errors -->
+    <string name="blockedcustomer">Blocked Customer</string>
+    <string name="customerNotFound">Customer Not Found</string>
+    <string name="areaNotFound">Area Not Found</string>
+    <string name="branchNotFound">Branch Not Found</string>
+    <string name="categoryNotFound">Category Not Found</string>
+    <string name="businessNotFound">Business Not Found</string>
+    <string name="countryNotFound">Country Not Found</string>
+    <string name="mobileTaken">Mobile has already been taken</string>
+    <string name="codeNotCorrect">Code is not correct</string>
+    <string name="maxRestPass">Max reset password is reached</string>
+    <string name="deviceNotRegistered">Device is not registered</string>
+    <string name="customerNotActivated">Customer is not activated or locked</string>
+    <string name="itemNotFound">Item Not Found</string>
+    <string name="orderNotFound">Order Not Found</string>
+    <string name="shopNotFound">Shop Not Found</string>
+    <string name="unitNotFound">Unit Not Found</string>
+    <string name="userNotFound">User Not Found</string>
+    <string name="cityNotFound">City Not Found</string>
+    <string name="defaultError">Sorry our customer, we have unknown error please try again later..</string>
+    <string name="enterUserAndPass">please enter User Name and Password</string>
+    <string name="checkYourMessages">check your Messages to get your password</string>
+    <string name="noInternetConn">No Internet Connection</string>
+    
 
 </resources>

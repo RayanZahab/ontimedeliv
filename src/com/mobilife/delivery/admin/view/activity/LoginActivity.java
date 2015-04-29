@@ -183,16 +183,13 @@ public class LoginActivity extends Activity {
 						i = new Intent(this, OrdersActivity.class);
 					startActivity(i);
 				} else {
-					Toast.makeText(getApplicationContext(), R.string.no_net,
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), R.string.no_net, Toast.LENGTH_LONG).show();
 				}
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.no_net,
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), R.string.no_net, Toast.LENGTH_LONG).show();
 			}
 		} else {
-			Toast.makeText(getApplicationContext(), R.string.wrongcredentials,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.wrongcredentials, Toast.LENGTH_LONG).show();
 		}
 	}
 

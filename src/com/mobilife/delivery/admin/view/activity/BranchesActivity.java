@@ -86,8 +86,7 @@ public class BranchesActivity extends Activity {
 			return;
 		}*/ else {
 			for (int i = 0; i < branches.size(); i++) {
-				Item myItem = new Item(branches.get(i).getId(), "", branches
-						.get(i).displayName());
+				Item myItem = new Item(branches.get(i).getId(), "", branches.get(i).displayName());
 				myItem.setTime(branches.get(i).getEstimation_time());
 				myItem.setCharge(branches.get(i).getDelivery_charge());
 				myItem.setMinimum(branches.get(i).getMin_amount());
