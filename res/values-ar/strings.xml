@@ -18,6 +18,7 @@
     <string name="title_activity_users">المستخدمين</string>
     <string name="title_activity_order_info">معلومات الطلب</string>
     <string name="add">إضافة</string>
+    <string name="back">الرجوع</string>
     <string name="personalinfo">المعلومات الشخصية:</string>
     <string name="preparer">مسؤول التحضير</string>
     <string name="opening_hours">ساعات الدوام</string>
@@ -56,6 +57,7 @@
     <string name="Logout">تسجيل خروج</string>
     <string name="search_hint">ابحث هنا</string>
     <string name="settings">اعدادات</string>
+    <string name="lira">ل.ل</string>
     <string name="keeploggedin">تسجيل دخول تلقائي</string>
     <string name="allow">السماح</string>
     <string name="block">اعتراض</string>
