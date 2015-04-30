@@ -124,9 +124,9 @@
                     android:id="@+id/allTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/lira"
                     android:layout_alignBaseline="@+id/totallabel"
                     android:layout_alignBottom="@+id/totallabel"
-                    android:layout_alignParentLeft="true"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
                     android:layout_marginLeft="5dp"
@@ -138,8 +138,8 @@
                     android:id="@+id/lira"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/allTotal"
                     android:gravity="center_vertical"
+                    android:layout_alignParentLeft="true"
                     android:paddingLeft="7dp"
                     android:textStyle="bold"
                     android:textColor="@color/textview"
@@ -185,10 +185,10 @@
                 android:id="@+id/order_status"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:background="@drawable/arspinnerbg"
+                android:background="@drawable/myspinner"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:paddingLeft="8dp" />
+                android:paddingRight="20dp" />
 
             <TextView
                 android:id="@+id/notes"
@@ -196,7 +196,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
                 android:text="@string/notes" />
 
