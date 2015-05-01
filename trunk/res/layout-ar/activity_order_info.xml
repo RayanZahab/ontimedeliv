@@ -106,7 +106,7 @@
             <ListView
                 android:id="@+id/listView"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:divider="@drawable/myg"
                 android:dividerHeight="10.0sp" >
@@ -203,7 +203,7 @@
             <EditText
                 android:id="@+id/noteinput"
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="70dp"
                 android:background="@drawable/edittextbg"
                 android:ems="10"
                 android:gravity="top"
