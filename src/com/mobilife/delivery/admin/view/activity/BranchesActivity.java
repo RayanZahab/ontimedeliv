@@ -37,10 +37,13 @@ public class BranchesActivity extends Activity {
 	ArrayList<Item> branchesItem;
 	int shopId;
 	boolean opened = false;
+	private User currentUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		currentUser = PreferenecesManager.getInstance().getUserFromPreferences(this);
+		
 		setContentView(R.layout.activity_branches);
 
 		ActionBar actionBar = getActionBar();
@@ -57,34 +60,34 @@ public class BranchesActivity extends Activity {
 	}
 
 	public void getBranches() {
-		User user = PreferenecesManager.getInstance().getUserFromPreferences(this);
-		String serverURL = new myURL(null, "branches", user.getBranch_id(), 0).getURL();
+		String serverURL = new myURL(null, "branches", currentUser.getBranch_id(), 0).getURL();
 		//String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
 		RZHelper p = new RZHelper(serverURL, this, "setBranches", true);
 		p.get();
 	}
 
 	public void setBranches(String s, String error) {
-		if(PreferenecesManager.getInstance().getUserFromPreferences(this).isSuperAdmin()){
+		if(currentUser.isSuperAdmin()){
 			branches = new APIManager().getBranches(s);
 		}else{
 			Branch branch= new APIManager().getBranch(s);
 			branches = new ArrayList<Branch>();
-			branches.add(branch);	
+			if(branch!=null)
+				branches.add(branch);	
 		}
 		branchesItem = new ArrayList<Item>();
 		ListView listView = (ListView) findViewById(R.id.list);
 
 		listView.setTextFilterEnabled(true);
 
-		if (branches.size() == 0) {
+		if (branches!=null && branches.size() == 0) {
 			branchesItem.add(new Item(0, "", getString(R.string.empty_list)));
 		} /*else if (branches.size() == 1) {
-			DeliveryAdminApplication.setBranchId(branchesItem.get(0).getId());
+			DeliveryAdminApplication.setBranchId(branches.get(0).getId());
 			Intent i = new Intent(getBaseContext(), CategoriesActivity.class);
 			startActivity(i);
 			return;
-		}*/ else {
+		} */else {
 			for (int i = 0; i < branches.size(); i++) {
 				Item myItem = new Item(branches.get(i).getId(), "", branches.get(i).displayName());
 				myItem.setTime(branches.get(i).getEstimation_time());
@@ -118,24 +121,29 @@ public class BranchesActivity extends Activity {
 	}
 
 	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
-		getMenuInflater().inflate(R.menu.cat_context_menu, menu);
+		if(currentUser!=null && currentUser.isSuperAdmin()){
+			getMenuInflater().inflate(R.menu.cat_context_menu, menu);
+		}
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		if(currentUser!=null && currentUser.isSuperAdmin()){
+			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
-		switch (item.getItemId()) {
-		case R.id.edit:
-			Edit(dataAdapter.tmpList.get((int) info.id));
-			break;
-		case R.id.delete:
-			Delete((int) info.id);
-			break;
-		default:
-			break;
+			switch (item.getItemId()) {
+			case R.id.edit:
+				Edit(dataAdapter.tmpList.get((int) info.id));
+				break;
+			case R.id.delete:
+				Delete((int) info.id);
+				break;
+			default:
+				break;
 
+			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	public void Delete(final int position) {
@@ -181,7 +189,7 @@ public class BranchesActivity extends Activity {
 		getMenuInflater().inflate(R.menu.branches, menu);
 		
 		// remove add branch option for non super user
-		if(!PreferenecesManager.getInstance().getUserFromPreferences(this).isSuperAdmin())
+		if(!currentUser.isSuperAdmin())
 			menu.removeItem(menu.findItem(R.id.add).getItemId());
 		
 		SharedMenuActivity.onCreateOptionsMenu(this, menu, getApplicationContext(),	dataAdapter);
