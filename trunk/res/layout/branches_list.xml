@@ -80,7 +80,7 @@
             android:layout_gravity="center"
             android:layout_weight="0.08"
             android:gravity="right"
-            android:text="$"
+            android:text="@string/lira"
             android:textColor="@color/turquoise" />
 
         <ImageView
@@ -105,8 +105,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.08"
-            android:gravity="right"
-            android:text="$"
+            android:gravity="left"
+            android:text="@string/lira"
             android:textColor="@color/turquoise" />
 
         <ImageView
