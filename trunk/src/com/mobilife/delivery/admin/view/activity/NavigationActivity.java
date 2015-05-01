@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,8 @@ import com.mobilife.delivery.admin.model.Area;
 import com.mobilife.delivery.admin.model.City;
 import com.mobilife.delivery.admin.model.Country;
 import com.mobilife.delivery.admin.model.OrderStatus;
+import com.mobilife.delivery.admin.model.User;
+import com.mobilife.delivery.admin.utilities.PreferenecesManager;
 
 @SuppressLint("NewApi")
 public class NavigationActivity extends Activity {
@@ -32,6 +35,7 @@ public class NavigationActivity extends Activity {
 	int CityId;
 	boolean last = false;
 	String currentName = null;
+	private User currentUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,7 @@ public class NavigationActivity extends Activity {
 		setContentView(R.layout.activity_navigation);
 		getActionBar().hide();
 		DeliveryAdminApplication.clear("listing");
+		currentUser = PreferenecesManager.getInstance().getUserFromPreferences(this);
 	}
 
 	@Override
@@ -87,7 +92,12 @@ public class NavigationActivity extends Activity {
 			break;
 
 		case R.id.users:
-			method = "Users";
+			if(currentUser!=null && currentUser.isSuperAdmin())
+				method = "Users";
+			else{
+				Toast.makeText(getApplicationContext(), getString(R.string.notAllowedToViewUsers), Toast.LENGTH_LONG).show();
+				method = null;
+			}
 			break;
 
 		case R.id.branches:
@@ -132,7 +142,7 @@ public class NavigationActivity extends Activity {
 				startActivity(i);
 			}
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			Log.e(NavigationActivity.class.getName(), e.getMessage(), e);
 		}
 
 	}

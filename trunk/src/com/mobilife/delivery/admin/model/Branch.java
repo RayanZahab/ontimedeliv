@@ -182,7 +182,7 @@ public class Branch {
 	}
 
 	public String toString() {
-			return displayName();
+			return this.name;
 	}
 
 	public String displayName() {
@@ -191,6 +191,7 @@ public class Branch {
 		else
 			return this.name;
 	}
+	
 
 	@Override
 	public boolean equals(Object obj) {

@@ -455,7 +455,7 @@ public class APIManager {
 		try {
 			for (int i = 0; i < days.size(); i++) {
 				String day = jsonMainNode.optString(days.get(i)).toString();
-				if (day != null) {
+				if (day != null && !"null".equals(day)) {
 					JSONObject dayResponse = new JSONObject(day);
 					from = dayResponse.optString("from_hour").toString();
 					to = dayResponse.optString("to_hour").toString();
@@ -957,7 +957,10 @@ public class APIManager {
 							count = Converter.toInt(jsonChildNode.optString("count").toString());
 							Order c = new Order(id, customer, total, count);
 							c.setStatus(status);
-							c.setNewCustomer(is_new);
+							/*
+							 * This is hard coded as NOT new customer (since the customer is activated by SMS)
+							 */
+							c.setNewCustomer(false);
 							c.setDate(date);
 							gridArray.add(c);
 

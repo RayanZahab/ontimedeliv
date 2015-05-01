@@ -105,7 +105,7 @@
     <string name="branchlogo">رمز الفرع</string>
     <string name="businesscat">فئة العمل</string>
     <string name="noInternetConn">لقد فقدت الإتصال بالشبكة</string>
-    
+    <string name="notAllowedToViewUsers">للأسف، غير مسموح لك استعراض المستخدمين</string>
 
     <string-array name="acc_type">
         <item>Income</item>

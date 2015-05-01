@@ -326,15 +326,13 @@ public class CategoriesActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		SearchView searchView = (SearchView) SharedMenuActivity.menu.findItem(
-				R.id.action_search).getActionView();
+		SearchView searchView = (SearchView) SharedMenuActivity.menu.findItem(R.id.action_search).getActionView();
 
-		if (!searchView.isIconified()) {
+		if (searchView!=null && !searchView.isIconified()) {
 			searchView.setIconified(true);
 		} else {
-			Intent i = new Intent(CategoriesActivity.this,
-					BranchesActivity.class);
-			DeliveryAdminApplication.setBranchId(0);
+			Intent i = new Intent(CategoriesActivity.this, BranchesActivity.class);
+//			DeliveryAdminApplication.setBranchId(0);
 			startActivity(i);
 		}
 	}
