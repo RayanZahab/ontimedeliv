@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Delivery</string>
-    <string name="action_settings">إعدادات</string>
+    <string name="app_name">Delivery Admin</string>
     <string name="forgotpass">نسيت كلمة المرور؟</string>
     <string name="enter">إرسال</string>
     <string name="username">اسم المستخدم</string>
@@ -8,7 +7,6 @@
     <string name="submit">إرسال</string>
     <string name="close">اتمام</string>
     <string name="prepare">تحضير</string>
-    <string name="categories">الأصناف</string>
     <string name="from">من:</string>
     <string name="to">إلى:</string>
     <string name="title_activity_navigation">القائمة الرئيسية</string>
@@ -19,10 +17,7 @@
     <string name="title_activity_order_info">معلومات الطلب</string>
     <string name="add">إضافة</string>
     <string name="back">الرجوع</string>
-    <string name="personalinfo">المعلومات الشخصية:</string>
-    <string name="preparer">مسؤول التحضير</string>
     <string name="opening_hours">ساعات الدوام</string>
-    <string name="clientinfo">معلومات المستخدم</string>
     <string name="address">العنوان</string>
     <string name="total">إجمالي</string>
     <string name="status">حالة</string>
@@ -34,26 +29,17 @@
     <string name="deliveryguy">مسؤول التوصيل:</string>
     <string name="preparerguy">مسؤول التحضير:</string>
     <string name="admin">مسؤول :</string>
-    <string name="details">تفاصيل</string>
     <string name="name">الاسم:</string>
-    <string name="textButton">زر</string>
-    <string name="selectphoto">اختر الصورة</string>
     <string name="slash">/</string>
     <string name="priceunit">السعر / الوحدة</string>
     <string name="producticon">صورة المنتج:</string>
     <string name="estimatedtime">الوقت المتوقع:</string>
     <string name="description">شرح بسيط:</string>
     <string name="productname">اسم المنتج:</string>
-    <string name="selectlanguage">اختر اللغة</string>
     <string name="login">تسجيل الدخول</string>
-    <string name="products">المنتجات</string>
     <string name="reason">السبب:</string>
     <string name="item">المادة</string>
-    <string name="textview">TextView</string>
-    <string name="checkbox">CheckBox</string>
-    <string name="estimation">الوقت المتبقي</string>
     <string name="About">من نحن</string>
-    <string name="navigation">القائمة الرئيسية</string>
     <string name="Logout">تسجيل خروج</string>
     <string name="search_hint">ابحث هنا</string>
     <string name="settings">اعدادات</string>
@@ -61,6 +47,65 @@
     <string name="keeploggedin">تسجيل دخول تلقائي</string>
     <string name="allow">السماح</string>
     <string name="block">اعتراض</string>
+    <string name="ptr_pull_to_refresh">اسحب لتحديث المعلومات</string>
+    <string name="ptr_release_to_refresh">إطلاق سراح لتحديث المعلومات</string>
+    <string name="ptr_refreshing">تحديث…</string>
+    <string name="ptr_last_updated">لقد تم التحديث</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="no_items">لا يوجد سلع</string>
+    <string name="minute">دقيقة</string>
+    <string name="home">الصفحة الرئيسية</string>
+    <string name="monday">الإثنين</string>
+    <string name="tuseday">الثلاثاء</string>
+    <string name="wednesday">الأربعاء</string>
+    <string name="thursday">الخميس</string>
+    <string name="friday">الجمعة</string>
+    <string name="saturday">السبت</string>
+    <string name="sunday">الأحد</string>
+    <string name="invalednameentered">الإسم المستعمل غير صالح</string>
+    <string name="problemInUserCreate">هناك مشكلة في إضافة مستخدم</string>
+    <string name="youselected">أنت اخترت:</string>
+    <string name="areaselected">المنطقة المختارة:</string>
+    <string name="selected">مختار</string>
+    <string name="editing">تعديل</string>
+    <string name="activate">تفعيل</string>
+    <string name="deactivate">تعطيل</string>
+    <string name="categoryname">اسم الفئة</string>
+    <string name="deletethiscat">حذف هذه الفئة؟</string>
+    <string name="deletethisuser">حذف هذا المستخدم؟</string>
+    <string name="deletethisprod">حذف هذا المنتج ؟</string>
+    <string name="wrongcredentials">خطأ في الحساب أو كلمة المرور</string>
+    <string name="exit">خروج</string>
+    <string name="exitquest">هل أنت متأكد تريد الخروج</string>
+    <string name="cancelreason">الرجاء ادخال سبب</string>
+    <string name="ordercanceled">لقد تم يلغاء الطلب</string>
+    <string name="catlogo">رمز الفئة</string>
+    <string name="minorder">الحد الأدنى للطلب / ل.ل</string>
+    <string name="deliverycharge">رسوم التوصيل / ل.ل</string>
+    <string name="passchanged">تم تغيير كلمة المرور بنجاح</string>
+    <string name="empty_list">لا توجد عناصر</string>
+    <string name="open_status">قيد المعالجة</string>
+    <string name="prepared_status">تم تجهيزها</string>
+    <string name="closed_status">منتهية</string>
+    <string name="cancelled_status">ألغيت</string>
+    <string name="english">انجليزي</string>
+    <string name="arabic">عربي</string>
+    <string name="pass_dnt_match">كلمة المرور غير مطابقة</string>
+    <string name="adminUserPass">كلمة المرور</string>
+    <string name="invalid_phone">رقم الهاتف غير مفعل</string>
+    <string name="from_bigger">توقيت "من" يجب أن يكون أصغر من "إلى"</string>
+    <string name="open_missing">الرجاء ادخال توقيت من وإلى</string>
+    <string name="invalid_name">الإسم غير صحيح</string>
+    <string name="invalid_add">العنوان غير صحيح</string>
+    <string name="invalid_area">المنطقة غير صحيحة</string>
+    <string name="invalid_time">التوقيت المتوقع غير صحيح</string>
+    <string name="select_role">Please select a role</string>
+    <string name="invalid_branch">الرجاء اختيار فرع</string>
+    <string name="order_updated">تم تعديل الطلب بنجاح</string>
+    <string name="branchlogo">رمز الفرع</string>
+    <string name="businesscat">فئة العمل</string>
+    <string name="noInternetConn">لقد فقدت الإتصال بالشبكة</string>
+    
 
     <string-array name="acc_type">
         <item>Income</item>
@@ -70,30 +115,12 @@
         <item>English</item>
         <item>عربي</item>
     </string-array>
-    <string-array name="country_arr">
-        <item>Afghanistan</item>
-        <item>Bangladesh</item>
-        <item>Bhutan</item>
-        <item>India</item>
-        <item>Maldives</item>
-        <item>Sri Lanka</item>
-        <item>Nepal</item>
-        <item>Pakistan</item>
-    </string-array>
 
-    <string name="select_location">اختر موقعك وصنف عملك</string>
     <string name="select_business">اختر صنف العمل</string>
     <string name="select_country">البلد</string>
     <string name="select_city">المدينة</string>
     <string name="select_area">المنطقة</string>
     <string name="select">تأكيد اختيارك</string>
-    <string name="pick">اختر</string>
-    <string name="lblCountry">اختر البلد</string>
-    <string name="lblAdd">أضف اسم جوال جديد</string>
-    <string name="btnAdd">أضف اسم</string>
-    <string name="txtHint">HTC</string>
-    <string name="lblDisp">اختر اسم</string>
-    <string name="lblSubAcc">Select Account Head</string>
     <string name="title_activity_user_info">معومات المستخدم</string>
     <string name="title_activity_selection">Select Activity</string>
     <string name="country_name">اسم البلد</string>
@@ -101,13 +128,10 @@
     <string name="add_city">أضف مدينة</string>
     <string name="add_area">أضف منطقة</string>
     <string name="add_business">أضف صنف عمل</string>
-    <string name="title_activity_add_category">إضافة صنف</string>
     <string name="title_activity_orders">الطلبات</string>
     <string name="title_activity_product">المنتج</string>
     <string name="title_activity_add_product">إضافة منتج جديد</string>
     <string name="title_activity_old_orders">الطلبات السابقة</string>
-    <string name="title_activity_old_orders_info">معلومات الطلبات السابقة</string>
-    <string name="title_activity_splash_screen">القائمة الرئيسية</string>
     <string name="title_activity_search_results">نتائج البحث</string>
     <string name="title_activity_user_profile">معلومات المستخدم</string>
     <string name="no_net">تعذر الإتصال بالشبكة</string>
@@ -120,6 +144,7 @@
     <string name="closed_orders">طلبات قديمة</string>
     <string name="branches">الفروع</string>
     <string name="users">الموظفين</string>
+    <string name="invalid_password">كلمة المرور غير صحيحة</string>
     
      <!--  Errors -->
      <string name="blockedcustomer">مستخدم محظور</string>

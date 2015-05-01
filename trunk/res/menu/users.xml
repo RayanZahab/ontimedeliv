@@ -3,6 +3,7 @@
    
     
     <item
+        android:title="@string/item"
         android:id="@+id/action_search"
         android:actionViewClass="android.widget.SearchView"
         android:icon="@drawable/search_icon"
