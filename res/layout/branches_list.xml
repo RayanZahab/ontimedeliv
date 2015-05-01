@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.10"
-            android:gravity="right"
+            android:gravity="left"
             android:text="min"
             android:textColor="@color/turquoise" />
 
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.08"
-            android:gravity="right"
+            android:gravity="left"
             android:text="@string/lira"
             android:textColor="@color/turquoise" />
 
