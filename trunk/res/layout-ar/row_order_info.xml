@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="26dp"
             android:layout_gravity="right|center_vertical"
-            android:layout_weight="0.5"
+            android:layout_weight="0.4"
             android:background="@drawable/bar_ar"
             android:gravity="center" >
             
@@ -68,7 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:gravity="right"
-            android:layout_weight="0.4"
+            android:layout_weight="0.5"
+            android:paddingLeft="5dp"
             android:singleLine="false"
             android:text="جكانسدجكاسدج"
             android:textColor="@color/textview" />

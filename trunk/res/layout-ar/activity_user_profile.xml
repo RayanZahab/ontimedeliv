@@ -125,7 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vertical_margin"
-                android:button="@drawable/mylogincheckbox"
+                android:button="@drawable/mycheckbox"
                 android:text="@string/keeploggedin"
                 android:textColor="#6f6f71"
                 android:textSize="18sp" />
