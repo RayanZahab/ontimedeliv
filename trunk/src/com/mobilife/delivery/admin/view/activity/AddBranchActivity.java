@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -150,6 +149,9 @@ public class AddBranchActivity extends Activity implements
 
 	public void getCurrentBranch(int branchId) {
 		String url = new myURL(null, "branches", branchId, 1).getURL();
+		// to get only one branch with id=branchId 
+		url+="&only=true";
+		
 		RZHelper p;
 		if (branchId != 0 && DeliveryAdminApplication.getCountries() == null)
 			p = new RZHelper(url, this, "setBranchInfo", true, false);
