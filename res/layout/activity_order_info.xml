@@ -62,7 +62,9 @@
 	                    android:layout_width="0dp"
 	                    android:layout_height="wrap_content"
 	                    android:layout_gravity="left"
+	                    android:gravity="left"
 	                    android:paddingLeft="8dp"
+	                    android:paddingRight="8dp"
 	                    android:text="@string/address" />
                 </LinearLayout>
                 <LinearLayout 
@@ -87,6 +89,7 @@
 	                    android:layout_height="wrap_content"
 	                    android:layout_gravity="left"
 	                    android:paddingLeft="8dp"
+	                    android:paddingRight="8dp"
 	                    android:text="@string/phonenum" />
                 </LinearLayout>
                 
@@ -245,7 +248,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginTop="10dp" >
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="8dp" >
         <Button
             android:id="@+id/cancel"
             android:layout_width="110dp"
