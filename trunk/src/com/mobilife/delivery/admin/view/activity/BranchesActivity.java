@@ -61,7 +61,6 @@ public class BranchesActivity extends Activity {
 
 	public void getBranches() {
 		String serverURL = new myURL(null, "branches", currentUser.getBranch_id(), 0).getURL();
-		//String serverURL = new myURL("branches", "shops", shopId, 30).getURL();
 		RZHelper p = new RZHelper(serverURL, this, "setBranches", true);
 		p.get();
 	}
@@ -97,8 +96,7 @@ public class BranchesActivity extends Activity {
 			}
 			registerForContextMenu(listView);
 		}
-		dataAdapter = new MyCustomAdapter(this, R.layout.branches_list,
-				branchesItem);
+		dataAdapter = new MyCustomAdapter(this, R.layout.branches_list,branchesItem);
 		dataAdapter.setType("branch");
 		SharedMenuActivity.adapter = dataAdapter;
 		listView.setAdapter(dataAdapter);

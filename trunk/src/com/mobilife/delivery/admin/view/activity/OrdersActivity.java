@@ -46,8 +46,7 @@ public class OrdersActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 
 		DeliveryAdminApplication.clear("orders");
-		if (getIntent().hasExtra("old")
-				&& getIntent().getBooleanExtra("old", false)) {
+		if (getIntent().hasExtra("old")&& getIntent().getBooleanExtra("old", false)) {
 			old = getIntent().getBooleanExtra("old", false);
 		}
 		admin = DeliveryAdminApplication.isAdmin(this);
