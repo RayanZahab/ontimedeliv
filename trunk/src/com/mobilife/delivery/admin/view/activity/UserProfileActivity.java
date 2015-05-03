@@ -164,9 +164,4 @@ public class UserProfileActivity extends Activity {
 		return (super.onOptionsItemSelected(menuItem));
 	}
 
-	@Override
-	public void onBackPressed() {
-		glob.bkToNav(UserProfileActivity.this, null);
-	}
-
 }

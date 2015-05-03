@@ -159,6 +159,7 @@
             android:name="com.mobilife.delivery.admin.view.activity.UserProfileActivity"
             android:icon="@drawable/moto"
             android:label="@string/title_activity_user_profile"
+            android:parentActivityName="com.mobilife.delivery.admin.view.activity.NavigationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
