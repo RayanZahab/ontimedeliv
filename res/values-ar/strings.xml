@@ -148,7 +148,6 @@
     <string name="branches">الفروع</string>
     <string name="users">الموظفين</string>
     <string name="invalid_password">كلمة المرور غير صحيحة</string>
-    
      <!--  Errors -->
      <string name="blockedcustomer">مستخدم محظور</string>
     <string name="customerNotFound">المستخدم ليس موجود</string>

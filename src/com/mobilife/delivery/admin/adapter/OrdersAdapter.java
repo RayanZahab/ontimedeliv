@@ -2,12 +2,6 @@ package com.mobilife.delivery.admin.adapter;
 
 import java.util.ArrayList;
 
-import com.mobilife.delivery.admin.R;
-import com.mobilife.delivery.admin.R.id;
-import com.mobilife.delivery.admin.R.layout;
-import com.mobilife.delivery.admin.model.Item;
-import com.mobilife.delivery.admin.utilities.GlobalM;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.mobilife.delivery.admin.R;
+import com.mobilife.delivery.admin.model.Item;
+import com.mobilife.delivery.admin.utilities.GlobalM;
 
 public class OrdersAdapter extends ArrayAdapter<Item> {
 
@@ -77,8 +75,7 @@ public class OrdersAdapter extends ArrayAdapter<Item> {
 		if (!empty) {
 			holder.address.setTag(orderitem);
 
-			holder.numbofitems
-					.setText(new GlobalM().getago(orderitem.getDate()));
+			holder.numbofitems.setText(new GlobalM().getago(orderitem.getDate()));
 			holder.numbofitems.setTag(orderitem);
 
 			holder.totalamount.setText(orderitem.getPrice() + " L.L");
