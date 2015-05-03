@@ -12,6 +12,7 @@
     <string name="password">Password </string>
     <string name="confirm_password">Confirm Password </string>
     <string name="submit">Submit</string>
+    <string name="update">Update</string>
     <string name="close">Close</string>
     <string name="prepare">Prepare</string>
     <string name="back">Back</string>
@@ -144,7 +145,9 @@
     <string name="title_activity_block_user">BlockUser</string>
     <string name="block">Block</string>
     <string name="branchlogo">Branch Logo</string>
-
+	<string name="pm">PM</string>
+	<string name="am">AM</string>
+    
     <string-array name="CountryCodes">
         <item>+961,Lebanon</item>
         <item>+961,لبنان</item>

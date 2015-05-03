@@ -5,6 +5,7 @@
     <string name="username">اسم المستخدم</string>
     <string name="password">كلمة السر</string>
     <string name="submit">إرسال</string>
+    <string name="update">تعديل</string>
     <string name="close">اتمام</string>
     <string name="prepare">تحضير</string>
     <string name="from">من:</string>
@@ -33,7 +34,7 @@
     <string name="slash">/</string>
     <string name="priceunit">السعر / الوحدة</string>
     <string name="producticon">صورة المنتج:</string>
-    <string name="estimatedtime">الوقت المتوقع:</string>
+    <string name="estimatedtime">االوقت المتوقع بالدقائق:</string>
     <string name="description">شرح بسيط:</string>
     <string name="productname">اسم المنتج:</string>
     <string name="login">تسجيل الدخول</string>
@@ -78,7 +79,7 @@
     <string name="exit">خروج</string>
     <string name="exitquest">هل أنت متأكد تريد الخروج</string>
     <string name="cancelreason">الرجاء ادخال سبب</string>
-    <string name="ordercanceled">لقد تم يلغاء الطلب</string>
+    <string name="ordercanceled">لقد تم إلغاء الطلب</string>
     <string name="catlogo">رمز الفئة</string>
     <string name="minorder">الحد الأدنى للطلب / ل.ل</string>
     <string name="deliverycharge">رسوم التوصيل / ل.ل</string>
@@ -106,6 +107,8 @@
     <string name="businesscat">فئة العمل</string>
     <string name="noInternetConn">لقد فقدت الإتصال بالشبكة</string>
     <string name="notAllowedToViewUsers">للأسف، غير مسموح لك استعراض المستخدمين</string>
+    <string name="pm">م</string>
+	<string name="am">ص</string>
 
     <string-array name="acc_type">
         <item>Income</item>

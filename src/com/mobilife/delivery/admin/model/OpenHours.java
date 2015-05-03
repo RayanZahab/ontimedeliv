@@ -1,6 +1,8 @@
 package com.mobilife.delivery.admin.model;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
+
 import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,8 +56,7 @@ public class OpenHours {
 			}
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e(this.getClass().getName(), e.getMessage(), e);
 		}
 		return jsonArray;
 	}

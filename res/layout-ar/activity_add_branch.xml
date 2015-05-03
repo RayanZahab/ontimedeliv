@@ -96,7 +96,7 @@
                 android:background="@drawable/edittextbg"
                 android:ems="10"
                 android:hint="@string/estimatedtime"
-                android:inputType="text"
+                android:inputType="numberSigned"
                 android:paddingRight="5dp"
                 android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd" />
@@ -116,7 +116,7 @@
                 android:background="@drawable/edittextbg"
                 android:ems="10"
                 android:hint="@string/minorder"
-                android:inputType="number"
+                android:inputType="numberSigned"
                 android:paddingRight="5dp"
                 android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd" />
@@ -136,7 +136,7 @@
                 android:background="@drawable/edittextbg"
                 android:ems="10"
                 android:hint="@string/deliverycharge"
-                android:inputType="number"
+                android:inputType="numberSigned"
                 android:paddingRight="5dp"
                 android:textColor="#6f6f71"
                 android:textColorHint="#bdbdbd" />
