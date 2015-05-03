@@ -77,22 +77,24 @@ public class AddBranchActivity extends Activity implements
 		DeliveryAdminApplication.clear("branch");
 		branchId = DeliveryAdminApplication.getBranchId(this);
 		DeliveryAdminApplication.clear("listing");
-		if (branchId != 0) {
+		if (branchId != 0) { // old branch (edit)
 			getCurrentBranch(branchId);
 			Button submit = (Button) findViewById(R.id.submit);
 			serverURL = new myURL(null, "branches", branchId, 0).getURL();
-			submit.setText("Update");
-		} else {
+			submit.setText(getString(R.string.update));
+		} else { // new branch
 			getCountries();
-			populateExp(null);
+//			populateExp(null);
+			
 			serverURL = new myURL("branches", null, 0, 0).getURL();
 			openMethod = "opening_hours";
 		}
 
 	}
 
-	public void populateExp(Branch b) {
+	private void populateExp(Branch b) {
 		expListView = (ExpandableListView) findViewById(R.id.lvExp);
+		expListView.setVisibility(View.VISIBLE);
 		prepareListData();
 		if (b != null) {
 			OpenHours oh = b.getOpenHours();
@@ -138,16 +140,14 @@ public class AddBranchActivity extends Activity implements
 						getApplicationContext(),
 						listDataHeader.get(groupPosition)
 								+ " : "
-								+ listDataChild.get(
-										listDataHeader.get(groupPosition)).get(
-										childPosition), Toast.LENGTH_SHORT)
+								+ listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition), Toast.LENGTH_SHORT)
 						.show();
 				return false;
 			}
 		});
 	}
 
-	public void getCurrentBranch(int branchId) {
+	private void getCurrentBranch(int branchId) {
 		String url = new myURL(null, "branches", branchId, 1).getURL();
 		// to get only one branch with id=branchId 
 		url+="&only=true";
@@ -221,16 +221,18 @@ public class AddBranchActivity extends Activity implements
 		currentBranch = new Branch(branchId, name, desc,
 				new Area(selectedArea), address, new Shop(shopId), estimation);
 		currentBranch.setDelivery_charge(deliverycharge);
-		currentBranch.setMin_amount(minorder);		
-		currentBranch.setTosFroms(listAdapter.froms, listAdapter.tos,
-				listAdapter.openDays);
+		currentBranch.setMin_amount(minorder);	
+		if (branchId != 0)  
+			currentBranch.setTosFroms(listAdapter.froms, listAdapter.tos, listAdapter.openDays);
 		ValidationError valid = currentBranch.validate();
 
 		if (valid.isValid(this)) {
-			RZHelper p = new RZHelper(serverURL, this, "openHours", true, false);
-			if (branchId == 0) {
+			RZHelper p;
+			if (branchId == 0) { // new branch
+				p = new RZHelper(serverURL, this, "backToSelection", true);
 				p.post(currentBranch);
-			} else {
+			} else { // edit old branch
+				p = new RZHelper(serverURL, this, "openHours", true, false);
 				p.put(currentBranch);
 			}
 		}
@@ -241,16 +243,9 @@ public class AddBranchActivity extends Activity implements
 		if (branchId == 0)
 			branchId = new APIManager().getBranchId(s);
 		if (error == null) {
-			String ourl = new myURL(openMethod, "branches", branchId, 0)
-					.getURL();
-			RZHelper p = new RZHelper(ourl, this, "backToSelection", false,
-					true);
-			if (branchId == 0) {
-				p.post(new OpenHours(currentBranch));
-			} else {
-				p.put(new OpenHours(currentBranch));
-			}
-
+			String ourl = new myURL(openMethod, "branches", branchId, 0).getURL();
+			RZHelper p = new RZHelper(ourl, this, "backToSelection", false,	true);
+			p.put(new OpenHours(currentBranch));
 		}
 	}
 

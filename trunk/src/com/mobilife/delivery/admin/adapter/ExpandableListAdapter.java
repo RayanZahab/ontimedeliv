@@ -101,25 +101,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 							public void onTimeSet(TimePicker view,
 									int hourOfDay, int minute) {
 								int hour = hourOfDay;
-								NumberFormat f = new DecimalFormat("00");
-								String format = "";
-								if (hourOfDay == 0) {
-									hourOfDay += 12;
-									format = "AM";
-								} else if (hourOfDay == 12) {
-									format = "PM";
-								} else if (hourOfDay > 12) {
-									hourOfDay -= 12;
-									format = "PM";
-								} else {
-									format = "AM";
-								}
-
-								from.setText(f.format(hourOfDay) + ":"
-										+ f.format(minute) + " " + format);
+								from.setText(formatTime(hourOfDay, 0));
 								froms.put(childPosition, hour + "." + minute);
 							}
-						}, 0, 0, false);
+						}, (froms.get(childPosition)!=null?Integer.parseInt(froms.get(childPosition)):0), 0, false);
 				tpd.show();
 			}
 		});
@@ -133,37 +118,44 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 							@Override
 							public void onTimeSet(TimePicker view,
 									int hourOfDay, int minute) {
+								view.setCurrentMinute(0);
 								int hour = hourOfDay;
-								NumberFormat f = new DecimalFormat("00");
-								String format = "";
-								if (hourOfDay == 0) {
-									hourOfDay += 12;
-									format = "AM";
-								} else if (hourOfDay == 12) {
-									format = "PM";
-								} else if (hourOfDay > 12) {
-									hourOfDay -= 12;
-									format = "PM";
-								} else {
-									format = "AM";
-								}
-								to.setText(f.format(hourOfDay) + ":"
-										+ f.format(minute) + " " + format);
-								tos.put(childPosition, hour + "" + minute);
+								to.setText(formatTime(hourOfDay, 0));
+								tos.put(childPosition, hour + "." + minute);
 							}
-						}, 0, 0, false);
+						}, (tos.get(childPosition)!=null?Integer.parseInt(tos.get(childPosition)):0), 0, false);
 				tpd.show();
 			}
 		});
 		if (populate) {
 			if (froms.get(childPosition) != null)
-				from.setText(froms.get(childPosition).replace(".", ":"));
+				from.setText(formatTime(Integer.parseInt(froms.get(childPosition).replace(".", ":")),0));
 			if (tos.get(childPosition) != null)
-				to.setText(tos.get(childPosition).replace(".", ":"));
+				to.setText(formatTime(Integer.parseInt(tos.get(childPosition).replace(".", ":")),0));
 			chbListChild.setChecked(openDays.get(childPosition));
 		}
 		txtListChild.setText(childText);
 		return convertView;
+	}
+	
+	private CharSequence formatTime(int hourOfDay,
+			int minute) {
+		NumberFormat f = new DecimalFormat("00");
+		String pm = _context.getString(R.string.pm);
+		String am = _context.getString(R.string.am);
+		String format = "";
+		if (hourOfDay == 0) {
+			hourOfDay += 12;
+			format = am;
+		} else if (hourOfDay == 12) {
+			format = pm;
+		} else if (hourOfDay > 12) {
+			hourOfDay -= 12;
+			format = pm;
+		} else {
+			format = am;
+		}
+		return f.format(hourOfDay) + ":"+ f.format(minute) + " " + format;
 	}
 
 	@Override

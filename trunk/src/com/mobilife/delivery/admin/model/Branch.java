@@ -53,29 +53,29 @@ public class Branch {
 		} else {
 			Double from, to;
 			boolean error = true;
-			for (int i = 0; i < 7; i++) {
-				if (openDays.get(i)) {
-
-					if (froms == null || tos == null || froms.get(i) == null
-							|| tos.get(i) == null) {
-						msg = R.string.open_missing;
-						error = false;
-						break;
-					}
-
-					if (froms.get(i) != null && tos.get(i) != null) {
-						from = Converter.toDouble(froms.get(i));
-						to = Converter.toDouble(tos.get(i));
-						if (from >= to || from < 0 || to < 0) {
-							msg = R.string.from_bigger;
+			if(openDays!=null && openDays.size()>0)
+				for (int i = 0; i < 7; i++) {
+					if (openDays.get(i)) {
+	
+						if (froms == null || tos == null || froms.get(i) == null
+								|| tos.get(i) == null) {
+							msg = R.string.open_missing;
 							error = false;
 							break;
 						}
-					}
-
+	
+						if (froms.get(i) != null && tos.get(i) != null) {
+							from = Converter.toDouble(froms.get(i));
+							to = Converter.toDouble(tos.get(i));
+							if (from >= to || from < 0 || to < 0) {
+								msg = R.string.from_bigger;
+								error = false;
+								break;
+							}
+						}
+	
+					}	
 				}
-
-			}
 			valid = error;
 		}
 		return new ValidationError(valid, msg);
