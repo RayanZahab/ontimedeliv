@@ -110,7 +110,10 @@ public class CheckboxAdapter extends ArrayAdapter<Item> implements Filterable {
 			holder.chTxt.setText(cat.getTitle());
 			holder.name.setTag(position);
 			holder.name.setChecked(cat.isSelected());
-
+			if (!this.icon) {
+				holder.price.setText(cat.getPrice()
+						+ context.getString(R.string.lira));
+			}
 			if (cat.isSelected()) {
 				if (selectedList.indexOf(cat) < 0) {
 					selectedList.add(cat);
