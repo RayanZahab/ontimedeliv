@@ -39,11 +39,7 @@ public class RZHelper {
 		returnMethod = method;
 		show = isshow;
 		myAQuery = new AQuery(currentActivity);
-		if (!isNetworkAvailable()) {
-			Toast t = Toast.makeText(myAQuery.getContext(), currentActivity.getString(R.string.noInternetConn),	Toast.LENGTH_LONG);
-			t.setGravity(Gravity.TOP, 0, 0);
-			t.show();
-		} else {
+		if (checkInternetConnection()) {
 			if (show) {
 				loader = new TransparentProgressDialog(currentActivity,
 						R.drawable.spinner);
@@ -100,11 +96,7 @@ public class RZHelper {
 		last = islast;
 		show = false;
 		myAQuery = new AQuery(currentActivity);
-		if (!isNetworkAvailable()) {
-			Toast t = Toast.makeText(myAQuery.getContext(), currentActivity.getString(R.string.no_net),	Toast.LENGTH_LONG);
-			t.setGravity(Gravity.TOP, 0, 0);
-			t.show();
-		} else {
+		if (checkInternetConnection()) {
 			if (first) {
 				loader = new TransparentProgressDialog(currentActivity,
 						R.drawable.spinner);
@@ -160,67 +152,67 @@ public class RZHelper {
 		show = false;
 		myAQuery = new AQuery(currentActivity);
 
-		if (!isNetworkAvailable()) {
+		if (!checkInternetConnection()) {
 			Toast t = Toast.makeText(myAQuery.getContext(), currentActivity.getString(R.string.no_net),	Toast.LENGTH_LONG);
 			t.setGravity(Gravity.TOP, 0, 0);
 			t.show();
 		} else {
 
 			myAQuery.ajax(url, File.class, new AjaxCallback<File>() {
-
 				public void callback(String url, File file, AjaxStatus status) {
-
 					if (file != null) {
-						myAQuery.progress(loader).id(imageView.getId())
-								.image(myurl, false, false);
+						myAQuery.progress(loader).id(imageView.getId()).image(myurl, false, false);
 					}
 				}
-
 			});
-
 		}
 	}
 
 	public void post(Object obj) {
-		JSONObject params = (new APIManager()).objToCreate(obj);
-		if (loader != null && show) {
-			myAQuery.progress(loader).post(url, params, JSONObject.class,
-					callBack);
-		} else {
-			myAQuery.post(url, params, JSONObject.class, callBack);
+		if (checkInternetConnection()) {
+			JSONObject params = (new APIManager()).objToCreate(obj);
+			if (loader != null && show) {
+				myAQuery.progress(loader).post(url, params, JSONObject.class,
+						callBack);
+			} else {
+				myAQuery.post(url, params, JSONObject.class, callBack);
+			}
 		}
 	}
 
 	public void get() {
-		if (loader != null && show) {
-			myAQuery.progress(loader).ajax(url, JSONObject.class, callBack);
-		} else {
-			myAQuery.ajax(url, JSONObject.class, callBack);
+		if (checkInternetConnection()) {
+			if (loader != null && show) {
+				myAQuery.progress(loader).ajax(url, JSONObject.class, callBack);
+			} else {
+				myAQuery.ajax(url, JSONObject.class, callBack);
+			}
 		}
-
 	}
 
 	public void put(Object obj) {
-		JSONObject params = (new APIManager()).objToCreate((Object) obj);
-		if (loader != null && show) {
-			myAQuery.progress(loader).put(url, params, JSONObject.class,
-					callBack);
-		} else {
-			myAQuery.put(url, params, JSONObject.class, callBack);
+		if (checkInternetConnection()) {
+			JSONObject params = (new APIManager()).objToCreate((Object) obj);
+			if (loader != null && show) {
+				myAQuery.progress(loader).put(url, params, JSONObject.class,
+						callBack);
+			} else {
+				myAQuery.put(url, params, JSONObject.class, callBack);
+			}
 		}
-
 	}
 
 	public void delete() {
-		if (loader != null && show) {
-			myAQuery.progress(loader).delete(url, JSONObject.class, callBack);
-		} else {
-			myAQuery.delete(url, JSONObject.class, callBack);
+		if (checkInternetConnection()) {
+			if (loader != null && show) {
+				myAQuery.progress(loader).delete(url, JSONObject.class, callBack);
+			} else {
+				myAQuery.delete(url, JSONObject.class, callBack);
+			}
 		}
-
 	}
 
-	private boolean isNetworkAvailable() {
+	private boolean checkInternetConnection() {
 		currentActivity.getApplicationContext();
 		ConnectivityManager connectivityManager = (ConnectivityManager) currentActivity
 				.getApplicationContext()
@@ -228,6 +220,11 @@ public class RZHelper {
 						Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetworkInfo = connectivityManager
 				.getActiveNetworkInfo();
+		if(! (activeNetworkInfo != null && activeNetworkInfo.isConnected())){
+			Toast t = Toast.makeText(myAQuery.getContext(), currentActivity.getString(R.string.no_net),	Toast.LENGTH_LONG);
+			t.setGravity(Gravity.TOP, 0, 0);
+			t.show();
+		}
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 

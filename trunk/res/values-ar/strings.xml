@@ -109,6 +109,8 @@
     <string name="notAllowedToViewUsers">للأسف، غير مسموح لك استعراض المستخدمين</string>
     <string name="pm">م</string>
 	<string name="am">ص</string>
+	<string name="yes">نعم</string>
+    <string name="no">لا</string>
 
     <string-array name="acc_type">
         <item>Income</item>
