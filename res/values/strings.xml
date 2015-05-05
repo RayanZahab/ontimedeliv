@@ -147,6 +147,8 @@
     <string name="branchlogo">Branch Logo</string>
 	<string name="pm">PM</string>
 	<string name="am">AM</string>
+	<string name="yes">Yes</string>
+    <string name="no">No</string>
     
     <string-array name="CountryCodes">
         <item>+961,Lebanon</item>

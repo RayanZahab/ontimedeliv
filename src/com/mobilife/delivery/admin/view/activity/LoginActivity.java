@@ -210,7 +210,7 @@ public class LoginActivity extends Activity {
 				.setIcon(android.R.drawable.ic_dialog_alert)
 				.setTitle(R.string.exit)
 				.setMessage(R.string.exitquest)
-				.setPositiveButton("Yes",
+				.setPositiveButton(getString(R.string.yes),
 						new DialogInterface.OnClickListener() {
 							@SuppressLint("NewApi")
 							@Override
@@ -218,7 +218,7 @@ public class LoginActivity extends Activity {
 									int which) {
 								LoginActivity.this.finishAffinity();
 							}
-						}).setNegativeButton("No", null).show();
+						}).setNegativeButton(getString(R.string.no), null).show();
 	}
 
 }
