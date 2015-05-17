@@ -124,7 +124,7 @@
                     android:layout_toLeftOf="@+id/lira"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
-                    android:text="25"
+                    android:text=""
                     android:textColor="@color/textview"
                     android:textSize="19sp" />
 
