@@ -121,6 +121,7 @@ public class BranchesActivity extends Activity {
 	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
 		if(currentUser!=null && currentUser.isSuperAdmin()){
 			getMenuInflater().inflate(R.menu.cat_context_menu, menu);
+			menu.removeItem(menu.findItem(R.id.delete).getItemId());
 		}
 	}
 
@@ -186,9 +187,9 @@ public class BranchesActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.branches, menu);
 		
-		// remove add branch option for non super user
-		if(!currentUser.isSuperAdmin())
-			menu.removeItem(menu.findItem(R.id.add).getItemId());
+		// remove add branch 
+	//	if(!currentUser.isSuperAdmin())
+		menu.removeItem(menu.findItem(R.id.add).getItemId());
 		
 		SharedMenuActivity.onCreateOptionsMenu(this, menu, getApplicationContext(),	dataAdapter);
 		return true;
